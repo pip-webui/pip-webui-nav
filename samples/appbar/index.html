@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>App Bar Sample</title>
+
+    <link rel="stylesheet" href="../../lib/pip-webui-lib.css"/>
+    <link rel="stylesheet" href="../../lib/pip-webui-css.css"/>
+    <link rel="stylesheet" href="../../dist/pip-webui-nav.css"/>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <script src="../../lib/pip-webui-lib.js"></script>
+    <script src="../../lib/pip-webui-core.js"></script>
+    <script src="../../dist/pip-webui-nav.js"></script>
+    <script src="index.js"></script>
+</head>
+<body ng-app="app" ng-controller="appController" layout="column" md-theme="{{ $theme || 'blue' }}" class="{{ $theme }} layout-column">
+    <pip-appbar pip-local-actions="localActions">
+    </pip-appbar>
+
+    <md-content flex layout="row" layout-align="center center"  style="background-color: #eee">
+        <md-card>
+            <div class="pip-body">
+                <div class="pip-content">
+                    <h2 class="bm0">App Bar Sample</h2>
+
+                    <md-input-container class="tm24 w-stretch">
+                        <label>{{ 'TITLE' | translate }}</label>
+                        <input ng-model="title" type="text">
+                    </md-input-container>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="onHideNavIcon()">Hide Nav Icon</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowMenuNavIcon()">Show Menu</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowBackNavIcon()">Show Back</md-button>
+                    </div>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="onShowTitleLogo()">Show Logo</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowTitleText()">Show Text</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowTitleBreadcrumb()">Show Breadcrumb</md-button>
+                    </div>
+
+                    <md-input-container class="tm24">
+                        <label>Search Criteria</label>
+                        <input ng-model="searchCriteria" type="text">
+                    </md-input-container>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="onHideSearch()">Hide Search</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowSearch()">Show Search</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onUpdateSearch()">Update Search</md-button>
+                    </div>
+
+                    <md-input-container class="tm24">
+                        <label>Notification Count</label>
+                        <input ng-model="notificationCount" type="number">
+                    </md-input-container>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="onHideActions()">Hide Actions</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowLanguage()">Show Language</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowActions()">Show Actions</md-button>
+                        <md-input-container class="tm24 w-stretch">
+                            <label>{{ 'TITLE_LOCAL_ACTION' | translate }}</label>
+                            <input ng-model="localActions[1][0].title" ng-disabled="disableOfActionTitleEditing" type="text">
+                        </md-input-container>
+                    </div>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="onShowShadow()">Show shadow</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onShowShadowSm()">Show shadow small(width<1200px)</md-button>
+                        <md-button class="md-raised md-primary" ng-click="onHideShadow()">Hide shadow</md-button>
+                    </div>
+                    <div class="tm16">
+                        <p class="md-caption tm0 theme-text-secondary">{{ 'THEME' | translate }}</p>
+                        <md-select ng-model="$party.theme" ng-change="updateTheme()" class="w-stretch tp0 tm0 theme-text-primary"
+                                   ng-disabled="transaction.busy()"
+                                   placeholder="{{'THEME' | translate}}">
+                            <md-option ng-value="theme" ng-repeat="theme in themes">{{ theme | translate }}</md-option>
+                        </md-select>
+                    </div>
+                </div>
+            </div>
+        </md-card>
+    </md-content>
+</body>
+</html>

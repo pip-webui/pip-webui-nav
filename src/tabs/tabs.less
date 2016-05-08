@@ -1,0 +1,127 @@
+pip-tabs {
+  .pip-nav {
+    .min-h(0px);
+    height: 0px;
+    -webkit-transition: all .35s ease;
+    -moz-transition: all .35s ease;
+    -o-transition: all .35s ease;
+    transition: all .35s ease;
+    md-tabs-wrapper {
+      height: 0px;
+      min-height: 0px;
+      -webkit-transition: all .35s ease;
+      -moz-transition: all .35s ease;
+      -o-transition: all .35s ease;
+      transition: all .35s ease;
+    }
+    &.pip-shadow {
+      box-shadow: @box-shadow;
+    }
+    &.pip-visible {
+      .min-h(48px);
+      md-tabs-wrapper {
+        height: 48px;
+        .min-h(48px);
+      }
+    }
+  }
+
+  md-tabs.disabled {
+    md-tab-item {
+      pointer-events: none;
+      -ms-touch-action: pan-y;
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      opacity: 0.5;
+      cursor: default;
+      color: rgba(0,0,0,0.26) !important;
+      .pip-tabs-badge {
+        opacity: @opacity-secondary;
+      }
+    }
+  }
+
+  md-content {
+    overflow: hidden !important;
+    .pip-divider {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    //height: 48px;
+    md-select {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 16px;
+      margin-right: 16px;
+      height: 48px;
+      md-select-value {
+        color: rgba(255, 255, 255, 0.870588) !important;
+        border-bottom: 0px !important;
+        padding: 0px !important;
+        span {
+          max-width: 100%;
+        }
+        .md-select-icon {
+          margin-right: -2px !important;
+          font-size: 14px;
+        }
+      }
+      &[disabled] {
+        md-select-value {
+          margin-bottom: 0px !important;
+          background: none !important;
+          opacity: @opacity-secondary;
+        }
+      }
+    }
+  }
+}
+
+md-tabs md-tab-item, md-content md-option, md-select md-select-value {
+  .md-text {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 25px;
+  }
+  .pip-tabs-badge {
+    position: absolute;
+    right: 0px;
+    top: 14px;
+    font-size: 10px !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px;
+    line-height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    color: @color-content;
+  }
+}
+
+md-select md-select-value {
+  .md-text {
+    .pip-tabs-badge {
+      top: -4px !important;
+      right: -3px;
+    }
+  }
+}
+
+md-content md-option {
+  .md-text {
+    .pip-tabs-badge {
+      top: 9px !important;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  // Style to hide elements on smaller screens
+  md-toolbar.pip-nav {
+    box-shadow: @box-shadow;
+  }
+}

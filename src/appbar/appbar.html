@@ -1,0 +1,231 @@
+<!--
+@file App Bar component
+@copyright Digital Living Software Corp. 2014-2016
+-->
+
+<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses" class="{{ config.cssClass }}">
+
+    <div class="md-toolbar-tools rp24-flex lp24-flex" ng-if="!searchEnabled">
+        <!-- Navigation Icon -->
+        <md-button class="md-icon-button flex-fixed p0"
+                   ng-if="config.navIconType != 'none'"
+                   ng-class="{ 'pip-third-party': getParty() && !getUser('owner') }"
+                   ng-click="onNavIconClick()"
+                   aria-label="menu">
+            <!-- Menu icon -->
+            <md-icon ng-if="config.navIconType=='menu' && (!getParty() || getUser('owner'))"
+                md-svg-icon="icons:menu"></md-icon>
+            <!-- Party avatar -->
+            <pip-avatar ng-if="config.navIconType=='menu' && (getParty() && !getUser('owner'))"
+                        pip-rebind-avatar="true"
+                        pip-rebind="true"
+                        pip-party-id="getParty('id')" class="pip-face"
+                        pip-party-name="getParty('name')">
+            </pip-avatar>
+            <!-- Back icon -->
+            <md-icon ng-if="config.navIconType=='back'"
+                md-svg-icon="icons:arrow-left"></md-icon>
+        </md-button>
+        
+        <!-- Title -->            
+        <div class="flex-var text-overflow">
+            <!-- Logo -->
+            <img class="pip-appbar-logo" 
+                ng-if="config.titleType == 'logo'"
+                ng-src="{{config.titleLogo}}"/>
+                
+            <!-- Title --> 
+            <div ng-if="config.titleType == 'text'" class="text-overflow pip-appbar-text">
+                <!-- Search criteria -->
+                <span ng-if="config.searchCriteria"
+                    ng-click="onSearchEnable()">{{config.searchCriteria}} -</span>
+                <!-- Text title -->
+                <span class="text-overflow">{{config.titleText | translate}}</span>
+            </div>
+
+            <!-- Title with or without breadcrumb -->
+            <div ng-if="config.titleType=='breadcrumb'">
+                <div class="hide-xs text-overflow">
+                    <!-- Search criteria -->
+                    <span ng-if="config.searchCriteria"
+                      ng-click="onSearchEnable()">{{config.searchCriteria}} -</span>
+                    <!-- Breadcrumb navigation -->
+                    <span class="pip-appbar-breadcrumb"
+                        ng-repeat-start="item in config.titleBreadcrumb"
+                        ng-click="onBreadcrumbClick(item)"
+                        ng-init="stepWidth = 100/(config.titleBreadcrumb.length + 1)"
+                        ng-style="{'max-width': stepWidth + '%'}">
+                        {{item.title | translate}}
+                    </span>
+                    <md-icon ng-repeat-end md-svg-icon="icons:chevron-right"></md-icon>
+                    <!-- Text title -->
+                    <span class="pip-title">{{config.titleText | translate}}</span>
+                </div>
+
+                <!-- Mobile breadcrumb dropdown -->
+                <md-menu xmd-offset="0 48" class="hide-gt-xs">
+                    <span class="pip-appbar-mobile-breadcrumb" layout="row"
+                        ng-click="$mdOpenMenu()"
+                        md-ink-ripple
+                        aria-label="open breadcrumb">
+                        <span class="text-overflow">
+                            <!-- Search criteria -->
+                            <span ng-if="config.searchCriteria"
+                                ng-click="onSearchEnable()">{{config.searchCriteria}} -</span>
+                            {{config.titleText | translate}}
+                        </span>
+                        <md-icon class="m0 flex-none" md-svg-icon="icons:triangle-down"></md-icon>
+                    </span>
+                    <md-menu-content width="3">
+                        <md-menu-item  ng-repeat="item in config.titleBreadcrumb" >
+                            <md-button ng-click="onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>
+                        </md-menu-item>
+                        <md-menu-item  >
+                            <md-button><span class="text-grey">{{config.titleText | translate}}</span></md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+
+
+        <div class="flex-fixed pip-appbar-actions" layout="row"
+             ng-class="{ 'pip-language-action': config.actionsType=='language' }">
+            <!-- Laguage picker -->
+            <md-menu ng-if="config.actionsType=='language'"
+                md-position-mode="target-right target">
+                <span class="pip-appbar-language"
+                    ng-click="$mdOpenMenu()"
+                    aria-label="language selection">
+                    {{language() | translate}}
+                    <md-icon md-svg-icon="icons:triangle-down"></md-icon>
+                </span>
+                <md-menu-content width="3">
+                    <md-menu-item ng-repeat="lang in config.languages">
+                        <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+
+            <!-- Search toggle -->
+            <md-button class="md-icon-button m0"
+                       ng-if="config.searchVisible"
+                       ng-click="onSearchEnable()"
+                       aria-label="open search">
+                <!--<md-tooltip>{{::'APPBAR_SEARCH' | translate}}</md-tooltip>-->
+                <md-icon md-svg-icon="icons:search"></md-icon>
+            </md-button>
+
+            <!-- Actions -->
+            <div ng-if="config.actionsType=='list'">
+
+                <!-- Global primary actions -->
+                <md-menu md-position-mode="target-right target" ng-repeat="action in config.primaryGlobalActions">
+                    <md-button class="pip-appbar-action md-icon-button m0"
+                               ng-class="{ 'pip-appbar-hide-sm': action.hideSmall }"
+                               ng-click="onActionClick(action, $mdOpenMenu);"
+                               ng-hide="actionHidden(action)"
+                               aria-label="{{action.tooltip | translate}}">
+                        <!--<md-tooltip ng-if="action.tooltip">{{action.tooltip | translate}}</md-tooltip>-->
+                        <div class="pip-appbar-badge color-badge-bg" ng-if="action.count > 0">
+                            {{actionCount(action)}}
+                        </div>
+                        <md-icon md-svg-icon="{{action.icon}}"></md-icon>
+                    </md-button>
+                    <md-menu-content width="3" ng-show="action.menu">
+                        <md-menu-item ng-repeat-start="subAction in action.subActions"
+                                      ng-if="!subAction.divider"
+                                      ng-hide="actionHidden(subAction)">
+                            <md-button ng-hide="subAction.divider"
+                                       ng-click="onActionClick(subAction)">
+                                {{subAction.title | translate}}
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider ng-if="subAction.divider" ng-repeat-end></md-menu-divider>
+                    </md-menu-content>
+                </md-menu>
+
+                <!-- Local primary actions -->
+                <md-menu md-position-mode="target-right target" ng-repeat="action in config.primaryLocalActions">
+                    <md-button class="pip-appbar-action md-icon-button m0"
+                               ng-class="{ 'pip-appbar-hide-sm': action.hideSmall }"
+                               ng-click="onActionClick(action, $mdOpenMenu);"
+                               ng-hide="actionHidden(action)"
+                               aria-label="{{action.tooltip | translate}}">
+                        <!--<md-tooltip ng-if="action.tooltip">{{action.tooltip | translate}}</md-tooltip>-->
+                        <div class="pip-appbar-badge" ng-show="action.count > 0">
+                            {{actionCount(action)}}
+                        </div>
+                        <md-icon md-svg-icon="{{action.icon}}"></md-icon>
+                    </md-button>
+                    <md-menu-content width="3" >
+                        <md-menu-item ng-repeat-start="subAction in action.subActions"
+                                      ng-if="!subAction.divider"
+                                      ng-hide="actionHidden(subAction)">
+                            <md-button ng-hide="subAction.divider"
+                                       ng-click="onActionClick(subAction)">
+                                {{subAction.title | translate}}
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider ng-if="subAction.divider" ng-repeat-end></md-menu-divider>
+                    </md-menu-content>
+                </md-menu>
+
+                <!-- Secondary actions dropdown -->
+                <md-menu ng-if="secondaryActionsVisible()"
+                    md-position-mode="target-right target">
+                    <md-button class="md-icon-button m0"
+                        ng-click="onSecondaryActionClick(); openMenu($mdOpenMenu, $event);"
+                        aria-label="open actions">
+                        <md-icon md-svg-icon="icons:vdots"></md-icon>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <!-- Local secondary actions -->
+                        <md-menu-item ng-repeat-start="action in config.secondaryLocalActions"
+                            ng-if="!action.divider"
+                            ng-hide="actionHidden(action)">
+                            <md-button ng-hide="action.divider"
+                                ng-click="onActionClick(action)">
+                                {{action.title | translate}}
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-divider ng-if="action.divider" ng-repeat-end></md-menu-divider>
+
+                        <md-menu-divider ng-if="secondaryDividerVisible()" >
+
+                        </md-menu-divider>
+                        <!-- Global secondary actions -->
+                        <md-menu-item ng-repeat-start="action in config.secondaryGlobalActions"
+                            ng-if="!action.divider"
+                            ng-hide="actionHidden(action)">
+                            <md-button ng-hide="action.divider"
+                                ng-click="onActionClick(action)">
+                                {{action.title | translate}}
+                            </md-button>                    
+                        </md-menu-item>
+                        <md-menu-divider ng-if="action.divider" ng-repeat-end>
+                        </md-menu-divider>                        
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+    </div>
+
+    <div class="md-toolbar-tools" layout="row" ng-if="searchEnabled">
+        <md-button class="md-icon-button" 
+            aria-label="start search" 
+            ng-click="onSearchClick()">
+            <md-icon md-svg-icon="icons:search"></md-icon>
+        </md-button>
+        <input class="pip-search-text" 
+            type="search" flex 
+            ng-model="search.text" 
+            ng-keydown="onSearchKeyDown($event)" />
+        <md-button class="md-icon-button" 
+            aria-label="clear search" 
+            ng-click="onSearchClear()">
+            <md-icon md-svg-icon="icons:cross-circle"></md-icon>
+        </md-button>
+    </div>
+
+</md-toolbar>

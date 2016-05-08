@@ -1,0 +1,75 @@
+<!--
+@file Side Nav component
+@copyright Digital Living Software Corp. 2014-2016
+-->
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav" 
+    md-component-id="pip-sidenav" 
+    ng-if="!$partialReset" 
+    pip-focused>
+
+    <md-toolbar class="pip-sidenav-header"
+                ng-class="{'pip-sidenav-owner': $user.owner}"
+                md-theme="{{ $theme|| $user.theme || config.theme }}"
+                ng-hide="!$party">
+
+            <md-button class="pip-sidenav-party md-icon-button"
+                       ng-click="onPartyClick()"
+                       aria-label="current party">
+                <pip-avatar ng-if="!$avatarReset"
+                            pip-party-id="$party.id"
+                            pip-default-icon="icon-person"
+                            pip-party-name="$party.name"
+                            pip-rebind-avatar="true"
+                            pip-rebind="true">
+                </pip-avatar>
+            </md-button>
+
+            <md-button class="pip-sidenav-user md-icon-button"
+                       ng-click="onUserClick()"
+                       ng-hide="$user.owner"
+                       aria-label="current user">
+                <pip-avatar class="pic-pic pip-face-ld"
+                            ng-if="!$avatarReset"
+                            pip-default-icon="icon-person"
+                            pip-rebind="true"
+                            pip-rebind-avatar="true"
+                            pip-party-id="$user.id"
+                            pip-party-name="$user.name">
+                </pip-avatar>
+            </md-button>
+        
+        <div class="pip-sidenav-party-text">
+            <a class="pip-sidenav-party-pri cursor-pointer"
+                ng-click="onPartyClick()">{{$party.name}}</a>
+            <div class="pip-sidenav-party-sec"
+                ng-show="$connection && !$user.owner">
+                {{$connection.relation | translate}}
+                <span ng-show="$connection.relation_since">
+                    {{::'SIDENAV_SINCE' | translate}}
+                    {{$connection.relation_since | formatLongDate}}
+                </span>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <md-list>
+        <div class="pip-section" ng-repeat="section in config.sections"
+            ng-hide="section.access && !section.access($party, $user, section)">
+            
+            <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
+            <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>
+            
+            <md-list-item class="pip-focusable no-border" 
+                ng-repeat="link in section.links"
+                ng-click="onLinkClick($event, link)"
+                ng-hide="link.access && !link.access($party, $user, link)">
+                <md-icon md-svg-icon="{{link.icon}}" 
+                    ng-hide="!link.icon" 
+                    class="tm0 bm0"></md-icon>
+                <p>{{::link.title | translate}}</p>
+            </md-list-item>
+        </div>
+    </md-list>
+
+</md-sidenav>

@@ -1,0 +1,73 @@
+
+.pip-recommended-header {
+    height: 45px;
+    min-height: 45px;
+    z-index: 10;
+}
+
+.pip-recommended-header .md-toolbar-tools {
+    height: 45px;
+    min-height: 45px;
+}
+
+.pip-recommended-header pip-title {
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    white-space:   nowrap;
+}
+
+.pip-recommended-header .md-button > span {
+    text-transform: none;
+}
+
+.pip-body {
+    padding: 24px !important;
+}
+
+/* Styles for tips, quotes, help */
+
+.pip-popover-backdrop.pip-tip .pip-popover, .pip-popover-backdrop.pip-help .pip-popover {
+    background-color: rgba(255, 224, 130, 0.95);
+}
+
+.pip-popover-backdrop.pip-tip .pip-popover:after, .pip-popover-backdrop.pip-help .pip-popover:after {
+    border-bottom-color: rgba(255, 224, 130, 0.95);
+}
+
+.pip-popover-backdrop.pip-quote .pip-popover {
+    background-color: #C5E1A5;
+}
+
+.pip-popover-backdrop.pip-quote .pip-popover:after {
+    border-bottom-color: #C5E1A5;
+}
+
+.pip-popover-backdrop .pip-popover .pip-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 8px;
+    line-height: 22px;
+}
+
+.pip-popover-backdrop .pip-popover .pip-content .pip-pic {
+    height: 200px;
+    width: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pip-popover-backdrop .pip-popover .pip-content .pip-markdown p {
+    margin-bottom: 0px !important;
+}
+
+.pip-popover-backdrop .pip-popover .pip-content.bm64 {
+    margin-bottom: 64px !important;
+}
+
+/* Styles for image-slider */
+
+.pip-image-slider, .pip-image-slider .pip-animation-block, .pip-image-slider .pip-animation-block img {
+   height: 600px;
+    max-width: 900px;
+}

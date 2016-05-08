@@ -1,0 +1,26 @@
+<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="showTabs" pip-tabs-shadow="showShadow" pip-tabs-select="onSelect" ng-disabled="disabled"></pip-tabs>
+<md-content class="p24-flex">
+    <p>{{ 'TAB_INDEX' | translate }}: {{ tabIndex }}</p>
+
+    <md-input-container class="w-stretch">
+        <label for="">{{ 'ADDING' | translate }}</label>
+        <input type="number" ng-model="tabs[0].newCounts"/>
+    </md-input-container>
+
+    <md-switch ng-model="showTabs">Visible</md-switch>
+    <md-switch ng-model="disabled">Disabled</md-switch>
+    <md-switch ng-model="showShadow">Shadow</md-switch>
+    <h3>{{ 'LIST_CHANGES' | translate }}: </h3>
+    <md-list class="pip-menu pip-ref-list">
+        <md-list-item class="pip-ref-list-item lp16 divider-bottom" md-ink-ripple
+                      layout="row" layout-align="start start"
+                      ng-repeat="mes in messages">
+            <img src="http://www.mattmcwilliams.com/wp-content/uploads/2012/09/changed.jpg"
+                 class="pip-pic">
+            <div class="pip-content">
+                <p class="pip-title"> {{ $index }}</p>
+                <p class="pip-text">{{ mes.text }}</p>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>

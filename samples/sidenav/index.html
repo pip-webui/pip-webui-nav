@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Side Nav Sample</title>
+
+    <link rel="stylesheet" href="../../lib/pip-webui-lib.css"/>
+    <link rel="stylesheet" href="../../lib/pip-webui-css.css"/>
+    <link rel="stylesheet" href="../../dist/pip-webui-nav.css"/>
+    <link rel="stylesheet" href="styles.css"/>
+
+    <script src="../../lib/pip-webui-lib.js"></script>
+    <script src="../../lib/pip-webui-core.js"></script>
+    <script src="../../dist/pip-webui-nav.js"></script>
+    <script src="index.js"></script>
+</head>
+<body ng-app="app" ng-controller="appController" layout="column" md-theme="{{ $theme || 'blue' }}" class="{{ $theme || 'blue' }} pip-main layout-column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="menu" 
+                ng-click="onToggleSideNav()">
+                <md-icon md-svg-icon="icons:menu"></md-icon>
+            </md-button>
+            <div class="flex-var text-overflow">Side Nav Sample</div>
+            <div class="flex-fixed">
+                <md-menu md-position-mode="target-right target">
+                <span
+                        ng-click="$mdOpenMenu()"
+                        aria-label="theme selection">
+                    {{ $theme | translate}}
+                    <md-icon md-svg-icon="icons:triangle-down"></md-icon>
+                </span>
+                    <md-menu-content width="3">
+                        <md-menu-item ng-repeat="theme in themes">
+                            <md-button ng-click="onThemeClick(theme)">{{theme | translate}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <md-menu md-position-mode="target-right target">
+                <span ng-click="$mdOpenMenu()"
+                      aria-label="language selection">
+                    {{ $language | translate}}
+                    <md-icon md-svg-icon="icons:triangle-down"></md-icon>
+                </span>
+                    <md-menu-content width="3">
+                        <md-menu-item ng-repeat="lang in languages">
+                            <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <pip-sidenav>
+    </pip-sidenav>
+
+    <md-content flex layout="row" layout-align="center center" style="background-color: #eee">
+        <md-card>
+            <div class="pip-body">
+                <div class="pip-content">
+                    <h2>Side Nav Sample</h2>
+
+                    <div>
+                        <md-button class="md-raised md-primary" ng-click="onOpenSideNav()">Open</md-button>
+                        <md-button class="md-raised md-primary lm10" ng-click="oCloseSideNav()">Close</md-button>
+                        <md-button class="md-raised md-primary lm10" ng-click="onToggleSideNav()">Toggle</md-button>
+                    </div>
+                </div>
+            </div>
+        </md-card>
+    </md-content>
+</body>
+</html>
