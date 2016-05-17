@@ -148,7 +148,8 @@
                 <!-- Local primary actions -->
                 <md-menu md-position-mode="target-right target" ng-repeat="action in config.primaryLocalActions">
                     <md-button class="pip-appbar-action md-icon-button m0"
-                               ng-class="{ 'pip-appbar-hide-sm': action.hideSmall }"
+                               ng-class="{ 'pip-appbar-hide-sm': action.hideSmall,
+                                            'pip-appbar-show-sm': action.showSmall,}"
                                ng-click="onActionClick(action, $mdOpenMenu);"
                                ng-hide="actionHidden(action)"
                                aria-label="{{action.tooltip | translate}}">

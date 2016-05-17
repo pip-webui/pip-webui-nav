@@ -160,7 +160,8 @@
                 [
                     { name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,
                         subActions: [{ name: 'sample.sendSomeone', title: 'Send someone' }, { name: 'sample.sendToAll', title: 'Send to All' }] },
-                    { name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true }
+                    { name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true },
+                    { name: 'sample.discard2', tooltip: 'Discard2 Message', icon: 'icons:bug', showSmall: true }
                 ],
                 [
                     { name: 'sample.send', title: 'Send Message1' , close: true },
