@@ -148,8 +148,17 @@
       height: 56px !important;
       max-height: 56px !important;
     }
-    md-toolbar.pip-shadow-sm {
-      box-shadow: @box-shadow;
+    @media( min-width: 768px){
+      md-toolbar.pip-shadow-sm {
+        box-shadow: @box-shadow;
+      }
     }
+
+  }
+}
+
+@media( max-width: 768px){
+  md-toolbar.pip-shadow-xs {
+    box-shadow: @box-shadow;
   }
 }

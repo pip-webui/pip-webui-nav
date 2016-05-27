@@ -809,6 +809,7 @@ module.run(['$templateCache', function($templateCache) {
 
                 showShadow: showShadow,
                 showShadowSm: showShadowSm,
+                showShadowSmXs: showShadowSmXs,
                 hideShadow: hideShadow
             };
             // ----------------------
@@ -831,6 +832,14 @@ module.run(['$templateCache', function($templateCache) {
             function showShadowSm() {
                 config.ngClasses['pip-shadow'] = false;
                 config.ngClasses['pip-shadow-sm'] = true;
+                config.ngClasses['pip-shadow-xs'] = false;
+                sendConfigEvent();
+            }
+
+            function showShadowSmXs() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = true;
+                config.ngClasses['pip-shadow-xs'] = true;
                 sendConfigEvent();
             }
 
@@ -842,6 +851,7 @@ module.run(['$templateCache', function($templateCache) {
             function hideShadow() {
                 config.ngClasses['pip-shadow'] = false;
                 config.ngClasses['pip-shadow-sm'] = false;
+                config.ngClasses['pip-shadow-xs'] = false;
                 sendConfigEvent();
             }
 
