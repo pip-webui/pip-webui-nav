@@ -237,12 +237,10 @@
                     return;
                 }
 
-                console.log('aaa',action, $scope.originatorEv);
                 if(action.close){
                     $scope.originatorEv = null
                 }
 
-                console.log('bb', $scope.originatorEv);
                 if (action.menu)
                     $mdOpenMenu($scope.originatorEv);
                 else if (action.callback)
