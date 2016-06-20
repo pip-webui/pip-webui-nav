@@ -4,12 +4,12 @@
 #### Features
 * **sidenav** Side Navigation component
 * **appbar** Application Bar component
-* **tabs** Navigation tab control 
-* **dropdown** Navigation dropdown control
+* **tabs** Navigation tab component
+* **dropdown** Navigation dropdown component
 
 #### Breaking Changes
 * API in most controls was changed since the previous version
-* 
+*
 
 #### Bug Fixes
-No fixes in this version 
+No fixes in this version
