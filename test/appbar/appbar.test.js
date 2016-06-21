@@ -1,8 +1,8 @@
 'use strict';
 
-suite('pipAppBar', function () {
+describe('pipAppBar', function () {
 
-   suite('directive', function () {
+   describe('directive', function () {
        var
            pipAppBar,
            $rootScope,
@@ -11,13 +11,13 @@ suite('pipAppBar', function () {
            pipTranslate,
            $compile;
 
-       setup(module('pipAppBar'));
-       setup(module('pipTranslateFilters'));
-       setup(module('pipTranslate'));
-       setup(module('pipAppBar.Service'));
-       setup(module('pipState'));
+       beforeEach(module('pipAppBar'));
+       beforeEach(module('pipTranslateFilters'));
+       beforeEach(module('pipTranslate'));
+       beforeEach(module('pipAppBar.Service'));
+       beforeEach(module('pipState'));
 //
-       setup(inject(function(_pipAppBar_,_$compile_, _$rootScope_, _pipTranslate_) {
+       beforeEach(inject(function(_pipAppBar_,_$compile_, _$rootScope_, _pipTranslate_) {
            pipAppBar = _pipAppBar_;
            $compile = _$compile_;
            $rootScope = _$rootScope_;
@@ -25,7 +25,7 @@ suite('pipAppBar', function () {
        }));
 //
 
-       test('should insert the template form templateURL with the appropriate content', function (done) {
+       it('should insert the template form templateURL with the appropriate content', function (done) {
            scope = $rootScope.$new();
            element = $compile('<pip-appbar></pip-appbar>')(scope);
            scope.$digest();
@@ -35,7 +35,7 @@ suite('pipAppBar', function () {
            done();
        });
 
-       test('showLanguage', function (done) {
+       it('showLanguage', function (done) {
            var languages = ['en', 'ru'],
                useLang = 'Language';
 
@@ -53,7 +53,7 @@ suite('pipAppBar', function () {
            done();
        });
 
-       test('showMenuNavIcon and hideNavIcon', function (done) {
+       it('showMenuNavIcon and hideNavIcon', function (done) {
            pipAppBar.showMenuNavIcon();
 
            scope = $rootScope.$new();
@@ -73,7 +73,7 @@ suite('pipAppBar', function () {
            done();
        });
 
-       test('showBackNavIcon', function (done) {
+       it('showBackNavIcon', function (done) {
            pipAppBar.showBackNavIcon();
 
            scope = $rootScope.$new();
@@ -86,7 +86,7 @@ suite('pipAppBar', function () {
            done();
        });
 
-       test('showTitleText', function (done) {
+       it('showTitleText', function (done) {
            var title = 'Pip title';
 
            pipAppBar.showTitleText(title);
@@ -102,7 +102,7 @@ suite('pipAppBar', function () {
            done();
        });
 
-       test('showSearch and updateSearchCriteria and hideSearch', function (done) {
+       it('showSearch and updateSearchCriteria and hideSearch', function (done) {
            var searchCriteria = 'Pip criteria';
            pipAppBar.showSearch();
 
