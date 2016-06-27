@@ -1,8 +1,8 @@
 'use strict';
 
-suite('pipSideNav', function () {
+describe('pipSideNav', function () {
 
-   suite('directive', function () {
+   describe('directive', function () {
        var
            pipSideNav,
            $rootScope,
@@ -11,14 +11,14 @@ suite('pipSideNav', function () {
            pipTranslate,
            $compile;
 
-       setup(module('pipSideNav'));
-       setup(module('pipTranslateFilters'));
-       setup(module('pipDateTimeFilters'));
-       setup(module('pipTranslate'));
-       setup(module('pipSideNav.Service'));
-       setup(module('pipState'));
+       beforeEach(module('pipSideNav'));
+       beforeEach(module('pipTranslateFilters'));
+       beforeEach(module('pipDateTimeFilters'));
+       beforeEach(module('pipTranslate'));
+       beforeEach(module('pipSideNav.Service'));
+       beforeEach(module('pipState'));
 //
-       setup(inject(function(_pipSideNav_,_$compile_, _$rootScope_, _pipTranslate_) {
+       beforeEach(inject(function(_pipSideNav_,_$compile_, _$rootScope_, _pipTranslate_) {
            pipSideNav = _pipSideNav_;
            $compile = _$compile_;
            $rootScope = _$rootScope_;
@@ -26,7 +26,7 @@ suite('pipSideNav', function () {
        }));
 //
 
-       test('should insert the template form templateURL with the appropriate content', function (done) {
+       it('should insert the template form templateURL with the appropriate content', function (done) {
            scope = $rootScope.$new();
            element = $compile('<pip-sidenav></pip-sidenav>')(scope);
            scope.$digest();
@@ -37,7 +37,7 @@ suite('pipSideNav', function () {
            done();
        });
 
-       test('open', function (done) {
+       it('open', function (done) {
 
            scope = $rootScope.$new();
            element = $compile('<pip-sidenav></pip-sidenav>')(scope);
@@ -50,7 +50,7 @@ suite('pipSideNav', function () {
            done();
        });
 
-       test('close', function (done) {
+       it('close', function (done) {
 
            scope = $rootScope.$new();
            element = $compile('<pip-sidenav></pip-sidenav>')(scope);
@@ -66,7 +66,7 @@ suite('pipSideNav', function () {
            done();
        });
 
-       test('toggle', function (done) {
+       it('toggle', function (done) {
 
            scope = $rootScope.$new();
            element = $compile('<pip-sidenav></pip-sidenav>')(scope);

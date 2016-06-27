@@ -24,20 +24,22 @@
   "private": true,
   "scripts": {
     "build": "gulp build",
-    "jshint": "gulp jshint",
-    "test": "mocha -t 5000 -R spec --recursive ./test"
+    "lint": "gulp lint",
+    "samples": "gulp launch",
+    "test": "karma start"
   },
   "dependencies": {
   },
   "devDependencies": {
-    "pip-webui-tasks": "git+ssh://git@github.com:pip-webui/pip-webui-tasks.git",
-    "pip-webui-lib": "git+ssh://git@github.com:pip-webui/pip-webui-lib.git",
-    "pip-webui-css": "git+ssh://git@github.com:pip-webui/pip-webui-css.git",
-    "pip-webui-core": "git+ssh://git@github.com:pip-webui/pip-webui-core.git",
+    "pip-webui-tasks": "git+https://github.com/pip-webui/pip-webui-tasks.git",
+    "pip-webui-lib": "git+https://github.com/pip-webui/pip-webui-lib.git",
+    "pip-webui-css": "git+https://github.com/pip-webui/pip-webui-css.git",
+    "pip-webui-core": "git+https://github.com/pip-webui/pip-webui-core.git",
     "angular-mocks": "*",
     "karma": "^0.13.15",
     "karma-chai": "*",
-    "karma-chrome-launcher": "*",
+    "karma-phantomjs-launcher": "*",
+    "phantomjs": "*",
     "karma-mocha": "*",
     "karma-ng-html2js-preprocessor": "^0.2.0",
     "karma-ng-json2js-preprocessor": "^1.1.1",
@@ -60,9 +62,11 @@
     "gulp-merge": "*",
     "gulp-typescript": "*",
     "gulp-jshint": "*",
+    "gulp-eslint": "*",
     "gulp-replace": "*",
     "gulp-add-src": "*",
     "gulp-webserver": "*",
-    "gulp-awspublish": "*"
+    "gulp-awspublish": "*",
+    "gulp-ngdocs": "*"
   }
 }
