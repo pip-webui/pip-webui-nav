@@ -3,9 +3,7 @@
  * @copyright Digital Living Software Corp. 2014-2016
  */
 
-/* global $, angular */
-
-(function () {
+(function (angular, _) {
     'use strict';
 
     var thisModule = angular.module('pipAppBar.Service', []);
@@ -14,7 +12,7 @@
         var config = {
             appTitleText: null,
             appTitleLogo: 'images/piplife_logo.svg',
-            
+
             // Theme to be applied to the header
             theme: 'blue',
             cssClass: '',
@@ -36,7 +34,7 @@
 
             // Type of actions: 'language', 'list' or 'none'
             actionsType: 'none',
-            
+
             // Language options
             languages: ['en', 'ru'],
 
@@ -48,7 +46,7 @@
             searchHistory: [],
             // Callback for search
             searchCallback: null,
-            
+
             // Primary global actions visible on the screen
             primaryGlobalActions: [],
             // Primary local actions visible on the screen
@@ -69,9 +67,9 @@
         this.globalSecondaryActions = globalSecondaryActions;
 
         // Get the service instance
-        this.$get = function ($rootScope) {            
+        this.$get = function ($rootScope) {
             return {
-                config: getConfig,                
+                config: getConfig,
                 cssClass: cssClass,
 
                 hideNavIcon: hideNavIcon,
@@ -103,20 +101,19 @@
             // ----------------------
 
             function getConfig() {
-                return config;  
-            };
+                return config;
+            }
 
             function cssClass(newCssClass) {
                 if (newCssClass != undefined) {
                     config.cssClass = newCssClass;
                     sendConfigEvent();
                 }
+
                 return config.cssClass;
-            };
+            }
 
             // Show, hide appbar shadow
-            //-------------------------
-
             function showShadowSm() {
                 config.ngClasses['pip-shadow'] = false;
                 config.ngClasses['pip-shadow-sm'] = true;
@@ -144,22 +141,18 @@
             }
 
             // Show navigation icon
-            //----------------------
-    
             function hideNavIcon() {
                 config.navIconType = 'none';
                 config.navIconCallback = null;
-
                 sendConfigEvent();
             }
-    
+
             function showMenuNavIcon(click) {
                 config.navIconType = 'menu';
                 config.navIconCallback = click;
-
                 sendConfigEvent();
             }
-    
+
             function showBackNavIcon(click) {
                 config.navIconType = 'back';
                 config.navIconCallback = click;
@@ -168,8 +161,6 @@
             }
 
             // Show title
-            //---------------
-    
             function hideTitle() {
                 config.titleType = 'none';
                 config.titleLogo = null;
@@ -178,7 +169,7 @@
 
                 sendConfigEvent();
             }
-    
+
             function showTitleLogo(titleLogo) {
                 config.titleType = 'logo';
                 config.titleLogo = titleLogo;
@@ -187,7 +178,7 @@
 
                 sendConfigEvent();
             }
-    
+
             function showTitleText(titleText) {
                 config.titleType = 'text';
                 config.titleLogo = null;
@@ -196,21 +187,19 @@
 
                 sendConfigEvent();
             }
-    
+
             function showTitleBreadcrumb(titleText, titleBreadcrumb) {
                 if (_.isArray(titleText)) {
                     titleBreadcrumb = titleText;
                     titleText = titleBreadcrumb[titleBreadcrumb.length - 1].title;
                     titleBreadcrumb.splice(titleBreadcrumb.length - 1, 1);
                 }
-                            
                 config.titleType = 'breadcrumb';
                 config.titleLogo = null;
                 config.titleText = titleText;
                 config.titleBreadcrumb = titleBreadcrumb;
-    
                 if (titleBreadcrumb.length > 0) {
-                    config.navIconType = config.navIconType == 'none' ? 'back' : config.navIconType;
+                    config.navIconType = config.navIconType === 'none' ? 'back' : config.navIconType;
                     config.navIconCallback = titleBreadcrumb[titleBreadcrumb.length - 1];
                 } else {
                     config.navIconType = 'menu';
@@ -223,14 +212,12 @@
             function showAppTitleLogo() {
                 showTitleLogo(config.appTitleLogo);
             }
-    
+
             function showAppTitleText() {
-                showTitleText(config.appTitleText);  
+                showTitleText(config.appTitleText);
             }
-        
+
             // Show actions
-            //---------------
-    
             function hideLocalActions() {
                 config.actionsType = 'none';
                 config.primaryLocalActions = [];
@@ -238,42 +225,39 @@
 
                 sendConfigEvent();
             }
-    
+
             function showLanguage(languages) {
                 config.actionsType = 'language';
                 config.languages = languages || config.languages;
 
                 sendConfigEvent();
             }
-    
-            function showLocalActions(primaryActions, secondaryActions) {            
+
+            function showLocalActions(primaryActions, secondaryActions) {
                 config.actionsType = 'list';
-                config.primaryLocalActions = primaryActions || [];  
-                config.secondaryLocalActions = secondaryActions || [];  
+                config.primaryLocalActions = primaryActions || [];
+                config.secondaryLocalActions = secondaryActions || [];
 
                 sendConfigEvent();
             }
-            
+
             function updateActionCount(actionName, count) {
                 // Update global actions
-                _.each(config.primaryGlobalActions, function(action) {
-                    if (action.name == actionName) {
+                _.each(config.primaryGlobalActions, function (action) {
+                    if (action.name === actionName) {
                         action.count = count;
                     }
                 });
                 // Update local action
-                _.each(config.primaryLocalActions, function(action) {
-                    if (action.name == actionName) {
-                        action.count = count; 
+                _.each(config.primaryLocalActions, function (action) {
+                    if (action.name === actionName) {
+                        action.count = count;
                     }
                 });
-                
                 sendConfigEvent();
             }
-    
+
             // Show actions
-            //---------------
-    
             function showSearch(callback, criteria, history) {
                 config.searchVisible = true;
                 config.searchCallback = callback;
@@ -282,7 +266,7 @@
 
                 sendConfigEvent();
             }
-    
+
             function hideSearch() {
                 config.searchVisible = false;
                 config.searchCallback = null;
@@ -290,12 +274,12 @@
 
                 sendConfigEvent();
             }
-    
+
             function updateSearchCriteria(criteria) {
                 config.searchCriteria = criteria;
                 sendConfigEvent();
             }
-    
+
             function updateSearchHistory(history) {
                 config.searchHistory = history;
                 sendConfigEvent();
@@ -305,30 +289,31 @@
                 $rootScope.$broadcast('pipAppBarChanged', config);
             }
         };
-        
-        return;        
-        //-----------------
-        
         function appTitleText(newTitleText) {
-            if (newTitleText != null)
+            if (newTitleText) {
                 config.appTitleText = newTitleText;
+            }
+
             return config.appTitleText;
         }
 
         function appTitleLogo(newTitleLogo) {
-            if (newTitleLogo != null)
+            if (newTitleLogo) {
                 config.appTitleLogo = newTitleLogo;
+            }
+
             return config.appTitleLogo;
         }
-        
+
         function theme(theme) {
             config.theme = theme || config.theme;
-            return config.theme;            
+
+            return config.theme;
         }
 
         function globalActions(primaryActions, secondaryActions) {
-            config.primaryGlobalActions = primaryActions || [];  
-            config.secondaryGlobalActions = secondaryActions || [];  
+            config.primaryGlobalActions = primaryActions || [];
+            config.secondaryGlobalActions = secondaryActions || [];
         }
 
         function globalPrimaryActions(primaryActions) {
@@ -338,7 +323,7 @@
         function globalSecondaryActions(secondaryActions) {
             config.secondaryGlobalActions = secondaryActions || [];
         }
-        
+
     });
 
-})();
+})(window.angular, window._);
