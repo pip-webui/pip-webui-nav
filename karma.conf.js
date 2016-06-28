@@ -17,7 +17,7 @@ module.exports = function (config) {
         files: [
             '../node_modules/pip-webui-lib/dist/pip-webui-lib.js',
             '../node_modules/pip-webui-core/dist/pip-webui-core.js',
-            '../build/pip-webui-controls-html.js',
+            '../temp/pip-webui-nav-html.js',
             '../node_modules/angular-mocks/angular-mocks.js',
             '**/*.js',
             '**/*.html',

@@ -409,15 +409,13 @@ module.run(['$templateCache', function($templateCache) {
  * @copyright Digital Living Software Corp. 2014-2016
  */
 
-/* global $, angular */
-
-(function () {
+(function (angular, _, $) {
     'use strict';
 
-    var thisModule = angular.module('pipAppBar', 
+    var thisModule = angular.module('pipAppBar',
         ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipAppBar.Service']);
 
-    thisModule.config(['pipTranslateProvider', function(pipTranslateProvider) {
+    thisModule.config(['pipTranslateProvider', function (pipTranslateProvider) {
 
         pipTranslateProvider.translations('en', {
             'APPBAR_SEARCH': 'Search'
@@ -430,32 +428,32 @@ module.run(['$templateCache', function($templateCache) {
     }]);
 
     // Main application header directive
-    thisModule.directive('pipAppbar', function() {
-       return {
-           restrict: 'E',
-           scope: {
-               title: '=pipTitle',
-               showMenu: '=pipShowMenu',
-               localActions: '=pipLocalActions',
-               globalActions: '=pipGlobalActions'
-           },
-           replace: false,
-           templateUrl: function(element, attr) {
-               return 'appbar/appbar.html';
-           },
-           controller: 'pipAppBarController'
-       };
+    thisModule.directive('pipAppbar', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                title: '=pipTitle',
+                showMenu: '=pipShowMenu',
+                localActions: '=pipLocalActions',
+                globalActions: '=pipGlobalActions'
+            },
+            replace: false,
+            templateUrl: function (element, attr) {
+                return 'appbar/appbar.html';
+            },
+            controller: 'pipAppBarController'
+        };
     });
 
     thisModule.controller('pipAppBarController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', 'pipAppBar', 'localStorageService', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipAppBar, localStorageService) {
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipAppBar) {
             // Initialize default application title
-            if ($scope.title)
-                pipAppBar.showTitleText($scope.title);                
-            if ($scope.showMenu)
+            if ($scope.title) {
+                pipAppBar.showTitleText($scope.title);
+            }
+            if ($scope.showMenu) {
                 pipAppBar.showMenuNavIcon();
-
-
+            }
             // Apply class and call resize
             $element.addClass('pip-appbar');
             $scope.$emit('pipResizeWindow');
@@ -475,7 +473,7 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             $scope.searchEnabled = false;
-            $scope.search = { text: '' };
+            $scope.search = {text: ''};
 
             $rootScope.$on('pipAppBarChanged', onAppBarChanged);
 
@@ -500,28 +498,31 @@ module.run(['$templateCache', function($templateCache) {
 
             $scope.openMenu = openMenu;
 
-            return;
-            //---------------------------
-
-             function openMenu ($mdOpenMenu, ev) {
+            function openMenu($mdOpenMenu, ev) {
                 $scope.originatorEv = ev;
                 $mdOpenMenu(ev);
-            };
+            }
 
             function getParty(prop) {
-                if (!$rootScope.$party) return;
-                else {
-                    if (prop) return $rootScope.$party[prop];
-                    else return $rootScope.$party;
+                if (!$rootScope.$party) {
+                    return;
                 }
+                if (prop) {
+                    return $rootScope.$party[prop];
+                }
+
+                return $rootScope.$party;
             }
 
             function getUser(prop) {
-                if (!$rootScope.$user) return;
-                else {
-                    if (prop) return $rootScope.$user[prop];
-                    else return $rootScope.$user;
+                if (!$rootScope.$user) {
+                    return;
                 }
+                if (prop) {
+                    return $rootScope.$user[prop];
+                }
+
+                return $rootScope.$user;
             }
 
             function onAppBarChanged(event, config) {
@@ -535,65 +536,80 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             function actionHidden(action) {
-                return action.access
-                    && !action.access($rootScope.$party, $rootScope.$user, action);
+                return action.access && !action.access($rootScope.$party, $rootScope.$user, action);
             }
 
             function actionCount(action) {
-                if (action.count == null || action.count <= 0)
+                if (action.count === null || action.count <= 0) {
                     return '';
-                if (action.count > 99)
+                }
+                if (action.count > 99) {
                     return '!';
+                }
+
                 return action.count;
             }
 
             function calcActions(actions) {
                 var count = 0;
-                _.each(actions, function(action) {
-                    if (!actionHidden(action)) count++;
+
+                _.each(actions, function (action) {
+                    if (!actionHidden(action)) {
+                        count++;
+                    }
                 });
+
                 return count;
             }
 
             function secondaryActionsVisible() {
-                return calcActions($scope.config.secondaryGlobalActions) > 0
-                    || calcActions($scope.config.secondaryLocalActions) > 0;
+                return calcActions($scope.config.secondaryGlobalActions) > 0 ||
+                    calcActions($scope.config.secondaryLocalActions) > 0;
             }
 
             function secondaryDividerVisible() {
-                return calcActions($scope.config.secondaryGlobalActions) > 0
-                    && calcActions($scope.config.secondaryLocalActions) > 0;
+                return calcActions($scope.config.secondaryGlobalActions) > 0 &&
+                    calcActions($scope.config.secondaryLocalActions) > 0;
             }
 
             function onNavIconClick() {
+                var breadcrumb, backCallback;
+
                 if (_.isFunction($scope.config.navIconCallback)) {
                     // Execute nav icon callback
                     $scope.config.navIconCallback();
-                } else {
-                    if ($scope.config.navIconType != 'back') {
-                        // Raise an event
-                        $rootScope.$broadcast('pipAppBarNavIconClicked');
-                    }
-                    else if ($scope.config.titleType == 'breadcrumb') {
-                        var breadcrumb = $scope.config.titleBreadcrumb;
-                        // Go to the last breadcrumb item
-                        if (_.isArray(breadcrumb) && breadcrumb.length > 0) {
-                            var backCallback = breadcrumb[breadcrumb.length - 1].click;
-                            if (_.isFunction(backCallback)) backCallback();
-                            else $window.history.back();
+
+                    return;
+                }
+                if ($scope.config.navIconType !== 'back') {
+                    // Raise an event
+                    $rootScope.$broadcast('pipAppBarNavIconClicked');
+
+                    return;
+                }
+                if ($scope.config.titleType === 'breadcrumb') {
+                    breadcrumb = $scope.config.titleBreadcrumb;
+                    // Go to the last breadcrumb item
+                    if (_.isArray(breadcrumb) && breadcrumb.length > 0) {
+                        backCallback = breadcrumb[breadcrumb.length - 1].click;
+                        if (_.isFunction(backCallback)) {
+                            backCallback();
                         } else {
                             $window.history.back();
                         }
                     } else {
-                        // Go back in history
                         $window.history.back();
                     }
+                } else {
+                    // Go back in history
+                    $window.history.back();
                 }
             }
 
             function onBreadcrumbClick(item) {
-                if (_.isFunction(item.click))
+                if (_.isFunction(item.click)) {
                     item.click(item);
+                }
             }
 
             function onLanguageClick(language) {
@@ -604,66 +620,90 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             function processStateParams(params) {
-                if (params == null) return null;
+                var result = {}, prop;
 
-                var result = {};
-                var prop;
+                if (params === null) {
+                    return null;
+                }
                 for (prop in params) {
                     if (params.hasOwnProperty(prop)) {
-                        if (params[prop] == ':party_id') {
+                        if (params[prop] === ':party_id') {
                             result[prop] = $rootScope.$party ? $rootScope.$party.id : null;
-                        } else if (params[prop] == ':user_id') {
+                        } else if (params[prop] === ':user_id') {
                             result[prop] = $rootScope.$user ? $rootScope.$user.id : null;
                         } else {
                             result[prop] = params[prop];
                         }
                     }
                 }
+
                 return result;
             }
 
             function processUrlParams(url) {
-                if (url == null) return null;
+                var result;
 
-                var result = url.replace(':party_id', $rootScope.$party ? $rootScope.$party.id : '');
+                if (url === null) {
+                    return null;
+                }
+                result = url.replace(':party_id', $rootScope.$party ? $rootScope.$party.id : '');
                 result = result.replace(':user_id', $rootScope.user ? $rootScope.$user.id : '');
+
                 return result;
             }
 
             function focusSearchText() {
-                setTimeout(function() {
-                    var element = $('.pip-search-text');
-                    if (element.length > 0)
+                var element;
+
+                setTimeout(function () {
+                    element = $('.pip-search-text');
+                    if (element.length > 0) {
                         element.focus();
+                    }
                 }, 0);
             }
 
             function onActionClick(action, $mdOpenMenu) {
-                if (action == null || action.divider) {
+                if (!action || action.divider) {
                     return;
                 }
 
-                if(action.close){
-                    $scope.originatorEv = null
+                if (action.close) {
+                    $scope.originatorEv = null;
                 }
 
-                if (action.menu)
+                if (action.menu) {
                     $mdOpenMenu($scope.originatorEv);
-                else if (action.callback)
+
+                    return;
+                }
+
+                if (action.callback) {
                     action.callback();
-                else if (action.href)
+
+                    return;
+                }
+                if (action.href) {
                     $window.location.href = processUrlParams(action.href);
-                else if (action.url)
+
+                    return;
+                }
+                if (action.url) {
                     $location.url(processUrlParams(action.url));
-                else if (action.state)
+
+                    return;
+                }
+                if (action.state) {
                     $state.go(action.state, processStateParams(action.stateParams));
-                else if (action.event)
+
+                    return;
+                }
+                if (action.event) {
                     $rootScope.$broadcast(action.event);
-                else
+                } else {
                     // Otherwise raise notification
                     $rootScope.$broadcast('pipAppBarActionClicked', action.name);
-
-
+                }
             }
 
             function onSearchEnable() {
@@ -674,14 +714,15 @@ module.run(['$templateCache', function($templateCache) {
 
             function onSearchClick() {
                 var searchText = $scope.search.text;
-                
+
                 $scope.search.text = '';
                 $scope.searchEnabled = false;
 
-                if ($scope.config.searchCallback)
+                if ($scope.config.searchCallback) {
                     $scope.config.searchCallback(searchText);
-                else
+                } else {
                     $rootScope.$broadcast('pipAppBarSearchClicked', searchText);
+                }
             }
 
             function onSearchClear() {
@@ -697,25 +738,27 @@ module.run(['$templateCache', function($templateCache) {
 
             function onSearchKeyDown(event) {
                 // Enter pressed
-                if (event.keyCode == 13)
+                if (event.keyCode === 13) {
                     $scope.onSearchClick();
+
+                    return;
+                }
                 // ESC pressed
-                else if (event.keyCode == 27) 
+                if (event.keyCode === 27) {
                     $scope.searchEnabled = false;
+                }
             }
         }]
     );
 
-})();
+})(window.angular, window._, window.jQuery);
 
 /**
  * @file Application App Bar service
  * @copyright Digital Living Software Corp. 2014-2016
  */
 
-/* global $, angular */
-
-(function () {
+(function (angular, _) {
     'use strict';
 
     var thisModule = angular.module('pipAppBar.Service', []);
@@ -724,7 +767,7 @@ module.run(['$templateCache', function($templateCache) {
         var config = {
             appTitleText: null,
             appTitleLogo: 'images/piplife_logo.svg',
-            
+
             // Theme to be applied to the header
             theme: 'blue',
             cssClass: '',
@@ -746,7 +789,7 @@ module.run(['$templateCache', function($templateCache) {
 
             // Type of actions: 'language', 'list' or 'none'
             actionsType: 'none',
-            
+
             // Language options
             languages: ['en', 'ru'],
 
@@ -758,7 +801,7 @@ module.run(['$templateCache', function($templateCache) {
             searchHistory: [],
             // Callback for search
             searchCallback: null,
-            
+
             // Primary global actions visible on the screen
             primaryGlobalActions: [],
             // Primary local actions visible on the screen
@@ -779,9 +822,9 @@ module.run(['$templateCache', function($templateCache) {
         this.globalSecondaryActions = globalSecondaryActions;
 
         // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {            
+        this.$get = ['$rootScope', function ($rootScope) {
             return {
-                config: getConfig,                
+                config: getConfig,
                 cssClass: cssClass,
 
                 hideNavIcon: hideNavIcon,
@@ -813,20 +856,19 @@ module.run(['$templateCache', function($templateCache) {
             // ----------------------
 
             function getConfig() {
-                return config;  
-            };
+                return config;
+            }
 
             function cssClass(newCssClass) {
                 if (newCssClass != undefined) {
                     config.cssClass = newCssClass;
                     sendConfigEvent();
                 }
+
                 return config.cssClass;
-            };
+            }
 
             // Show, hide appbar shadow
-            //-------------------------
-
             function showShadowSm() {
                 config.ngClasses['pip-shadow'] = false;
                 config.ngClasses['pip-shadow-sm'] = true;
@@ -854,22 +896,18 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             // Show navigation icon
-            //----------------------
-    
             function hideNavIcon() {
                 config.navIconType = 'none';
                 config.navIconCallback = null;
-
                 sendConfigEvent();
             }
-    
+
             function showMenuNavIcon(click) {
                 config.navIconType = 'menu';
                 config.navIconCallback = click;
-
                 sendConfigEvent();
             }
-    
+
             function showBackNavIcon(click) {
                 config.navIconType = 'back';
                 config.navIconCallback = click;
@@ -878,8 +916,6 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             // Show title
-            //---------------
-    
             function hideTitle() {
                 config.titleType = 'none';
                 config.titleLogo = null;
@@ -888,7 +924,7 @@ module.run(['$templateCache', function($templateCache) {
 
                 sendConfigEvent();
             }
-    
+
             function showTitleLogo(titleLogo) {
                 config.titleType = 'logo';
                 config.titleLogo = titleLogo;
@@ -897,7 +933,7 @@ module.run(['$templateCache', function($templateCache) {
 
                 sendConfigEvent();
             }
-    
+
             function showTitleText(titleText) {
                 config.titleType = 'text';
                 config.titleLogo = null;
@@ -906,21 +942,19 @@ module.run(['$templateCache', function($templateCache) {
 
                 sendConfigEvent();
             }
-    
+
             function showTitleBreadcrumb(titleText, titleBreadcrumb) {
                 if (_.isArray(titleText)) {
                     titleBreadcrumb = titleText;
                     titleText = titleBreadcrumb[titleBreadcrumb.length - 1].title;
                     titleBreadcrumb.splice(titleBreadcrumb.length - 1, 1);
                 }
-                            
                 config.titleType = 'breadcrumb';
                 config.titleLogo = null;
                 config.titleText = titleText;
                 config.titleBreadcrumb = titleBreadcrumb;
-    
                 if (titleBreadcrumb.length > 0) {
-                    config.navIconType = config.navIconType == 'none' ? 'back' : config.navIconType;
+                    config.navIconType = config.navIconType === 'none' ? 'back' : config.navIconType;
                     config.navIconCallback = titleBreadcrumb[titleBreadcrumb.length - 1];
                 } else {
                     config.navIconType = 'menu';
@@ -933,14 +967,12 @@ module.run(['$templateCache', function($templateCache) {
             function showAppTitleLogo() {
                 showTitleLogo(config.appTitleLogo);
             }
-    
+
             function showAppTitleText() {
-                showTitleText(config.appTitleText);  
+                showTitleText(config.appTitleText);
             }
-        
+
             // Show actions
-            //---------------
-    
             function hideLocalActions() {
                 config.actionsType = 'none';
                 config.primaryLocalActions = [];
@@ -948,42 +980,39 @@ module.run(['$templateCache', function($templateCache) {
 
                 sendConfigEvent();
             }
-    
+
             function showLanguage(languages) {
                 config.actionsType = 'language';
                 config.languages = languages || config.languages;
 
                 sendConfigEvent();
             }
-    
-            function showLocalActions(primaryActions, secondaryActions) {            
+
+            function showLocalActions(primaryActions, secondaryActions) {
                 config.actionsType = 'list';
-                config.primaryLocalActions = primaryActions || [];  
-                config.secondaryLocalActions = secondaryActions || [];  
+                config.primaryLocalActions = primaryActions || [];
+                config.secondaryLocalActions = secondaryActions || [];
 
                 sendConfigEvent();
             }
-            
+
             function updateActionCount(actionName, count) {
                 // Update global actions
-                _.each(config.primaryGlobalActions, function(action) {
-                    if (action.name == actionName) {
+                _.each(config.primaryGlobalActions, function (action) {
+                    if (action.name === actionName) {
                         action.count = count;
                     }
                 });
                 // Update local action
-                _.each(config.primaryLocalActions, function(action) {
-                    if (action.name == actionName) {
-                        action.count = count; 
+                _.each(config.primaryLocalActions, function (action) {
+                    if (action.name === actionName) {
+                        action.count = count;
                     }
                 });
-                
                 sendConfigEvent();
             }
-    
+
             // Show actions
-            //---------------
-    
             function showSearch(callback, criteria, history) {
                 config.searchVisible = true;
                 config.searchCallback = callback;
@@ -992,7 +1021,7 @@ module.run(['$templateCache', function($templateCache) {
 
                 sendConfigEvent();
             }
-    
+
             function hideSearch() {
                 config.searchVisible = false;
                 config.searchCallback = null;
@@ -1000,12 +1029,12 @@ module.run(['$templateCache', function($templateCache) {
 
                 sendConfigEvent();
             }
-    
+
             function updateSearchCriteria(criteria) {
                 config.searchCriteria = criteria;
                 sendConfigEvent();
             }
-    
+
             function updateSearchHistory(history) {
                 config.searchHistory = history;
                 sendConfigEvent();
@@ -1015,30 +1044,31 @@ module.run(['$templateCache', function($templateCache) {
                 $rootScope.$broadcast('pipAppBarChanged', config);
             }
         }];
-        
-        return;        
-        //-----------------
-        
         function appTitleText(newTitleText) {
-            if (newTitleText != null)
+            if (newTitleText) {
                 config.appTitleText = newTitleText;
+            }
+
             return config.appTitleText;
         }
 
         function appTitleLogo(newTitleLogo) {
-            if (newTitleLogo != null)
+            if (newTitleLogo) {
                 config.appTitleLogo = newTitleLogo;
+            }
+
             return config.appTitleLogo;
         }
-        
+
         function theme(theme) {
             config.theme = theme || config.theme;
-            return config.theme;            
+
+            return config.theme;
         }
 
         function globalActions(primaryActions, secondaryActions) {
-            config.primaryGlobalActions = primaryActions || [];  
-            config.secondaryGlobalActions = secondaryActions || [];  
+            config.primaryGlobalActions = primaryActions || [];
+            config.secondaryGlobalActions = secondaryActions || [];
         }
 
         function globalPrimaryActions(primaryActions) {
@@ -1048,10 +1078,10 @@ module.run(['$templateCache', function($templateCache) {
         function globalSecondaryActions(secondaryActions) {
             config.secondaryGlobalActions = secondaryActions || [];
         }
-        
+
     });
 
-})();
+})(window.angular, window._);
 
 /**
  * @file Dropdown control
