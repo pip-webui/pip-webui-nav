@@ -1,5 +1,3 @@
-// Karma configuration
-// Generated on Tue Aug 25 2015 20:04:51 GMT-0700 (US Mountain Standard Time)
 
 module.exports = function (config) {
     'use strict';
@@ -18,7 +16,8 @@ module.exports = function (config) {
             '../node_modules/pip-webui-lib/dist/pip-webui-lib.js',
             '../node_modules/pip-webui-core/dist/pip-webui-core.js',
             '../temp/pip-webui-nav-html.js',
-            '../node_modules/angular-mocks/angular-mocks.js',
+            '../node_modules/pip-webui-tasks/node_modules/angular-mocks/angular-mocks.js',  // for old NPM versions
+            '../node_modules/angular-mocks/angular-mocks.js',  // for new NPM folders system
             '**/*.js',
             '**/*.html',
             '../test/test_config.js',
