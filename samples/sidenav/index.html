@@ -7,24 +7,28 @@
 
     <link rel="stylesheet" href="../../lib/pip-webui-lib.css"/>
     <link rel="stylesheet" href="../../lib/pip-webui-css.css"/>
+    <link rel="stylesheet" href="../../lib/pip-webui-layouts.css"/>
     <link rel="stylesheet" href="../../dist/pip-webui-nav.css"/>
     <link rel="stylesheet" href="styles.css"/>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
 
     <script src="../../lib/pip-webui-lib.js"></script>
     <script src="../../lib/pip-webui-core.js"></script>
+    <script src="../../lib/pip-webui-layouts.js"></script>
     <script src="../../dist/pip-webui-nav.js"></script>
     <script src="index.js"></script>
 </head>
-<body ng-app="app" ng-controller="appController" layout="column" md-theme="{{ $theme || 'blue' }}" class="{{ $theme || 'blue' }} pip-main layout-column">
+<body ng-app="app" ng-controller="appController" ng-if="!$reset" layout="column" md-theme="{{ $theme || 'blue' }}"
+      class="{{ $theme || 'blue' }} pip-main layout-column">
+<pip-main class="pip-main">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="menu" 
-                ng-click="onToggleSideNav()">
+            <md-button class="md-icon-button" aria-label="menu"
+                       ng-click="onToggleSideNav()">
                 <md-icon md-svg-icon="icons:menu"></md-icon>
             </md-button>
-            <div class="flex-var text-overflow">Side Nav Sample</div>
+            <div class="flex-var text-overflow">Side Nav {{ 'SAMPLE' | translate }}</div>
             <div class="flex-fixed">
                 <md-menu md-position-mode="target-right target">
                 <span
@@ -57,21 +61,82 @@
 
     <pip-sidenav>
     </pip-sidenav>
+    
+    <pip-main-body class="layout-column pip-main-body">
+        <md-toolbar class="pip-appbar-ext" >
+        </md-toolbar>
+        <pip-document class="pip-document" >
+            <div class="pip-menu-container">
+                <div class="pip-content-container p24">
+                    <h2 class="text-title tm0 bm24">Side Nav {{ 'SAMPLE' | translate }}</h2>
 
-    <md-content flex layout="row" layout-align="center center" style="background-color: #eee">
-        <md-card>
-            <div class="pip-body">
-                <div class="pip-content">
-                    <h2>Side Nav Sample</h2>
+                    <h3 class="text-subhead2 tm0">{{ 'CODE_TO_CONFIGURE_AND_DISPLAY' | translate }}</h3>
+                    <pre class="text-body1 color-window-bg p16">
+        <strong>JS:</strong>
+                        
+            <strong>pipSideNavProvider.sections</strong>([
+                {
+                    links: [
+                        {title: 'Dashboard', url: '/dashboard?party_id=:party_id'},
+                        {title: 'About', url: '/about?party_id=:party_id'}
+                    ]
+                },
+                {
+                    title: 'Get',
+                    links: [
+                        {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
+                        {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
+                        {title: 'Events', icon: 'icons:star', url: '/ultimate_todo?party_id=:party_id'}
+                    ]
+                },
+                {
+                    links: [
+                        {title: 'Help', url: '/help'},
+                        {title: 'Support', url: '/support?party_id=:user_id'},
+                        {title: 'Settings', url: '/settings?party_id=:party_id'}
+                    ]
+                }
+            ]);
+            
+        <strong>HTML:</strong>
+                        
+               &lt;<strong>pip-sidenav</strong>&gt;
+                &lt;/<strong>pip-sidenav</strong>&gt;
+                    </pre>
+
+                    <md-divider class="tm8"></md-divider>
 
                     <div>
-                        <md-button class="md-raised md-primary" ng-click="onOpenSideNav()">Open</md-button>
-                        <md-button class="md-raised md-primary lm10" ng-click="oCloseSideNav()">Close</md-button>
-                        <md-button class="md-raised md-primary lm10" ng-click="onToggleSideNav()">Toggle</md-button>
+                        <md-button class="lm0" ng-click="onOpenSideNav()">{{ 'OPEN' | translate }} Side Nav</md-button>
                     </div>
+                    <h3 class="text-subhead2 tm0">{{ 'OPEN' | translate }}</h3>
+                    <pre class="text-body1 color-window-bg p16">
+        <strong>pipSideNav.open</strong>()
+                    </pre>
+
+                    <md-divider class="tm8"></md-divider>
+
+                    <div>
+                        <md-button class="lm0" ng-click="onCloseSideNav()">{{ 'CLOSE' | translate }} Side Nav</md-button>
+                    </div>
+                    <h3 class="text-subhead2 tm0">{{ 'CODE' | translate }}</h3>
+                    <pre class="text-body1 color-window-bg p16">
+        <strong>pipSideNav.close</strong>()
+                    </pre>
+
+                    <md-divider class="tm8"></md-divider>
+
+                    <div>
+                        <md-button class="lm0" ng-click="onToggleSideNav()">{{ 'TOGGLE' | translate }} Side Nav</md-button>
+                    </div>
+                    <h3 class="text-subhead2 tm0">{{ 'CODE' | translate }}</h3>
+                    <pre class="text-body1 color-window-bg p16">
+        <strong>pipSideNav.toggle</strong>()
+                    </pre>
                 </div>
             </div>
-        </md-card>
-    </md-content>
+        </pip-document>
+    </pip-main-body>
+</pip-main>
 </body>
 </html>

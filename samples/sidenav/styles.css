@@ -1,4 +1,8 @@
 
+.pip-content-container {
+    overflow-y: auto;
+}
+
 @font-face {
     font-family: "icon-font";
     src: url("../../dist/fonts/icon-font.eot");
