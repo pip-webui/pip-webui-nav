@@ -5,51 +5,53 @@
 
     var thisModule = angular.module('appNav.Tabs', []);
 
-    thisModule.config(function($mdIconProvider, pipAppBarProvider, pipTranslateProvider) {
+    thisModule.config(function ($mdIconProvider, pipAppBarProvider, pipTranslateProvider) {
         pipTranslateProvider.translations('en', {
             TAB_INDEX: 'Current tab index',
             LIST_CHANGES: 'List of changes',
-            ADDING: 'Counts of first tab'
+            ADDING: 'Counts of first tab',
+            VISIBLE: 'Visible',
+            DISABLED: 'Disabled',
+            SHADOW: 'Shadow',
+            TABS_CONFIG_AND_INFO: 'Tabs configuration and info',
+            CODE_SAMPLE: 'Code sample'
         });
         pipTranslateProvider.translations('ru', {
             TAB_INDEX: 'Текущий индекс',
             LIST_CHANGES: 'Список изменений',
-            ADDING: 'Устанавливает количество для первого таба'
+            ADDING: 'Устанавливает количество для первого таба',
+            VISIBLE: 'Видимость',
+            DISABLED: 'Отключен',
+            SHADOW: 'Тень',
+            TABS_CONFIG_AND_INFO: 'Настройка и информация о табах',
+            CODE_SAMPLE: 'Пример кода'
         });
     });
 
     thisModule.controller('TabsController',
-        function($scope, $mdMedia) {
-            $scope.tabs = [ ];
+        function ($scope, $mdMedia, pipTranslate) {
             $scope.messages = [];
             $scope.$mdMedia = $mdMedia;
-            $scope.showTabs = false;
+            $scope.selected = {};
+            $scope.selected.showTabs = true;
+            $scope.selected.showShadow = false;
+            $scope.selected.disabled = false;
+
+            $scope.tabs = [{
+                title: 'TABS_CONFIG_AND_INFO',
+                newCounts: 0
+            }, {title: 'CODE_SAMPLE',
+                newCounts: 0
+            }, {title: 'LIST_CHANGES',
+                newCounts: 0
+            }
+            ];
 
             $scope.onSelect = function (tab, tabIndex) {
-                $scope.messages.push({text: 'Tab object: [title:' + tab.title + '], tabIndex: ' + tabIndex});
+                $scope.messages.push({text: 'Tab object: [title:' + pipTranslate.translate(tab.title) +
+                                                        '], tabIndex: ' + tabIndex});
+                $scope.tabs[2].newCounts ++;
             };
-            generateArray(30);
-
-            //$scope.tabIndex = 2;
-
-            function generateArray(count) {
-                var maxNameLength = 20, minNameLength = 5;
-
-                for (var i = 0; i < count; i++) {
-                    var oCount = Math.floor(minNameLength + (Math.random(maxNameLength) * 10) + 1),
-                        newCounts = Math.floor(0 + (Math.random(100) * 10));
-                    var title = "L";
-                    for (var j = 0; j < oCount; j++) {
-                        title += 'o';
-                    }
-                    title += "ng title";
-                    $scope.tabs.push({
-                        title: title,
-                        state: 'state ' + title,
-                        newCounts: newCounts
-                    })
-                }
-            }
         }
     );
 

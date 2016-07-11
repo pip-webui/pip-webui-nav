@@ -1,4 +1,12 @@
 
+.pip-content-container > div {
+    overflow-y: auto;
+}
+
+md-list.sample-list {
+    position: relative !important;
+}
+
 .pip-recommended-header {
     height: 45px;
     min-height: 45px;
