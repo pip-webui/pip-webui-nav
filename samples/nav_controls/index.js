@@ -17,10 +17,10 @@
     thisModule.controller('AppController',
         function ($scope, $rootScope, $state, $mdSidenav, pipTranslate, $timeout, $mdMedia, pipAppBar) {
             $scope.pages = [
-                {title: 'Dropdown', state: 'dropdown', url: '/dropdown', controller: 'DropdownController',
+                {title: 'DROPDOWN', state: 'dropdown', url: '/dropdown', controller: 'DropdownController',
                     templateUrl: 'dropdown.html'
                 },
-                {title: 'Tabs', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html'}
+                {title: 'TABS', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html'}
             ];
             $scope.selected = {};
             $timeout(function () {

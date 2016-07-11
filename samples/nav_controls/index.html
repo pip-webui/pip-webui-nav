@@ -51,7 +51,7 @@
                                       ng-repeat="page in pages track by page.state"
                                       md-ink-ripple
                                       pip-id="{{:: page.state }}">
-                            <p>{{:: page.title }}</p>
+                            <p>{{ page.title | translate }}</p>
                         </md-list-item>
                     </md-list>
                 </div>

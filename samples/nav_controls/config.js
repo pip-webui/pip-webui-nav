@@ -29,13 +29,17 @@
             pipTranslateProvider.translations('en', {
                 NAVIGATION_CONTROLS: 'Navigation Controls',
                 CODE: 'Code',
-                SAMPLE: 'sample'
+                SAMPLE: 'sample',
+                DROPDOWN: 'Dropdwon',
+                TABS: 'Tabs'
             });
 
             pipTranslateProvider.translations('ru', {
                 NAVIGATION_CONTROLS: 'Навигационные Контролы',
                 CODE: 'Код',
-                SAMPLE: 'пример'
+                SAMPLE: 'пример',
+                DROPDOWN: 'Выпадающий список',
+                TABS: 'Табы'
             });
 
             pipAuthStateProvider.unauthorizedState('tabs');

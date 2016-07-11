@@ -24,12 +24,21 @@
         </div>
         <div class="pip-divider pip-fix-divider flex"></div>
         <div class="pip-ref-item">
-            <md-icon class="rm16" md-svg-icon="icons:"></md-icon>
+            <md-icon class="rm16" md-svg-icon="icons:phones"></md-icon>
             <div class="pip-content flex">
                 <p class="pip-title">+ 788907655443</p>
                 <p class="pip-subtitle">{{ 'HOME' | translate }}</p>
             </div>
         </div>
+    </div>
+
+    <div ng-if="activeIndex == 2">
+        <h3 class="text-subhead2 tm0">{{:: 'CODE' | translate}}</h3>
+<pre class="text-body1 color-window-bg p16">
+            &lt;<strong>pip-dropdown</strong> pip-actions="actions"
+                        pip-active-index="activeIndex"&gt;
+            &lt;/<strong>pip-dropdown</strong>&gt;
+</pre>
     </div>
 
 

@@ -30,10 +30,11 @@
         function ($scope) {
             $scope.actions = [
                 {title: 'BASIC_INFO', id: 1},
-                {title: 'CONTACT_INFO', id: 2}
+                {title: 'CONTACT_INFO', id: 2},
+                {title: 'CODE_SAMPLE', id: 3}
             ];
 
-            $scope.activeIndex = 1;
+            $scope.activeIndex = 0;
 
             $scope.onSelect = function (tab, index) {
                 $scope.activeValue = tab.id;
