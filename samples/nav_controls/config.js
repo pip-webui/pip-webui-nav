@@ -30,7 +30,7 @@
                 NAVIGATION_CONTROLS: 'Navigation Controls',
                 CODE: 'Code',
                 SAMPLE: 'sample',
-                DROPDOWN: 'Dropdwon',
+                DROPDOWN: 'Dropdown',
                 TABS: 'Tabs'
             });
 
