@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="no-scroll">
 <head lang="en">
-    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="-1">
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="styles.css"/>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    
+
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="https://www.google.com/jsapi"></script>
     <script src="../../lib/pip-webui-lib.js"></script>
@@ -38,23 +39,22 @@
     </pip-sidenav>
 
     <pip-main-body ng-cloak layout="column" class="pip-main-body">
-        <md-toolbar class="pip-appbar-ext" >
+        <md-toolbar class="pip-appbar-ext">
         </md-toolbar>
-        <pip-document class="pip-document" >
+        <pip-document class="pip-document">
             <div class="pip-menu-container">
-                <div class="pip-menu">
-                    <md-list class="pip-menu pip-simple-list hide-xs"
-                             pip-selected="selected.pageIndex"
-                             pip-selected-watch="selected.navId"
-                             pip-select="onNavigationSelect($event.id)">
-                        <md-list-item class="pip-simple-list-item pip-selectable"
-                                      ng-repeat="page in pages track by page.state"
-                                      md-ink-ripple
-                                      pip-id="{{:: page.state }}">
-                            <p>{{ page.title | translate }}</p>
-                        </md-list-item>
-                    </md-list>
-                </div>
+                <md-list class="pip-menu pip-simple-list hide-xs"
+                         pip-selected="selected.pageIndex"
+                         pip-selected-watch="selected.navId"
+                         pip-select="onNavigationSelect($event.id)">
+                    <md-list-item class="pip-simple-list-item pip-selectable"
+                                  ng-repeat="page in pages track by page.state"
+                                  ng-class="{'seleted': page.state == $state.name}"
+                                  md-ink-ripple
+                                  pip-id="{{:: page.state }}">
+                        <p>{{ page.title | translate }}</p>
+                    </md-list-item>
+                </md-list>
                 <div class="pip-content-container">
                     <pip-dropdown class="hide-gt-xs"
                                   pip-actions="pages"
