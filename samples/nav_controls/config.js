@@ -42,7 +42,7 @@
                 TABS: 'Табы'
             });
 
-            pipAuthStateProvider.unauthorizedState('tabs');
+            pipAuthStateProvider.unauthorizedState('signin');
             pipAuthStateProvider.authorizedState('tabs');
 
             for (i = 0; i < content.length; i++) {
