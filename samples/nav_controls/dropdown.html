@@ -35,9 +35,19 @@
     <div ng-if="activeIndex == 2">
         <h3 class="text-subhead2 tm0">{{:: 'CODE' | translate}}</h3>
 <pre class="text-body1 color-window-bg p16">
-            &lt;<strong>pip-dropdown</strong> pip-actions="actions"
+        <strong>HTML: </strong>
+
+            &lt;<strong>pip-dropdown pip-actions="actions"</strong>
                         pip-active-index="activeIndex"&gt;
             &lt;/<strong>pip-dropdown</strong>&gt;
+
+        <strong>JS: </strong>
+
+            <strong>$scope.actions</strong> = [
+                {title: '{{ 'BASIC_INFO' | translate }}', id: 1},
+                {title: '{{ 'CONTACT_INFO' | translate }}', id: 2},
+                {title: '{{ 'CODE_SAMPLE' | translate }}', id: 3}
+            ];
 </pre>
     </div>
 

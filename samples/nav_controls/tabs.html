@@ -23,10 +23,23 @@
     <div ng-if="tabIndex === 1">
         <h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
 <pre class="text-body1 color-window-bg p16">
+        <strong>HTML: </strong>
+
             &lt;<strong>pip-tabs</strong>  pip-tabs="tabs" pip-active-index="tabIndex"
                     pip-show-tabs="showTabs" pip-tabs-shadow="showShadow" pip-tabs-select="onSelect"
                     ng-disabled="disabled"&gt;
             &lt;/<strong>pip-tabs</strong>&gt;
+
+        <strong>JS: </strong>
+
+            <strong>$scope.tabs</strong> = [{
+                        title: '{{ 'TABS_CONFIG_AND_INFO' | translate}}',
+                        newCounts: 0
+                    }, {title: '{{ 'CODE_SAMPLE' | translate}}',
+                        newCounts: 0
+                    }, {title: '{{ 'LIST_CHANGES' | translate}}',
+                        newCounts: 0
+                    }];
 </pre>
     </div>
 

@@ -44,8 +44,7 @@
                 newCounts: 0
             }, {title: 'LIST_CHANGES',
                 newCounts: 0
-            }
-            ];
+            }];
 
             $scope.onSelect = function (tab, tabIndex) {
                 $scope.messages.push({text: 'Tab object: [title:' + pipTranslate.translate(tab.title) +

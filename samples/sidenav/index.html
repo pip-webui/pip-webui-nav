@@ -30,19 +30,6 @@
             </md-button>
             <div class="flex-var text-overflow">Side Nav {{ 'SAMPLE' | translate }}</div>
             <div class="flex-fixed">
-                <!--md-menu md-position-mode="target-right target">
-                <span
-                        ng-click="$mdOpenMenu()"
-                        aria-label="theme selection">
-                    {{ $theme | translate}}
-                    <md-icon md-svg-icon="icons:triangle-down"></md-icon>
-                </span>
-                    <md-menu-content width="3">
-                        <md-menu-item ng-repeat="theme in themes">
-                            <md-button ng-click="onThemeClick(theme)">{{theme | translate}}</md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu-->
                 <md-menu md-position-mode="target-right target">
                 <span ng-click="$mdOpenMenu()"
                       aria-label="language selection">
@@ -104,7 +91,7 @@
                 &lt;/<strong>pip-sidenav</strong>&gt;
                     </pre>
 
-                    <md-divider class="tm8"></md-divider>
+                    <md-divider class="tm8 pip-list-divider"></md-divider>
 
                     <div>
                         <md-button class="lm0" ng-click="onOpenSideNav()">{{ 'OPEN' | translate }} Side Nav</md-button>
@@ -114,7 +101,7 @@
         <strong>pipSideNav.open</strong>()
                     </pre>
 
-                    <md-divider class="tm8"></md-divider>
+                    <md-divider class="tm8 pip-list-divider"></md-divider>
 
                     <div>
                         <md-button class="lm0" ng-click="onCloseSideNav()">{{ 'CLOSE' | translate }} Side Nav</md-button>
@@ -124,7 +111,7 @@
         <strong>pipSideNav.close</strong>()
                     </pre>
 
-                    <md-divider class="tm8"></md-divider>
+                    <md-divider class="tm8 pip-list-divider"></md-divider>
 
                     <div>
                         <md-button class="lm0" ng-click="onToggleSideNav()">{{ 'TOGGLE' | translate }} Side Nav</md-button>
