@@ -74,7 +74,7 @@
             }
 
             function onConfigChanged(event, config) {
-                $scope.config = config; 
+                $scope.config = config;
             }
 
             function onUserClick() {

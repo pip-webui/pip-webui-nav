@@ -56,7 +56,7 @@
             };
 
             function open(event) {
-                $mdSidenav('pip-sidenav').open();   
+                $mdSidenav('pip-sidenav').open();
             };
                  
             function close(event) {

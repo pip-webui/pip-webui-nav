@@ -64,7 +64,7 @@
 
                 <!-- Mobile breadcrumb dropdown -->
                 <md-menu xmd-offset="0 48" class="hide-gt-xs">
-                    <span class="pip-appbar-mobile-breadcrumb" layout="row"
+                    <span class="pip-appbar-mobile-breadcrumb layout-row"
                         ng-click="$mdOpenMenu()"
                         md-ink-ripple
                         aria-label="open breadcrumb">
@@ -89,7 +89,7 @@
         </div>
 
 
-        <div class="flex-fixed pip-appbar-actions" layout="row"
+        <div class="flex-fixed pip-appbar-actions layout-row"
              ng-class="{ 'pip-language-action': config.actionsType=='language' }">
             <!-- Laguage picker -->
             <md-menu ng-if="config.actionsType=='language'"
@@ -212,14 +212,14 @@
         </div>
     </div>
 
-    <div class="md-toolbar-tools" layout="row" ng-if="searchEnabled">
+    <div class="md-toolbar-tools layout-row" ng-if="searchEnabled">
         <md-button class="md-icon-button" 
             aria-label="start search" 
             ng-click="onSearchClick()">
             <md-icon md-svg-icon="icons:search"></md-icon>
         </md-button>
-        <input class="pip-search-text" 
-            type="search" flex 
+        <input class="pip-search-text flex"
+            type="search"
             ng-model="search.text" 
             ng-keydown="onSearchKeyDown($event)" />
         <md-button class="md-icon-button" 
