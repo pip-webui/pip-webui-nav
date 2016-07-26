@@ -94,7 +94,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                <!-- Mobile breadcrumb dropdown -->\n' +
     '                <md-menu xmd-offset="0 48" class="hide-gt-xs">\n' +
-    '                    <span class="pip-appbar-mobile-breadcrumb" layout="row"\n' +
+    '                    <span class="pip-appbar-mobile-breadcrumb layout-row"\n' +
     '                        ng-click="$mdOpenMenu()"\n' +
     '                        md-ink-ripple\n' +
     '                        aria-label="open breadcrumb">\n' +
@@ -119,7 +119,7 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '\n' +
     '\n' +
-    '        <div class="flex-fixed pip-appbar-actions" layout="row"\n' +
+    '        <div class="flex-fixed pip-appbar-actions layout-row"\n' +
     '             ng-class="{ \'pip-language-action\': config.actionsType==\'language\' }">\n' +
     '            <!-- Laguage picker -->\n' +
     '            <md-menu ng-if="config.actionsType==\'language\'"\n' +
@@ -242,14 +242,14 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '    </div>\n' +
     '\n' +
-    '    <div class="md-toolbar-tools" layout="row" ng-if="searchEnabled">\n' +
+    '    <div class="md-toolbar-tools layout-row" ng-if="searchEnabled">\n' +
     '        <md-button class="md-icon-button" \n' +
     '            aria-label="start search" \n' +
     '            ng-click="onSearchClick()">\n' +
     '            <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '        </md-button>\n' +
-    '        <input class="pip-search-text" \n' +
-    '            type="search" flex \n' +
+    '        <input class="pip-search-text flex"\n' +
+    '            type="search"\n' +
     '            ng-model="search.text" \n' +
     '            ng-keydown="onSearchKeyDown($event)" />\n' +
     '        <md-button class="md-icon-button" \n' +
@@ -1222,7 +1222,7 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             function onConfigChanged(event, config) {
-                $scope.config = config; 
+                $scope.config = config;
             }
 
             function onUserClick() {
@@ -1362,7 +1362,7 @@ module.run(['$templateCache', function($templateCache) {
             };
 
             function open(event) {
-                $mdSidenav('pip-sidenav').open();   
+                $mdSidenav('pip-sidenav').open();
             };
                  
             function close(event) {
