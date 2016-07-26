@@ -83,7 +83,14 @@
     });
 
     thisModule.controller('appController',
-        function ($scope, $mdDialog, $rootScope, pipAppBar, pipTranslate, $mdTheming) {
+        function ($scope, $mdDialog, $rootScope, pipAppBar, pipTranslate, $mdTheming, $timeout) {
+
+            $timeout(function() {
+                $('pre code').each(function(i, block) {
+                    Prism.highlightElement(block);
+                });
+            });
+
             $rootScope.$party = {
                 id: '55f26dda4b0c570c4b1f1313',
                 name: 'Sergey Seroukhov'

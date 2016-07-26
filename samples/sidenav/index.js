@@ -65,7 +65,14 @@
     }
 
     thisModule.controller('appController',
-        function ($scope, $rootScope, pipSideNav, pipTranslate, $mdTheming, localStorageService) {
+        function ($scope, $rootScope, pipSideNav, pipTranslate, $mdTheming, localStorageService, $timeout) {
+
+            $timeout(function() {
+                $('pre code').each(function(i, block) {
+                    Prism.highlightElement(block);
+                });
+            });
+            
             $rootScope.$theme = localStorageService.get('theme');
 
             $rootScope.$party = {

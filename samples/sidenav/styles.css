@@ -25,4 +25,20 @@ md-input-group.stretch > input {
 md-card {
     background-color: white;
     padding: 20px;
-}        
+}
+
+.pip-content-container {
+    overflow-y: auto;
+}
+
+pre {
+    border-radius: 4px;
+}
+
+.flat {
+    box-shadow: none !important;
+}
+
+.pip-menu {
+    overflow-x: hidden !important;
+}

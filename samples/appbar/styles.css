@@ -3,6 +3,18 @@
     overflow-y: auto;
 }
 
+pre {
+    border-radius: 4px;
+}
+
+.flat {
+    box-shadow: none !important;
+}
+
+.pip-menu {
+    overflow-x: hidden !important;
+}
+
 @font-face {
     font-family: "icon-font";
     src: url("../../dist/fonts/icon-font.eot");
