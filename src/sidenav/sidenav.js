@@ -128,7 +128,12 @@
                         return;
                     }
 
-                    $window.location.href = processUrlParams(link.href);
+                    pipSideNav.close();
+                    $timeout(function() {
+                        $window.location.href = processUrlParams(link.href);
+                    }, 300);
+
+                    return;
                 }
                 else if (link.url) {
                     if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
@@ -136,7 +141,12 @@
                         return;
                     }
 
-                    $location.url(processUrlParams(link.url));
+                    pipSideNav.close();
+                    $timeout(function() {
+                        $location.url(processUrlParams(link.url));
+                    }, 300);
+
+                    return;
                 }
                 else if (link.state) {
                     if ($state.current.name === link.state) {
@@ -144,7 +154,12 @@
                         return;
                     }
 
-                    pipState.go(link.state, processStateParams(link.stateParams));
+                    pipSideNav.close();
+                    $timeout(function() {
+                        pipState.go(link.state, processStateParams(link.stateParams));
+                    }, 300);
+
+                    return;
                 }
                 else if (link.event)
                     $rootScope.$broadcast('pipSideNavLinkClicked', link.event);
