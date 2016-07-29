@@ -132,7 +132,35 @@ Primary and secondary actions are divided into global, that are set once during 
 Todo: Add HTML snippet that demonstrates this directive with all attributes
 
 Todo: Add screenshots with breadcrumb, secondary actions and search bar
-<img src="images/img-side-nav.png"/>
+<img src="images/img-app-bar.png"/>
+
+### Attributes
+Todo: Describe the directive attributes here
+
+
+## <a name="tabs"></a> pip-tabs
+
+Navigation tabs control. Besides other small modifications it provides responsive capabilities. To improve usability on smaller screens it turns into **pip-dropdown**.
+
+### Usage
+Todo: Add HTML snippet that demonstrates this directive with all attributes
+
+Todo: Add similar image with dropdown on small screen
+<img src="images/img-tabs.png"/>
+
+### Attributes
+Todo: Describe the directive attributes here
+
+
+## <a name="dropdown"></a> pip-dropdown
+
+Navigation dropdown control is similar to popup but it looks and behaves slightly different. It is styled to be seemlessly integrated into application title. It resizes itself to entire available width and can go down to the bottom of the screen. If list takes more space then the screen height, the drop down is smart enough to scroll it while standard popup doesn't do that.
+
+### Usage
+Todo: Add HTML snippet that demonstrates this directive with all attributes
+
+Todo: Add similar image with dropdown on small screen
+<img src="images/img-dropdown.png"/>
 
 ### Attributes
 Todo: Describe the directive attributes here
