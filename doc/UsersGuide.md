@@ -3,11 +3,11 @@
 ## <a name="contents"></a> Contents
 - [Installing](#install)
 - [pipSidenav provider](#sidenav_provider)
-- [pip-sidenav](#sidenav)
+- [pip-sidenav directive](#sidenav)
 - [pipAppbar provider](#appbar_provider)
-- [pip-appbar](#appbar)
-- [pip-tabs](#tabs)
-- [pip-dropdown](#dropdown)
+- [pip-appbar directive](#appbar)
+- [pip-tabs directive](#tabs)
+- [pip-dropdown directive](#dropdown)
 - [Questions and bugs](#issues)
 
 
@@ -88,7 +88,7 @@ Todo: Add here code snippet to demonstrate configuration of sidenav
 Todo: Add here description of section configuration fields
 
 
-## <a name="sidenav"></a> pip-sidenav
+## <a name="sidenav"></a> pip-sidenav directive
 
 **pip-sidenav** directive inserts into HTML markup the navigation Sidenav panel. It presents information, configured in **pipSidenav** provider.
 
@@ -116,7 +116,7 @@ Todo: Describe all provider methods here
 Todo: Add here description of action configuration fields
 
 
-## <a name="appbar"></a> pip-appbar
+## <a name="appbar"></a> pip-appbar directive
 
 **pip-appbar** directive inserts into HTML markup the navigation Appbar panel. It has a complex structure that includes:
 - Menu icon that can be shown as avatar or logo
@@ -138,7 +138,7 @@ Todo: Add screenshots with breadcrumb, secondary actions and search bar
 Todo: Describe the directive attributes here
 
 
-## <a name="tabs"></a> pip-tabs
+## <a name="tabs"></a> pip-tabs directive
 
 Navigation tabs control. Besides other small modifications it provides responsive capabilities. To improve usability on smaller screens it turns into **pip-dropdown**.
 
@@ -152,7 +152,7 @@ Todo: Add similar image with dropdown on small screen
 Todo: Describe the directive attributes here
 
 
-## <a name="dropdown"></a> pip-dropdown
+## <a name="dropdown"></a> pip-dropdown directive
 
 Navigation dropdown control is similar to popup but it looks and behaves slightly different. It is styled to be seemlessly integrated into application title. It resizes itself to entire available width and can go down to the bottom of the screen. If list takes more space then the screen height, the drop down is smart enough to scroll it while standard popup doesn't do that.
 
