@@ -4,68 +4,40 @@
 
 Good navigation in complex Line-of-Business applications is absoletely critical. It shall allow users to jump from one page to another and access features quickly and freely. Cumbersome navigation, unintuitive links and lots of clicks can ruin any application. Ease of use and productivity of users in the first place depend on it. Pip.WebUI.Nav module provides controls for global and local navigation.
 
-### Side navigation bar
+### Side navigation panel
+
+Navigation **Sidenav* provided by this module is defined by configuration and does not require HTML markup. It shows navigation links with optional icons that can be combined into groups. The top of the **Sidenav** may contain information about the user or application.
+
+Todo: Add code snippet that demonstrates configuration of sidenav
+
+Todo: Change the picture to show "nice looking" sidenav with proper header
 <a href="doc/images/img-side-nav.png" style="border: 3px ridge #c8d2df; display: block">
     <img src="doc/images/img-side-nav.png"/>
 </a>
 
-Side navigation is located on the left of a screen. It fills a whole screen height. There are several sections which can
-be grouped as need. Navigation items can have icon before text. At the top there is located user avatar.
+### Application bar
 
-Side navigation bar [API reference](http://link.com)
+**Appbar** similar to **Sidenav** has a complex structure that if defined by configuration. It contains menu icon, title that can be turned into breadcrumb, primary actions on the bar and secondary actions hidden in popup menu.
 
-[Online Example](http://webui.pipdevs.com/pip-webui-nav/sidenav/index.html)
-
-<br/>
-
-### <a name="app_bar"></a>Application bar
 <a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
     <img src="doc/images/img-app-bar.png"/>
 </a>
 
-Application bar is located on the top of page and contains many controls. It includes:
-* burger side navigation button
-* Plain title text or breadcrumbs
-* notification icons
-* some local actions
-* any icons
-* right submenu (usual there is signout button)
+### Navigation tabs
 
-This component is responsive and stretched on a whole screen width.
+**Navigation tabs** are similar to regular tabs. But they contain links and turn into **Navigation dropdown** on smaller screens.
 
-
-Single document layout [API reference](http://link.com)
-
-[Online Example](http://webui.pipdevs.com/pip-webui-nav/appbar/index.html)
-
-<br/>
-
-### <a name="tabs"></a>Navigation tabs control
 <a href="doc/images/img-tabs.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
     <img src="doc/images/img-tabs.png"/>
 </a>
 
-Tabs are navigation elements to another states. They are located on the bottom of application navigation bar.
+### Navigation dropdown
 
-If tabs are not fit into available space on different sides appear navigation arrows. On mobile screen tabs are transformed
-into dropdown menu.
+**Navigation dropdown** control is places at the top of the page, properly styled and contains navigation links
 
-Tabs control [API reference](http://link.com)
-
-[Online Example](http://webui.pipdevs.com/pip-webui-nav/nav_controls/index.html#/tabs)
-
-<br/>
-
-### <a name="dropdown"></a>Dropdown control
 <a href="doc/images/img-dropdown.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
     <img src="doc/images/img-dropdown.png"/>
 </a>
-
-This control styled list which appears after click on source field. Dropped list is styled due to chosen theme.
-
-Dropdown control [API reference](http://link.com)
-
-[Online Example](http://webui.pipdevs.com/pip-webui-nav/nav_controls/index.html#/dropdown)
 
 
 ## Learn more about the module
@@ -85,7 +57,6 @@ Dropdown control [API reference](http://link.com)
 * [pip-webui-lib](https://github.com/pip-webui/pip-webui-lib): angular, angular material and other 3rd party libraries
 * [pip-webui-css](https://github.com/pip-webui/pip-webui-css): CSS styles and web components
 * [pip-webui-core](https://github.com/pip-webui/pip-webui-core): localization and other core services
-* [pip-webui-rest](https://github.com/pip-webui/pip-webui-rest): REST resources for users and files
 
 ## <a name="license"></a>License
 
