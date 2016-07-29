@@ -79,6 +79,10 @@ Todo: Add here code snippet to demonstrate configuration of sidenav
   - Params:
     + sections - sections configuration or **null** to make no changes
   - Returns: the current configuration of navigation sections
+  - 
+* **open(): void** - opens sidenav
+* **close(): void** - closes sidenav
+* **toggle(): void** - toggles sidenav open/close state
   
 ### Sections Configuration object
 Todo: Add here description of section configuration fields
@@ -86,7 +90,7 @@ Todo: Add here description of section configuration fields
 
 ## <a name="sidenav"></a> pip-sidenav
 
-**pip-sidenav** directive inserts into HTML markup the location on navigation Sidenav panel. It presents information, configured in **pipSidenav** provider.
+**pip-sidenav** directive inserts into HTML markup the navigation Sidenav panel. It presents information, configured in **pipSidenav** provider.
 
 ### Usage
 Todo: Add HTML snippet that demonstrates this directive with all attributes
@@ -96,6 +100,42 @@ Todo: Add HTML snippet that demonstrates this directive with all attributes
 ### Attributes
 Todo: Describe the directive attributes here
 
+
+## <a name="appbar_provider"></a> pipAppbar provider
+
+**pipAppbar** provider allows to configure **pip-appbar** during configure and run phases. 
+The configuration includes title and breadcrumb text, primary and secondary actions.
+
+### Usage
+Todo: Add here code snippet to demonstrate configuration of appbar
+
+### Methods
+Todo: Describe all provider methods here
+
+### Action configuration object
+Todo: Add here description of action configuration fields
+
+
+## <a name="appbar"></a> pip-appbar
+
+**pip-appbar** directive inserts into HTML markup the navigation Appbar panel. It has a complex structure that includes:
+- Menu icon that can be shown as avatar or logo
+- Application title
+- Breadcrumb that can replace the title
+- Primary actions visualized we icons
+- Secondary actions places into popup menu under three dots on the right
+- Integrated search bar with history
+
+Primary and secondary actions are divided into global, that are set once during configure phase, and local, that are changed in runtime by every page.
+
+### Usage
+Todo: Add HTML snippet that demonstrates this directive with all attributes
+
+Todo: Add screenshots with breadcrumb, secondary actions and search bar
+<img src="images/img-side-nav.png"/>
+
+### Attributes
+Todo: Describe the directive attributes here
 
 
 ## <a name="issues"></a> Questions and bugs
