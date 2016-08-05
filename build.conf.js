@@ -21,8 +21,8 @@ module.exports = {
              '../pip-webui-rest/dist/**/*',
             // '../pip-webui-controls/dist/**/*',
             '../pip-webui-nav/dist/**/*',
-             '../pip-webui-layouts/dist/**/*'
-            // '../pip-webui-pictures/dist/**/*',
+             '../pip-webui-layouts/dist/**/*',
+             '../pip-webui-pictures/dist/**/*'//,
             // '../pip-webui-locations/dist/**/*',
             // '../pip-webui-documents/dist/**/*',
             // '../pip-webui-composite/dist/**/*',

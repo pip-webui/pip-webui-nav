@@ -76,14 +76,14 @@
             $rootScope.$theme = localStorageService.get('theme');
 
             $rootScope.$party = {
-                id: '55f28f064b0c570c4b1f138d',
-                name: 'Misha Seroukhov',
+                id: '56b0ab71e8540ddb54705fff',
+                name: 'Kate Negrienko',
                 theme: $rootScope.$theme
             };
 
             $rootScope.$user = {
-                id: '53b63780bf898e927e49325b',
-                name: 'Sergey Seroukhov',
+                id: '565f12ef8ff2161b1dfeedbf',
+                name: 'Миньошка',
                 owner: false,
                 manager: true,
                 contributor: true,
@@ -104,10 +104,10 @@
             };
 
             $rootScope.$connection = {
-                party_id: '53b63780bf898e927e49325b',
-                to_party_id: '5483bdaf812e2fba3381be90',
-                to_party_name: 'Misha Seroukhov',
-                relation: 'Son',
+                party_id: '565f12ef8ff2161b1dfeedbf',
+                to_party_id: '56b0ab71e8540ddb54705fff',
+                to_party_name: 'Kate Negrienko',
+                relation: 'Friend',
                 relation_since: '2001-07-11',
                 manager: true,
                 contributor: true

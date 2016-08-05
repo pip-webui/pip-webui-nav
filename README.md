@@ -8,9 +8,31 @@ Good navigation in complex Line-of-Business applications is absoletely critical.
 
 Navigation **Sidenav* provided by this module is defined by configuration and does not require HTML markup. It shows navigation links with optional icons that can be combined into groups. The top of the **Sidenav** may contain information about the user or application.
 
-Todo: Add code snippet that demonstrates configuration of sidenav
+```javascript
+pipSideNavProvider.sections([
+    {
+        links: [
+            {title: 'About', url: '/about?party_id=:party_id'},
+            {title: 'Notes', url: '/notes?party_id=:party_id', access: accessOwner},
+            {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
+            {title: 'Timeline', icon: 'icons:film', url: '/ultimate_todo?party_id=:party_id'}
+        ]
+    },
+    {
+        title: 'Get',
+        access: accessContributor,
+        links: [
+             {title: 'Goals', url: '/goals?party_id=:party_id'},
+        ]
+    },
+    {
+        links: [
+            {title: 'Search', url: '/search?party_id=:party_id', access: accessManager}
+        ]
+    }
+]);
+```
 
-Todo: Change the picture to show "nice looking" sidenav with proper header
 <a href="doc/images/img-side-nav.png" style="border: 3px ridge #c8d2df; display: block">
     <img src="doc/images/img-side-nav.png"/>
 </a>
