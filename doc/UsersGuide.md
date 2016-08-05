@@ -52,7 +52,38 @@ angular.module('myApp',[..., 'pipNav']);
 The configuration includes user or application info and naviation links.
 
 ### Usage
-Todo: Add here code snippet to demonstrate configuration of sidenav
+```javascript
+pipSideNavProvider.sections([
+    {
+        links: [
+            {
+                title: 'Dashboard', url: '/dashboard?party_id=:party_id', access: function () {
+                    // return any_conditions;
+                }
+            },
+            {title: 'About', url: '/about?party_id=:party_id'}
+        ]
+    },
+    {
+        title: 'Get',
+        access: function () {
+            // return any_conditions;
+        },
+        links: [
+            {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
+            {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
+            {title: 'Events', icon: 'icons:star', url: '/ultimate_todo?party_id=:party_id'}
+        ]
+    },
+    {
+        links: [
+            {title: 'Help', url: '/help'},
+            {title: 'Support', url: '/support?party_id=:user_id'},
+            {title: 'Settings', url: '/settings?party_id=:party_id'}
+        ]
+    }
+]);
+```
 
 ### Methods
 
@@ -86,21 +117,26 @@ Todo: Add here code snippet to demonstrate configuration of sidenav
 * **toggle(): void** - toggles sidenav open/close state
   
 ### Sections Configuration object
-Todo: Add here description of section configuration fields
-
+* **title(text: string): string** - title on the sidenav section
+* **access : function** - function, which will show or hide section depending on the conditions specified inside
+* **links : array** - array of links in current section
+    + title - title of the link
+    + icon - icon of the link
+    + url - link url, which will set $location.url() after click link
+    + access - function, which will show or hide link depending on the conditions specified inside
+    + href - link href, which will set to $window.location.href after click link
+    + state - link state, in which will navigate by function $state.go() after click link
 
 ## <a name="sidenav"></a> pip-sidenav directive
 
 **pip-sidenav** directive inserts into HTML markup the navigation Sidenav panel. It presents information, configured in **pipSidenav** provider.
 
 ### Usage
-Todo: Add HTML snippet that demonstrates this directive with all attributes
+```html
+<pip-sidenav></pip-sidenav>
+```
 
 <img src="images/img-side-nav.png"/>
-
-### Attributes
-Todo: Describe the directive attributes here
-
 
 ## <a name="appbar_provider"></a> pipAppbar provider
 
