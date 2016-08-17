@@ -88,18 +88,18 @@ pip-dropdown md-select md-select-value .md-select-icon {
 pip-tabs .pip-nav {
   min-height: 0px !important;
   height: 0px;
-  -webkit-transition: all .35s ease;
-  -moz-transition: all .35s ease;
-  -o-transition: all .35s ease;
-  transition: all .35s ease;
+  -webkit-transition: height .35s ease;
+  -moz-transition: height .35s ease;
+  -o-transition: height .35s ease;
+  transition: height .35s ease;
 }
 pip-tabs .pip-nav md-tabs-wrapper {
   height: 0px;
   min-height: 0px;
-  -webkit-transition: all .35s ease;
-  -moz-transition: all .35s ease;
-  -o-transition: all .35s ease;
-  transition: all .35s ease;
+  -webkit-transition: height .35s ease;
+  -moz-transition: height .35s ease;
+  -o-transition: height .35s ease;
+  transition: height .35s ease;
 }
 pip-tabs .pip-nav.pip-shadow {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);

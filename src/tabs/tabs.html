@@ -1,5 +1,5 @@
 <md-toolbar class="pip-nav {{ class }}" ng-class="{'pip-visible': show(), 'pip-shadow': showShadow()}">
-    <md-tabs ng-show="$mdMedia('gt-xs')" md-selected="activeTab" ng-class="{'disabled': disabled()}" md-stretch-tabs="true" md-dynamic-height="true">
+    <md-tabs ng-if="$mdMedia('gt-xs')" md-selected="activeTab" ng-class="{'disabled': disabled()}" md-stretch-tabs="true" md-dynamic-height="true">
         <md-tab ng-repeat="tab in tabs track by $index"  ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)">
             <md-tab-label>
                 {{ ::tab.nameLocal }}
@@ -8,7 +8,7 @@
             </md-tab-label>
         </md-tab>
     </md-tabs>
-    <md-content class="md-subhead md-hue-1" ng-show="$mdMedia('xs')">
+    <md-content class="md-subhead md-hue-1" ng-if="$mdMedia('xs')">
         <div class="pip-divider position-top m0"></div>
         <md-select ng-model="activeIndex" ng-disabled="disabled()"
                    md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple md-on-close="onSelect(activeIndex)">
