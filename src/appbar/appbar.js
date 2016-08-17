@@ -29,7 +29,8 @@
                 title: '=pipTitle',
                 showMenu: '=pipShowMenu',
                 localActions: '=pipLocalActions',
-                globalActions: '=pipGlobalActions'
+                globalActions: '=pipGlobalActions',
+                partyAvatarUrl: '=pipPartyAvatarUrl'
             },
             replace: false,
             templateUrl: function (element, attr) {
