@@ -1,25 +1,3 @@
-/**
- * @file Registration of navigation WebUI controls
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
-
-(function () {
-    'use strict';
-
-    angular.module('pipNav', [        
-        'pipDropdown',
-        'pipTabs',
-
-        'pipAppBar',
-        'pipSideNav'
-    ]);
-    
-})();
-
-
-
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -303,17 +281,18 @@ module.run(['$templateCache', function($templateCache) {
     '    pip-focused>\n' +
     '\n' +
     '    <md-toolbar class="pip-sidenav-header"\n' +
-    '                ng-class="{\'pip-sidenav-owner\': $user.owner}"\n' +
-    '                md-theme="{{ $theme|| $user.theme || config.theme }}"\n' +
-    '                ng-hide="!$party">\n' +
+    '                ng-class="{\'pip-sidenav-owner\': getUser(\'owner\')}"\n' +
+    '                md-theme="{{ $theme|| getUser(\'theme\') || config.theme }}"\n' +
+    '                ng-hide="!getParty() && !primaryPartyAvatar && !secondaryPartyAvatar">\n' +
     '\n' +
     '            <md-button class="pip-sidenav-party md-icon-button"\n' +
     '                       ng-click="onPartyClick()"\n' +
     '                       aria-label="current party">\n' +
     '                <pip-avatar ng-if="!$avatarReset"\n' +
-    '                            pip-party-id="$party.id"\n' +
+    '                            pip-party-id="getParty(\'id\')"\n' +
     '                            pip-default-icon="icon-person"\n' +
-    '                            pip-party-name="$party.name"\n' +
+    '                            pip-party-name="getParty(\'name\')"\n' +
+    '                            pip-image-url="primaryPartyAvatar"\n' +
     '                            pip-rebind-avatar="true"\n' +
     '                            pip-rebind="true">\n' +
     '                </pip-avatar>\n' +
@@ -321,27 +300,28 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '            <md-button class="pip-sidenav-user md-icon-button"\n' +
     '                       ng-click="onUserClick()"\n' +
-    '                       ng-hide="$user.owner"\n' +
+    '                       ng-hide="getUser(\'owner\')"\n' +
     '                       aria-label="current user">\n' +
     '                <pip-avatar class="pic-pic pip-face-ld"\n' +
     '                            ng-if="!$avatarReset"\n' +
     '                            pip-default-icon="icon-person"\n' +
     '                            pip-rebind="true"\n' +
     '                            pip-rebind-avatar="true"\n' +
-    '                            pip-party-id="$user.id"\n' +
-    '                            pip-party-name="$user.name">\n' +
+    '                            pip-party-id="getUser(\'id\')"\n' +
+    '                            pip-party-name="getUser(\'name\')"\n' +
+    '                            pip-image-url="secondaryPartyAvatar">\n' +
     '                </pip-avatar>\n' +
     '            </md-button>\n' +
     '        \n' +
     '        <div class="pip-sidenav-party-text">\n' +
     '            <a class="pip-sidenav-party-pri cursor-pointer"\n' +
-    '                ng-click="onPartyClick()">{{$party.name}}</a>\n' +
+    '                ng-click="onPartyClick()">{{ partyName || getParty(\'name\')}}</a>\n' +
     '            <div class="pip-sidenav-party-sec"\n' +
-    '                ng-show="$connection && !$user.owner">\n' +
-    '                {{$connection.relation | translate}}\n' +
-    '                <span ng-show="$connection.relation_since">\n' +
+    '                ng-show="getConnection() && !getUser(\'owner\')">\n' +
+    '                {{getConnection(\'relation\') | translate}}\n' +
+    '                <span ng-show="getConnection(\'relation_since\')">\n' +
     '                    {{::\'SIDENAV_SINCE\' | translate}}\n' +
-    '                    {{$connection.relation_since | formatLongDate}}\n' +
+    '                    {{getConnection(\'relation_since\') | formatLongDate}}\n' +
     '                </span>\n' +
     '            </div>\n' +
     '        </div>\n' +
@@ -349,7 +329,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '    <md-list>\n' +
     '        <div class="pip-section" ng-repeat="section in config.sections"\n' +
-    '            ng-hide="section.access && !section.access($party, $user, section)">\n' +
+    '            ng-hide="section.access && !section.access(getParty(), getUser(), section)">\n' +
     '            \n' +
     '            <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
     '            <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
@@ -357,7 +337,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-list-item class="pip-focusable no-border" \n' +
     '                ng-repeat="link in section.links"\n' +
     '                ng-click="onLinkClick($event, link)"\n' +
-    '                ng-hide="link.access && !link.access($party, $user, link)">\n' +
+    '                ng-hide="link.access && !link.access(getParty(), getUser(), link)">\n' +
     '                <md-icon md-svg-icon="{{link.icon}}" \n' +
     '                    ng-hide="!link.icon" \n' +
     '                    class="tm0 bm0"></md-icon>\n' +
@@ -406,67 +386,26 @@ module.run(['$templateCache', function($templateCache) {
 })();
 
 /**
- * @file Dropdown control
+ * @file Registration of navigation WebUI controls
  * @copyright Digital Living Software Corp. 2014-2016
- *
  */
 
-/* global _, angular */
+/* global angular */
 
 (function () {
     'use strict';
 
-    var thisModule = angular.module("pipDropdown", ['pipAssert', 'pipNav.Templates']);
+    angular.module('pipNav', [        
+        'pipDropdown',
+        'pipTabs',
 
-    thisModule.directive('pipDropdown',
-        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
-            return {
-                restrict: 'E',
-                scope: {
-                    ngDisabled: '&',
-                    actions: '=pipActions',
-                    showDropdown: '&pipShow',
-                    activeIndex: '=pipActiveIndex',
-                    select: '=pipDropdownSelect'
-                },
-                templateUrl: 'dropdown/dropdown.html',
-                controller:
-                    ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
-                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                        pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
-                        $scope.$mdMedia = $mdMedia;
-                        $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
-                        $scope.activeIndex = $scope.activeIndex || 0;
-
-                        $scope.disabled = function () {
-                            if ($scope.ngDisabled()) {
-                                return $scope.ngDisabled();
-                            } else {
-                                return false;
-                            }
-                        };
-
-                        $scope.onSelect = function (index) {
-                            $scope.activeIndex = index;
-                            if ($scope.select) {
-                                $scope.select($scope.actions[index], $scope.activeIndex);
-                            }
-                        };
-
-                        $scope.show = function () {
-                            if ($scope.showDropdown()) {
-                                return $scope.showDropdown();
-                            } else {
-                                return true;
-                            }
-                        };
-
-                    }]
-            };
-        }]
-    );
-
+        'pipAppBar',
+        'pipSideNav'
+    ]);
+    
 })();
+
+
 
 /**
  * @file Application App Bar component
@@ -1149,6 +1088,69 @@ module.run(['$templateCache', function($templateCache) {
 })(window.angular, window._);
 
 /**
+ * @file Dropdown control
+ * @copyright Digital Living Software Corp. 2014-2016
+ *
+ */
+
+/* global _, angular */
+
+(function () {
+    'use strict';
+
+    var thisModule = angular.module("pipDropdown", ['pipAssert', 'pipNav.Templates']);
+
+    thisModule.directive('pipDropdown',
+        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
+            return {
+                restrict: 'E',
+                scope: {
+                    ngDisabled: '&',
+                    actions: '=pipActions',
+                    showDropdown: '&pipShow',
+                    activeIndex: '=pipActiveIndex',
+                    select: '=pipDropdownSelect'
+                },
+                templateUrl: 'dropdown/dropdown.html',
+                controller:
+                    ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
+                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                        pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+                        $scope.$mdMedia = $mdMedia;
+                        $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
+                        $scope.activeIndex = $scope.activeIndex || 0;
+
+                        $scope.disabled = function () {
+                            if ($scope.ngDisabled()) {
+                                return $scope.ngDisabled();
+                            } else {
+                                return false;
+                            }
+                        };
+
+                        $scope.onSelect = function (index) {
+                            $scope.activeIndex = index;
+                            if ($scope.select) {
+                                $scope.select($scope.actions[index], $scope.activeIndex);
+                            }
+                        };
+
+                        $scope.show = function () {
+                            if ($scope.showDropdown()) {
+                                return $scope.showDropdown();
+                            } else {
+                                return true;
+                            }
+                        };
+
+                    }]
+            };
+        }]
+    );
+
+})();
+
+/**
  * @file Application Side Nav component
  * @copyright Digital Living Software Corp. 2014-2016
  */
@@ -1177,7 +1179,11 @@ module.run(['$templateCache', function($templateCache) {
     thisModule.directive('pipSidenav', function() {
        return {
            restrict: 'EA',
-           scope: false,
+           scope: {
+               primaryPartyAvatar: '=pipPrimaryAvatar',
+               secondaryPartyAvatar: '=pipSecondaryAvatar',
+               partyName: '=pipName'
+           },
            replace: false,
            templateUrl: 'sidenav/sidenav.html',
            controller: 'pipSideNavController'
@@ -1202,10 +1208,47 @@ module.run(['$templateCache', function($templateCache) {
             $scope.onLinkClick = onLinkClick;
             $scope.isSectionEmpty = isSectionEmpty;
 
+            $scope.getParty = getParty;
+            $scope.getUser = getUser;
+            $scope.getConnection = getConnection;
+            
             return;
             
             //------------------------
 
+            function getParty(prop) {
+                if (!$rootScope.$party) {
+                    return;
+                }
+                if (prop) {
+                    return $rootScope.$party[prop];
+                }
+
+                return $rootScope.$party;
+            }
+
+            function getUser(prop) {
+                if (!$rootScope.$user) {
+                    return;
+                }
+                if (prop) {
+                    return $rootScope.$user[prop];
+                }
+
+                return $rootScope.$user;
+            }
+            
+            function getConnection(prop) {
+                if (!$rootScope.$connection) {
+                    return;
+                }
+                if (prop) {
+                    return $rootScope.$connection[prop];
+                }
+
+                return $rootScope.$connection;
+            }
+            
             function itemVisible(item) {
                 return item && item.access && !item.access($rootScope.$party, $rootScope.$user, item);
             }
