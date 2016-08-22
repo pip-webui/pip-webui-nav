@@ -27,7 +27,11 @@
     thisModule.directive('pipSidenav', function() {
        return {
            restrict: 'EA',
-           scope: false,
+           scope: {
+               primaryPartyAvatar: '=pipPrimaryAvatar',
+               secondaryPartyAvatar: '=pipSecondaryAvatar',
+               partyName: '=pipName'
+           },
            replace: false,
            templateUrl: 'sidenav/sidenav.html',
            controller: 'pipSideNavController'
@@ -52,10 +56,47 @@
             $scope.onLinkClick = onLinkClick;
             $scope.isSectionEmpty = isSectionEmpty;
 
+            $scope.getParty = getParty;
+            $scope.getUser = getUser;
+            $scope.getConnection = getConnection;
+            
             return;
             
             //------------------------
 
+            function getParty(prop) {
+                if (!$rootScope.$party) {
+                    return;
+                }
+                if (prop) {
+                    return $rootScope.$party[prop];
+                }
+
+                return $rootScope.$party;
+            }
+
+            function getUser(prop) {
+                if (!$rootScope.$user) {
+                    return;
+                }
+                if (prop) {
+                    return $rootScope.$user[prop];
+                }
+
+                return $rootScope.$user;
+            }
+            
+            function getConnection(prop) {
+                if (!$rootScope.$connection) {
+                    return;
+                }
+                if (prop) {
+                    return $rootScope.$connection[prop];
+                }
+
+                return $rootScope.$connection;
+            }
+            
             function itemVisible(item) {
                 return item && item.access && !item.access($rootScope.$party, $rootScope.$user, item);
             }
