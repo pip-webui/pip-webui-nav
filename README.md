@@ -33,42 +33,43 @@ pipSideNavProvider.sections([
 ]);
 ```
 
-<a href="doc/images/img-side-nav.png" style="border: 3px ridge #c8d2df; display: block">
-    <img src="doc/images/img-side-nav.png"/>
+<a href="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-side-nav.png" style="border: 3px ridge #c8d2df; display: block">
+    <img src="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-side-nav.png"/>
 </a>
 
 ### Application bar
 
-**Appbar** similar to **Sidenav** has a complex structure that if defined by configuration. It contains menu icon, title that can be turned into breadcrumb, primary actions on the bar and secondary actions hidden in popup menu.
+**Appbar** similar to **Sidenav** has a complex structure that if defined by configuration. 
+It contains menu icon, title that can be turned into breadcrumb, primary actions on the bar and secondary actions hidden in popup menu.
 
-<a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+<a href="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-app-bar.png"/>
 </a>
 
 ### Navigation tabs
 
 **Navigation tabs** are similar to regular tabs. But they contain links and turn into **Navigation dropdown** on smaller screens.
 
-<a href="doc/images/img-tabs.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-tabs.png"/>
+<a href="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-tabs.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-tabs.png"/>
 </a>
 
 ### Navigation dropdown
 
 **Navigation dropdown** control is places at the top of the page, properly styled and contains navigation links
 
-<a href="doc/images/img-dropdown.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-dropdown.png"/>
+<a href="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-dropdown.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="https://github.com/pip-webui/pip-webui-nav/raw/master/doc/images/img-dropdown.png"/>
 </a>
 
 
 ## Learn more about the module
 
-- [User's guide](doc/UsersGuide.md)
+- [User's guide](https://github.com/pip-webui/pip-webui-nav/blob/master/doc/UsersGuide.md)
 - [Online samples](http://webui.pipdevs.com/pip-webui-nav/index.html)
 - [API reference](http://webui-api.pipdevs.com/pip-webui-nav/index.html)
-- [Developer's guide](doc/DevelopersGuide.md)
-- [Changelog](CHANGELOG.md)
+- [Developer's guide](https://github.com/pip-webui/pip-webui-nav/blob/master/doc/DevelopersGuide.md)
+- [Changelog](https://github.com/pip-webui/pip-webui-nav/blob/master/CHANGELOG.md)
 - [Pip.WebUI project website](http://www.pipwebui.org)
 - [Pip.WebUI project wiki](https://github.com/pip-webui/pip-webui/wiki)
 - [Pip.WebUI discussion forum](https://groups.google.com/forum/#!forum/pip-webui)
