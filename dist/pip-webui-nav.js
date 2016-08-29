@@ -1,21 +1,24 @@
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dropdown/dropdown.html',
-    '<md-content class="md-subhead md-hue-1 {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
-    '    <div class="pip-divider position-top m0"></div>\n' +
-    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
-    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
-    '                {{ (action.title || action.name) | translate }}\n' +
-    '            </md-option>\n' +
-    '        </md-select>\n' +
-    '</md-content>');
-}]);
+/**
+ * @file Registration of navigation WebUI controls
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+/* global angular */
+
+(function () {
+    'use strict';
+
+    angular.module('pipNav', [        
+        'pipDropdown',
+        'pipTabs',
+
+        'pipAppBar',
+        'pipSideNav'
+    ]);
+    
 })();
+
+
 
 (function(module) {
 try {
@@ -270,6 +273,25 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dropdown/dropdown.html',
+    '<md-content class="md-subhead md-hue-1 {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
+    '    <div class="pip-divider position-top m0"></div>\n' +
+    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
+    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
+    '                {{ (action.title || action.name) | translate }}\n' +
+    '            </md-option>\n' +
+    '        </md-select>\n' +
+    '</md-content>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('sidenav/sidenav.html',
     '<!--\n' +
     '@file Side Nav component\n' +
@@ -385,28 +407,6 @@ module.run(['$templateCache', function($templateCache) {
     '');
 }]);
 })();
-
-/**
- * @file Registration of navigation WebUI controls
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
-
-(function () {
-    'use strict';
-
-    angular.module('pipNav', [        
-        'pipDropdown',
-        'pipTabs',
-
-        'pipAppBar',
-        'pipSideNav'
-    ]);
-    
-})();
-
-
 
 /**
  * @file Application App Bar component
