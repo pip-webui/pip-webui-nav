@@ -95,6 +95,7 @@
             $scope.openMenu = openMenu;
 
             function onLogoState(state) {
+                if(state)
                 $state.go(state);
             }
             
