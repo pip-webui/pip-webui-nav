@@ -32,7 +32,8 @@
         <!-- Title -->            
         <div class="flex-var text-overflow">
             <!-- Logo -->
-            <img class="pip-appbar-logo" 
+            <img class="pip-appbar-logo"
+                 ng-click="onLogoState(config.logoState)"
                 ng-if="config.titleType == 'logo'"
                 ng-src="{{config.titleLogo}}"/>
                 

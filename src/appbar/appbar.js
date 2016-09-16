@@ -87,12 +87,17 @@
             $scope.onSearchClick = onSearchClick;
             $scope.onSearchClear = onSearchClear;
             $scope.onSearchKeyDown = onSearchKeyDown;
+            $scope.onLogoState = onLogoState;
 
             $scope.getParty = getParty;
             $scope.getUser = getUser;
 
             $scope.openMenu = openMenu;
 
+            function onLogoState(state) {
+                $state.go(state);
+            }
+            
             function openMenu($mdOpenMenu, ev) {
                 $scope.originatorEv = ev;
                 $mdOpenMenu(ev);

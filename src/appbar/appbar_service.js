@@ -17,6 +17,7 @@
             theme: 'blue',
             cssClass: '',
             ngClasses: {},
+            logoState: null,
 
             // Type of nav icon: 'back', 'menu' or 'none'
             navIconType: 'none',
@@ -62,6 +63,8 @@
         this.appTitleText = appTitleText;
         this.appTitleLogo = appTitleLogo;
         this.theme = theme;
+        this.logoState = logoState;
+        this.setLogoState = setLogoState;
         this.globalActions = globalActions;
         this.globalPrimaryActions = globalPrimaryActions;
         this.globalSecondaryActions = globalSecondaryActions;
@@ -71,6 +74,9 @@
             return {
                 config: getConfig,
                 cssClass: cssClass,
+                
+                logoState:logoState,
+                setLogoState: setLogoState,
 
                 hideNavIcon: hideNavIcon,
                 showMenuNavIcon: showMenuNavIcon,
@@ -100,6 +106,14 @@
             };
             // ----------------------
 
+            function setLogoState(logoState) {
+                config.logoState = logoState;
+            }
+            
+            function logoState() {
+                return config.logoState;
+            }
+            
             function getConfig() {
                 return config;
             }

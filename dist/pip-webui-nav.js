@@ -1,25 +1,3 @@
-/**
- * @file Registration of navigation WebUI controls
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
-
-(function () {
-    'use strict';
-
-    angular.module('pipNav', [        
-        'pipDropdown',
-        'pipTabs',
-
-        'pipAppBar',
-        'pipSideNav'
-    ]);
-    
-})();
-
-
-
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -62,7 +40,8 @@ module.run(['$templateCache', function($templateCache) {
     '        <!-- Title -->            \n' +
     '        <div class="flex-var text-overflow">\n' +
     '            <!-- Logo -->\n' +
-    '            <img class="pip-appbar-logo" \n' +
+    '            <img class="pip-appbar-logo"\n' +
+    '                 ng-click="onLogoState(config.logoState)"\n' +
     '                ng-if="config.titleType == \'logo\'"\n' +
     '                ng-src="{{config.titleLogo}}"/>\n' +
     '                \n' +
@@ -409,6 +388,91 @@ module.run(['$templateCache', function($templateCache) {
 })();
 
 /**
+ * @file Registration of navigation WebUI controls
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+/* global angular */
+
+(function () {
+    'use strict';
+
+    angular.module('pipNav', [        
+        'pipDropdown',
+        'pipTabs',
+
+        'pipAppBar',
+        'pipSideNav'
+    ]);
+    
+})();
+
+
+
+/**
+ * @file Dropdown control
+ * @copyright Digital Living Software Corp. 2014-2016
+ *
+ */
+
+/* global _, angular */
+
+(function () {
+    'use strict';
+
+    var thisModule = angular.module("pipDropdown", ['pipAssert', 'pipNav.Templates']);
+
+    thisModule.directive('pipDropdown',
+        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
+            return {
+                restrict: 'E',
+                scope: {
+                    ngDisabled: '&',
+                    actions: '=pipActions',
+                    showDropdown: '&pipShow',
+                    activeIndex: '=pipActiveIndex',
+                    select: '=pipDropdownSelect'
+                },
+                templateUrl: 'dropdown/dropdown.html',
+                controller:
+                    ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
+                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                        pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+                        $scope.$mdMedia = $mdMedia;
+                        $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
+                        $scope.activeIndex = $scope.activeIndex || 0;
+
+                        $scope.disabled = function () {
+                            if ($scope.ngDisabled()) {
+                                return $scope.ngDisabled();
+                            } else {
+                                return false;
+                            }
+                        };
+
+                        $scope.onSelect = function (index) {
+                            $scope.activeIndex = index;
+                            if ($scope.select) {
+                                $scope.select($scope.actions[index], $scope.activeIndex);
+                            }
+                        };
+
+                        $scope.show = function () {
+                            if ($scope.showDropdown()) {
+                                return $scope.showDropdown();
+                            } else {
+                                return true;
+                            }
+                        };
+
+                    }]
+            };
+        }]
+    );
+
+})();
+
+/**
  * @file Application App Bar component
  * @copyright Digital Living Software Corp. 2014-2016
  */
@@ -497,12 +561,17 @@ module.run(['$templateCache', function($templateCache) {
             $scope.onSearchClick = onSearchClick;
             $scope.onSearchClear = onSearchClear;
             $scope.onSearchKeyDown = onSearchKeyDown;
+            $scope.onLogoState = onLogoState;
 
             $scope.getParty = getParty;
             $scope.getUser = getUser;
 
             $scope.openMenu = openMenu;
 
+            function onLogoState(state) {
+                $state.go(state);
+            }
+            
             function openMenu($mdOpenMenu, ev) {
                 $scope.originatorEv = ev;
                 $mdOpenMenu(ev);
@@ -777,6 +846,7 @@ module.run(['$templateCache', function($templateCache) {
             theme: 'blue',
             cssClass: '',
             ngClasses: {},
+            logoState: null,
 
             // Type of nav icon: 'back', 'menu' or 'none'
             navIconType: 'none',
@@ -822,6 +892,8 @@ module.run(['$templateCache', function($templateCache) {
         this.appTitleText = appTitleText;
         this.appTitleLogo = appTitleLogo;
         this.theme = theme;
+        this.logoState = logoState;
+        this.setLogoState = setLogoState;
         this.globalActions = globalActions;
         this.globalPrimaryActions = globalPrimaryActions;
         this.globalSecondaryActions = globalSecondaryActions;
@@ -831,6 +903,9 @@ module.run(['$templateCache', function($templateCache) {
             return {
                 config: getConfig,
                 cssClass: cssClass,
+                
+                logoState:logoState,
+                setLogoState: setLogoState,
 
                 hideNavIcon: hideNavIcon,
                 showMenuNavIcon: showMenuNavIcon,
@@ -860,6 +935,14 @@ module.run(['$templateCache', function($templateCache) {
             };
             // ----------------------
 
+            function setLogoState(logoState) {
+                config.logoState = logoState;
+            }
+            
+            function logoState() {
+                return config.logoState;
+            }
+            
             function getConfig() {
                 return config;
             }
@@ -1087,69 +1170,6 @@ module.run(['$templateCache', function($templateCache) {
     });
 
 })(window.angular, window._);
-
-/**
- * @file Dropdown control
- * @copyright Digital Living Software Corp. 2014-2016
- *
- */
-
-/* global _, angular */
-
-(function () {
-    'use strict';
-
-    var thisModule = angular.module("pipDropdown", ['pipAssert', 'pipNav.Templates']);
-
-    thisModule.directive('pipDropdown',
-        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
-            return {
-                restrict: 'E',
-                scope: {
-                    ngDisabled: '&',
-                    actions: '=pipActions',
-                    showDropdown: '&pipShow',
-                    activeIndex: '=pipActiveIndex',
-                    select: '=pipDropdownSelect'
-                },
-                templateUrl: 'dropdown/dropdown.html',
-                controller:
-                    ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
-                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                        pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
-                        $scope.$mdMedia = $mdMedia;
-                        $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
-                        $scope.activeIndex = $scope.activeIndex || 0;
-
-                        $scope.disabled = function () {
-                            if ($scope.ngDisabled()) {
-                                return $scope.ngDisabled();
-                            } else {
-                                return false;
-                            }
-                        };
-
-                        $scope.onSelect = function (index) {
-                            $scope.activeIndex = index;
-                            if ($scope.select) {
-                                $scope.select($scope.actions[index], $scope.activeIndex);
-                            }
-                        };
-
-                        $scope.show = function () {
-                            if ($scope.showDropdown()) {
-                                return $scope.showDropdown();
-                            } else {
-                                return true;
-                            }
-                        };
-
-                    }]
-            };
-        }]
-    );
-
-})();
 
 /**
  * @file Application Side Nav component
