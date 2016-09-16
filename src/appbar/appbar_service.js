@@ -63,8 +63,6 @@
         this.appTitleText = appTitleText;
         this.appTitleLogo = appTitleLogo;
         this.theme = theme;
-        this.logoState = logoState;
-        this.setLogoState = setLogoState;
         this.globalActions = globalActions;
         this.globalPrimaryActions = globalPrimaryActions;
         this.globalSecondaryActions = globalSecondaryActions;
