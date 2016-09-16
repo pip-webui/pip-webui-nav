@@ -106,6 +106,7 @@
 
             function setLogoState(logoState) {
                 config.logoState = logoState;
+                return config.logoState;
             }
             
             function logoState() {
