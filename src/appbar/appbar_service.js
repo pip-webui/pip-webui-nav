@@ -212,7 +212,7 @@
                 config.titleText = titleText;
                 config.titleBreadcrumb = titleBreadcrumb;
                 if (titleBreadcrumb.length > 0) {
-                    config.navIconType = config.navIconType === 'none' ? 'back' : config.navIconType;
+                    config.navIconType = config.navIconType === 'none' ? 'none' : config.navIconType;
                     config.navIconCallback = titleBreadcrumb[titleBreadcrumb.length - 1];
                 } else {
                     config.navIconType = 'menu';
