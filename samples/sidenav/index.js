@@ -2,7 +2,7 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('app', ['pipCore', 'pipSideNav', 'ngMaterial']);
+    var thisModule = angular.module('app', ['pipCore', 'pipSideNav', 'ngMaterial', 'pipDateTimes']);
 
     thisModule.config(function (pipSideNavProvider, $mdIconProvider, pipTranslateProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);

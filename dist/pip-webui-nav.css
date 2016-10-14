@@ -363,12 +363,6 @@ md-content md-option .md-text .pip-tabs-badge {
   margin: 0px;
   padding: 0px;
 }
-.pip-sidenav .pip-sidenav-header .pip-sidenav-party pip-avatar {
-  width: 80px;
-  height: 80px;
-  height: 80px !important;
-  border-radius: 40px;
-}
 .pip-sidenav .pip-sidenav-header .pip-sidenav-user {
   display: inline-block;
   position: absolute;
@@ -379,12 +373,6 @@ md-content md-option .md-text .pip-tabs-badge {
   height: 50px;
   margin: 0px;
   padding: 0px;
-}
-.pip-sidenav .pip-sidenav-header .pip-sidenav-user pip-avatar {
-  width: 50px;
-  height: 50px;
-  height: 50px !important;
-  border-radius: 25px;
 }
 .pip-sidenav .pip-sidenav-party-text .pip-sidenav-party-pri {
   display: block;

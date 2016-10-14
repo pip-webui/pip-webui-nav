@@ -1,3 +1,25 @@
+/**
+ * @file Registration of navigation WebUI controls
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+/* global angular */
+
+(function () {
+    'use strict';
+
+    angular.module('pipNav', [        
+        'pipDropdown',
+        'pipTabs',
+
+        'pipAppBar',
+        'pipSideNav'
+    ]);
+    
+})();
+
+
+
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -25,13 +47,13 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon ng-if="config.navIconType==\'menu\' && (!getParty() || getUser(\'owner\'))"\n' +
     '                md-svg-icon="icons:menu"></md-icon>\n' +
     '            <!-- Party avatar -->\n' +
-    '            <pip-avatar ng-if="config.navIconType==\'menu\' && (getParty() && !getUser(\'owner\'))"\n' +
+    '            <!--<pip-avatar ng-if="config.navIconType==\'menu\' && (getParty() && !getUser(\'owner\'))"\n' +
     '                        pip-rebind-avatar="true"\n' +
     '                        pip-rebind="true"\n' +
     '                        pip-image-url="partyAvatarUrl"\n' +
     '                        pip-party-id="getParty(\'id\')" class="pip-face"\n' +
     '                        pip-party-name="getParty(\'name\')">\n' +
-    '            </pip-avatar>\n' +
+    '            </pip-avatar>-->\n' +
     '            <!-- Back icon -->\n' +
     '            <md-icon ng-if="config.navIconType==\'back\'"\n' +
     '                md-svg-icon="icons:arrow-left"></md-icon>\n' +
@@ -271,6 +293,40 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('tabs/tabs.html',
+    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}">\n' +
+    '    <md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true">\n' +
+    '        <md-tab ng-repeat="tab in tabs track by $index"  ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)">\n' +
+    '            <md-tab-label>\n' +
+    '                {{ ::tab.nameLocal }}\n' +
+    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div>\n' +
+    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>\n' +
+    '            </md-tab-label>\n' +
+    '        </md-tab>\n' +
+    '    </md-tabs>\n' +
+    '    <md-content class="md-subhead color-primary-bg md-hue-1 " ng-if="$mdMedia(\'xs\')">\n' +
+    '        <div class="pip-divider position-top m0"></div>\n' +
+    '        <md-select ng-model="activeIndex" ng-disabled="disabled()"\n' +
+    '                   md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple md-on-close="onSelect(activeIndex)">\n' +
+    '            <md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}" >\n' +
+    '                {{ ::tab.nameLocal }}\n' +
+    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div>\n' +
+    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>\n' +
+    '            </md-option>\n' +
+    '        </md-select>\n' +
+    '    </md-content>\n' +
+    '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('sidenav/sidenav.html',
     '<!--\n' +
     '@file Side Nav component\n' +
@@ -290,21 +346,21 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-button class="pip-sidenav-party md-icon-button"\n' +
     '                       ng-click="onPartyClick()"\n' +
     '                       aria-label="current party">\n' +
-    '                <pip-avatar ng-if="!$avatarReset"\n' +
+    '                <!--<pip-avatar ng-if="!$avatarReset"\n' +
     '                            pip-party-id="getParty(\'id\')"\n' +
     '                            pip-default-icon="icon-person"\n' +
     '                            pip-party-name="getParty(\'name\')"\n' +
     '                            pip-image-url="primaryPartyAvatar"\n' +
     '                            pip-rebind-avatar="true"\n' +
     '                            pip-rebind="true">\n' +
-    '                </pip-avatar>\n' +
+    '                </pip-avatar>-->\n' +
     '            </md-button>\n' +
     '\n' +
     '            <md-button class="pip-sidenav-user md-icon-button"\n' +
     '                       ng-click="onUserClick()"\n' +
     '                       ng-hide="getUser(\'owner\')"\n' +
     '                       aria-label="current user">\n' +
-    '                <pip-avatar class="pic-pic pip-face-ld"\n' +
+    '                <!--<pip-avatar class="pic-pic pip-face-ld"\n' +
     '                            ng-if="!$avatarReset"\n' +
     '                            pip-default-icon="icon-person"\n' +
     '                            pip-rebind="true"\n' +
@@ -312,7 +368,7 @@ module.run(['$templateCache', function($templateCache) {
     '                            pip-party-id="getUser(\'id\')"\n' +
     '                            pip-party-name="getUser(\'name\')"\n' +
     '                            pip-image-url="secondaryPartyAvatar">\n' +
-    '                </pip-avatar>\n' +
+    '                </pip-avatar>-->\n' +
     '            </md-button>\n' +
     '        \n' +
     '        <div class="pip-sidenav-party-text">\n' +
@@ -352,62 +408,6 @@ module.run(['$templateCache', function($templateCache) {
     '');
 }]);
 })();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('tabs/tabs.html',
-    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}">\n' +
-    '    <md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true">\n' +
-    '        <md-tab ng-repeat="tab in tabs track by $index"  ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)">\n' +
-    '            <md-tab-label>\n' +
-    '                {{ ::tab.nameLocal }}\n' +
-    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div>\n' +
-    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>\n' +
-    '            </md-tab-label>\n' +
-    '        </md-tab>\n' +
-    '    </md-tabs>\n' +
-    '    <md-content class="md-subhead color-primary-bg md-hue-1 " ng-if="$mdMedia(\'xs\')">\n' +
-    '        <div class="pip-divider position-top m0"></div>\n' +
-    '        <md-select ng-model="activeIndex" ng-disabled="disabled()"\n' +
-    '                   md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple md-on-close="onSelect(activeIndex)">\n' +
-    '            <md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}" >\n' +
-    '                {{ ::tab.nameLocal }}\n' +
-    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div>\n' +
-    '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>\n' +
-    '            </md-option>\n' +
-    '        </md-select>\n' +
-    '    </md-content>\n' +
-    '</md-toolbar>\n' +
-    '');
-}]);
-})();
-
-/**
- * @file Registration of navigation WebUI controls
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
-
-(function () {
-    'use strict';
-
-    angular.module('pipNav', [        
-        'pipDropdown',
-        'pipTabs',
-
-        'pipAppBar',
-        'pipSideNav'
-    ]);
-    
-})();
-
-
 
 /**
  * @file Application App Bar component

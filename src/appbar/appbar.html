@@ -17,13 +17,13 @@
             <md-icon ng-if="config.navIconType=='menu' && (!getParty() || getUser('owner'))"
                 md-svg-icon="icons:menu"></md-icon>
             <!-- Party avatar -->
-            <pip-avatar ng-if="config.navIconType=='menu' && (getParty() && !getUser('owner'))"
+            <!--<pip-avatar ng-if="config.navIconType=='menu' && (getParty() && !getUser('owner'))"
                         pip-rebind-avatar="true"
                         pip-rebind="true"
                         pip-image-url="partyAvatarUrl"
                         pip-party-id="getParty('id')" class="pip-face"
                         pip-party-name="getParty('name')">
-            </pip-avatar>
+            </pip-avatar>-->
             <!-- Back icon -->
             <md-icon ng-if="config.navIconType=='back'"
                 md-svg-icon="icons:arrow-left"></md-icon>
