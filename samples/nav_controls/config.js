@@ -6,13 +6,13 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('pipSampleConfig', ['pipRest.State', 'pipRest', 'pipSideNav',
+    var thisModule = angular.module('pipSampleConfig', ['pipState', 'pipSideNav',
         'pipAppBar']);
 
     // Configure application services before start
     thisModule.config(
         function ($mdThemingProvider, $stateProvider, $urlRouterProvider, pipAuthStateProvider, pipTranslateProvider,
-                  pipRestProvider, pipSideNavProvider, pipAppBarProvider, $mdIconProvider) {
+                  pipSideNavProvider, pipAppBarProvider, $mdIconProvider) {
 
             var content = [
                     {title: 'Dropdown', state: 'dropdown', url: '/dropdown', controller: 'DropdownController',
