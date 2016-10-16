@@ -1,0 +1,13 @@
+<md-menu md-position-mode="target-right target">
+    <span class="pip-language"
+        ng-click="$mdOpenMenu()"
+        aria-label="language selection">
+        {{language() | translate}}
+        <md-icon md-svg-icon="icons:triangle-down"></md-icon>
+    </span>
+    <md-menu-content width="3">
+        <md-menu-item ng-repeat="lang in config.languages">
+            <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

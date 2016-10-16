@@ -1,0 +1,18 @@
+<md-list>
+    <div class="pip-section" ng-repeat="section in config"
+        ng-hide="section.access && !section.access(section)">
+        
+        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
+        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>
+        
+        <md-list-item class="pip-focusable no-border" 
+            ng-repeat="link in section.links"
+            ng-click="onLinkClick($event, link)"
+            ng-hide="link.access && !link.access(link)">
+            <md-icon md-svg-icon="{{link.icon}}" 
+                ng-hide="!link.icon" 
+                class="tm0 bm0"></md-icon>
+            <p>{{::link.title | translate}}</p>
+        </md-list-item>
+    </div>
+</md-list>

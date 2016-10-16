@@ -1,0 +1,24 @@
+// @file CSS styles for application Search Bar component
+// @copyright Digital Living Software Corp. 2014-2016
+
+.pip-search-bar {
+
+    .pip-search-text {
+      color: #fff !important;
+      background-color: transparent;
+      border: none;
+      font-size: 16px;
+      outline: none;
+
+      &::-ms-clear {
+        display: none;
+      }
+      
+      &::-webkit-search-cancel-button {
+        /* псевдо что-то, что отвечает за кнопку очистки */
+        -webkit-appearance: none; /* без сброса оформление не применится */
+      }
+    }
+
+}
+

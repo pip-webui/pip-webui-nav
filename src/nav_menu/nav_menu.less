@@ -1,0 +1,69 @@
+// @file CSS styles for application Navigation Menu component
+// @copyright Digital Living Software Corp. 2014-2016
+
+// Section
+//-------------------------------------------
+
+// @nav-menu-section-font-size:              @font-size-body1;
+// @nav-menu-section-color:                  @color-secondary;
+// @nav-menu-section-font-family:            @font-family;
+// @nav-menu-section-line-height:            1em;
+
+// Link // Kate add
+//-------------------------------------------
+
+// @nav-menu-link-font-size:                 @font-size-body2;
+// @nav-menu-link-color:                     @color-primary;
+// @nav-menu-link-font-family:               @font-family;
+// @nav-menu-link-line-height:               1em;
+
+
+// Sizes
+//-----------
+
+@nav-menu-width: 320px;
+@nav-menu-padding: 24px;
+
+@nav-menu-width-sm: 300px;
+@nav-menu-padding-sm: 16px;
+
+
+.pip-nav-menu {
+
+    md-list-item .md-button {
+        .md-list-item-inner {
+            line-height: 48px;
+        }
+    }
+
+    .md-subheader {
+        line-height: 48px;
+        .md-subheader-inner {
+            padding: 24px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    .pip-section {
+        padding-bottom: 8px;
+        md-divider {
+            margin-bottom: 8px;
+        }
+    }
+    
+	md-list-item .md-button {
+		padding-left: @nav-menu-padding;
+		padding-right: @nav-menu-padding;
+		.border-radius(0px);
+	}	
+}
+
+@media (max-width: 768px) {
+   .pip-nav-menu {
+		md-list-item .md-button {
+			padding-left: @nav-menu-padding-sm;
+			padding-right: @nav-menu-padding-sm;
+		}	
+    }
+}

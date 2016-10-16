@@ -1,0 +1,43 @@
+<div>
+    <div class="hide-xs text-overflow">
+        <!-- Search criteria -->
+        <span ng-if="config.criteria"
+            ng-click="onSearchEnable()">{{config.criteria}} -</span>
+        <!-- Breadcrumb navigation -->
+        <span class="pip-breadcrumb-item"
+            ng-repeat-start="item in config.titleBreadcrumb"
+            ng-click="onBreadcrumbClick(item)"
+            ng-init="stepWidth = 100/(config.titleBreadcrumb.length + 1)"
+            ng-style="{'max-width': stepWidth + '%'}">
+            {{item.title | translate}}
+        </span>
+        <md-icon ng-repeat-end md-svg-icon="icons:chevron-right"></md-icon>
+        <!-- Text title -->
+        <span class="pip-title">{{config.text | translate}}</span>
+    </div>
+
+    <!-- Mobile breadcrumb dropdown -->
+    <md-menu xmd-offset="0 48" class="hide-gt-xs">
+        <span class="pip-mobile-breadcrumb layout-row"
+            ng-click="$mdOpenMenu()"
+            md-ink-ripple
+            aria-label="open breadcrumb">
+            <span class="text-overflow">
+                <!-- Search criteria -->
+                <span ng-if="config.criteria"
+                    ng-click="onSearchEnable()">{{config.criteria}} -</span>
+                {{config.text | translate}}
+            </span>
+            <md-icon class="m0 flex-none" md-svg-icon="icons:triangle-down"></md-icon>
+        </span>
+        <md-menu-content width="3">
+            <md-menu-item  ng-repeat="item in config.items" >
+                <md-button ng-click="onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>
+            </md-menu-item>
+            <md-menu-item  >
+                <md-button><span class="text-grey">{{config.text | translate}}</span></md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+
+</div>

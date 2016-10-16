@@ -1,0 +1,20 @@
+<md-button class="md-icon-button flex-fixed p0"
+            ng-if="config.type != 'none'"
+            ng-class="config.class"
+            ng-click="onNavIconClick()"
+            aria-label="menu">
+    <!-- Menu icon -->
+    <md-icon ng-if="config.type=='menu'"
+        md-svg-icon="icons:menu"></md-icon>
+    <!-- Image -->
+    <!--<pip-avatar ng-if="config.navIconType=='menu' && (getParty() && !getUser('owner'))"
+                pip-rebind-avatar="true"
+                pip-rebind="true"
+                pip-image-url="partyAvatarUrl"
+                pip-party-id="getParty('id')" class="pip-face"
+                pip-party-name="getParty('name')">
+    </pip-avatar>-->
+    <!-- Back icon -->
+    <md-icon ng-if="config.type=='back'"
+        md-svg-icon="icons:arrow-left"></md-icon>
+</md-button>

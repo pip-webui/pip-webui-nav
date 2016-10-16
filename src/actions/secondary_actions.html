@@ -1,0 +1,35 @@
+<md-menu ng-if="secondaryActionsVisible()"
+    md-position-mode="target-right target">
+    <md-button class="md-icon-button m0"
+        ng-click="onSecondaryActionClick(); openMenu($mdOpenMenu, $event);"
+        aria-label="open actions">
+        <md-icon md-svg-icon="icons:vdots"></md-icon>
+    </md-button>
+    <md-menu-content width="3">
+        <!-- Local secondary actions -->
+        <md-menu-item ng-repeat-start="action in config.secondaryLocalActions"
+            ng-if="!action.divider"
+            ng-hide="actionHidden(action)">
+            <md-button ng-hide="action.divider"
+                ng-click="onActionClick(action)">
+                {{action.title | translate}}
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="action.divider" ng-repeat-end></md-menu-divider>
+
+        <md-menu-divider ng-if="secondaryDividerVisible()" >
+
+        </md-menu-divider>
+        <!-- Global secondary actions -->
+        <md-menu-item ng-repeat-start="action in config.secondaryGlobalActions"
+            ng-if="!action.divider"
+            ng-hide="actionHidden(action)">
+            <md-button ng-hide="action.divider"
+                ng-click="onActionClick(action)">
+                {{action.title | translate}}
+            </md-button>                    
+        </md-menu-item>
+        <md-menu-divider ng-if="action.divider" ng-repeat-end>
+        </md-menu-divider>                        
+    </md-menu-content>
+</md-menu>
