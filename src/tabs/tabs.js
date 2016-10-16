@@ -25,14 +25,14 @@
                 },
                 templateUrl: 'tabs/tabs.html',
                 controller:
-                    function ($scope, $element, $attrs, $mdMedia, localStorageService, $inject) {
+                    function ($scope, $element, $attrs, $mdMedia, localStorageService, $injector) {
                         // Todo: Remove dependency on local storage or made it optional
                         $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
                         pipAssert.isArray($scope.tabs, 'pipTabs: pipTabs attribute should take an array');
                         $scope.$mdMedia = $mdMedia;
                         $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
 
-                        var pipTranslate = $inject.has('pipTranslate') ? $inject.get('pipTranslate') : null;
+                        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
                         if (pipTranslate) {
                             if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
                                 pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');

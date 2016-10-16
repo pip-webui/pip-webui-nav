@@ -358,6 +358,25 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dropdown/dropdown.html',
+    '<md-content class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
+    '    <div class="pip-divider position-top m0"></div>\n' +
+    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
+    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
+    '                {{ (action.title || action.name) | translate }}\n' +
+    '            </md-option>\n' +
+    '        </md-select>\n' +
+    '</md-content>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('breadcrumb/breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
@@ -403,25 +422,6 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '</div>\n' +
     '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dropdown/dropdown.html',
-    '<md-content class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
-    '    <div class="pip-divider position-top m0"></div>\n' +
-    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
-    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
-    '                {{ (action.title || action.name) | translate }}\n' +
-    '            </md-option>\n' +
-    '        </md-select>\n' +
-    '</md-content>');
 }]);
 })();
 
@@ -492,36 +492,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_icon/nav_icon.html',
     '<md-button class="md-icon-button flex-fixed p0"\n' +
     '            ng-if="config.type != \'none\'"\n' +
@@ -554,23 +524,25 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('search_bar/search_bar.html',
-    '<div class="md-toolbar-tools layout-row" ng-if="searchEnabled">\n' +
-    '    <md-button class="md-icon-button" \n' +
-    '        aria-label="start search" \n' +
-    '        ng-click="onSearchClick()">\n' +
-    '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
-    '    </md-button>\n' +
-    '    <input class="pip-search-text flex"\n' +
-    '        type="search"\n' +
-    '        ng-model="search.text" \n' +
-    '        ng-keydown="onSearchKeyDown($event)" />\n' +
-    '    <md-button class="md-icon-button" \n' +
-    '        aria-label="clear search" \n' +
-    '        ng-click="onSearchClear()">\n' +
-    '        <md-icon md-svg-icon="icons:cross-circle"></md-icon>\n' +
-    '    </md-button>\n' +
-    '</div>\n' +
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();
@@ -660,6 +632,34 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-list>\n' +
     '\n' +
     '</md-sidenav>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('search_bar/search_bar.html',
+    '<div class="md-toolbar-tools layout-row" ng-if="searchEnabled">\n' +
+    '    <md-button class="md-icon-button" \n' +
+    '        aria-label="start search" \n' +
+    '        ng-click="onSearchClick()">\n' +
+    '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <input class="pip-search-text flex"\n' +
+    '        type="search"\n' +
+    '        ng-model="search.text" \n' +
+    '        ng-keydown="onSearchKeyDown($event)" />\n' +
+    '    <md-button class="md-icon-button" \n' +
+    '        aria-label="clear search" \n' +
+    '        ng-click="onSearchClear()">\n' +
+    '        <md-icon md-svg-icon="icons:cross-circle"></md-icon>\n' +
+    '    </md-button>\n' +
+    '</div>\n' +
     '');
 }]);
 })();
@@ -1099,6 +1099,29 @@ module.run(['$templateCache', function($templateCache) {
     );
 
 })(window.angular, window._, window.jQuery);
+
+/**
+ * @file Optional filter to translate string resources
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+ 
+/* global angular */
+
+(function () {
+    'use strict';
+
+    var thisModule = angular.module('pipNav.Translate', []);
+
+    thisModule.filter('translate', ['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate') 
+            ? $injector.get('pipTranslate') : null;
+
+        return function (key) {
+            return pipTranslate  ? pipTranslate.translate(key) || key : key;
+        }
+    }]);
+
+})();
 
 /**
  * @file Application App Bar component
@@ -1953,29 +1976,6 @@ module.run(['$templateCache', function($templateCache) {
 })(window.angular, window._);
 
 /**
- * @file Optional filter to translate string resources
- * @copyright Digital Living Software Corp. 2014-2016
- */
- 
-/* global angular */
-
-(function () {
-    'use strict';
-
-    var thisModule = angular.module('pipNav.Translate', []);
-
-    thisModule.filter('translate', ['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate') 
-            ? $injector.get('pipTranslate') : null;
-
-        return function (key) {
-            return pipTranslate  ? pipTranslate.translate(key) || key : key;
-        }
-    }]);
-
-})();
-
-/**
  * @file Dropdown control
  * @copyright Digital Living Software Corp. 2014-2016
  *
@@ -2162,6 +2162,164 @@ module.run(['$templateCache', function($templateCache) {
     );
 
 })();
+
+/**
+ * @file Nav Icon component
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+(function (angular, _, $) {
+    'use strict';
+
+    var thisModule = angular.module('pipNavIcon',
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavIcon.Service']);
+
+    thisModule.directive('pipNavIcon', function () {
+        return {
+            restrict: 'E',
+            scope: {
+                type: '=pipType',
+                imageUrl: '=pipImageUrl'
+            },
+            replace: false,
+            templateUrl: function (element, attr) {
+                return 'nav_icon/nav_icon.html';
+            },
+            controller: 'pipNavIconController'
+        };
+    });
+
+    thisModule.controller('pipNavIconController',
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', 'pipNavIcon', function ($scope, $element, $attrs, $rootScope, $window, pipNavIcon) {
+            // Apply class and call resize
+            $element.addClass('pip-nav-icon');
+
+            $scope.config = pipNavIcon.config();
+
+            $rootScope.$on('pipNavIconChanged', onNavIconChanged);
+
+            $scope.onNavIconClick = onNavIconClick;
+
+            function onNavIconChanged(event, config) {
+                $scope.config = config;
+            }
+
+            function onNavIconClick() {
+                var breadcrumb, backCallback;
+
+                if (_.isFunction($scope.config.callback)) {
+                    // Execute nav icon callback
+                    $scope.config.callback();
+                }
+                else if ($scope.config.event) {
+                    $rootScope.$broadcast($scope.config.event);
+                }
+                else if ($scope.config.type == 'back') {
+                    $window.history.back();
+                } else {
+                    $rootScope.$broadcast('pipNavIconClicked');
+                }
+            }
+
+        }]
+    );
+
+})(window.angular, window._, window.jQuery);
+
+/**
+ * @file Nav Icon service
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+(function (angular, _) {
+    'use strict';
+
+    var thisModule = angular.module('pipNavIcon.Service', []);
+
+    thisModule.provider('pipNavIcon', function () {
+        var config = {
+            // Type of nav icon: 'back', 'menu', 'image' or 'none'
+            type: 'none',
+            // Image url
+            imageUrl: null,
+            // Handle nav icon click event
+            callback: null,
+            // Event name
+            event: null
+        };
+
+        // Get the service instance
+        this.$get = ['$rootScope', function ($rootScope) {
+            return {
+                hide: hide,
+                showMenu: showMenu,
+                showBack: showBack,
+                showImage: showImage
+            };
+
+            // ----------------------
+            
+            function getConfig() {
+                return config;
+            }
+
+            // Show navigation icon
+            function hide() {
+                config.type = 'none';
+                config.callback = null;
+                config.event = null;
+                sendConfigEvent();
+            }
+
+            function showMenu(callbackOrEvent) {
+                config.type = 'menu';
+                config.callback = null;
+                config.event = null;
+
+                if (_.isFunction(callbackOrEvent))
+                    config.callback = callbackOrEvent;
+                if (_.isString(callbackOrEvent))
+                    config.event = callbackOrEvent;
+
+                sendConfigEvent();
+            }
+
+            function showBack(callbackOrEvent) {
+                config.type = 'back';
+                config.callback = null;
+                config.event = null;
+
+                if (_.isFunction(callbackOrEvent))
+                    config.callback = callbackOrEvent;
+                if (_.isString(callbackOrEvent))
+                    config.event = callbackOrEvent;
+
+                sendConfigEvent();
+            }
+
+            function showImage(imageUrl, callbackOrEvent) {
+                config.type = 'image';
+                config.imageUrl = imageUrl;
+                config.callback = null;
+                config.event = null;
+
+                if (_.isFunction(callbackOrEvent))
+                    config.callback = callbackOrEvent;
+                if (_.isString(callbackOrEvent))
+                    config.event = callbackOrEvent;
+
+                sendConfigEvent();
+            }
+
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipNavIconChanged', config);
+            }
+
+        }];
+
+    });
+
+})(window.angular, window._);
 
 /**
  * @file Application Nav Menu component
@@ -2356,164 +2514,6 @@ module.run(['$templateCache', function($templateCache) {
 })();
 
 /**
- * @file Nav Icon component
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-(function (angular, _, $) {
-    'use strict';
-
-    var thisModule = angular.module('pipNavIcon',
-        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavIcon.Service']);
-
-    thisModule.directive('pipNavIcon', function () {
-        return {
-            restrict: 'E',
-            scope: {
-                type: '=pipType',
-                imageUrl: '=pipImageUrl'
-            },
-            replace: false,
-            templateUrl: function (element, attr) {
-                return 'nav_icon/nav_icon.html';
-            },
-            controller: 'pipNavIconController'
-        };
-    });
-
-    thisModule.controller('pipNavIconController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', 'pipNavIcon', function ($scope, $element, $attrs, $rootScope, $window, pipNavIcon) {
-            // Apply class and call resize
-            $element.addClass('pip-nav-icon');
-
-            $scope.config = pipNavIcon.config();
-
-            $rootScope.$on('pipNavIconChanged', onNavIconChanged);
-
-            $scope.onNavIconClick = onNavIconClick;
-
-            function onNavIconChanged(event, config) {
-                $scope.config = config;
-            }
-
-            function onNavIconClick() {
-                var breadcrumb, backCallback;
-
-                if (_.isFunction($scope.config.callback)) {
-                    // Execute nav icon callback
-                    $scope.config.callback();
-                }
-                else if ($scope.config.event) {
-                    $rootScope.$broadcast($scope.config.event);
-                }
-                else if ($scope.config.type == 'back') {
-                    $window.history.back();
-                } else {
-                    $rootScope.$broadcast('pipNavIconClicked');
-                }
-            }
-
-        }]
-    );
-
-})(window.angular, window._, window.jQuery);
-
-/**
- * @file Nav Icon service
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-(function (angular, _) {
-    'use strict';
-
-    var thisModule = angular.module('pipNavIcon.Service', []);
-
-    thisModule.provider('pipNavIcon', function () {
-        var config = {
-            // Type of nav icon: 'back', 'menu', 'image' or 'none'
-            type: 'none',
-            // Image url
-            imageUrl: null,
-            // Handle nav icon click event
-            callback: null,
-            // Event name
-            event: null
-        };
-
-        // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {
-            return {
-                hide: hide,
-                showMenu: showMenu,
-                showBack: showBack,
-                showImage: showImage
-            };
-
-            // ----------------------
-            
-            function getConfig() {
-                return config;
-            }
-
-            // Show navigation icon
-            function hide() {
-                config.type = 'none';
-                config.callback = null;
-                config.event = null;
-                sendConfigEvent();
-            }
-
-            function showMenu(callbackOrEvent) {
-                config.type = 'menu';
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
-                sendConfigEvent();
-            }
-
-            function showBack(callbackOrEvent) {
-                config.type = 'back';
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
-                sendConfigEvent();
-            }
-
-            function showImage(imageUrl, callbackOrEvent) {
-                config.type = 'image';
-                config.imageUrl = imageUrl;
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
-                sendConfigEvent();
-            }
-
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipNavIconChanged', config);
-            }
-
-        }];
-
-    });
-
-})(window.angular, window._);
-
-/**
  * @file Search Bar component
  * @copyright Digital Living Software Corp. 2014-2016
  */
@@ -2524,16 +2524,17 @@ module.run(['$templateCache', function($templateCache) {
     var thisModule = angular.module('pipSearchBar',
         ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
 
-    thisModule.config(['pipTranslateProvider', function (pipTranslateProvider) {
+    thisModule.run(['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+        if (pipTranslate) {
+            pipTranslateProvider.translations('en', {
+                'APPBAR_SEARCH': 'Search'
+            });
 
-        pipTranslateProvider.translations('en', {
-            'APPBAR_SEARCH': 'Search'
-        });
-
-        pipTranslateProvider.translations('ru', {
-            'APPBAR_SEARCH': 'Поиск'
-        });
-
+            pipTranslateProvider.translations('ru', {
+                'APPBAR_SEARCH': 'Поиск'
+            });
+        }
     }]);
 
     // Main application header directive
@@ -2718,94 +2719,6 @@ module.run(['$templateCache', function($templateCache) {
     });
 
 })(window.angular, window._);
-
-/**
- * @file Tabs control
- * @copyright Digital Living Software Corp. 2014-2016
- * 
- */
-
-/* global _, angular */
-
-(function () {
-    'use strict';
-
-    var thisModule = angular.module("pipTabs", ['pipNav.Templates']);
-
-    thisModule.directive('pipTabs',
-        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
-            return {
-                restrict: 'E',
-                scope: {
-                    ngDisabled: '&',
-                    tabs: '=pipTabs',
-                    showTabs: '&pipShowTabs',
-                    showTabsShadow: '&pipTabsShadow',
-                    activeIndex: '=pipActiveIndex',
-                    select: '=pipTabsSelect'
-                },
-                templateUrl: 'tabs/tabs.html',
-                controller:
-                    ['$scope', '$element', '$attrs', '$mdMedia', 'localStorageService', '$inject', function ($scope, $element, $attrs, $mdMedia, localStorageService, $inject) {
-                        // Todo: Remove dependency on local storage or made it optional
-                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                        pipAssert.isArray($scope.tabs, 'pipTabs: pipTabs attribute should take an array');
-                        $scope.$mdMedia = $mdMedia;
-                        $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
-
-                        var pipTranslate = $inject.has('pipTranslate') ? $inject.get('pipTranslate') : null;
-                        if (pipTranslate) {
-                            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
-                                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
-                            } else {
-                                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
-                            }
-                        }
-
-                        $scope.activeIndex = $scope.activeIndex || 0;
-                        $scope.activeTab = $scope.activeIndex;
-
-                        $scope.disabled = function () {
-                            if ($scope.ngDisabled) {
-                                return $scope.ngDisabled();
-                            }
-                        };
-
-                        $scope.tabDisabled = function (index) {
-                            return ($scope.disabled() && $scope.activeIndex != index);
-                        };
-
-                        $scope.onSelect = function (index) {
-                            if ($scope.disabled()) return;
-
-                            $scope.activeIndex = index;
-                            $scope.activeTab = $scope.activeIndex;
-                            if ($scope.select) {
-                                $scope.select($scope.tabs[$scope.activeIndex], $scope.activeIndex);
-                            }
-                        };
-
-                        $scope.showShadow = function () {
-                            if ($scope.showTabsShadow) {
-                                return $scope.showTabsShadow();
-                            } else {
-                                return false;
-                            }
-                        };
-
-                        $scope.show = function () {
-                            if ($scope.showTabs) {
-                                return $scope.showTabs();
-                            } else {
-                                return true;
-                            }
-                        };
-                    }]
-            };
-        }]
-    );
-
-})();
 
 /**
  * @file Application Side Nav component
@@ -3130,6 +3043,94 @@ module.run(['$templateCache', function($templateCache) {
             return config.sections;
         };
     }]);
+
+})();
+
+/**
+ * @file Tabs control
+ * @copyright Digital Living Software Corp. 2014-2016
+ * 
+ */
+
+/* global _, angular */
+
+(function () {
+    'use strict';
+
+    var thisModule = angular.module("pipTabs", ['pipNav.Templates']);
+
+    thisModule.directive('pipTabs',
+        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
+            return {
+                restrict: 'E',
+                scope: {
+                    ngDisabled: '&',
+                    tabs: '=pipTabs',
+                    showTabs: '&pipShowTabs',
+                    showTabsShadow: '&pipTabsShadow',
+                    activeIndex: '=pipActiveIndex',
+                    select: '=pipTabsSelect'
+                },
+                templateUrl: 'tabs/tabs.html',
+                controller:
+                    ['$scope', '$element', '$attrs', '$mdMedia', 'localStorageService', '$injector', function ($scope, $element, $attrs, $mdMedia, localStorageService, $injector) {
+                        // Todo: Remove dependency on local storage or made it optional
+                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                        pipAssert.isArray($scope.tabs, 'pipTabs: pipTabs attribute should take an array');
+                        $scope.$mdMedia = $mdMedia;
+                        $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
+
+                        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+                        if (pipTranslate) {
+                            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
+                                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
+                            } else {
+                                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+                            }
+                        }
+
+                        $scope.activeIndex = $scope.activeIndex || 0;
+                        $scope.activeTab = $scope.activeIndex;
+
+                        $scope.disabled = function () {
+                            if ($scope.ngDisabled) {
+                                return $scope.ngDisabled();
+                            }
+                        };
+
+                        $scope.tabDisabled = function (index) {
+                            return ($scope.disabled() && $scope.activeIndex != index);
+                        };
+
+                        $scope.onSelect = function (index) {
+                            if ($scope.disabled()) return;
+
+                            $scope.activeIndex = index;
+                            $scope.activeTab = $scope.activeIndex;
+                            if ($scope.select) {
+                                $scope.select($scope.tabs[$scope.activeIndex], $scope.activeIndex);
+                            }
+                        };
+
+                        $scope.showShadow = function () {
+                            if ($scope.showTabsShadow) {
+                                return $scope.showTabsShadow();
+                            } else {
+                                return false;
+                            }
+                        };
+
+                        $scope.show = function () {
+                            if ($scope.showTabs) {
+                                return $scope.showTabs();
+                            } else {
+                                return true;
+                            }
+                        };
+                    }]
+            };
+        }]
+    );
 
 })();
 
