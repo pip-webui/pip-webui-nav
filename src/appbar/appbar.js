@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipAppBar',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipAppBar.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipAppBar.Service']);
 
     thisModule.config(function (pipTranslateProvider) {
 
@@ -41,7 +41,9 @@
     });
 
     thisModule.controller('pipAppBarController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipAppBar) {
+        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector, pipAppBar) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+
             // Initialize default application title
             if ($scope.title) {
                 pipAppBar.showTitleText($scope.title);
@@ -133,7 +135,7 @@
             }
 
             function getLanguage() {
-                return pipTranslate.use();
+                return pipTranslate ? pipTranslate.use() : null;
             }
 
             function actionHidden(action) {

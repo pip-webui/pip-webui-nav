@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipNavIcon',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipNavIcon.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavIcon.Service']);
 
     thisModule.directive('pipNavIcon', function () {
         return {
@@ -25,7 +25,7 @@
     });
 
     thisModule.controller('pipNavIconController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipNavIcon) {
+        function ($scope, $element, $attrs, $rootScope, $window, pipNavIcon) {
             // Apply class and call resize
             $element.addClass('pip-nav-icon');
 

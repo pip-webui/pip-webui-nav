@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipSearchBar',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipSearch.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
 
     thisModule.config(function (pipTranslateProvider) {
 
@@ -35,7 +35,7 @@
     });
 
     thisModule.controller('pipSearchBarController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipSearch) {
+        function ($scope, $element, $attrs, $rootScope, pipSearch) {
             // Apply class and call resize
             $element.addClass('pip-search-bar');
 

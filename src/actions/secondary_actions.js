@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipSecondaryActions',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipActions.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
 
     // Main application header directive
     thisModule.directive('pipSecondaryActions', function () {
@@ -22,14 +22,14 @@
             },
             replace: false,
             templateUrl: function (element, attr) {
-                return 'secondary_actions/secondary_actions.html';
+                return 'actions/secondary_actions.html';
             },
             controller: 'pipSecondaryActionsController'
         };
     });
 
     thisModule.controller('pipSecondaryActionsController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipActions) {
+        function ($scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
             // Apply class and call resize
             $element.addClass('pip-secondary-actions');
 
@@ -132,7 +132,14 @@
                 }
 
                 if (action.state) {
-                    $state.go(action.state, action.stateParams);
+                    if ($injector.has('pipState')) {
+                        var pipState = $injector.get('pipState');
+                        $state.go(action.state, action.stateParams);
+                    }
+                    else if ($injector.has('$state')) {
+                        var $state = $injector.get('$state');
+                        $state.go(action.state, action.stateParams);
+                    }
                     return;
                 }
 

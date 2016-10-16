@@ -9,7 +9,7 @@
     'use strict';
 
     var thisModule = angular.module('pipNavMenu', 
-        ['ngMaterial', 'pipTranslate', 'pipFocused', 'pipNav.Templates', 'pipNavMenu.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
 
     // Main application navmenu directive
     thisModule.directive('pipNavMenu', function() {
@@ -25,7 +25,7 @@
     });
 
     thisModule.controller('pipNavMenuController', 
-        function ($scope, $element, $state, $rootScope, $window, $location, $timeout, pipState, pipTranslate, pipSideNav, pipNavMenu) {
+        function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
 
             // Apply class and call resize
             $element.addClass('pip-nav-menu');
@@ -101,7 +101,14 @@
 
                     pipSideNav.close();
                     $timeout(function() {
-                        pipState.go(link.state, link.stateParams);
+                        if ($injector.has('pipState')) {
+                            var pipState = $injector.get('pipState');
+                            $state.go(link.state, link.stateParams);
+                        }
+                        else if ($injector.has('$state')) {
+                            var $state = $injector.get('$state');
+                            $state.go(link.state, link.stateParams);
+                        }
                     }, 300);
 
                     return;

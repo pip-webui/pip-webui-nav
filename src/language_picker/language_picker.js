@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipLanguagePicker',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 
     // Main application header directive
     thisModule.directive('pipLanguagePicker', function () {
@@ -25,7 +25,9 @@
     });
 
     thisModule.controller('pipLanguagePickerController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate) {
+        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+
             // Initialize default application title
             if ($scope.title) {
                 pipLanguagePicker.showTitleText($scope.title);
@@ -40,14 +42,16 @@
             $scope.onLanguageClick = onLanguageClick;
 
             function getLanguage() {
-                return pipTranslate.use();
+                return pipTranslate ? pipTranslate.use() : null;
             }
 
             function onLanguageClick(language) {
-                setTimeout(function () {
-                    pipTranslate.use(language);
-                    $rootScope.$apply();
-                }, 0);
+                if (pipTranslate) {
+                    setTimeout(function () {
+                        pipTranslate.use(language);
+                        $rootScope.$apply();
+                    }, 0);
+                }
             }
 
         }

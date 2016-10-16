@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipPrimaryActions',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipActions.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
 
     // Main application header directive
     thisModule.directive('pipPrimaryActions', function () {
@@ -19,14 +19,14 @@
             },
             replace: false,
             templateUrl: function (element, attr) {
-                return 'primary_actions/primary_actions.html';
+                return 'actions/primary_actions.html';
             },
             controller: 'pipPrimaryActionsController'
         };
     });
 
     thisModule.controller('pipPrimaryActionsController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipActions) {
+        function ($scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
             // Apply class and call resize
             $element.addClass('pip-primary-actions');
 
@@ -120,7 +120,14 @@
                 }
 
                 if (action.state) {
-                    $state.go(action.state, action.stateParams);
+                    if ($injector.has('pipState')) {
+                        var pipState = $injector.get('pipState');
+                        $state.go(action.state, action.stateParams);
+                    }
+                    else if ($injector.has('$state')) {
+                        var $state = $injector.get('$state');
+                        $state.go(action.state, action.stateParams);
+                    }
                     return;
                 }
 

@@ -9,7 +9,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module("pipTabs", ['pipAssert', 'pipNav.Templates']);
+    var thisModule = angular.module("pipTabs", ['pipNav.Templates']);
 
     thisModule.directive('pipTabs',
         function ($mdMedia, pipAssert) {
@@ -25,16 +25,22 @@
                 },
                 templateUrl: 'tabs/tabs.html',
                 controller:
-                    function ($scope, $element, $attrs, $mdMedia, localStorageService, pipTranslate) {
+                    function ($scope, $element, $attrs, $mdMedia, localStorageService, $inject) {
+                        // Todo: Remove dependency on local storage or made it optional
                         $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
                         pipAssert.isArray($scope.tabs, 'pipTabs: pipTabs attribute should take an array');
                         $scope.$mdMedia = $mdMedia;
                         $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
-                        if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
-                            pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
-                        } else {
-                            pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+
+                        var pipTranslate = $inject.has('pipTranslate') ? $inject.get('pipTranslate') : null;
+                        if (pipTranslate) {
+                            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
+                                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
+                            } else {
+                                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+                            }
                         }
+
                         $scope.activeIndex = $scope.activeIndex || 0;
                         $scope.activeTab = $scope.activeIndex;
 

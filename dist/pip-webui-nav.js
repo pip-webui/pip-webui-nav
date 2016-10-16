@@ -805,7 +805,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipPrimaryActions',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipActions.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
 
     // Main application header directive
     thisModule.directive('pipPrimaryActions', function () {
@@ -817,14 +817,14 @@ module.run(['$templateCache', function($templateCache) {
             },
             replace: false,
             templateUrl: function (element, attr) {
-                return 'primary_actions/primary_actions.html';
+                return 'actions/primary_actions.html';
             },
             controller: 'pipPrimaryActionsController'
         };
     });
 
     thisModule.controller('pipPrimaryActionsController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipActions', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipActions) {
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$location', '$injector', 'pipActions', function ($scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
             // Apply class and call resize
             $element.addClass('pip-primary-actions');
 
@@ -918,7 +918,14 @@ module.run(['$templateCache', function($templateCache) {
                 }
 
                 if (action.state) {
-                    $state.go(action.state, action.stateParams);
+                    if ($injector.has('pipState')) {
+                        var pipState = $injector.get('pipState');
+                        $state.go(action.state, action.stateParams);
+                    }
+                    else if ($injector.has('$state')) {
+                        var $state = $injector.get('$state');
+                        $state.go(action.state, action.stateParams);
+                    }
                     return;
                 }
 
@@ -944,7 +951,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipSecondaryActions',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipActions.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
 
     // Main application header directive
     thisModule.directive('pipSecondaryActions', function () {
@@ -959,14 +966,14 @@ module.run(['$templateCache', function($templateCache) {
             },
             replace: false,
             templateUrl: function (element, attr) {
-                return 'secondary_actions/secondary_actions.html';
+                return 'actions/secondary_actions.html';
             },
             controller: 'pipSecondaryActionsController'
         };
     });
 
     thisModule.controller('pipSecondaryActionsController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', 'pipActions', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipActions) {
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$location', '$injector', 'pipActions', function ($scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
             // Apply class and call resize
             $element.addClass('pip-secondary-actions');
 
@@ -1069,7 +1076,14 @@ module.run(['$templateCache', function($templateCache) {
                 }
 
                 if (action.state) {
-                    $state.go(action.state, action.stateParams);
+                    if ($injector.has('pipState')) {
+                        var pipState = $injector.get('pipState');
+                        $state.go(action.state, action.stateParams);
+                    }
+                    else if ($injector.has('$state')) {
+                        var $state = $injector.get('$state');
+                        $state.go(action.state, action.stateParams);
+                    }
                     return;
                 }
 
@@ -1095,7 +1109,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipAppBar',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipAppBar.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipAppBar.Service']);
 
     thisModule.config(['pipTranslateProvider', function (pipTranslateProvider) {
 
@@ -1129,7 +1143,9 @@ module.run(['$templateCache', function($templateCache) {
     });
 
     thisModule.controller('pipAppBarController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipAppBar) {
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', '$injector', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector, pipAppBar) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+
             // Initialize default application title
             if ($scope.title) {
                 pipAppBar.showTitleText($scope.title);
@@ -1221,7 +1237,7 @@ module.run(['$templateCache', function($templateCache) {
             }
 
             function getLanguage() {
-                return pipTranslate.use();
+                return pipTranslate ? pipTranslate.use() : null;
             }
 
             function actionHidden(action) {
@@ -1794,7 +1810,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipBreadcrumb',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipBreadcrumb.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipBreadcrumb.Service']);
 
     // Main application header directive
     thisModule.directive('pipBreadcrumb', function () {
@@ -1937,6 +1953,29 @@ module.run(['$templateCache', function($templateCache) {
 })(window.angular, window._);
 
 /**
+ * @file Optional filter to translate string resources
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+ 
+/* global angular */
+
+(function () {
+    'use strict';
+
+    var thisModule = angular.module('pipNav.Translate', []);
+
+    thisModule.filter('translate', ['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate') 
+            ? $injector.get('pipTranslate') : null;
+
+        return function (key) {
+            return pipTranslate  ? pipTranslate.translate(key) || key : key;
+        }
+    }]);
+
+})();
+
+/**
  * @file Dropdown control
  * @copyright Digital Living Software Corp. 2014-2016
  *
@@ -1947,10 +1986,10 @@ module.run(['$templateCache', function($templateCache) {
 (function () {
     'use strict';
 
-    var thisModule = angular.module("pipDropdown", ['pipAssert', 'pipNav.Templates']);
+    var thisModule = angular.module("pipDropdown", ['pipNav.Templates']);
 
     thisModule.directive('pipDropdown',
-        ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
+        ['$mdMedia', function ($mdMedia) {
             return {
                 restrict: 'E',
                 scope: {
@@ -1963,8 +2002,9 @@ module.run(['$templateCache', function($templateCache) {
                 templateUrl: 'dropdown/dropdown.html',
                 controller:
                     ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
+                        // Todo: Remove dependency on local storage or make it optional
                         $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                        pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+                        //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
                         $scope.$mdMedia = $mdMedia;
                         $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
                         $scope.activeIndex = $scope.activeIndex || 0;
@@ -2008,7 +2048,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipLanguagePicker',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 
     // Main application header directive
     thisModule.directive('pipLanguagePicker', function () {
@@ -2026,7 +2066,9 @@ module.run(['$templateCache', function($templateCache) {
     });
 
     thisModule.controller('pipLanguagePickerController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate) {
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', '$injector', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+
             // Initialize default application title
             if ($scope.title) {
                 pipLanguagePicker.showTitleText($scope.title);
@@ -2041,14 +2083,16 @@ module.run(['$templateCache', function($templateCache) {
             $scope.onLanguageClick = onLanguageClick;
 
             function getLanguage() {
-                return pipTranslate.use();
+                return pipTranslate ? pipTranslate.use() : null;
             }
 
             function onLanguageClick(language) {
-                setTimeout(function () {
-                    pipTranslate.use(language);
-                    $rootScope.$apply();
-                }, 0);
+                if (pipTranslate) {
+                    setTimeout(function () {
+                        pipTranslate.use(language);
+                        $rootScope.$apply();
+                    }, 0);
+                }
             }
 
         }]
@@ -2128,7 +2172,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipNavIcon',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipNavIcon.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavIcon.Service']);
 
     thisModule.directive('pipNavIcon', function () {
         return {
@@ -2146,7 +2190,7 @@ module.run(['$templateCache', function($templateCache) {
     });
 
     thisModule.controller('pipNavIconController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', 'pipNavIcon', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipNavIcon) {
+        ['$scope', '$element', '$attrs', '$rootScope', '$window', 'pipNavIcon', function ($scope, $element, $attrs, $rootScope, $window, pipNavIcon) {
             // Apply class and call resize
             $element.addClass('pip-nav-icon');
 
@@ -2288,7 +2332,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipNavMenu', 
-        ['ngMaterial', 'pipTranslate', 'pipFocused', 'pipNav.Templates', 'pipNavMenu.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
 
     // Main application navmenu directive
     thisModule.directive('pipNavMenu', function() {
@@ -2304,7 +2348,7 @@ module.run(['$templateCache', function($templateCache) {
     });
 
     thisModule.controller('pipNavMenuController', 
-        ['$scope', '$element', '$state', '$rootScope', '$window', '$location', '$timeout', 'pipState', 'pipTranslate', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $state, $rootScope, $window, $location, $timeout, pipState, pipTranslate, pipSideNav, pipNavMenu) {
+        ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
 
             // Apply class and call resize
             $element.addClass('pip-nav-menu');
@@ -2380,7 +2424,14 @@ module.run(['$templateCache', function($templateCache) {
 
                     pipSideNav.close();
                     $timeout(function() {
-                        pipState.go(link.state, link.stateParams);
+                        if ($injector.has('pipState')) {
+                            var pipState = $injector.get('pipState');
+                            $state.go(link.state, link.stateParams);
+                        }
+                        else if ($injector.has('$state')) {
+                            var $state = $injector.get('$state');
+                            $state.go(link.state, link.stateParams);
+                        }
                     }, 300);
 
                     return;
@@ -2471,7 +2522,7 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipSearchBar',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipSearch.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
 
     thisModule.config(['pipTranslateProvider', function (pipTranslateProvider) {
 
@@ -2499,7 +2550,7 @@ module.run(['$templateCache', function($templateCache) {
     });
 
     thisModule.controller('pipSearchBarController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', 'pipTranslate', 'pipSearch', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, pipTranslate, pipSearch) {
+        ['$scope', '$element', '$attrs', '$rootScope', 'pipSearch', function ($scope, $element, $attrs, $rootScope, pipSearch) {
             // Apply class and call resize
             $element.addClass('pip-search-bar');
 
@@ -2997,7 +3048,7 @@ module.run(['$templateCache', function($templateCache) {
 (function () {
     'use strict';
 
-    var thisModule = angular.module("pipTabs", ['pipAssert', 'pipNav.Templates']);
+    var thisModule = angular.module("pipTabs", ['pipNav.Templates']);
 
     thisModule.directive('pipTabs',
         ['$mdMedia', 'pipAssert', function ($mdMedia, pipAssert) {
@@ -3013,16 +3064,22 @@ module.run(['$templateCache', function($templateCache) {
                 },
                 templateUrl: 'tabs/tabs.html',
                 controller:
-                    ['$scope', '$element', '$attrs', '$mdMedia', 'localStorageService', 'pipTranslate', function ($scope, $element, $attrs, $mdMedia, localStorageService, pipTranslate) {
+                    ['$scope', '$element', '$attrs', '$mdMedia', 'localStorageService', '$inject', function ($scope, $element, $attrs, $mdMedia, localStorageService, $inject) {
+                        // Todo: Remove dependency on local storage or made it optional
                         $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
                         pipAssert.isArray($scope.tabs, 'pipTabs: pipTabs attribute should take an array');
                         $scope.$mdMedia = $mdMedia;
                         $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
-                        if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
-                            pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
-                        } else {
-                            pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+
+                        var pipTranslate = $inject.has('pipTranslate') ? $inject.get('pipTranslate') : null;
+                        if (pipTranslate) {
+                            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
+                                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
+                            } else {
+                                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+                            }
                         }
+
                         $scope.activeIndex = $scope.activeIndex || 0;
                         $scope.activeTab = $scope.activeIndex;
 

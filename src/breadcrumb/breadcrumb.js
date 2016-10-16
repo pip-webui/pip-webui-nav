@@ -7,7 +7,7 @@
     'use strict';
 
     var thisModule = angular.module('pipBreadcrumb',
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipBreadcrumb.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipBreadcrumb.Service']);
 
     // Main application header directive
     thisModule.directive('pipBreadcrumb', function () {

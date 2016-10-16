@@ -9,10 +9,10 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module("pipDropdown", ['pipAssert', 'pipNav.Templates']);
+    var thisModule = angular.module("pipDropdown", ['pipNav.Templates']);
 
     thisModule.directive('pipDropdown',
-        function ($mdMedia, pipAssert) {
+        function ($mdMedia) {
             return {
                 restrict: 'E',
                 scope: {
@@ -25,8 +25,9 @@
                 templateUrl: 'dropdown/dropdown.html',
                 controller:
                     function ($scope, $element, $attrs, localStorageService) {
+                        // Todo: Remove dependency on local storage or make it optional
                         $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                        pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+                        //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
                         $scope.$mdMedia = $mdMedia;
                         $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
                         $scope.activeIndex = $scope.activeIndex || 0;
