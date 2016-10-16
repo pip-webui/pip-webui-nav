@@ -47,9 +47,9 @@
             <div class="pip-sidenav-party-sec"
                 ng-show="getConnection() && !getUser('owner')">
                 {{getConnection('relation') | translate}}
-                <span ng-show="getConnection('relation_since')">
+                <span ng-show="getConnectionDate()">
                     {{::'SIDENAV_SINCE' | translate}}
-                    {{getConnection('relation_since') | formatLongDate}}
+                    {{getConnectionDate()}}
                 </span>
             </div>
         </div>

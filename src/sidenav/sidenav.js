@@ -3,13 +3,13 @@
  * @copyright Digital Living Software Corp. 2014-2016
  */
 
-/* global angular */
+/* global angular, moment */
 
-(function () {
+(function (angular, moment) {
     'use strict';
 
     var thisModule = angular.module('pipSideNav', 
-        ['ngMaterial', 'pipTranslate', 'pipFocused', 'pipNav.Templates', 'pipSideNav.Service']);
+        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipSideNav.Service']);
 
     thisModule.config(function(pipTranslateProvider) {
 
@@ -59,6 +59,7 @@
             $scope.getParty = getParty;
             $scope.getUser = getUser;
             $scope.getConnection = getConnection;
+            $scope.getConnectionDate = getConnectionDate;
             
             return;
             
@@ -95,6 +96,13 @@
                 }
 
                 return $rootScope.$connection;
+            }
+            
+            function getConnectionDate(prop) {
+                var date = getConnection('relation_since'), result;
+
+                result = moment(date).format('MMMM-DD-YYYY');
+                return result;
             }
             
             function itemVisible(item) {
@@ -210,4 +218,4 @@
         }
     );
 
-})();
+})(window.angular, window.moment);
