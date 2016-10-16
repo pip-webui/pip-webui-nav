@@ -9,16 +9,17 @@
     var thisModule = angular.module('pipSearchBar',
         ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
 
-    thisModule.config(function (pipTranslateProvider) {
+    thisModule.run(function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+        if (pipTranslate) {
+            pipTranslateProvider.translations('en', {
+                'APPBAR_SEARCH': 'Search'
+            });
 
-        pipTranslateProvider.translations('en', {
-            'APPBAR_SEARCH': 'Search'
-        });
-
-        pipTranslateProvider.translations('ru', {
-            'APPBAR_SEARCH': 'Поиск'
-        });
-
+            pipTranslateProvider.translations('ru', {
+                'APPBAR_SEARCH': 'Поиск'
+            });
+        }
     });
 
     // Main application header directive
