@@ -11,7 +11,7 @@
 
     // Configure application services before start
     thisModule.config(
-        function ($mdThemingProvider, $stateProvider, $urlRouterProvider, pipAuthStateProvider, pipTranslateProvider,
+        function ($mdThemingProvider, $stateProvider, $urlRouterProvider, pipTranslateProvider,
                   pipSideNavProvider, pipAppBarProvider, $mdIconProvider) {
 
             var content = [
@@ -42,8 +42,8 @@
                 TABS: 'Табы'
             });
 
-            pipAuthStateProvider.unauthorizedState('signin');
-            pipAuthStateProvider.authorizedState('tabs');
+            // pipAuthStateProvider.unauthorizedState('signin');
+            // pipAuthStateProvider.authorizedState('tabs');
 
             for (i = 0; i < content.length; i++) {
                 contentItem = content[i];
