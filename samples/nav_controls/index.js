@@ -8,7 +8,7 @@
             // 3rd Party Modules
             'ui.router', 'ui.utils', 'ngResource', 'ngAria', 'ngCookies', 'ngSanitize', 'ngMessages',
             'ngMaterial', 'LocalStorageModule', 'angularFileUpload', 'ngAnimate',
-            'pipCore', 'pipNav',
+            'pipServices', 'pipNav',
             'appNav.Tabs', 'appNav.Dropdown'
 
         ]

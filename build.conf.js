@@ -18,7 +18,7 @@ module.exports = {
             '../pip-webui-lib/dist/**/*',
             '../pip-webui-css/dist/**/*',
             '../pip-webui-csscomponents/dist/**/*',
-            '../pip-webui-core/dist/**/*', 
+            '../pip-webui-services/dist/**/*', 
             '../pip-webui-dates/dist/**/*', 
             '../pip-webui-layouts/dist/**/*', 
             //  '../pip-webui-rest/dist/**/*',

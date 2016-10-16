@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('app', ['pipAppBar', 'pipCore', 'ngMaterial']);
+    var thisModule = angular.module('app', ['pipAppBar', 'pipServices', 'ngMaterial']);
 
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, pipTranslateProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);

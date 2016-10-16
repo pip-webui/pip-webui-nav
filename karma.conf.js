@@ -14,7 +14,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             '../node_modules/pip-webui-lib/dist/pip-webui-lib.js',
-            '../node_modules/pip-webui-core/dist/pip-webui-core.js',
+            '../node_modules/pip-webui-services/dist/pip-webui-services.js',
             '../temp/pip-webui-nav-html.js',
             '../node_modules/pip-webui-tasks/node_modules/angular-mocks/angular-mocks.js',  // for old NPM versions
             '../node_modules/angular-mocks/angular-mocks.js',  // for new NPM folders system
