@@ -14,7 +14,20 @@
 
 .pip-appbar {
   .flex-fixed();
-//   z-index: 10;
+
+  .pip-toolbar-tools{
+    padding-left: 24px;
+    padding-right: 24px;
+    @media (min-width: 768px) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  .pip-icon-button{
+    .flex-fixed();
+    padding: 0;
+  }
 
   .md-toolbar-tools > .md-button.pip-third-party:first-child {
     margin-left: 0px;
