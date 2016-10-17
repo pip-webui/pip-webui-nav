@@ -54,6 +54,13 @@
   .flex-element(0, 0, auto);
 }
 
+.flex-var() {
+  .flex-element(1, 1, auto);
+}
+.flex-var {
+  .flex-var();
+}
+
 .text-overflow() {
   overflow:      hidden;
   text-overflow: ellipsis;
