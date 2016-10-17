@@ -9,18 +9,6 @@
     var thisModule = angular.module('pipAppBar',
         ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipAppBar.Service']);
 
-    thisModule.config(function (pipTranslateProvider) {
-
-        pipTranslateProvider.translations('en', {
-            'APPBAR_SEARCH': 'Search'
-        });
-
-        pipTranslateProvider.translations('ru', {
-            'APPBAR_SEARCH': 'Поиск'
-        });
-
-    });
-
     // Main application header directive
     thisModule.directive('pipAppbar', function () {
         return {
@@ -43,6 +31,15 @@
     thisModule.controller('pipAppBarController',
         function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector, pipAppBar) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+
+            if (pipTranslate) {
+                pipTranslate.translations('en', {
+                    'APPBAR_SEARCH': 'Search'
+                });
+                pipTranslate.translations('ru', {
+                    'APPBAR_SEARCH': 'Поиск'
+                });
+            } 
 
             // Initialize default application title
             if ($scope.title) {
