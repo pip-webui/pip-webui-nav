@@ -12,7 +12,8 @@
     // Main application header directive
     thisModule.directive('pipAppbar', function () {
         return {
-            restrict: 'EA',
+            restrict: 'E',
+            transclude: {},
             scope: {
                 title: '=pipTitle',
                 showMenu: '=pipShowMenu',
@@ -20,9 +21,14 @@
                 globalActions: '=pipGlobalActions',
                 partyAvatarUrl: '=pipPartyAvatarUrl'
             },
-            /*templateUrl: function (element, attr) {
+            link: function(scope, element, attrs, controller, transclude) {
+                transclude(scope, function(clone) {
+                    element.find('[ng-transclude]').replaceWith(clone);
+                });
+            },
+            templateUrl: function (element, attr) {
                 return 'appbar/appbar.html';
-            },*/
+            },
             controller: 'pipAppBarController'
         };
     });

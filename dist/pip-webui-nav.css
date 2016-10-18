@@ -256,6 +256,10 @@ md-content md-option .md-text .pip-tabs-badge {
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
+  min-height: 56px;
+  z-index: 11;
+}
+.pip-appbar md-toolbar {
   -webkit-box-flex-direction: row;
   -moz-box-flex-direction: row;
   -webkit-flex-direction: row;
@@ -266,8 +270,6 @@ md-content md-option .md-text .pip-tabs-badge {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  min-height: 56px;
-  z-index: 11;
 }
 .pip-appbar.pip-shadow {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
