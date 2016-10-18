@@ -8,18 +8,18 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipSideNav.Service', ['pipAssert', 'pipDebug']);
+    var thisModule = angular.module('pipSideNav.Service', []);
 
-    thisModule.provider('pipSideNav', function (pipAssertProvider, pipDebugProvider) {
+    thisModule.provider('pipSideNav', function () {
         var config = {
             // Theme to be applied to the header
             theme: 'blue',
-            // Sections with navigation links
+            // Parts of the sidenav
             sections: []
         };
 
         this.theme = theme;
-        this.sections = sections;
+        this.parts = initParts;
 
         this.$get = function ($rootScope, $mdSidenav) {
             $rootScope.$on('pipSideNavOpen', open);
@@ -28,76 +28,69 @@
             return {
                 config: getConfig,
                 theme: setTheme,
-                sections: setSections,
+                part: getOrSetPart,
+                parts: getOrSetParts,
                 open: open,
                 close: close,
                 toggle: toggle
             };
+
             //---------------------
 
             function getConfig() {
                 return config;  
-            };
+            }
                             
-            function setTheme(newTheme) {
-                theme(newTheme);
-                sendConfigEvent();  
-                return config.theme;
-            };
-                            
-            function setSections(newSections) {
-                sections(newSections);
-                sendConfigEvent();
-                return config.sections;  
-            };
+            function getOrSetPart(name, value) {
+                if (!_.isString(name))
+                    throw new Exception("Part name has to be a string");
+
+                if (value != null) {
+                    config.parts[name] = value;
+                    sendConfigEvent();
+                }
+
+                return config.parts[name];
+            }
+
+            function getOrSetParts(parts) {
+                if (_.isObject(parts)) {
+                    config.parts = parts;
+                    sendConfigEvent();
+                }
+
+                return config.parts;
+            }
                             
             function sendConfigEvent() {
                 $rootScope.$broadcast('pipSideNavChanged', config);
-            };
+            }
 
             function open(event) {
                 $mdSidenav('pip-sidenav').open();
-            };
+            }
                  
             function close(event) {
                 $mdSidenav('pip-sidenav').close();   
-            };                
+            }                
 
             function toggle() {
                 $mdSidenav('pip-sidenav').toggle();   
-            };                   
+            }
         };
 
-        function theme(newTheme) {
-            config.theme = newTheme || config.theme;
-            return config.theme;            
-        };
+        function theme(theme) {
+            config.theme = theme || config.theme;
 
-        function validateSections(sections) {
-            pipAssertProvider.isArray(sections, 'pipSideNavProvider.sections or pipSideNav.sections: sections should be an array');
-            _.each(sections, function (section, number) {
-                if (section.access) {
-                    pipAssertProvider.isFunction(section.access, 'pipSideNavProvider.sections or pipSideNav.sections: in section number '
-                        + number + " with title " + section.title + ' access should be a function');
-                }
-                if (section.links) {
-                    pipAssertProvider.isArray(section.links, 'pipSideNavProvider.sections or pipSideNav.sections: in section number '
-                        + number + " with title " + section.title + ' links should be an array');
-                    _.each(section.links, function (link) {
-                        if (link.access) pipAssertProvider.isFunction(link.access, 'pipSideNavProvider.sections or pipSideNav.sections: in section number '
-                            + number + " with title " + section.title + ' in link with title ' + link.title + ' access should be a function');
-                    });
-                }
-            });
+            return config.theme;
         }
 
-        function sections(newSections) {
-            if (pipDebugProvider.enabled()) validateSections(newSections);
-
-            if (_.isArray(newSections))
-                config.sections = newSections;
-            return config.sections;
-        };
+        function initParts(parts) {
+            if (_.isObject(parts)) {
+                config.parts = parts;
+            }
+            return config.parts;
+        }
     });
 
 })();
