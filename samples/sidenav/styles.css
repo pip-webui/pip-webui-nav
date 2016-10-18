@@ -42,3 +42,7 @@ pre {
 .pip-menu {
     overflow-x: hidden !important;
 }
+
+.p24{
+    padding: 24px;
+}

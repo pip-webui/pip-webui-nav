@@ -6,9 +6,9 @@
 <md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"
             class="{{ config.cssClass }} color-primary-bg">
 
-    <div class="md-toolbar-tools rp24-flex lp24-flex" ng-if="!searchEnabled">
+    <div class="md-toolbar-tools pip-toolbar-tools" ng-if="!searchEnabled">
         <!-- Navigation Icon -->
-        <md-button class="md-icon-button flex-fixed p0"
+        <md-button class="md-icon-button pip-icon-button"
                    ng-if="config.navIconType != 'none'"
                    ng-class="{ 'pip-third-party': getParty() && !getUser('owner') }"
                    ng-click="onNavIconClick()"
@@ -90,7 +90,6 @@
                 </md-menu>
             </div>
         </div>
-
 
         <div class="flex-fixed pip-appbar-actions layout-row"
              ng-class="{ 'pip-language-action': config.actionsType=='language' }">

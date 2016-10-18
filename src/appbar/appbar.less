@@ -14,7 +14,20 @@
 
 .pip-appbar {
   .flex-fixed();
-//   z-index: 10;
+
+  .pip-toolbar-tools{
+    padding-left: 24px;
+    padding-right: 24px;
+    @media (min-width: 768px) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  .pip-icon-button{
+    .flex-fixed();
+    padding: 0;
+  }
 
   .md-toolbar-tools > .md-button.pip-third-party:first-child {
     margin-left: 0px;
@@ -115,7 +128,11 @@
 }
 
 .pip-appbar-ext {
-  .position-top();
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
   height: @appbar-ext-height;
   box-shadow: @box-shadow;
   z-index: 0;

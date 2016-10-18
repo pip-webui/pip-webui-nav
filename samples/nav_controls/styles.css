@@ -19,9 +19,9 @@ md-list.sample-list {
 }
 
 .pip-recommended-header pip-title {
-    overflow:      hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
-    white-space:   nowrap;
+    white-space: nowrap;
 }
 
 .pip-recommended-header .md-button > span {
@@ -76,6 +76,10 @@ md-list.sample-list {
 /* Styles for image-slider */
 
 .pip-image-slider, .pip-image-slider .pip-animation-block, .pip-image-slider .pip-animation-block img {
-   height: 600px;
+    height: 600px;
     max-width: 900px;
+}
+
+.p16 {
+    padding: 16px;
 }

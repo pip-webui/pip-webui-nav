@@ -14,33 +14,29 @@
         ]
     );
 
+    var content = [
+        {title: 'DROPDOWN', state: 'dropdown', url: '/dropdown', controller: 'DropdownController',
+            templateUrl: 'dropdown.html'
+        },
+        {title: 'TABS', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html'}
+    ];
+    
+    
     thisModule.controller('AppController',
         function ($scope, $rootScope, $state, $mdSidenav, pipTranslate, $timeout, $mdMedia, pipAppBar) {
-            $scope.pages = [
-                {title: 'DROPDOWN', state: 'dropdown', url: '/dropdown', controller: 'DropdownController',
-                    templateUrl: 'dropdown.html'
-                },
-                {title: 'TABS', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html'}
-            ];
-            $scope.selected = {};
-            $timeout(function () {
-                $scope.selected.pageIndex = _.findIndex($scope.pages, {state: $state.current.name});
-            });
+            $scope.content = content;
 
-            pipAppBar.showMenuNavIcon();
-            pipAppBar.showLanguage();
-            pipAppBar.showTitleText('NAVIGATION_CONTROLS');
-
-            $scope.onNavigationSelect = function (stateName) {
-                if ($state.current.name !== stateName) {
-                    $state.go(stateName);
-                }
+            $scope.onSwitchPage = function(state) {
+                $mdSidenav('left').close();
+                $state.go(state);
             };
 
-            $scope.onDropdownSelect = function (obj) {
-                if ($state.current.name !== obj.state) {
-                    $state.go(obj.state);
-                }
+            $scope.onToggleMenu = function() {
+                $mdSidenav('left').toggle();
+            };
+
+            $scope.isActiveState = function(state) {
+                return $state.current.name == state;
             };
         }
     );
