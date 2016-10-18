@@ -12,7 +12,7 @@
     // Main application header directive
     thisModule.directive('pipAppbar', function () {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             scope: {
                 title: '=pipTitle',
                 showMenu: '=pipShowMenu',
@@ -20,10 +20,9 @@
                 globalActions: '=pipGlobalActions',
                 partyAvatarUrl: '=pipPartyAvatarUrl'
             },
-            replace: false,
-            templateUrl: function (element, attr) {
+            /*templateUrl: function (element, attr) {
                 return 'appbar/appbar.html';
-            },
+            },*/
             controller: 'pipAppBarController'
         };
     });
@@ -50,6 +49,8 @@
             }
             // Apply class and call resize
             $element.addClass('pip-appbar');
+            $element.addClass('color-primary-bg');
+            
             $scope.$emit('pipResizeWindow');
 
             $scope.config = pipAppBar.config();

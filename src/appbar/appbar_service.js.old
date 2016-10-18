@@ -72,7 +72,7 @@
             return {
                 config: getConfig,
                 cssClass: cssClass,
-
+                
                 logoState:logoState,
                 setLogoState: setLogoState,
 
@@ -108,11 +108,11 @@
                 config.logoState = logoState;
                 return config.logoState;
             }
-
+            
             function logoState() {
                 return config.logoState;
             }
-
+            
             function getConfig() {
                 return config;
             }

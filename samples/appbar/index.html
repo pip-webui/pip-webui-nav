@@ -18,11 +18,16 @@
 
     <script src="../../lib/pip-webui-lib.js"></script>
     <script src="../../lib/pip-webui-services.js"></script>
-    <script src="../../lib/pip-webui-layouts.js"></script>
     <script src="../../dist/pip-webui-nav.js"></script>
 
     <script src="../../../node_modules/prismjs/prism.js"></script>
     <script src="../../../node_modules/pip-webui-tasks/node_modules/prismjs/prism.js"></script>
+
+    <script src="appbar_actions.js"></script>
+    <script src="appbar_icons.js"></script>
+    <script src="appbar_search.js"></script>
+    <script src="appbar_shadows.js"></script>
+    <script src="appbar_titles.js"></script>
     <script src="index.js"></script>
 </head>
 <body ng-app="app" ng-controller="appController" ng-if="!$reset"
@@ -30,189 +35,33 @@
 
 <pip-main class="pip-main">
 
-    <pip-appbar pip-local-actions="localActions">
-    </pip-appbar>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="menu"
+                       ng-click="onToggleMenu()" hide-gt-sm>
+                <md-icon md-svg-icon="icons:menu"></md-icon>
+            </md-button>
+            <span>App bar components</span>
+        </div>
+    </md-toolbar>
 
-    <pip-main-body class="layout-column pip-main-body">
-        <md-toolbar class="pip-appbar-ext">
-        </md-toolbar>
-        <pip-document class="pip-document">
-            <div class="pip-menu-container">
-                <div class="pip-content-container p24">
-                    <div>
-                        <h2 class="text-title tm0 bm24">Appbar {{ 'SAMPLE' | translate }}</h2>
+    <div class="layout-row flex">
+        <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+                    class="md-whiteframe-z2 md-sidenav-left layout-column">
+            <md-list>
+                <md-list-item ng-repeat="contentItem in content"
+                              ng-click="onSwitchPage(contentItem.state)"
+                              ng-class="{ 'selected-state': isActiveState(contentItem.state) }">
+                    <p ui-sref="{{contentItem.state}}">{{contentItem.title}}</p>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
 
-                    <pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE_TO_DISPLAY' | translate}}</h3>
-<strong>HTML:</strong>
-<code class="language-markup">
-&lt;<strong>pip-appbar</strong>&gt;&lt;/<strong>pip-appbar</strong>&gt;</code></pre>
+        <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
+            <div ui-view></div>
+        </md-content>
+    </div>
 
-                        <md-divider class="tm8 pip-list-divider"></md-divider>
-
-                        <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_NAV_ICONS' | translate }}</h3>
-
-                        <div>
-                            <md-button class="lm0 md-raised md-accent flat" ng-click="onShowMenuNavIcon()">
-                                {{ 'SHOW_MENU' | translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onShowBackNavIcon()">
-                                {{ 'SHOW_BACK' | translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onHideNavIcon()">
-                                {{ 'HIDE_NAV_ICON' | translate }}
-                            </md-button>
-                        </div>
-
-
-                    <pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showMenuNavIcon</strong>()
-
-<strong>pipAppBar.showBackNavIcon</strong>()
-
-<strong>pipAppBar.hideNavIcon</strong>()</code></pre>
-
-                        <md-divider class="tm8 pip-list-divider"></md-divider>
-
-                        <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_TITLES' | translate }}</h3>
-
-                        <md-input-container class="w-stretch bm0 tm24">
-                            <label>{{ 'TITLE_TEXT' | translate }}</label>
-                            <input ng-model="title" type="text">
-                        </md-input-container>
-
-                        <div>
-                            <md-button class="lm0 md-raised md-accent flat" ng-click="onShowTitleLogo()">{{ 'SHOW_LOGO'
-                                | translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onShowTitleText()">{{ 'SHOW_TEXT' |
-                                translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">{{
-                                'SHOW_BREADCRUMB' | translate }}
-                            </md-button>
-                        </div>
-
-                    <pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showTitleLogo</strong>('piplife_logo.svg')
-
-<strong>pipAppBar.showTitleText</strong>($scope.title)
-
-<strong>pipAppBar.showTitleBreadcrumb</strong>([
-       { title: 'Header' },
-       { title: 'SubHeader' },
-       { title: $scope.title }
-])</code></pre>
-                        <md-divider class="tm8 pip-list-divider"></md-divider>
-
-                        <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_SEARCH' | translate }}</h3>
-
-                        <md-input-container class="w-stretch bm0 tm24">
-                            <label>{{ 'SEARCH_CRITERIA' | translate }}</label>
-                            <input ng-model="searchCriteria" type="text">
-                        </md-input-container>
-
-                        <div>
-                            <md-button class="lm0 md-raised md-accent flat" ng-click="onShowSearch()">{{ 'SHOW_SEARCH' |
-                                translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onHideSearch()">{{ 'HIDE_SEARCH' |
-                                translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onUpdateSearch()">{{ 'UPDATE_SEARCH' |
-                                translate }}
-                            </md-button>
-                        </div>
-
-                    <pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showSearch</strong>()
-
-<strong>pipAppBar.hideSearch</strong>()
-
-<strong>pipAppBar.updateSearchCriteria</strong>($scope.searchCriteria)</code></pre>
-
-                        <md-divider class="tm8 pip-list-divider"></md-divider>
-
-                        <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES' | translate }}</h3>
-
-                        <!--md-input-container class="tm24 w-stretch bm0">
-                            <label>{{ 'TITLE_LOCAL_ACTION' | translate }}</label>
-                            <input ng-model="localActions[1][0].title" ng-disabled="disableOfActionTitleEditing" type="text">
-                        </md-input-container-->
-
-                        <md-input-container class="w-stretch bm0 tm24">
-                            <label>{{ 'NOTIFICATION_COUNT' | translate }}</label>
-                            <input ng-model="notificationCount" ng-change="onChangeNotificationCount()"
-                                   type="number">
-                        </md-input-container>
-
-                        <div>
-                            <md-button class="lm0 md-raised md-accent flat" ng-click="onShowActions()">{{ 'SHOW_ACTIONS'
-                                | translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onHideActions()">{{ 'HIDE_ACTIONS' |
-                                translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onShowLanguage()">{{ 'SHOW_LANGUAGES'
-                                | translate }}
-                            </md-button>
-                        </div>
-
-                    <pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js">
-<strong>pipAppBar.pipAppBar.showLocalActions</strong>
-       [
-           { name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,
-               subActions: [{ name: 'sample.sendSomeone', title: 'Send someone' }, { name: 'sample.sendToAll', title: 'Send to All' }] },
-           { name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true },
-           { name: 'sample.discard2', tooltip: 'Discard2 Message', icon: 'icons:bug', showSmall: true }
-       ],
-       [
-           { name: 'sample.send', title: 'Send Message1' , close: true },
-           { name: 'sample.discard', title: 'Discard Message' },
-           { divider: true },
-           { name: 'configure', title: 'Configure...', href: 'http://www.google.com' }
-       ]
-);
-
-<strong>pipAppBar.hideLocalActions</strong>()
-
-<strong>pipAppBar.showLanguage</strong>(['en', 'ru'])</code></pre>
-
-                        <md-divider class="tm8 pip-list-divider"></md-divider>
-
-                        <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_SHADOWS' | translate }}</h3>
-
-                        <div>
-                            <md-button class="lm0 md-raised md-accent flat" ng-click="onShowShadow()">{{ 'SHOW_SHADOW' |
-                                translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onShowShadowSm()">
-                                {{ 'SHOW_SMALL_SHADOW' | translate }}
-                            </md-button>
-                            <md-button class="md-raised md-accent flat" ng-click="onHideShadow()">{{ 'HIDE_SHADOW' |
-                                translate }}
-                            </md-button>
-                        </div>
-
-                        <h3 class="text-subhead2 tm0 bm0">{{ 'CODE' | translate }}</h3>
-
-                    <pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showShadow</strong>()
-
-<strong>pipAppBar.showShadowSm</strong>()
-
-<strong>pipAppBar.hideShadow</strong>()</code></pre>
-                    </div>
-                </div>
-            </div>
-        </pip-document>
-    </pip-main-body>
 </pip-main>
 </body>
 </html>

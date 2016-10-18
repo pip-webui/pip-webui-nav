@@ -1,8 +1,104 @@
+.text-hide {
+  font: 0/0;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-display4 {
+  font: normal 300 112px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-display3 {
+  font: normal 400 56px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-display2 {
+  font: normal 400 45px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-display1 {
+  font: normal 400 34px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-headline {
+  font: normal 400 24px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-title {
+  font: normal 500 20px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-subhead1 {
+  font: normal 400 16px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-subhead2 {
+  font: normal 500 16px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-body1 {
+  font: normal 400 14px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-body2 {
+  font: normal 500 14px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-caption {
+  font: normal 400 12px Roboto, 'Helvetica Neue', sans-serif;
+}
+.text-button {
+  font: normal 500 14px Roboto, 'Helvetica Neue', sans-serif;
+}
+.flex-fixed {
+  -webkit-box-flex: 0 0 auto;
+  -moz-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.flex-var {
+  -webkit-box-flex: 1 1 auto;
+  -moz-box-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+.flex-grow {
+  -webkit-box-flex: 1 0 auto;
+  -moz-box-flex: 1 0 auto;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+.flex-shrink {
+  -webkit-box-flex: 0 1 auto;
+  -moz-box-flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
+.opacity-secondary {
+  opacity: 0.54;
+}
+.opacity-primary {
+  opacity: 0.87;
+}
+.opacity-disabled {
+  opacity: 0.38;
+}
+.no-divider {
+  border: none !important;
+}
+.divider {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
 pip-dropdown md-toolbar {
   min-height: 48px;
 }
 pip-dropdown .pip-divider {
   border-top-color: rgba(255, 255, 255, 0.12);
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin-top: 0;
 }
 pip-dropdown md-select {
   margin-top: 0px;
@@ -160,90 +256,21 @@ md-content md-option .md-text .pip-tabs-badge {
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-}
-.pip-appbar .md-toolbar-tools > .md-button.pip-third-party:first-child {
-  margin-left: 0px;
-  margin-right: 16px !important;
-}
-.pip-appbar .md-toolbar-tools > .md-button:first-child {
-  margin-left: -10px;
-  margin-right: 24px !important;
-}
-.pip-appbar .pip-appbar-logo {
-  display: block;
-  height: 20px;
-  max-height: 45px;
-}
-.pip-appbar .pip-appbar-actions {
-  margin-right: -18px;
-}
-.pip-appbar .pip-appbar-actions.pip-language-action {
-  margin-right: -7px;
-}
-.pip-appbar .pip-appbar-breadcrumb,
-.pip-appbar .pip-appbar-language {
-  cursor: pointer;
-  outline: none;
-}
-.pip-appbar .pip-title,
-.pip-appbar .pip-appbar-breadcrumb {
-  vertical-align: middle;
-}
-.pip-appbar .pip-appbar-breadcrumb {
-  display: inline-block;
-}
-.pip-appbar .pip-appbar-mobile-breadcrumb,
-.pip-appbar .pip-appbar-breadcrumb {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.pip-appbar .pip-appbar-mobile-breadcrumb md-icon,
-.pip-appbar .pip-appbar-breadcrumb md-icon {
-  margin-top: 3px !important;
-}
-.pip-appbar .pip-appbar-badge {
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  font-size: 9px;
-  width: 15px;
-  height: 15px !important;
-  border-radius: 7.5px;
-  line-height: 17px;
-  vertical-align: middle;
-  text-align: center;
-}
-.pip-appbar .pip-search-text {
-  color: #fff !important;
-  background-color: transparent;
-  border: none;
-  font-size: 16px;
-  outline: none;
-}
-.pip-appbar .pip-search-text::-ms-clear {
-  display: none;
-}
-.pip-appbar .pip-search-text::-webkit-search-cancel-button {
-  /* псевдо что-то, что отвечает за кнопку очистки */
-  -webkit-appearance: none;
-  /* без сброса оформление не применится */
-}
-.pip-appbar md-toolbar {
+  -webkit-box-flex-direction: row;
+  -moz-box-flex-direction: row;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 56px;
   z-index: 11;
 }
-.pip-appbar md-toolbar.pip-shadow {
+.pip-appbar.pip-shadow {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-.md-open-menu-container {
-  max-width: calc(100% - 20px);
-}
-.md-open-menu-container md-menu-content md-menu-item .md-button {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: rgba(0, 0, 0, 0.87) !important;
 }
 .pip-appbar-ext {
   position: absolute;
@@ -255,29 +282,28 @@ md-content md-option .md-text .pip-tabs-badge {
   z-index: 0;
 }
 @media (max-width: 768px) {
-  .pip-appbar .pip-appbar-hide-sm {
+  .pip-appbar.pip-appbar-hide-sm {
     display: none;
   }
 }
 @media (min-width: 768px) {
-  .pip-appbar .pip-appbar-show-sm {
+  .pip-appbar.pip-appbar-show-sm {
     display: none;
   }
 }
 @media (max-width: 1200px) {
-  .pip-appbar md-toolbar,
-  .pip-appbar .md-toolbar-tools {
+  .pip-appbar {
     height: 56px !important;
     max-height: 56px !important;
   }
 }
 @media (max-width: 1200px) and (min-width: 768px) {
-  .pip-appbar md-toolbar.pip-shadow-sm {
+  .pip-appbar.pip-shadow-sm {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   }
 }
 @media (max-width: 768px) {
-  md-toolbar.pip-shadow-xs {
+  .pip-appbar.pip-shadow-xs {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   }
 }

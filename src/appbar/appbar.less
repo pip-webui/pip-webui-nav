@@ -1,130 +1,28 @@
 // @file CSS styles for application App Bar component
 // @copyright Digital Living Software Corp. 2014-2016
 
-@appbar-title-font-size:           @font-size-title;
-@appbar-title-color:               rgb(255, 255, 255);
+@appbar-title-font-size: @font-size-title;
+@appbar-title-color: rgb(255, 255, 255);
 //@appbar-title-font-family:         @font-family;
 @appbar-title-font-letter-spacing: 0.005em;
-@appbar-height:                    45px;
-@appbar-ext-height:                95px;
-@appbar-desktop-margin:            16px;
-@appbar-tablet-margin:             26px;
-@appbar-phone-margin:              16px;
-@appbar-font-size:                 24px;               
+@appbar-height: 45px;
+@appbar-ext-height: 95px;
+@appbar-desktop-margin: 16px;
+@appbar-tablet-margin: 26px;
+@appbar-phone-margin: 16px;
+@appbar-font-size: 24px;
 
 .pip-appbar {
   .flex-fixed();
+  .flex-direction(row);
+  .flex-vertical-content(center);
 
-  .pip-toolbar-tools{
-    padding-left: 24px;
-    padding-right: 24px;
-    @media (min-width: 768px) {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
+  min-height: 56px;
+  z-index: 11;
+  &.pip-shadow {
+    box-shadow: @box-shadow;
   }
 
-  .pip-icon-button{
-    .flex-fixed();
-    padding: 0;
-  }
-
-  .md-toolbar-tools > .md-button.pip-third-party:first-child {
-    margin-left: 0px;
-    margin-right: 16px !important;
-  }
-
-  .md-toolbar-tools > .md-button:first-child {
-    margin-left: -10px;
-    margin-right: 24px !important;
-  }
-
-  .pip-appbar-logo {
-      display: block;
-      height: 20px;
-      max-height: 45px;
-  }
-
-  .pip-appbar-actions {
-    margin-right: -18px;
-  }
-
-  .pip-appbar-actions.pip-language-action {
-    margin-right: -7px;
-  }
-
-  .pip-appbar-breadcrumb,
-  .pip-appbar-language {
-      cursor: pointer;
-      outline: none;
-  }
-
-  .pip-title, .pip-appbar-breadcrumb {
-    vertical-align: middle;
-  }
-
-  .pip-appbar-breadcrumb {
-    display: inline-block;
-  }
-
-  .pip-appbar-mobile-breadcrumb, .pip-appbar-breadcrumb {
-    .text-overflow();
-    cursor: pointer;
-
-    md-icon {
-      margin-top: 3px !important;
-    }
-  }
-  
-  .pip-appbar-badge {
-      position: absolute;
-      right: 6px;
-      top: 6px;
-      font-size: 9px;
-      .circle(15px);
-      //border: 1px solid rgba(0,0,0,0.1);
-      line-height: 17px;
-      vertical-align: middle;
-      text-align: center;
-  }
- 
-    .pip-search-text {
-      color: #fff !important;
-      background-color: transparent;
-      border: none;
-      font-size: 16px;
-      outline: none;
-
-      &::-ms-clear {
-        display: none;
-      }
-      
-      &::-webkit-search-cancel-button {
-        /* псевдо что-то, что отвечает за кнопку очистки */
-        -webkit-appearance: none; /* без сброса оформление не применится */
-      }
-    }
-
-    md-toolbar {
-      z-index: 11;
-    }
-
-    md-toolbar.pip-shadow {
-      box-shadow: @box-shadow;
-    }
-
-}
-
-.md-open-menu-container {
-  max-width: ~"calc(100% - 20px)";
-  md-menu-content {
-    md-menu-item {
-      .md-button {
-        .text-overflow();
-        color: @color-primary !important;
-      }
-    }
-  }
 }
 
 .pip-appbar-ext {
@@ -141,7 +39,7 @@
 @media (max-width: 768px) {
   // Style to hide elements on smaller screens
   .pip-appbar {
-    .pip-appbar-hide-sm {
+    &.pip-appbar-hide-sm {
       display: none;
     }
 
@@ -151,7 +49,7 @@
 @media (min-width: 768px) {
   // Style to hide elements on smaller screens
   .pip-appbar {
-    .pip-appbar-show-sm {
+    &.pip-appbar-show-sm {
       display: none;
     }
 
@@ -161,12 +59,11 @@
 @media (max-width: 1200px) {
   // Style to hide elements on smaller screens
   .pip-appbar {
-    md-toolbar, .md-toolbar-tools {
-      height: 56px !important;
-      max-height: 56px !important;
-    }
-    @media( min-width: 768px){
-      md-toolbar.pip-shadow-sm {
+    height: 56px !important;
+    max-height: 56px !important;
+
+    @media ( min-width: 768px) {
+      &.pip-shadow-sm {
         box-shadow: @box-shadow;
       }
     }
@@ -174,8 +71,8 @@
   }
 }
 
-@media( max-width: 768px){
-  md-toolbar.pip-shadow-xs {
+@media ( max-width: 768px) {
+  .pip-appbar.pip-shadow-xs {
     box-shadow: @box-shadow;
   }
 }

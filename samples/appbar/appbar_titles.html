@@ -1,0 +1,36 @@
+<h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_TITLES' | translate }}</h3>
+
+
+<md-toolbar pip-appbar>
+    <pip-breadcrumb></pip-breadcrumb>
+</md-toolbar>
+
+
+<md-input-container class="w-stretch bm0 tm24">
+    <label>{{ 'TITLE_TEXT' | translate }}</label>
+    <input ng-model="title" type="text">
+</md-input-container>
+
+<div>
+    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowTitleLogo()">{{ 'SHOW_LOGO'
+        | translate }}
+    </md-button>
+    <md-button class="md-raised md-accent flat" ng-click="onShowTitleText()">{{ 'SHOW_TEXT' |
+        translate }}
+    </md-button>
+    <md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">{{
+        'SHOW_BREADCRUMB' | translate }}
+    </md-button>
+</div>
+
+<pre class="text-body1 color-window-bg p16">
+<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
+<code class="language-js"><strong>pipAppBar.showTitleLogo</strong>('piplife_logo.svg')
+
+<strong>pipAppBar.showTitleText</strong>($scope.title)
+
+<strong>pipAppBar.showTitleBreadcrumb</strong>([
+       { title: 'Header' },
+       { title: 'SubHeader' },
+       { title: $scope.title }
+])</code></pre>

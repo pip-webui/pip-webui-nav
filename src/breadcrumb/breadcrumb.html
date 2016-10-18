@@ -5,9 +5,9 @@
             ng-click="onSearchEnable()">{{config.criteria}} -</span>
         <!-- Breadcrumb navigation -->
         <span class="pip-breadcrumb-item"
-            ng-repeat-start="item in config.titleBreadcrumb"
+            ng-repeat-start="item in config.items"
             ng-click="onBreadcrumbClick(item)"
-            ng-init="stepWidth = 100/(config.titleBreadcrumb.length + 1)"
+            ng-init="stepWidth = 100/(config.items.length + 1)"
             ng-style="{'max-width': stepWidth + '%'}">
             {{item.title | translate}}
         </span>
