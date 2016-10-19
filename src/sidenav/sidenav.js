@@ -28,10 +28,8 @@
             // Apply class and call resize
             $element.addClass('pip-sidenav');
 
-            $scope.config = pipSideNav.config();
-
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
-            $rootScope.$on('pipSideNavChanged', onConfigChanged);
+            //$rootScope.$on('pipSideNavChanged', onConfigChanged);
 
             return;
             
@@ -41,9 +39,6 @@
                 pipSideNav.open();
             }
 
-            function onConfigChanged(event, config) {
-                $scope.config = config;
-            }
         }
     );
 

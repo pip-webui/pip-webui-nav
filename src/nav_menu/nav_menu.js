@@ -30,7 +30,7 @@
             // Apply class and call resize
             $element.addClass('pip-nav-menu');
 
-            $scope.config = pipNavMenu.config();
+            $scope.config = $scope.config || pipNavMenu.get();
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);
 

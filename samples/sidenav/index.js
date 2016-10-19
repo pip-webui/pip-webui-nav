@@ -2,7 +2,8 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('app', ['pipServices', 'pipSideNav', 'ngMaterial']);
+    var thisModule = angular.module('app', ['pipServices', 'pipSideNav', 'ngMaterial',
+        'pipNavMenu']);
 
     thisModule.config(function (pipSideNavProvider, $mdIconProvider, pipTranslateProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);
@@ -26,43 +27,9 @@
             TOGGLE: 'Переключить'
         });
 
-        pipSideNavProvider.sections([
-            {
-                links: [
-                    {title: 'Dashboard', url: '/dashboard?party_id=:party_id', access: accessOwner},
-                    {title: 'About', url: '/about?party_id=:party_id'}
-                ]
-            },
-            {
-                title: 'Get',
-                access: accessContributor,
-                links: [
-                    {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
-                    {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
-                    {title: 'Events', icon: 'icons:star', url: '/ultimate_todo?party_id=:party_id'}
-                ]
-            },
-            {
-                links: [
-                    {title: 'Help', url: '/help'},
-                    {title: 'Support', url: '/support?party_id=:user_id'},
-                    {title: 'Settings', url: '/settings?party_id=:party_id', access: accessManager}
-                ]
-            }
-        ]);
+        /*pipSideNavProvider.sections();*/
     });
 
-    function accessOwner($party, $user) {
-        return $user && $user.owner;
-    }
-
-    function accessManager($party, $user) {
-        return $user && $user.manager;
-    }
-
-    function accessContributor($party, $user) {
-        return $user && $user.contributor;
-    }
 
     thisModule.controller('appController',
         function ($scope, $rootScope, pipSideNav, pipTranslate, $mdTheming, localStorageService, $timeout) {
@@ -72,45 +39,38 @@
                     Prism.highlightElement(block);
                 });
             });
-            
+
+            $scope.links = [
+                {
+                    links: [
+                        {title: 'Dashboard', url: '/dashboard?party_id=:party_id'},
+                        {title: 'About', url: '/about?party_id=:party_id'}
+                    ]
+                },
+                {
+                    title: 'Get',
+                    access: true,
+                    links: [
+                        {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
+                        {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
+                        {title: 'Events', icon: 'icons:star', url: '/ultimate_todo?party_id=:party_id'}
+                    ]
+                },
+                {
+                    links: [
+                        {title: 'Help', url: '/help'},
+                        {title: 'Support', url: '/support?party_id=:user_id'},
+                        {title: 'Settings', url: '/settings?party_id=:party_id'}
+                    ]
+                }
+            ];
             $rootScope.$theme = localStorageService.get('theme');
-
-            $rootScope.$party = {
-                id: '56b0ab71e8540ddb54705fff',
-                name: 'Kate Negrienko',
-                theme: $rootScope.$theme
-            };
-
-            $rootScope.$user = {
-                id: '565f12ef8ff2161b1dfeedbf',
-                name: 'Миньошка',
-                owner: false,
-                manager: true,
-                contributor: true,
-                admin: false
-            };
 
             $scope.languages = ['en', 'ru'];
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);
-            };
-
-            $scope.onThemeClick = function (theme) {
-                // pipTheme.setCurrentTheme(theme);
-                $rootScope.$party = theme;
-                pipSideNav.theme(theme);
-            };
-
-            $rootScope.$connection = {
-                party_id: '565f12ef8ff2161b1dfeedbf',
-                to_party_id: '56b0ab71e8540ddb54705fff',
-                to_party_name: 'Kate Negrienko',
-                relation: 'Friend',
-                relation_since: '2001-07-11',
-                manager: true,
-                contributor: true
             };
 
             $scope.$on('pipSideNavLinkClicked', function (event, link) {

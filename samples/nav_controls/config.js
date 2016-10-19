@@ -51,13 +51,13 @@
             }
 
             $urlRouterProvider.otherwise('/tabs');
-
+/*
             // Configure navigation menu
             pipSideNavProvider.sections([
                 {
                     links: [{title: 'NAVIGATION_CONTROLS', url: '/tabs'}]
                 }
-            ]);
+            ]);*/
         }
     );
 

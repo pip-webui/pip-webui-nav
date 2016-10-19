@@ -15,7 +15,7 @@
             // Theme to be applied to the header
             theme: 'blue',
             // Parts of the sidenav
-            sections: []
+            parts: []
         };
 
         this.theme = theme;
@@ -27,7 +27,7 @@
 
             return {
                 config: getConfig,
-                theme: setTheme,
+                //theme: setTheme,
                 part: getOrSetPart,
                 parts: getOrSetParts,
                 open: open,
