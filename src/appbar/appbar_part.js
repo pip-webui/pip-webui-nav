@@ -17,13 +17,12 @@
             priority: ngIf.priority,
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
+            scope: true,
             link: function linkFunction($scope, $element, $attrs) {
-                console.log('a', ngIfDirective[0]);
                 // Visualize based on visible variable in scope
                 $attrs.ngIf = function () {
                     return $scope.visible;
                 };
-                console.log(arguments);
                 ngIf.link.apply(ngIf, arguments);
             },
             controller: 'pipAppBarPartController'
@@ -49,9 +48,12 @@
             function onAppBarChanged(event, config) {
                 var parts = config.parts || {};
                 var currentPartValue = parts[partName];
-                // Set visible variable to switch ngIf
-                $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
 
+                // Set visible variable to switch ngIf
+                var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
+
+                if (visible != $scope.visible)
+                    $scope.visible = visible;
             }
 
         }

@@ -257,7 +257,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_header/nav_header.html',
-    '<md-toolbar md-theme="{{ $theme }}" ng-hide="user">\n' +
+    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!user">\n' +
     '\n' +
     '    <md-button class="pip-nav-header-user md-icon-button"\n' +
     '                ng-click="onUserClick()"\n' +
@@ -399,8 +399,7 @@ module.run(['$templateCache', function($templateCache) {
     '-->\n' +
     '\n' +
     '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
-    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused>\n' +
-    '    <div ng-transclude></div>\n' +
+    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
     '</md-sidenav>\n' +
     '');
 }]);
@@ -903,13 +902,12 @@ module.run(['$templateCache', function($templateCache) {
             priority: ngIf.priority,
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
+            scope: true,
             link: function linkFunction($scope, $element, $attrs) {
-                console.log('a', ngIfDirective[0]);
                 // Visualize based on visible variable in scope
                 $attrs.ngIf = function () {
                     return $scope.visible;
                 };
-                console.log(arguments);
                 ngIf.link.apply(ngIf, arguments);
             },
             controller: 'pipAppBarPartController'
@@ -935,9 +933,12 @@ module.run(['$templateCache', function($templateCache) {
             function onAppBarChanged(event, config) {
                 var parts = config.parts || {};
                 var currentPartValue = parts[partName];
-                // Set visible variable to switch ngIf
-                $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
 
+                // Set visible variable to switch ngIf
+                var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
+
+                if (visible != $scope.visible)
+                    $scope.visible = visible;
             }
 
         }]
@@ -975,7 +976,7 @@ module.run(['$templateCache', function($templateCache) {
                 config: getConfig,
                 cssClass: cssClass,
 
-                part: getOrSetParts,
+                part: getOrSetPart,
                 parts: getOrSetParts
             };
 
@@ -999,9 +1000,11 @@ module.run(['$templateCache', function($templateCache) {
                 if (!_.isString(name))
                     throw new Exception("Part name has to be a string");
 
-                if (value != null) {
-                    config.parts[name] = value;
-                    sendConfigEvent();
+                if (value != undefined) {
+                    if (config.parts[name] != value) {
+                        config.parts[name] = value;
+                        sendConfigEvent();
+                    }
                 }
 
                 return config.parts[name];
@@ -1009,8 +1012,10 @@ module.run(['$templateCache', function($templateCache) {
 
             function getOrSetParts(parts) {
                 if (_.isObject(parts)) {
-                    config.parts = parts;
-                    sendConfigEvent();
+                    if (!_.isEqual(config.parts, parts)) {
+                        config.parts = parts;
+                        sendConfigEvent();
+                    }
                 }
 
                 return config.parts;
@@ -1613,7 +1618,7 @@ module.run(['$templateCache', function($templateCache) {
             // Apply class and call resize
             $element.addClass('pip-nav-menu');
 
-            $scope.config = pipNavMenu.config();
+            $scope.config = $scope.config || pipNavMenu.get();
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);
 
@@ -1626,7 +1631,8 @@ module.run(['$templateCache', function($templateCache) {
             //------------------------
             
             function itemVisible(item) {
-                return item && item.access && !item.access(item);
+                if (!item || !item.access) return true;
+                return item && item.access;
             }
 
             function isSectionEmpty(linkCollection) {
@@ -2011,10 +2017,8 @@ module.run(['$templateCache', function($templateCache) {
             // Apply class and call resize
             $element.addClass('pip-sidenav');
 
-            $scope.config = pipSideNav.config();
-
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
-            $rootScope.$on('pipSideNavChanged', onConfigChanged);
+            //$rootScope.$on('pipSideNavChanged', onConfigChanged);
 
             return;
             
@@ -2024,9 +2028,6 @@ module.run(['$templateCache', function($templateCache) {
                 pipSideNav.open();
             }
 
-            function onConfigChanged(event, config) {
-                $scope.config = config;
-            }
         }]
     );
 
@@ -2105,7 +2106,7 @@ module.run(['$templateCache', function($templateCache) {
             // Theme to be applied to the header
             theme: 'blue',
             // Parts of the sidenav
-            sections: []
+            parts: []
         };
 
         this.theme = theme;
@@ -2117,7 +2118,7 @@ module.run(['$templateCache', function($templateCache) {
 
             return {
                 config: getConfig,
-                theme: setTheme,
+                //theme: setTheme,
                 part: getOrSetPart,
                 parts: getOrSetParts,
                 open: open,
@@ -2135,9 +2136,11 @@ module.run(['$templateCache', function($templateCache) {
                 if (!_.isString(name))
                     throw new Exception("Part name has to be a string");
 
-                if (value != null) {
-                    config.parts[name] = value;
-                    sendConfigEvent();
+                if (value != undefined) {
+                    if (config.parts[name] != value) {
+                        config.parts[name] = value;
+                        sendConfigEvent();
+                    }
                 }
 
                 return config.parts[name];
@@ -2145,8 +2148,10 @@ module.run(['$templateCache', function($templateCache) {
 
             function getOrSetParts(parts) {
                 if (_.isObject(parts)) {
-                    config.parts = parts;
-                    sendConfigEvent();
+                    if (!_.isEqual(config.parts, parts)) {
+                        config.parts = parts;
+                        sendConfigEvent();
+                    }
                 }
 
                 return config.parts;

@@ -45,9 +45,11 @@
                 if (!_.isString(name))
                     throw new Exception("Part name has to be a string");
 
-                if (value != null) {
-                    config.parts[name] = value;
-                    sendConfigEvent();
+                if (value != undefined) {
+                    if (config.parts[name] != value) {
+                        config.parts[name] = value;
+                        sendConfigEvent();
+                    }
                 }
 
                 return config.parts[name];
@@ -55,8 +57,10 @@
 
             function getOrSetParts(parts) {
                 if (_.isObject(parts)) {
-                    config.parts = parts;
-                    sendConfigEvent();
+                    if (!_.isEqual(config.parts, parts)) {
+                        config.parts = parts;
+                        sendConfigEvent();
+                    }
                 }
 
                 return config.parts;
