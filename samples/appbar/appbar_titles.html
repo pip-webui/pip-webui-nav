@@ -1,8 +1,20 @@
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_TITLES' | translate }}</h3>
 
 
-<pip-appbar>
+<!--<pip-appbar>
     <pip-breadcrumb></pip-breadcrumb>
+</pip-appbar>-->
+
+<pip-appbar>
+    <pip-nav-icon pip-part="icon"></pip-nav-icon>
+
+    <div pip-part="title:text"></div>
+    <pip-breadcrumb pip-part="title:breadcrumb"></pip-breadcrumb>
+
+    <pip-language pip-part="actions:language"></pip-language>
+    <pip-primary-actions pip-part="actions:primary"></pip-primary-actions>
+
+    <pip-secondary-actions pip-part="menu"></pip-secondary-actions>
 </pip-appbar>
 
 

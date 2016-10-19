@@ -23,6 +23,7 @@
         // Get the service instance
         this.$get = function ($rootScope) {
             return {
+                getConfig: getConfig,
                 hide: hide,
                 showMenu: showMenu,
                 showBack: showBack,

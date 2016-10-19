@@ -21,7 +21,7 @@
                                 $urlRouterProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);
 
-        pipAppBarProvider.globalActions(
+       /* pipAppBarProvider.globalActions(
             [
                 {
                     name: 'sample.notifications', tooltip: 'Notifications',
@@ -33,7 +33,7 @@
                 {name: 'sample.settings', title: 'Settings'},
                 {name: 'sample.signout', title: 'Signout'}
             ]
-        );
+        );*/
 
         for (var i = 0; i < content.length; i++) {
             var contentItem = content[i];
