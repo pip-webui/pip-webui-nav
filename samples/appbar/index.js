@@ -6,7 +6,9 @@
         
         'appAppbar.Icons', 'appAppbar.Titles',
         'appAppbar.Actions', 'appAppbar.Search',
-        'appAppbar.Shadows'
+        'appAppbar.Shadows',
+        
+        'pipTranslate'
     ]);
 
     var content = [
@@ -20,20 +22,6 @@
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider,
                                 $urlRouterProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);
-
-       /* pipAppBarProvider.globalActions(
-            [
-                {
-                    name: 'sample.notifications', tooltip: 'Notifications',
-                    event: 'pipNotificationsClicked', count: 0,
-                    icon: 'icons:bell'
-                }
-            ],
-            [
-                {name: 'sample.settings', title: 'Settings'},
-                {name: 'sample.signout', title: 'Signout'}
-            ]
-        );*/
 
         for (var i = 0; i < content.length; i++) {
             var contentItem = content[i];

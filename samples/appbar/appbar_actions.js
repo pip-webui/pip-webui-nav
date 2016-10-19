@@ -3,7 +3,8 @@
 
     var thisModule = angular.module('appAppbar.Actions', [
         'pipAppBar', 'pipActions.Service', 'pipLanguagePicker',
-        'pipPrimaryActions', 'pipSecondaryActions', 'pipAppBar.Part'
+        'pipPrimaryActions', 'pipSecondaryActions', 'pipAppBar.Part',
+        'pipTranslate'
     ]);
     thisModule.config(function (pipActionsProvider) {
 
@@ -24,8 +25,37 @@
     });
 
     thisModule.controller('ActionsController',
-        function ($scope, pipActions, pipAppBar) {
+        function ($scope, pipActions, pipAppBar, $injector, $rootScope) {
 
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+            if (pipTranslate) {
+                pipTranslate.translations('en', {
+                    TITLE_TEXT: 'Title text',
+                    THEME: 'Theme',
+                    TITLE_LOCAL_ACTION: 'Title of first primary action',
+                    DISPLAY_AND_HIDE_NAV_ICONS: 'Display and hide nav icons',
+                    DISPLAY_AND_HIDE_TITLES: 'Display and hide titles',
+                    DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES: 'Display and hide actions and languages',
+                    SHOW_ACTIONS: 'Show actions',
+                    HIDE_ACTIONS: 'Hide actions',
+                    SHOW_LANGUAGES: 'Show languages',
+                    
+                });
+                pipTranslate.translations('ru', {
+                    TITLE_LOCAL_ACTION: 'Заголовок первого основного действия',
+                    DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES: 'Отображение и скрытие списка действий и языков',
+                    SHOW_ACTIONS: 'Отобразить список действий',
+                    HIDE_ACTIONS: 'Скрыть список действий',
+                    SHOW_LANGUAGES: 'Отобразить языки',
+                    
+                });
+            }
+
+            // Update page after language changed
+            $rootScope.$on('languageChanged', function(event) {
+                $state.reload();
+            });
+            
             $scope.localActions = [
                 [
                     {
@@ -53,11 +83,11 @@
 
             $scope.onHideActions = function () {
                 pipActions.hideLocalActions();
-                pipAppBar.part('actions',false);
+                pipAppBar.part('actions', false);
             };
 
             $scope.onShowLanguage = function () {
-                pipAppBar.part('actions','language');
+                pipAppBar.part('actions', 'language');
             };
 
             $scope.onChangeNotificationCount = function () {
@@ -67,7 +97,7 @@
             $scope.onShowActions = function () {
                 pipActions.showLocalActions($scope.localActions[0], $scope.localActions[1]);
                 pipActions.updateActionCount('sample.notifications', $scope.notificationCount);
-                pipAppBar.part('actions','primary');
+                pipAppBar.part('actions', 'primary');
             };
 
 

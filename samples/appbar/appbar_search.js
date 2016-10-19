@@ -6,7 +6,23 @@
     ]);
 
     thisModule.controller('SearchController',
-        function($scope, $rootScope, pipAppBar, pipSearch) {
+        function($scope, $rootScope, pipAppBar, pipSearch, $injector) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+            if (pipTranslate) {
+                pipTranslate.translations('en', {
+                    DISPLAY_AND_HIDE_SEARCH: 'Display and hide search',
+                    SHOW_SEARCH: 'Show search',
+                    HIDE_SEARCH: 'Hide search',
+                    UPDATE_SEARCH: 'Update search',
+                });
+                pipTranslate.translations('ru', {
+                  
+                    DISPLAY_AND_HIDE_SEARCH: 'Отображение и скрытие поиска',
+                    SHOW_SEARCH: 'Отобразить поиск',
+                    HIDE_SEARCH: 'Скрыть поиск',
+                    UPDATE_SEARCH: 'Обновить поиск',
+                });
+            }
             $scope.searchCriteria = 'Find this';
             
             $scope.$on('pipAppBarSearchClicked', function (event, search) {

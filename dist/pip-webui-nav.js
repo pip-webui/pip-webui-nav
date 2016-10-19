@@ -374,6 +374,13 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:cross-circle"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
+    '<div class="md-toolbar-tools layout-row layout-align-end-center"  ng-if="!searchEnabled">\n' +
+    '    <md-button class="md-icon-button"\n' +
+    '               aria-label="start search"\n' +
+    '               ng-click="onSearchEnable()">\n' +
+    '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
+    '    </md-button>\n' +
+    '</div>\n' +
     '');
 }]);
 })();
@@ -1313,7 +1320,7 @@ module.run(['$templateCache', function($templateCache) {
             $scope.onLanguageClick = onLanguageClick;
 
             function getLanguage() {
-                return pipTranslate ? pipTranslate.use() : null;
+                return pipTranslate ? pipTranslate.use() : ['en', 'ru'];
             }
 
             function onLanguageClick(language) {
@@ -1775,11 +1782,11 @@ module.run(['$templateCache', function($templateCache) {
     thisModule.run(['$injector', function ($injector) {
         var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
         if (pipTranslate) {
-            pipTranslateProvider.translations('en', {
+            pipTranslate.translations('en', {
                 'APPBAR_SEARCH': 'Search'
             });
 
-            pipTranslateProvider.translations('ru', {
+            pipTranslate.translations('ru', {
                 'APPBAR_SEARCH': 'Поиск'
             });
         }
@@ -1907,6 +1914,7 @@ module.run(['$templateCache', function($templateCache) {
             $rootScope.$on('pipSearchClose', close);
 
             return {
+                config: getConfig,
                 set: setSearch,
                 clear: clearSearch,
                 criteria: updateCriteria,

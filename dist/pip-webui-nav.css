@@ -446,3 +446,29 @@ md-content md-option .md-text .pip-tabs-badge {
   cursor: pointer;
   outline: none;
 }
+.pip-nav-icon {
+  -webkit-box-flex: 0 0 auto;
+  -moz-box-flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding: 0;
+}
+.pip-search-bar {
+  width: 100%;
+}
+.pip-search-bar .pip-search-text {
+  color: #fff !important;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+.pip-search-bar .pip-search-text::-ms-clear {
+  display: none;
+}
+.pip-search-bar .pip-search-text::-webkit-search-cancel-button {
+  /* псевдо что-то, что отвечает за кнопку очистки */
+  -webkit-appearance: none;
+  /* без сброса оформление не применится */
+}

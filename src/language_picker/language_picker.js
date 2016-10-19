@@ -42,7 +42,7 @@
             $scope.onLanguageClick = onLanguageClick;
 
             function getLanguage() {
-                return pipTranslate ? pipTranslate.use() : null;
+                return pipTranslate ? pipTranslate.use() : ['en', 'ru'];
             }
 
             function onLanguageClick(language) {
