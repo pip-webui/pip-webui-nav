@@ -3,7 +3,7 @@
 
     var thisModule = angular.module('appAppbar.Actions', [
         'pipAppBar', 'pipActions.Service', 'pipLanguagePicker',
-        'pipPrimaryActions', 'pipSecondaryActions'//, 'pipAppBar.Part'
+        'pipPrimaryActions', 'pipSecondaryActions', 'pipAppBar.Part'
     ]);
     thisModule.config(function (pipActionsProvider) {
 
@@ -24,7 +24,7 @@
     });
 
     thisModule.controller('ActionsController',
-        function ($scope, pipActions) {
+        function ($scope, pipActions, pipAppBar) {
 
             $scope.localActions = [
                 [
@@ -52,12 +52,12 @@
             });
 
             $scope.onHideActions = function () {
-                pipAppBar.part(actions,false);
                 pipActions.hideLocalActions();
+                pipAppBar.part('actions',false);
             };
 
             $scope.onShowLanguage = function () {
-                pipAppBar.part(actions,'language');
+                pipAppBar.part('actions','language');
             };
 
             $scope.onChangeNotificationCount = function () {
@@ -65,9 +65,9 @@
             };
 
             $scope.onShowActions = function () {
-                pipAppBar.part(actions,'primary');
                 pipActions.showLocalActions($scope.localActions[0], $scope.localActions[1]);
                 pipActions.updateActionCount('sample.notifications', $scope.notificationCount);
+                pipAppBar.part('actions','primary');
             };
 
 
