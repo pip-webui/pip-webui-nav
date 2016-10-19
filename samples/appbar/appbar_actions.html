@@ -1,5 +1,12 @@
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES' | translate }}</h3>
 
+<pip-appbar>
+
+    <pip-language-picker></pip-language-picker><!--pip-appbar-part="actions:language"-->
+    <pip-primary-actions></pip-primary-actions> <!--pip-appbar-part="actions:primary"-->
+
+    <pip-secondary-actions></pip-secondary-actions> <!--pip-appbar-part="menu"-->
+</pip-appbar>
 
 
 <md-input-container class="w-stretch bm0 tm24">
@@ -18,4 +25,4 @@
     <md-button class="md-raised md-accent flat" ng-click="onShowLanguage()">
         {{ 'SHOW_LANGUAGES' | translate }}
     </md-button>
-</div
+</div>

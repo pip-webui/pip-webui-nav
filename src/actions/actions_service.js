@@ -57,7 +57,7 @@
                 sendConfigEvent();
             }
 
-            // Todo: Why do we need that?
+            // Todo: Why do we need that? it's needs for count badge 
             function updateActionCount(actionName, count) {
                 // Update global actions
                 _.each(config.primaryGlobalActions, function (action) {

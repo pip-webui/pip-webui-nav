@@ -28,7 +28,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('actions/primary_actions.html',
-    '<md-menu md-position-mode="target-right target" ng-repeat="action in config.primaryLocalActions">\n' +
+    '<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryLocalActions">\n' +
     '    <md-button class="pip-primary-actions-action md-icon-button"\n' +
     '                ng-class="{ \'pip-primary-actions-hide-sm\': action.hideSmall,\n' +
     '                            \'pip-primary-actions-show-sm\': action.showSmall }"\n' +
@@ -47,6 +47,32 @@ module.run(['$templateCache', function($templateCache) {
     '                        ng-hide="actionHidden(subAction)">\n' +
     '            <md-button ng-hide="subAction.divider"\n' +
     '                        ng-click="onActionClick(subAction)">\n' +
+    '                {{subAction.title | translate}}\n' +
+    '            </md-button>\n' +
+    '        </md-menu-item>\n' +
+    '        <md-menu-divider ng-if="subAction.divider" ng-repeat-end></md-menu-divider>\n' +
+    '    </md-menu-content>\n' +
+    '</md-menu>\n' +
+    '\n' +
+    '<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryGlobalActions">\n' +
+    '    <md-button class="pip-primary-actions-action md-icon-button"\n' +
+    '               ng-class="{ \'pip-primary-actions-hide-sm\': action.hideSmall,\n' +
+    '                            \'pip-primary-actions-show-sm\': action.showSmall }"\n' +
+    '               ng-click="onActionClick(action, $mdOpenMenu);"\n' +
+    '               ng-hide="actionHidden(action)"\n' +
+    '               aria-label="{{action.tooltip | translate}}">\n' +
+    '        <!--<md-tooltip ng-if="action.tooltip">{{action.tooltip | translate}}</md-tooltip>-->\n' +
+    '        <div class="pip-primary-actions-badge" ng-show="action.count > 0">\n' +
+    '            {{actionCount(action)}}\n' +
+    '        </div>\n' +
+    '        <md-icon md-svg-icon="{{action.icon}}"></md-icon>\n' +
+    '    </md-button>\n' +
+    '    <md-menu-content width="3" >\n' +
+    '        <md-menu-item ng-repeat-start="subAction in action.subActions"\n' +
+    '                      ng-if="!subAction.divider"\n' +
+    '                      ng-hide="actionHidden(subAction)">\n' +
+    '            <md-button ng-hide="subAction.divider"\n' +
+    '                       ng-click="onActionClick(subAction)">\n' +
     '                {{subAction.title | translate}}\n' +
     '            </md-button>\n' +
     '        </md-menu-item>\n' +
@@ -118,8 +144,7 @@ module.run(['$templateCache', function($templateCache) {
     '-->\n' +
     '\n' +
     '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
-    '            class="{{ config.cssClass }} color-primary-bg">\n' +
-    '    <div ng-transclude></div>\n' +
+    '            class="{{ config.cssClass }}" ng-transclude>\n' +
     '</md-toolbar>\n' +
     '');
 }]);
@@ -276,6 +301,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-icon ng-if="config.type==\'menu\'"\n' +
     '        md-svg-icon="icons:menu"></md-icon>\n' +
     '    <!-- Image -->\n' +
+    '    <img ng-src="{{config.imageUrl}}" ng-if="config.type==\'image\'" height="24" width="24">\n' +
     '    <!--<pip-avatar ng-if="config.navIconType==\'menu\' && (getParty() && !getUser(\'owner\'))"\n' +
     '                pip-rebind-avatar="true"\n' +
     '                pip-rebind="true"\n' +
@@ -286,6 +312,9 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- Back icon -->\n' +
     '    <md-icon ng-if="config.type==\'back\'"\n' +
     '        md-svg-icon="icons:arrow-left"></md-icon>\n' +
+    '    <!--Icon -->\n' +
+    '    <md-icon ng-if="config.type==\'icon\'"\n' +
+    '             md-svg-icon="icons:{{config.iconName}}"></md-icon>\n' +
     '</md-button>\n' +
     '');
 }]);
@@ -363,76 +392,8 @@ module.run(['$templateCache', function($templateCache) {
     '-->\n' +
     '\n' +
     '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
-    '    md-component-id="pip-sidenav" \n' +
-    '    ng-if="!$partialReset" \n' +
-    '    pip-focused>\n' +
-    '\n' +
-    '    <md-toolbar class="pip-sidenav-header"\n' +
-    '                ng-class="{\'pip-sidenav-owner\': getUser(\'owner\')}"\n' +
-    '                md-theme="{{ $theme|| getUser(\'theme\') || config.theme }}"\n' +
-    '                ng-hide="!getParty() && !primaryPartyAvatar && !secondaryPartyAvatar">\n' +
-    '\n' +
-    '            <md-button class="pip-sidenav-party md-icon-button"\n' +
-    '                       ng-click="onPartyClick()"\n' +
-    '                       aria-label="current party">\n' +
-    '                <!--<pip-avatar ng-if="!$avatarReset"\n' +
-    '                            pip-party-id="getParty(\'id\')"\n' +
-    '                            pip-default-icon="icon-person"\n' +
-    '                            pip-party-name="getParty(\'name\')"\n' +
-    '                            pip-image-url="primaryPartyAvatar"\n' +
-    '                            pip-rebind-avatar="true"\n' +
-    '                            pip-rebind="true">\n' +
-    '                </pip-avatar>-->\n' +
-    '            </md-button>\n' +
-    '\n' +
-    '            <md-button class="pip-sidenav-user md-icon-button"\n' +
-    '                       ng-click="onUserClick()"\n' +
-    '                       ng-hide="getUser(\'owner\')"\n' +
-    '                       aria-label="current user">\n' +
-    '                <!--<pip-avatar class="pic-pic pip-face-ld"\n' +
-    '                            ng-if="!$avatarReset"\n' +
-    '                            pip-default-icon="icon-person"\n' +
-    '                            pip-rebind="true"\n' +
-    '                            pip-rebind-avatar="true"\n' +
-    '                            pip-party-id="getUser(\'id\')"\n' +
-    '                            pip-party-name="getUser(\'name\')"\n' +
-    '                            pip-image-url="secondaryPartyAvatar">\n' +
-    '                </pip-avatar>-->\n' +
-    '            </md-button>\n' +
-    '        \n' +
-    '        <div class="pip-sidenav-party-text">\n' +
-    '            <a class="pip-sidenav-party-pri cursor-pointer"\n' +
-    '                ng-click="onPartyClick()">{{ partyName || getParty(\'name\')}}</a>\n' +
-    '            <div class="pip-sidenav-party-sec"\n' +
-    '                ng-show="getConnection() && !getUser(\'owner\')">\n' +
-    '                {{getConnection(\'relation\') | translate}}\n' +
-    '                <span ng-show="getConnectionDate()">\n' +
-    '                    {{::\'SIDENAV_SINCE\' | translate}}\n' +
-    '                    {{getConnectionDate()}}\n' +
-    '                </span>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </md-toolbar>\n' +
-    '\n' +
-    '    <md-list>\n' +
-    '        <div class="pip-section" ng-repeat="section in config.sections"\n' +
-    '            ng-hide="section.access && !section.access(getParty(), getUser(), section)">\n' +
-    '            \n' +
-    '            <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '            <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '            \n' +
-    '            <md-list-item class="pip-focusable no-border" \n' +
-    '                ng-repeat="link in section.links"\n' +
-    '                ng-click="onLinkClick($event, link)"\n' +
-    '                ng-hide="link.access && !link.access(getParty(), getUser(), link)">\n' +
-    '                <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                    ng-hide="!link.icon" \n' +
-    '                    class="tm0 bm0"></md-icon>\n' +
-    '                <p>{{::link.title | translate}}</p>\n' +
-    '            </md-list-item>\n' +
-    '        </div>\n' +
-    '    </md-list>\n' +
-    '\n' +
+    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused>\n' +
+    '    <div ng-transclude></div>\n' +
     '</md-sidenav>\n' +
     '');
 }]);
@@ -531,7 +492,7 @@ module.run(['$templateCache', function($templateCache) {
                 sendConfigEvent();
             }
 
-            // Todo: Why do we need that?
+            // Todo: Why do we need that? it's needs for count badge 
             function updateActionCount(actionName, count) {
                 // Update global actions
                 _.each(config.primaryGlobalActions, function (action) {
@@ -883,52 +844,21 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipAppBar',
-        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipAppBar.Service']);
+        ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
 
     // Main application header directive
     thisModule.directive('pipAppbar', function () {
         return {
             restrict: 'E',
-            transclude: {},
-            scope: {
-                title: '=pipTitle',
-                showMenu: '=pipShowMenu',
-                localActions: '=pipLocalActions',
-                globalActions: '=pipGlobalActions',
-                partyAvatarUrl: '=pipPartyAvatarUrl'
-            },
-            link: function(scope, element, attrs, controller, transclude) {
-                transclude(scope, function(clone) {
-                    element.find('[ng-transclude]').replaceWith(clone);
-                });
-            },
-            templateUrl: function (element, attr) {
-                return 'appbar/appbar.html';
-            },
+            transclude: true,
+            scope: true,
+            templateUrl: 'appbar/appbar.html',
             controller: 'pipAppBarController'
         };
     });
 
     thisModule.controller('pipAppBarController',
-        ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', '$injector', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector, pipAppBar) {
-            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-
-            if (pipTranslate) {
-                pipTranslate.translations('en', {
-                    'APPBAR_SEARCH': 'Search'
-                });
-                pipTranslate.translations('ru', {
-                    'APPBAR_SEARCH': 'Поиск'
-                });
-            } 
-
-            // Initialize default application title
-            if ($scope.title) {
-                pipAppBar.showTitleText($scope.title);
-            }
-            if ($scope.showMenu) {
-                pipAppBar.showMenuNavIcon();
-            }
+        ['$scope', '$element', '$rootScope', 'pipAppBar', function ($scope, $element, $rootScope, pipAppBar) {
             // Apply class and call resize
             $element.addClass('pip-appbar');
             $element.addClass('color-primary-bg');
@@ -937,300 +867,72 @@ module.run(['$templateCache', function($templateCache) {
 
             $scope.config = pipAppBar.config();
 
-            if ($scope.localActions) {
-                pipAppBar.showLocalActions();
-                $scope.config.primaryLocalActions = $scope.localActions[0];
-                $scope.config.secondaryLocalActions = $scope.localActions[1];
-            }
-
-            if ($scope.globalActions) {
-                pipAppBar.showLocalActions();
-                $scope.config.primaryGlobalActions = $scope.globalActions[0];
-                $scope.config.secondaryGlobalActions = $scope.globalActions[0];
-            }
-
-            $scope.searchEnabled = false;
-            $scope.search = {text: ''};
-
             $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-
-            $scope.language = getLanguage;
-            $scope.actionHidden = actionHidden;
-            $scope.actionCount = actionCount;
-            $scope.secondaryActionsVisible = secondaryActionsVisible;
-            $scope.secondaryDividerVisible = secondaryDividerVisible;
-
-            $scope.onNavIconClick = onNavIconClick;
-            $scope.onBreadcrumbClick = onBreadcrumbClick;
-            $scope.onLanguageClick = onLanguageClick;
-            $scope.onActionClick = onActionClick;
-
-            $scope.onSearchEnable = onSearchEnable;
-            $scope.onSearchClick = onSearchClick;
-            $scope.onSearchClear = onSearchClear;
-            $scope.onSearchKeyDown = onSearchKeyDown;
-            $scope.onLogoState = onLogoState;
-
-            $scope.getParty = getParty;
-            $scope.getUser = getUser;
-
-            $scope.openMenu = openMenu;
-
-            function onLogoState(state) {
-                if(state)
-                $state.go(state);
-            }
-            
-            function openMenu($mdOpenMenu, ev) {
-                $scope.originatorEv = ev;
-                $mdOpenMenu(ev);
-            }
-
-            function getParty(prop) {
-                if (!$rootScope.$party) {
-                    return;
-                }
-                if (prop) {
-                    return $rootScope.$party[prop];
-                }
-
-                return $rootScope.$party;
-            }
-
-            function getUser(prop) {
-                if (!$rootScope.$user) {
-                    return;
-                }
-                if (prop) {
-                    return $rootScope.$user[prop];
-                }
-
-                return $rootScope.$user;
-            }
 
             function onAppBarChanged(event, config) {
                 $scope.config = config;
-                $scope.searchEnabled = false;
-                $scope.search.text = '';
+            }
+        }]
+    );
+
+})(window.angular, window._, window.jQuery);
+
+/**
+ * @file Application App Bar part component
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+(function (angular, _, $) {
+    'use strict';
+
+    var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
+
+    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
+    thisModule.directive('pipAppbarPart', ['ngIfDirective', function (ngIfDirective) {
+        var ngIf = ngIfDirective[0];
+
+        return {
+            transclude: ngIf.transclude,
+            priority: ngIf.priority,
+            terminal: ngIf.terminal,
+            restrict: ngIf.restrict,
+            link: function linkFunction($scope, $element, $attrs) {
+                console.log('a', ngIfDirective[0]);
+                // Visualize based on visible variable in scope
+                $attrs.ngIf = function () {
+                    return $scope.visible;
+                };
+                console.log(arguments);
+                ngIf.link.apply(ngIf, arguments);
+            },
+            controller: 'pipAppBarPartController'
+        };
+    }]);
+
+    thisModule.controller('pipAppBarPartController',
+        ['$scope', '$element', '$attrs', '$rootScope', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, pipAppBar) {
+            var partName = '' + $attrs.pipAppbarPart;
+            var partValue = null;
+
+            // Break part apart
+            var pos = partName.indexOf(':');
+            if (pos > 0) {
+                partValue = partName.substr(pos + 1);
+                partName = partName.substr(0, pos);
             }
 
-            function getLanguage() {
-                return pipTranslate ? pipTranslate.use() : null;
+            onAppBarChanged(null, pipAppBar.config());
+
+            $rootScope.$on('pipAppBarChanged', onAppBarChanged);
+
+            function onAppBarChanged(event, config) {
+                var parts = config.parts || {};
+                var currentPartValue = parts[partName];
+                // Set visible variable to switch ngIf
+                $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
+
             }
 
-            function actionHidden(action) {
-                return action.access && !action.access($rootScope.$party, $rootScope.$user, action);
-            }
-
-            function actionCount(action) {
-                if (action.count === null || action.count <= 0) {
-                    return '';
-                }
-                if (action.count > 99) {
-                    return '!';
-                }
-
-                return action.count;
-            }
-
-            function calcActions(actions) {
-                var count = 0;
-
-                _.each(actions, function (action) {
-                    if (!actionHidden(action)) {
-                        count++;
-                    }
-                });
-
-                return count;
-            }
-
-            function secondaryActionsVisible() {
-                return calcActions($scope.config.secondaryGlobalActions) > 0 ||
-                    calcActions($scope.config.secondaryLocalActions) > 0;
-            }
-
-            function secondaryDividerVisible() {
-                return calcActions($scope.config.secondaryGlobalActions) > 0 &&
-                    calcActions($scope.config.secondaryLocalActions) > 0;
-            }
-
-            function onNavIconClick() {
-                var breadcrumb, backCallback;
-
-                if (_.isFunction($scope.config.navIconCallback)) {
-                    // Execute nav icon callback
-                    $scope.config.navIconCallback();
-
-                    return;
-                }
-                if ($scope.config.navIconType !== 'back') {
-                    // Raise an event
-                    $rootScope.$broadcast('pipAppBarNavIconClicked');
-
-                    return;
-                }
-                if ($scope.config.titleType === 'breadcrumb') {
-                    breadcrumb = $scope.config.titleBreadcrumb;
-                    // Go to the last breadcrumb item
-                    if (_.isArray(breadcrumb) && breadcrumb.length > 0) {
-                        backCallback = breadcrumb[breadcrumb.length - 1].click;
-                        if (_.isFunction(backCallback)) {
-                            backCallback();
-                        } else {
-                            $window.history.back();
-                        }
-                    } else {
-                        $window.history.back();
-                    }
-                } else {
-                    // Go back in history
-                    $window.history.back();
-                }
-            }
-
-            function onBreadcrumbClick(item) {
-                if (_.isFunction(item.click)) {
-                    item.click(item);
-                }
-            }
-
-            function onLanguageClick(language) {
-                setTimeout(function () {
-                    pipTranslate.use(language);
-                    $rootScope.$apply();
-                }, 0);
-            }
-
-            function processStateParams(params) {
-                var result = {}, prop;
-
-                if (params === null) {
-                    return null;
-                }
-                for (prop in params) {
-                    if (params.hasOwnProperty(prop)) {
-                        if (params[prop] === ':party_id') {
-                            result[prop] = $rootScope.$party ? $rootScope.$party.id : null;
-                        } else if (params[prop] === ':user_id') {
-                            result[prop] = $rootScope.$user ? $rootScope.$user.id : null;
-                        } else {
-                            result[prop] = params[prop];
-                        }
-                    }
-                }
-
-                return result;
-            }
-
-            function processUrlParams(url) {
-                var result;
-
-                if (url === null) {
-                    return null;
-                }
-                result = url.replace(':party_id', $rootScope.$party ? $rootScope.$party.id : '');
-                result = result.replace(':user_id', $rootScope.user ? $rootScope.$user.id : '');
-
-                return result;
-            }
-
-            function focusSearchText() {
-                var element;
-
-                setTimeout(function () {
-                    element = $('.pip-search-text');
-                    if (element.length > 0) {
-                        element.focus();
-                    }
-                }, 0);
-            }
-
-            function onActionClick(action, $mdOpenMenu) {
-                if (!action || action.divider) {
-                    return;
-                }
-
-                if (action.close) {
-                    $scope.originatorEv = null;
-                }
-
-                if (action.menu) {
-                    $mdOpenMenu($scope.originatorEv);
-
-                    return;
-                }
-
-                if (action.callback) {
-                    action.callback();
-
-                    return;
-                }
-                if (action.href) {
-                    $window.location.href = processUrlParams(action.href);
-
-                    return;
-                }
-                if (action.url) {
-                    $location.url(processUrlParams(action.url));
-
-                    return;
-                }
-                if (action.state) {
-                    $state.go(action.state, processStateParams(action.stateParams));
-
-                    return;
-                }
-                if (action.event) {
-                    $rootScope.$broadcast(action.event);
-                } else {
-                    // Otherwise raise notification
-                    $rootScope.$broadcast('pipAppBarActionClicked', action.name);
-                }
-            }
-
-            function onSearchEnable() {
-                $scope.search.text = $scope.config.searchCriteria;
-                $scope.searchEnabled = true;
-                focusSearchText();
-            }
-
-            function onSearchClick() {
-                var searchText = $scope.search.text;
-
-                $scope.search.text = '';
-                $scope.searchEnabled = false;
-
-                if ($scope.config.searchCallback) {
-                    $scope.config.searchCallback(searchText);
-                } else {
-                    $rootScope.$broadcast('pipAppBarSearchClicked', searchText);
-                }
-            }
-
-            function onSearchClear() {
-                if ($scope.search.text) {
-                    $scope.search.text = '';
-
-                    focusSearchText();
-                } else {
-                    $scope.searchEnabled = false;
-                    onSearchClick();
-                }
-            }
-
-            function onSearchKeyDown(event) {
-                // Enter pressed
-                if (event.keyCode === 13) {
-                    $scope.onSearchClick();
-
-                    return;
-                }
-                // ESC pressed
-                if (event.keyCode === 27) {
-                    $scope.searchEnabled = false;
-                }
-            }
         }]
     );
 
@@ -1248,62 +950,17 @@ module.run(['$templateCache', function($templateCache) {
 
     thisModule.provider('pipAppBar', function () {
         var config = {
-            appTitleText: null,
-            appTitleLogo: 'images/piplife_logo.svg',
-
             // Theme to be applied to the header
             theme: 'blue',
             cssClass: '',
             ngClasses: {},
-            logoState: null,
-
-            // Type of nav icon: 'back', 'menu' or 'none'
-            navIconType: 'none',
-            // Handle nav icon click event
-            navIconCallback: false,
-
-            // Type of title: 'logo', 'text', 'breadcrumb' or 'none'
-            titleType: 'none',
-            // URL to logo
-            titleLogo: null,
-            // Title text
-            titleText: null,
-            // Navigation breadcrumb [{ title, click }],
-            titleBreadcrumb: null,
-
-            // Type of actions: 'language', 'list' or 'none'
-            actionsType: 'none',
-
-            // Language options
-            languages: ['en', 'ru'],
-
-            // Search visible
-            searchVisible: false,
-            // Search criteria
-            searchCriteria: '',
-            // History for search autocomplete
-            searchHistory: [],
-            // Callback for search
-            searchCallback: null,
-
-            // Primary global actions visible on the screen
-            primaryGlobalActions: [],
-            // Primary local actions visible on the screen
-            primaryLocalActions: [],
-
-            // Secondary global actions available in popup
-            secondaryGlobalActions: [],
-            // Secondary local actions available in popup
-            secondaryLocalActions: []
+            // Parts of the appbar
+            parts: {}
         };
 
         // Configure global parameters
-        this.appTitleText = appTitleText;
-        this.appTitleLogo = appTitleLogo;
         this.theme = theme;
-        this.globalActions = globalActions;
-        this.globalPrimaryActions = globalPrimaryActions;
-        this.globalSecondaryActions = globalSecondaryActions;
+        this.parts = initParts;
 
         // Get the service instance
         this.$get = ['$rootScope', function ($rootScope) {
@@ -1311,50 +968,17 @@ module.run(['$templateCache', function($templateCache) {
                 config: getConfig,
                 cssClass: cssClass,
 
-                logoState:logoState,
-                setLogoState: setLogoState,
-
-                hideNavIcon: hideNavIcon,
-                showMenuNavIcon: showMenuNavIcon,
-                showBackNavIcon: showBackNavIcon,
-
-                showAppTitleLogo: showAppTitleLogo,
-                showAppTitleText: showAppTitleText,
-                showTitleLogo: showTitleLogo,
-                showTitleText: showTitleText,
-                showTitleBreadcrumb: showTitleBreadcrumb,
-                hideTitle: hideTitle,
-
-                showLanguage: showLanguage,
-                showLocalActions: showLocalActions,
-                hideLocalActions: hideLocalActions,
-                updateActionCount: updateActionCount,
-
-                showSearch: showSearch,
-                hideSearch: hideSearch,
-                updateSearchCriteria: updateSearchCriteria,
-                updateSearchHistory: updateSearchHistory,
-
-                showShadow: showShadow,
-                showShadowSm: showShadowSm,
-                showShadowSmXs: showShadowSmXs,
-                hideShadow: hideShadow
+                part: getOrSetParts,
+                parts: getOrSetParts
             };
+
             // ----------------------
-
-            function setLogoState(logoState) {
-                config.logoState = logoState;
-                return config.logoState;
-            }
-
-            function logoState() {
-                return config.logoState;
-            }
 
             function getConfig() {
                 return config;
             }
 
+            // Todo: Do we need that "hack"?
             function cssClass(newCssClass) {
                 if (newCssClass != undefined) {
                     config.cssClass = newCssClass;
@@ -1364,197 +988,31 @@ module.run(['$templateCache', function($templateCache) {
                 return config.cssClass;
             }
 
-            // Show, hide appbar shadow
-            function showShadowSm() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = true;
-                config.ngClasses['pip-shadow-xs'] = false;
-                sendConfigEvent();
-            }
+            function getOrSetPart(name, value) {
+                if (!_.isString(name))
+                    throw new Exception("Part name has to be a string");
 
-            function showShadowSmXs() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = true;
-                config.ngClasses['pip-shadow-xs'] = true;
-                sendConfigEvent();
-            }
-
-            function showShadow() {
-                config.ngClasses['pip-shadow'] = true;
-                sendConfigEvent();
-            }
-
-            function hideShadow() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = false;
-                config.ngClasses['pip-shadow-xs'] = false;
-                sendConfigEvent();
-            }
-
-            // Show navigation icon
-            function hideNavIcon() {
-                config.navIconType = 'none';
-                config.navIconCallback = null;
-                sendConfigEvent();
-            }
-
-            function showMenuNavIcon(click) {
-                config.navIconType = 'menu';
-                config.navIconCallback = click;
-                sendConfigEvent();
-            }
-
-            function showBackNavIcon(click) {
-                config.navIconType = 'back';
-                config.navIconCallback = click;
-
-                sendConfigEvent();
-            }
-
-            // Show title
-            function hideTitle() {
-                config.titleType = 'none';
-                config.titleLogo = null;
-                config.titleText = null;
-                config.titleBreadcrumb = null;
-
-                sendConfigEvent();
-            }
-
-            function showTitleLogo(titleLogo) {
-                config.titleType = 'logo';
-                config.titleLogo = titleLogo;
-                config.titleText = null;
-                config.titleBreadcrumb = null;
-
-                sendConfigEvent();
-            }
-
-            function showTitleText(titleText) {
-                config.titleType = 'text';
-                config.titleLogo = null;
-                config.titleText = titleText;
-                config.titleBreadcrumb = null;
-
-                sendConfigEvent();
-            }
-
-            function showTitleBreadcrumb(titleText, titleBreadcrumb) {
-                if (_.isArray(titleText)) {
-                    titleBreadcrumb = titleText;
-                    titleText = titleBreadcrumb[titleBreadcrumb.length - 1].title;
-                    titleBreadcrumb.splice(titleBreadcrumb.length - 1, 1);
-                }
-                config.titleType = 'breadcrumb';
-                config.titleLogo = null;
-                config.titleText = titleText;
-                config.titleBreadcrumb = titleBreadcrumb;
-                if (titleBreadcrumb.length > 0) {
-                    config.navIconType = config.navIconType === 'none' ? 'none' : config.navIconType;
-                    config.navIconCallback = titleBreadcrumb[titleBreadcrumb.length - 1];
-                } else {
-                    config.navIconType = 'menu';
-                    config.navIconCallback = null;
+                if (value != null) {
+                    config.parts[name] = value;
+                    sendConfigEvent();
                 }
 
-                sendConfigEvent();
+                return config.parts[name];
             }
 
-            function showAppTitleLogo() {
-                showTitleLogo(config.appTitleLogo);
-            }
+            function getOrSetParts(parts) {
+                if (_.isObject(parts)) {
+                    config.parts = parts;
+                    sendConfigEvent();
+                }
 
-            function showAppTitleText() {
-                showTitleText(config.appTitleText);
-            }
-
-            // Show actions
-            function hideLocalActions() {
-                config.actionsType = 'none';
-                config.primaryLocalActions = [];
-                config.secondaryLocalActions = [];
-
-                sendConfigEvent();
-            }
-
-            function showLanguage(languages) {
-                config.actionsType = 'language';
-                config.languages = languages || config.languages;
-
-                sendConfigEvent();
-            }
-
-            function showLocalActions(primaryActions, secondaryActions) {
-                config.actionsType = 'list';
-                config.primaryLocalActions = primaryActions || [];
-                config.secondaryLocalActions = secondaryActions || [];
-
-                sendConfigEvent();
-            }
-
-            function updateActionCount(actionName, count) {
-                // Update global actions
-                _.each(config.primaryGlobalActions, function (action) {
-                    if (action.name === actionName) {
-                        action.count = count;
-                    }
-                });
-                // Update local action
-                _.each(config.primaryLocalActions, function (action) {
-                    if (action.name === actionName) {
-                        action.count = count;
-                    }
-                });
-                sendConfigEvent();
-            }
-
-            // Show actions
-            function showSearch(callback, criteria, history) {
-                config.searchVisible = true;
-                config.searchCallback = callback;
-                config.searchCriteria = criteria;
-                config.searchHistory = history;
-
-                sendConfigEvent();
-            }
-
-            function hideSearch() {
-                config.searchVisible = false;
-                config.searchCallback = null;
-                config.searchCriteria = null;
-
-                sendConfigEvent();
-            }
-
-            function updateSearchCriteria(criteria) {
-                config.searchCriteria = criteria;
-                sendConfigEvent();
-            }
-
-            function updateSearchHistory(history) {
-                config.searchHistory = history;
-                sendConfigEvent();
+                return config.parts;
             }
 
             function sendConfigEvent() {
                 $rootScope.$broadcast('pipAppBarChanged', config);
             }
         }];
-        function appTitleText(newTitleText) {
-            if (newTitleText) {
-                config.appTitleText = newTitleText;
-            }
-
-            return config.appTitleText;
-        }
-
-        function appTitleLogo(newTitleLogo) {
-            if (newTitleLogo) {
-                config.appTitleLogo = newTitleLogo;
-            }
-
-            return config.appTitleLogo;
-        }
 
         function theme(theme) {
             config.theme = theme || config.theme;
@@ -1562,17 +1020,11 @@ module.run(['$templateCache', function($templateCache) {
             return config.theme;
         }
 
-        function globalActions(primaryActions, secondaryActions) {
-            config.primaryGlobalActions = primaryActions || [];
-            config.secondaryGlobalActions = secondaryActions || [];
-        }
-
-        function globalPrimaryActions(primaryActions) {
-            config.primaryGlobalActions = primaryActions || [];
-        }
-
-        function globalSecondaryActions(secondaryActions) {
-            config.secondaryGlobalActions = secondaryActions || [];
+        function initParts(parts) {
+            if (_.isObject(parts)) {
+                config.parts = parts;
+            }
+            return config.parts;
         }
 
     });
@@ -1872,7 +1324,7 @@ module.run(['$templateCache', function($templateCache) {
                     }, 0);
                 }
             }
-
+            
         }]
     );
 
@@ -1972,7 +1424,7 @@ module.run(['$templateCache', function($templateCache) {
             // Apply class and call resize
             $element.addClass('pip-nav-icon');
 
-            $scope.config = pipNavIcon.config();
+            $scope.config = pipNavIcon.getConfig();
 
             $rootScope.$on('pipNavIconChanged', onNavIconChanged);
 
@@ -2020,6 +1472,8 @@ module.run(['$templateCache', function($templateCache) {
             type: 'none',
             // Image url
             imageUrl: null,
+            // Icon name
+            iconName: 'back',
             // Handle nav icon click event
             callback: null,
             // Event name
@@ -2029,9 +1483,11 @@ module.run(['$templateCache', function($templateCache) {
         // Get the service instance
         this.$get = ['$rootScope', function ($rootScope) {
             return {
+                getConfig: getConfig,
                 hide: hide,
                 showMenu: showMenu,
                 showBack: showBack,
+                showIcon: showIcon,
                 showImage: showImage
             };
 
@@ -2051,6 +1507,20 @@ module.run(['$templateCache', function($templateCache) {
 
             function showMenu(callbackOrEvent) {
                 config.type = 'menu';
+                config.callback = null;
+                config.event = null;
+
+                if (_.isFunction(callbackOrEvent))
+                    config.callback = callbackOrEvent;
+                if (_.isString(callbackOrEvent))
+                    config.event = callbackOrEvent;
+
+                sendConfigEvent();
+            }
+
+            function showIcon(iconName, callbackOrEvent) {
+                config.type = 'icon';
+                config.iconName = iconName;
                 config.callback = null;
                 config.event = null;
 
@@ -2509,216 +1979,101 @@ module.run(['$templateCache', function($templateCache) {
     'use strict';
 
     var thisModule = angular.module('pipSideNav', 
-        ['ngMaterial', 'pipTranslate', 'pipNav.Templates', 'pipSideNav.Service']);
-
-    thisModule.config(['pipTranslateProvider', function(pipTranslateProvider) {
-
-        pipTranslateProvider.translations('en', {
-            'SIDENAV_SINCE': 'since'
-        });
-
-        pipTranslateProvider.translations('ru', {
-            'SIDENAV_SINCE': 'с'
-        });
-
-    }]);
+        ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Service']);
 
     // Main application sidenav directive
     thisModule.directive('pipSidenav', function() {
        return {
-           restrict: 'EA',
-           scope: {
-               primaryPartyAvatar: '=pipPrimaryAvatar',
-               secondaryPartyAvatar: '=pipSecondaryAvatar',
-               partyName: '=pipName'
-           },
-           replace: false,
+           restrict: 'E',
+           transclude: true,
+           scope: true,
            templateUrl: 'sidenav/sidenav.html',
            controller: 'pipSideNavController'
        };
     });
 
     thisModule.controller('pipSideNavController', 
-        ['$scope', '$element', '$state', '$rootScope', '$window', '$location', '$timeout', 'pipState', 'pipTranslate', 'pipSideNav', function ($scope, $element, $state, $rootScope, $window, $location, $timeout, pipState, pipTranslate, pipSideNav) {
+        ['$scope', '$element', '$rootScope', 'pipSideNav', function ($scope, $element, $rootScope, pipSideNav) {
 
             // Apply class and call resize
             $element.addClass('pip-sidenav');
 
             $scope.config = pipSideNav.config();
-            $scope.$avatarReset = false;
 
-            $rootScope.$on('pipAppBarNavIconClicked', onAppBarNavIconClick);
+            $rootScope.$on('pipNavIconClicked', onNavIconClick);
             $rootScope.$on('pipSideNavChanged', onConfigChanged);
 
-            $scope.itemVisible = itemVisible;
-            $scope.onUserClick = onUserClick;
-            $scope.onPartyClick = onPartyClick;
-            $scope.onLinkClick = onLinkClick;
-            $scope.isSectionEmpty = isSectionEmpty;
-
-            $scope.getParty = getParty;
-            $scope.getUser = getUser;
-            $scope.getConnection = getConnection;
-            $scope.getConnectionDate = getConnectionDate;
-            
             return;
             
             //------------------------
 
-            function getParty(prop) {
-                if (!$rootScope.$party) {
-                    return;
-                }
-                if (prop) {
-                    return $rootScope.$party[prop];
-                }
-
-                return $rootScope.$party;
-            }
-
-            function getUser(prop) {
-                if (!$rootScope.$user) {
-                    return;
-                }
-                if (prop) {
-                    return $rootScope.$user[prop];
-                }
-
-                return $rootScope.$user;
-            }
-            
-            function getConnection(prop) {
-                if (!$rootScope.$connection) {
-                    return;
-                }
-                if (prop) {
-                    return $rootScope.$connection[prop];
-                }
-
-                return $rootScope.$connection;
-            }
-            
-            function getConnectionDate(prop) {
-                var date = getConnection('relation_since'), result;
-
-                result = moment(date).format('MMMM-DD-YYYY');
-                return result;
-            }
-            
-            function itemVisible(item) {
-                return item && item.access && !item.access($rootScope.$party, $rootScope.$user, item);
-            }
-
-            function isSectionEmpty(linkCollection) {
-                var result = true;
-                _.each(linkCollection, function(link){
-                    if (!itemVisible(link))
-                        result = false;
-                });
-                return result;
-            }
-
-            function onAppBarNavIconClick(event) {
+            function onNavIconClick(event) {
                 pipSideNav.open();
             }
 
             function onConfigChanged(event, config) {
                 $scope.config = config;
             }
-
-            function onUserClick() {
-                $rootScope.$broadcast('pipSideNavUserClicked');
-                pipSideNav.close();
-            }
-
-            function onPartyClick() {
-                $rootScope.$broadcast('pipSideNavPartyClicked');
-                pipSideNav.close();
-            }
-
-            function processStateParams(params) {
-                if (params == null) return null;
-
-                var result = {};
-                for (var prop in params) {
-                    if (params.hasOwnProperty(prop)) {
-                        if (params[prop] == ':party_id') {
-                            result[prop] = $rootScope.$party ? $rootScope.$party.id : null;
-                        } else if (params[prop] == ':user_id') {
-                            result[prop] = $rootScope.$user ? $rootScope.$user.id : null;
-                        } else {
-                            result[prop] = params[prop];   
-                        }
-                    }
-                }
-                return result;
-            }
-
-            function processUrlParams(url) {
-                if (url == null) return null;
-
-                var result = url.replace(':party_id', $rootScope.$party ? $rootScope.$party.id : '');
-                result = result.replace(':user_id', $rootScope.$user ? $rootScope.$user.id : '');
-
-                return result;
-            }
-
-            function onLinkClick(event, link) {
-                event.stopPropagation();
-
-                if (!link) {
-                    pipSideNav.close();
-                    return;
-                }
-
-                if (link.href) {
-                    if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
-                        pipSideNav.close();
-                        return;
-                    }
-
-                    pipSideNav.close();
-                    $timeout(function() {
-                        $window.location.href = processUrlParams(link.href);
-                    }, 300);
-
-                    return;
-                }
-                else if (link.url) {
-                    if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
-                        pipSideNav.close();
-                        return;
-                    }
-
-                    pipSideNav.close();
-                    $timeout(function() {
-                        $location.url(processUrlParams(link.url));
-                    }, 300);
-
-                    return;
-                }
-                else if (link.state) {
-                    if ($state.current.name === link.state) {
-                        pipSideNav.close();
-                        return;
-                    }
-
-                    pipSideNav.close();
-                    $timeout(function() {
-                        pipState.go(link.state, processStateParams(link.stateParams));
-                    }, 300);
-
-                    return;
-                }
-                else if (link.event)
-                    $rootScope.$broadcast('pipSideNavLinkClicked', link.event);
-
-                pipSideNav.close();
-            }
         }]
     );
 
 })(window.angular, window.moment);
+
+/**
+ * @file Application Sid Nav part component
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+(function (angular, _, $) {
+    'use strict';
+
+    var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
+
+    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
+    thisModule.directive('pipSidenavPart', ['ngIfDirective', function (ngIfDirective) {
+        var ngIf = ngIfDirective[0];
+
+        return {
+            transclude: ngIf.transclude,
+            priority: ngIf.priority,
+            terminal: ngIf.terminal,
+            restrict: ngIf.restrict,
+            link: function($scope, $element, $attrs) {
+                // Visualize based on visible variable in scope
+                $attrs.ngIf = function() { $scope.visible };
+                ngIf.link.apply(ngIf);
+            },
+            controller: 'pipSideNavPartController'
+        };
+    }]);
+
+    thisModule.controller('pipSideNavPartController',
+        ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav', function ($scope, $element, $attrs, $rootScope, pipSideNav) {
+            var partName = '' + $attrs.pipSidenavPart;
+            var partValue = null;
+
+            // Break part apart
+            var pos = part.indexOf(':');
+            if (pos > 0) {
+                partValue = partName.substr(pos + 1);
+                partName = partName.substr(0, pos - 1);
+            }
+
+            onSideNavChanged(null, pipSideNav.config())
+
+            $rootScope.$on('pipSideNavChanged', onSideNavChanged);
+
+            function onSideNavChanged(event, config) {
+                var parts = config.parts || {};
+                var currentPartValue = config[partName];
+                // Set visible variable to switch ngIf
+                $scope.visible = partValue ? currentPartValue == partValue : partValue;
+            }
+
+        }]
+    );
+
+})(window.angular, window._, window.jQuery);
 
 /**
  * @file Application Side Nav service
@@ -2730,18 +2085,18 @@ module.run(['$templateCache', function($templateCache) {
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipSideNav.Service', ['pipAssert', 'pipDebug']);
+    var thisModule = angular.module('pipSideNav.Service', []);
 
-    thisModule.provider('pipSideNav', ['pipAssertProvider', 'pipDebugProvider', function (pipAssertProvider, pipDebugProvider) {
+    thisModule.provider('pipSideNav', function () {
         var config = {
             // Theme to be applied to the header
             theme: 'blue',
-            // Sections with navigation links
+            // Parts of the sidenav
             sections: []
         };
 
         this.theme = theme;
-        this.sections = sections;
+        this.parts = initParts;
 
         this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
             $rootScope.$on('pipSideNavOpen', open);
@@ -2750,77 +2105,70 @@ module.run(['$templateCache', function($templateCache) {
             return {
                 config: getConfig,
                 theme: setTheme,
-                sections: setSections,
+                part: getOrSetPart,
+                parts: getOrSetParts,
                 open: open,
                 close: close,
                 toggle: toggle
             };
+
             //---------------------
 
             function getConfig() {
                 return config;  
-            };
+            }
                             
-            function setTheme(newTheme) {
-                theme(newTheme);
-                sendConfigEvent();  
-                return config.theme;
-            };
-                            
-            function setSections(newSections) {
-                sections(newSections);
-                sendConfigEvent();
-                return config.sections;  
-            };
+            function getOrSetPart(name, value) {
+                if (!_.isString(name))
+                    throw new Exception("Part name has to be a string");
+
+                if (value != null) {
+                    config.parts[name] = value;
+                    sendConfigEvent();
+                }
+
+                return config.parts[name];
+            }
+
+            function getOrSetParts(parts) {
+                if (_.isObject(parts)) {
+                    config.parts = parts;
+                    sendConfigEvent();
+                }
+
+                return config.parts;
+            }
                             
             function sendConfigEvent() {
                 $rootScope.$broadcast('pipSideNavChanged', config);
-            };
+            }
 
             function open(event) {
                 $mdSidenav('pip-sidenav').open();
-            };
+            }
                  
             function close(event) {
                 $mdSidenav('pip-sidenav').close();   
-            };                
+            }                
 
             function toggle() {
                 $mdSidenav('pip-sidenav').toggle();   
-            };                   
+            }
         }];
 
-        function theme(newTheme) {
-            config.theme = newTheme || config.theme;
-            return config.theme;            
-        };
+        function theme(theme) {
+            config.theme = theme || config.theme;
 
-        function validateSections(sections) {
-            pipAssertProvider.isArray(sections, 'pipSideNavProvider.sections or pipSideNav.sections: sections should be an array');
-            _.each(sections, function (section, number) {
-                if (section.access) {
-                    pipAssertProvider.isFunction(section.access, 'pipSideNavProvider.sections or pipSideNav.sections: in section number '
-                        + number + " with title " + section.title + ' access should be a function');
-                }
-                if (section.links) {
-                    pipAssertProvider.isArray(section.links, 'pipSideNavProvider.sections or pipSideNav.sections: in section number '
-                        + number + " with title " + section.title + ' links should be an array');
-                    _.each(section.links, function (link) {
-                        if (link.access) pipAssertProvider.isFunction(link.access, 'pipSideNavProvider.sections or pipSideNav.sections: in section number '
-                            + number + " with title " + section.title + ' in link with title ' + link.title + ' access should be a function');
-                    });
-                }
-            });
+            return config.theme;
         }
 
-        function sections(newSections) {
-            if (pipDebugProvider.enabled()) validateSections(newSections);
-
-            if (_.isArray(newSections))
-                config.sections = newSections;
-            return config.sections;
-        };
-    }]);
+        function initParts(parts) {
+            if (_.isObject(parts)) {
+                config.parts = parts;
+            }
+            return config.parts;
+        }
+    });
 
 })();
 

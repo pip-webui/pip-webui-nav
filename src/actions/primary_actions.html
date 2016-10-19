@@ -1,4 +1,4 @@
-<md-menu md-position-mode="target-right target" ng-repeat="action in config.primaryLocalActions">
+<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryLocalActions">
     <md-button class="pip-primary-actions-action md-icon-button"
                 ng-class="{ 'pip-primary-actions-hide-sm': action.hideSmall,
                             'pip-primary-actions-show-sm': action.showSmall }"
@@ -17,6 +17,32 @@
                         ng-hide="actionHidden(subAction)">
             <md-button ng-hide="subAction.divider"
                         ng-click="onActionClick(subAction)">
+                {{subAction.title | translate}}
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="subAction.divider" ng-repeat-end></md-menu-divider>
+    </md-menu-content>
+</md-menu>
+
+<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryGlobalActions">
+    <md-button class="pip-primary-actions-action md-icon-button"
+               ng-class="{ 'pip-primary-actions-hide-sm': action.hideSmall,
+                            'pip-primary-actions-show-sm': action.showSmall }"
+               ng-click="onActionClick(action, $mdOpenMenu);"
+               ng-hide="actionHidden(action)"
+               aria-label="{{action.tooltip | translate}}">
+        <!--<md-tooltip ng-if="action.tooltip">{{action.tooltip | translate}}</md-tooltip>-->
+        <div class="pip-primary-actions-badge" ng-show="action.count > 0">
+            {{actionCount(action)}}
+        </div>
+        <md-icon md-svg-icon="{{action.icon}}"></md-icon>
+    </md-button>
+    <md-menu-content width="3" >
+        <md-menu-item ng-repeat-start="subAction in action.subActions"
+                      ng-if="!subAction.divider"
+                      ng-hide="actionHidden(subAction)">
+            <md-button ng-hide="subAction.divider"
+                       ng-click="onActionClick(subAction)">
                 {{subAction.title | translate}}
             </md-button>
         </md-menu-item>

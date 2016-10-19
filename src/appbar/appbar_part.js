@@ -18,11 +18,12 @@
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
             link: function linkFunction($scope, $element, $attrs) {
-                console.log('a', $scope.visible);
+                console.log('a', ngIfDirective[0]);
                 // Visualize based on visible variable in scope
                 $attrs.ngIf = function () {
                     return $scope.visible;
                 };
+                console.log(arguments);
                 ngIf.link.apply(ngIf, arguments);
             },
             controller: 'pipAppBarPartController'
@@ -30,7 +31,7 @@
     });
 
     thisModule.controller('pipAppBarPartController',
-        function ($scope, $element, $attrs, $rootScope, pipAppBar, ngIfDirective) {
+        function ($scope, $element, $attrs, $rootScope, pipAppBar) {
             var partName = '' + $attrs.pipAppbarPart;
             var partValue = null;
 
