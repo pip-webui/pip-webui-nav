@@ -34,6 +34,11 @@
 
             $scope.onShowTitleBreadcrumb = function () {
                 console.log(pipBreadcrumb);
+                pipAppBar.parts({
+                    logo: false,
+                    icon: false,
+                    title: 'breadcrumb',
+                });
                 pipBreadcrumb.items([
                     {title: 'Header'},
                     {title: 'SubHeader'},

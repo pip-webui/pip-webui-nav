@@ -17,19 +17,18 @@
             priority: ngIf.priority,
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
-            link: function($scope, $element, $attrs) {
-
+            link: function($rootScope,$scope, $element, $attrs) {
+                console.log('a',$attrs);
                 // Visualize based on visible variable in scope
-                $attrs.ngIf = function() { return $scope.visible;
-                     };
-                ngIf.link.apply(ngIf);
+                $attrs.ngIf = $scope.visible;
+                ngIf.link.apply(ngIf, arguments);
             },
             controller: 'pipAppBarPartController'
         };
     });
 
     thisModule.controller('pipAppBarPartController',
-        function ($scope, $element, $attrs, $rootScope, pipAppBar) {
+        function ($scope, $element, $attrs, $rootScope, pipAppBar, ngIfDirective) {
             var partName = '' + $attrs.pipAppbarPart;
             var partValue = null;
 
@@ -37,16 +36,16 @@
             var pos = partName.indexOf(':');
             if (pos > 0) {
                 partValue = partName.substr(pos + 1);
-                partName = partName.substr(0, pos - 1);
+                partName = partName.substr(0, pos);
             }
 
-            onAppBarChanged(null, pipAppBar.config())
+            onAppBarChanged(null, pipAppBar.config());
 
             $rootScope.$on('pipAppBarChanged', onAppBarChanged);
 
             function onAppBarChanged(event, config) {
                 var parts = config.parts || {};
-                var currentPartValue = config[partName];
+                var currentPartValue = parts[partName];
                 // Set visible variable to switch ngIf
                 $scope.visible = partValue ? currentPartValue == partValue : partValue;
             }
