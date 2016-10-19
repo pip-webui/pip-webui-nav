@@ -11,16 +11,15 @@
             pipAppBar.parts({
                 logo: false,
                 icon: false,
-                title: false,
+                title: 'breadcrumb'
             });
-            //pipAppBar.showTitleText('SAMPLE');
 
             $scope.onShowTitleLogo = function () {
-                /*pipAppBar.parts({
+                pipAppBar.parts({
                     logo: true,
                     icon: false,
                     title: false
-                });*/
+                });
                 
                 //pipNavIcon.showIcon('bug');
                 //pipNavIcon.showImage('piplife_logo.svg');
@@ -29,11 +28,14 @@
             };
 
             $scope.onShowTitleText = function () {
-                pipBreadcrumb.items($scope.title);
+                pipAppBar.parts({
+                    logo: false,
+                    icon: false,
+                    title: 'text'
+                });
             };
 
             $scope.onShowTitleBreadcrumb = function () {
-                console.log(pipBreadcrumb);
                 pipAppBar.parts({
                     logo: false,
                     icon: false,

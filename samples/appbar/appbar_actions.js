@@ -32,19 +32,20 @@
             });
 
             $scope.onHideActions = function () {
-                pipAppBar.hideLocalActions();
+                //pipAppBar.hideLocalActions();
                 $scope.disableOfActionTitleEditing = true;
             };
 
             $scope.onShowLanguage = function () {
-                pipAppBar.showLanguage(['en', 'ru']);
+                //pipAppBar.showLanguage(['en', 'ru']);
             };
 
             $scope.onChangeNotificationCount = function () {
-                pipAppBar.updateActionCount('sample.notifications', $scope.notificationCount);
+                //pipAppBar.updateActionCount('sample.notifications', $scope.notificationCount);
             };
 
             $scope.onShowActions = function () {
+                /*
                 pipAppBar.showLocalActions(
                     [
                         {
@@ -64,8 +65,9 @@
                         {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}
                     ]
                 );
+                */
 
-                pipAppBar.updateActionCount('sample.notifications', $scope.notificationCount);
+                //pipAppBar.updateActionCount('sample.notifications', $scope.notificationCount);
             };
 
             

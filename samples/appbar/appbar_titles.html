@@ -1,15 +1,9 @@
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_TITLES' | translate }}</h3>
 
-
-<!--<pip-appbar>
-    <pip-breadcrumb></pip-breadcrumb>
-</pip-appbar>-->
-
 <pip-appbar>
     <pip-nav-icon pip-appbar-part="icon"></pip-nav-icon>
-<!--
-    <img pip-appbar-part="logo" ng-src="{{logo}}" width="56" /> -->
-    <div pip-appbar-part="title:text"></div>
+    <img pip-appbar-part="logo" src="piplife_logo.svg" width="56" />
+    <div pip-appbar-part="title:text">{{title}}</div>
     <pip-breadcrumb pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
 
     <pip-language pip-appbar-part="actions:language"></pip-language>
@@ -25,25 +19,13 @@
 </md-input-container>
 
 <div>
-    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowTitleLogo()">{{ 'SHOW_LOGO'
-        | translate }}
+    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowTitleLogo()">
+        {{ 'SHOW_LOGO' | translate }}
     </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onShowTitleText()">{{ 'SHOW_TEXT' |
-        translate }}
+    <md-button class="md-raised md-accent flat" ng-click="onShowTitleText()">
+        {{ 'SHOW_TEXT' | translate }}
     </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">{{
-        'SHOW_BREADCRUMB' | translate }}
+    <md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">
+        {{ 'SHOW_BREADCRUMB' | translate }}
     </md-button>
 </div>
-
-<pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showTitleLogo</strong>('piplife_logo.svg')
-
-<strong>pipAppBar.showTitleText</strong>($scope.title)
-
-<strong>pipAppBar.showTitleBreadcrumb</strong>([
-       { title: 'Header' },
-       { title: 'SubHeader' },
-       { title: $scope.title }
-])</code></pre>

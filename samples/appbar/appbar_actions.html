@@ -1,9 +1,6 @@
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES' | translate }}</h3>
 
-<!--md-input-container class="tm24 w-stretch bm0">
-    <label>{{ 'TITLE_LOCAL_ACTION' | translate }}</label>
-    <input ng-model="localActions[1][0].title" ng-disabled="disableOfActionTitleEditing" type="text">
-</md-input-container-->
+
 
 <md-input-container class="w-stretch bm0 tm24">
     <label>{{ 'NOTIFICATION_COUNT' | translate }}</label>
@@ -12,35 +9,13 @@
 </md-input-container>
 
 <div>
-    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowActions()">{{ 'SHOW_ACTIONS'
-        | translate }}
+    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowActions()">
+        {{ 'SHOW_ACTIONS' | translate }}
     </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onHideActions()">{{ 'HIDE_ACTIONS' |
-        translate }}
+    <md-button class="md-raised md-accent flat" ng-click="onHideActions()">
+        {{ 'HIDE_ACTIONS' | translate }}
     </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onShowLanguage()">{{ 'SHOW_LANGUAGES'
-        | translate }}
+    <md-button class="md-raised md-accent flat" ng-click="onShowLanguage()">
+        {{ 'SHOW_LANGUAGES' | translate }}
     </md-button>
-</div>
-
-<pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js">
-<strong>pipAppBar.pipAppBar.showLocalActions</strong>
-       [
-           { name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,
-               subActions: [{ name: 'sample.sendSomeone', title: 'Send someone' }, { name: 'sample.sendToAll', title: 'Send to All' }] },
-           { name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true },
-           { name: 'sample.discard2', tooltip: 'Discard2 Message', icon: 'icons:bug', showSmall: true }
-       ],
-       [
-           { name: 'sample.send', title: 'Send Message1' , close: true },
-           { name: 'sample.discard', title: 'Discard Message' },
-           { divider: true },
-           { name: 'configure', title: 'Configure...', href: 'http://www.google.com' }
-       ]
-);
-
-<strong>pipAppBar.hideLocalActions</strong>()
-
-<strong>pipAppBar.showLanguage</strong>(['en', 'ru'])</code></pre>
+</div
