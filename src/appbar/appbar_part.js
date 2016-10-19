@@ -21,7 +21,7 @@
                 console.log('a', $scope.visible);
                 // Visualize based on visible variable in scope
                 $attrs.ngIf = function () {
-                    return $scope.visible
+                    return $scope.visible;
                 };
                 ngIf.link.apply(ngIf, arguments);
             },
@@ -49,7 +49,7 @@
                 var parts = config.parts || {};
                 var currentPartValue = parts[partName];
                 // Set visible variable to switch ngIf
-                $scope.visible = partValue ? currentPartValue == partValue : partValue;
+                $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
 
             }
 
