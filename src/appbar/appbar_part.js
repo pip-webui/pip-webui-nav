@@ -18,8 +18,10 @@
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
             link: function($scope, $element, $attrs) {
+
                 // Visualize based on visible variable in scope
-                $attrs.ngIf = function() { $scope.visible };
+                $attrs.ngIf = function() { return $scope.visible;
+                     };
                 ngIf.link.apply(ngIf);
             },
             controller: 'pipAppBarPartController'
@@ -32,7 +34,7 @@
             var partValue = null;
 
             // Break part apart
-            var pos = part.indexOf(':');
+            var pos = partName.indexOf(':');
             if (pos > 0) {
                 partValue = partName.substr(pos + 1);
                 partName = partName.substr(0, pos - 1);

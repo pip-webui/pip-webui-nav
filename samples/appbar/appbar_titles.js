@@ -1,22 +1,34 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Titles', ['pipBreadcrumb', 'pipAppBar.Part', 'pipAppBar',
-        'pipNavIcon']);
+    var thisModule = angular.module('appAppbar.Titles', ['pipBreadcrumb',  'pipAppBar',
+        'pipNavIcon', 'pipAppBar.Part']);
 
     thisModule.controller('TitlesController',
-        function($scope, pipBreadcrumb, pipAppBar, pipNavIcon) {
+        function ($scope, pipBreadcrumb, pipAppBar, pipNavIcon) {
 
             $scope.title = 'Title';
+            pipAppBar.parts({
+                logo: false,
+                icon: false,
+                title: false,
+            });
             //pipAppBar.showTitleText('SAMPLE');
-            
+
             $scope.onShowTitleLogo = function () {
-                pipNavIcon.showImage('piplife_logo.svg');
+                /*pipAppBar.parts({
+                    logo: true,
+                    icon: false,
+                    title: false
+                });*/
+                
+                //pipNavIcon.showIcon('bug');
+                //pipNavIcon.showImage('piplife_logo.svg');
                 //pipAppBar.showTitleLogo('piplife_logo.svg');
                 //pipNavIcon.showMenu();
             };
 
-            $scope.onShowTitleText = function () { 
+            $scope.onShowTitleText = function () {
                 pipBreadcrumb.items($scope.title);
             };
 

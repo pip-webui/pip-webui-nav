@@ -14,6 +14,8 @@
             type: 'none',
             // Image url
             imageUrl: null,
+            // Icon name
+            iconName: 'back',
             // Handle nav icon click event
             callback: null,
             // Event name
@@ -27,6 +29,7 @@
                 hide: hide,
                 showMenu: showMenu,
                 showBack: showBack,
+                showIcon: showIcon,
                 showImage: showImage
             };
 
@@ -46,6 +49,20 @@
 
             function showMenu(callbackOrEvent) {
                 config.type = 'menu';
+                config.callback = null;
+                config.event = null;
+
+                if (_.isFunction(callbackOrEvent))
+                    config.callback = callbackOrEvent;
+                if (_.isString(callbackOrEvent))
+                    config.event = callbackOrEvent;
+
+                sendConfigEvent();
+            }
+
+            function showIcon(iconName, callbackOrEvent) {
+                config.type = 'icon';
+                config.iconName = iconName;
                 config.callback = null;
                 config.event = null;
 
