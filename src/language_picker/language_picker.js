@@ -40,9 +40,14 @@
 
             $scope.language = getLanguage;
             $scope.onLanguageClick = onLanguageClick;
+            $rootScope.$on('pipSetLanguages', setLanguages);
+
+            function setLanguages(lang) {
+                $scope.languages = lang.length > 0 ? lang : ['en', 'ru'];
+            }
 
             function getLanguage() {
-                return pipTranslate ? pipTranslate.use() : ['en', 'ru'];
+                return pipTranslate ? pipTranslate.use() : null;
             }
 
             function onLanguageClick(language) {
@@ -53,7 +58,7 @@
                     }, 0);
                 }
             }
-            
+
         }
     );
 

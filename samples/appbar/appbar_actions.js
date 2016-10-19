@@ -55,7 +55,7 @@
             $rootScope.$on('languageChanged', function(event) {
                 $state.reload();
             });
-            
+            $scope.languages = ['en', 'ru'];
             $scope.localActions = [
                 [
                     {

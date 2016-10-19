@@ -6,7 +6,7 @@
         <md-icon md-svg-icon="icons:triangle-down"></md-icon>
     </span>
     <md-menu-content width="3">
-        <md-menu-item ng-repeat="lang in config.languages">
+        <md-menu-item ng-repeat="lang in languages">
             <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>
         </md-menu-item>
     </md-menu-content>
