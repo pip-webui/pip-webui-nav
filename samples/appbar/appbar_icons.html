@@ -1,6 +1,10 @@
 
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_NAV_ICONS' | translate }}</h3>
 
+<pip-appbar>
+    <pip-nav-icon></pip-nav-icon> <!-- pip-appbar-part="icon"-->
+</pip-appbar>
+
 <div>
     <md-button class="lm0 md-raised md-accent flat" ng-click="onShowMenuNavIcon()">
         {{ 'SHOW_MENU' | translate }}
@@ -8,16 +12,10 @@
     <md-button class="md-raised md-accent flat" ng-click="onShowBackNavIcon()">
         {{ 'SHOW_BACK' | translate }}
     </md-button>
+    <md-button class="md-raised md-accent flat" ng-click="onShowIcon()">
+        {{ 'SHOW_ICON' | translate }}
+    </md-button>
     <md-button class="md-raised md-accent flat" ng-click="onHideNavIcon()">
         {{ 'HIDE_NAV_ICON' | translate }}
     </md-button>
 </div>
-
-
-<pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showMenuNavIcon</strong>()
-
-<strong>pipAppBar.showBackNavIcon</strong>()
-
-<strong>pipAppBar.hideNavIcon</strong>()</code></pre>

@@ -8,23 +8,11 @@
         function ($scope, pipBreadcrumb, pipAppBar, pipNavIcon) {
 
             $scope.title = 'Title';
-            pipAppBar.parts({
-                logo: false,
-                icon: false,
-                title: 'breadcrumb'
-            });
 
             $scope.onShowTitleLogo = function () {
-                pipAppBar.parts({
-                    logo: true,
-                    icon: false,
-                    title: false
-                });
-                
-                //pipNavIcon.showIcon('bug');
-                //pipNavIcon.showImage('piplife_logo.svg');
-                //pipAppBar.showTitleLogo('piplife_logo.svg');
-                //pipNavIcon.showMenu();
+                pipAppBar.part('logo', true);
+                pipAppBar.part('icon', false);
+                pipAppBar.part('title', false);
             };
 
             $scope.onShowTitleText = function () {

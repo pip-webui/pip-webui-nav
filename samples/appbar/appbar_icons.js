@@ -1,25 +1,33 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Icons', []);
+    var thisModule = angular.module('appAppbar.Icons', ['pipNavIcon', 'pipAppBar', 'pipAppBar.Part']);
 
     thisModule.controller('IconsController',
-        function($scope) {
+        function($scope, pipNavIcon, pipAppBar) {
 
             $scope.$on('pipAppBarNavIconClicked', function () {
                 console.log('Nav Icon Clicked'); // eslint-disable-line
             });
 
             $scope.onHideNavIcon = function () {
-                pipAppBar.hideNavIcon();
+                pipNavIcon.hide();
+                pipAppBar.part('icon', false);
             };
 
             $scope.onShowMenuNavIcon = function () {
-                pipAppBar.showMenuNavIcon();
+                pipNavIcon.showMenu();
+                pipAppBar.part('icon', true);
+            };
+
+            $scope.onShowIcon = function () {
+                pipNavIcon.showIcon('bug');
+                pipAppBar.part('icon', true);
             };
 
             $scope.onShowBackNavIcon = function () {
-                pipAppBar.showBackNavIcon();
+                pipNavIcon.showBack();
+                pipAppBar.part('icon', true);
             };
 
         }
