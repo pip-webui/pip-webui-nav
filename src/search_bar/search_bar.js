@@ -12,11 +12,11 @@
     thisModule.run(function ($injector) {
         var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
         if (pipTranslate) {
-            pipTranslateProvider.translations('en', {
+            pipTranslate.translations('en', {
                 'APPBAR_SEARCH': 'Search'
             });
 
-            pipTranslateProvider.translations('ru', {
+            pipTranslate.translations('ru', {
                 'APPBAR_SEARCH': 'Поиск'
             });
         }

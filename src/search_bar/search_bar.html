@@ -14,3 +14,10 @@
         <md-icon md-svg-icon="icons:cross-circle"></md-icon>
     </md-button>
 </div>
+<div class="md-toolbar-tools layout-row layout-align-end-center"  ng-if="!searchEnabled">
+    <md-button class="md-icon-button"
+               aria-label="start search"
+               ng-click="onSearchEnable()">
+        <md-icon md-svg-icon="icons:search"></md-icon>
+    </md-button>
+</div>

@@ -1,28 +1,35 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Search', []);
+    var thisModule = angular.module('appAppbar.Search', [
+        'pipAppBar', 'pipAppBar.Part','pipSearchBar'
+    ]);
 
     thisModule.controller('SearchController',
-        function($scope) {
-            $scope.searchCriteria = 'FIND_THIS';
+        function($scope, $rootScope, pipAppBar, pipSearch) {
+            $scope.searchCriteria = 'Find this';
             
             $scope.$on('pipAppBarSearchClicked', function (event, search) {
                 console.log('Search Clicked: ' + search);// eslint-disable-line
                 $scope.searchCriteria = search;
-                pipAppBar.updateSearchCriteria($scope.searchCriteria);
+                pipSearch.criteria($scope.searchCriteria);
             });
             
             $scope.onHideSearch = function () {
-                pipAppBar.hideSearch();
+                pipAppBar.part('search', false);
+                pipAppBar.part('title', 'text');
+                $rootScope.$broadcast('pipSearchClose');
             };
 
             $scope.onShowSearch = function () {
-                pipAppBar.showSearch();
+                pipAppBar.part('search', true);
+                pipAppBar.part('title', false);
+                pipSearch.set(null, $scope.searchCriteria, null);
+                $rootScope.$broadcast('pipSearchOpen');
             };
 
             $scope.onUpdateSearch = function () {
-                pipAppBar.updateSearchCriteria($scope.searchCriteria);
+                pipSearch.criteria($scope.searchCriteria);
             };
             
             $scope.searchEnabled = true;

@@ -26,6 +26,7 @@
             $rootScope.$on('pipSearchClose', close);
 
             return {
+                config: getConfig,
                 set: setSearch,
                 clear: clearSearch,
                 criteria: updateCriteria,

@@ -1,26 +1,23 @@
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_SEARCH' | translate }}</h3>
 
+<pip-appbar>
+    <pip-search-bar></pip-search-bar> <!--pip-appbar-part="search"-->
+</pip-appbar>
+
+
 <md-input-container class="w-stretch bm0 tm24">
     <label>{{ 'SEARCH_CRITERIA' | translate }}</label>
     <input ng-model="searchCriteria" type="text">
 </md-input-container>
 
 <div>
-    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowSearch()">{{ 'SHOW_SEARCH' |
-        translate }}
+    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowSearch()">
+        {{ 'SHOW_SEARCH' | translate }}
     </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onHideSearch()">{{ 'HIDE_SEARCH' |
-        translate }}
+    <md-button class="md-raised md-accent flat" ng-click="onHideSearch()">
+        {{ 'HIDE_SEARCH' | translate }}
     </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onUpdateSearch()">{{ 'UPDATE_SEARCH' |
-        translate }}
+    <md-button class="md-raised md-accent flat" ng-click="onUpdateSearch()">
+        {{ 'UPDATE_SEARCH' | translate }}
     </md-button>
 </div>
-
-<pre class="text-body1 color-window-bg p16">
-<h3 class="text-subhead2 m0">{{:: 'CODE' | translate}}</h3>
-<code class="language-js"><strong>pipAppBar.showSearch</strong>()
-
-<strong>pipAppBar.hideSearch</strong>()
-
-<strong>pipAppBar.updateSearchCriteria</strong>($scope.searchCriteria)</code></pre>
