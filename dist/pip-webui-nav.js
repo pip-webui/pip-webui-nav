@@ -240,7 +240,7 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:triangle-down"></md-icon>\n' +
     '    </span>\n' +
     '    <md-menu-content width="3">\n' +
-    '        <md-menu-item ng-repeat="lang in config.languages">\n' +
+    '        <md-menu-item ng-repeat="lang in languages">\n' +
     '            <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>\n' +
     '        </md-menu-item>\n' +
     '    </md-menu-content>\n' +
@@ -1318,9 +1318,14 @@ module.run(['$templateCache', function($templateCache) {
 
             $scope.language = getLanguage;
             $scope.onLanguageClick = onLanguageClick;
+            $rootScope.$on('pipSetLanguages', setLanguages);
+
+            function setLanguages(lang) {
+                $scope.languages = lang.length > 0 ? lang : ['en', 'ru'];
+            }
 
             function getLanguage() {
-                return pipTranslate ? pipTranslate.use() : ['en', 'ru'];
+                return pipTranslate ? pipTranslate.use() : null;
             }
 
             function onLanguageClick(language) {
@@ -1331,7 +1336,7 @@ module.run(['$templateCache', function($templateCache) {
                     }, 0);
                 }
             }
-            
+
         }]
     );
 
