@@ -43,7 +43,8 @@
             //------------------------
             
             function itemVisible(item) {
-                return item && item.access && !item.access(item);
+                if (!item || !item.access) return true;
+                return item && item.access;
             }
 
             function isSectionEmpty(linkCollection) {

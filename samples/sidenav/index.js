@@ -3,7 +3,7 @@
     'use strict';
 
     var thisModule = angular.module('app', ['pipServices', 'pipSideNav', 'ngMaterial',
-        'pipNavMenu']);
+        'pipNavMenu', 'pipNavHeader']);
 
     thisModule.config(function (pipSideNavProvider, $mdIconProvider, pipTranslateProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);
@@ -40,6 +40,11 @@
                 });
             });
 
+            $scope.user = {
+                fullName: 'Kate Negrienko',
+                details: 'details'
+            };
+            
             $scope.links = [
                 {
                     links: [
@@ -49,7 +54,6 @@
                 },
                 {
                     title: 'Get',
-                    access: true,
                     links: [
                         {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
                         {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
