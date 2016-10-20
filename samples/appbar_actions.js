@@ -38,6 +38,7 @@
                     DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES: 'Display and hide actions and languages',
                     SHOW_ACTIONS: 'Show actions',
                     HIDE_ACTIONS: 'Hide actions',
+                    HIDE_LOCAL_ACTIONS: 'Hide local primary actions',
                     SHOW_LANGUAGES: 'Show languages',
                     
                 });
@@ -46,6 +47,7 @@
                     DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES: 'Отображение и скрытие списка действий и языков',
                     SHOW_ACTIONS: 'Отобразить список действий',
                     HIDE_ACTIONS: 'Скрыть список действий',
+                    HIDE_LOCAL_ACTIONS: 'Скрыть список локальных акций',
                     SHOW_LANGUAGES: 'Отобразить языки',
                     
                 });
@@ -83,6 +85,10 @@
             });
 
             $scope.onHideActions = function () {
+                pipActions.hideLocalActions();
+                pipAppBar.part('actions', false);
+            };
+            $scope.onHideLocalActions = function () {
                 pipActions.hideLocalActions();
                 //pipAppBar.part('actions', false);
             };
