@@ -17,9 +17,10 @@
             priority: ngIf.priority,
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
+            scope: true,
             link: function($scope, $element, $attrs) {
                 // Visualize based on visible variable in scope
-                $attrs.ngIf = function() { $scope.visible };
+                $attrs.ngIf = function() { return $scope.visible };
                 ngIf.link.apply(ngIf);
             },
             controller: 'pipSideNavPartController'
@@ -35,7 +36,7 @@
             var pos = part.indexOf(':');
             if (pos > 0) {
                 partValue = partName.substr(pos + 1);
-                partName = partName.substr(0, pos - 1);
+                partName = partName.substr(0, pos);
             }
 
             onSideNavChanged(null, pipSideNav.config())
@@ -46,7 +47,7 @@
                 var parts = config.parts || {};
                 var currentPartValue = config[partName];
                 // Set visible variable to switch ngIf
-                $scope.visible = partValue ? currentPartValue == partValue : partValue;
+                $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
             }
 
         }

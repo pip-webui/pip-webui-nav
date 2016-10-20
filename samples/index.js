@@ -4,11 +4,15 @@
     var thisModule = angular.module('app', ['pipAppBar', 'pipServices', 'ngMaterial', 
         'pipBreadcrumb',
         
-        'appAppbar.Icons', 'appAppbar.Titles',
-        'appAppbar.Actions', 'appAppbar.Search',
+        'appAppbar.Icons', 
+        'appAppbar.Titles',
+        'appAppbar.Actions',
+        'appAppbar.Search',
         'appAppbar.Shadows',
+        
         'appNav.Dropdown',
         'appNav.Tabs',
+        'appNav.SideNav',
         
         'pipTranslate'
     ]);
@@ -22,6 +26,7 @@
 
         { title: 'Tabs', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
         { title: 'Dropdown', state: 'dropdown', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
+        { title: 'SideNav', state: 'sidenav', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
 
     ];
     
