@@ -28,7 +28,6 @@
 <body ng-app="app" ng-controller="appController" ng-if="!$reset"
       md-theme="{{ $theme || 'blue' }}" class="{{ $theme }} layout-column">
 
-<pip-main class="pip-main">
 
     <md-toolbar>
         <div class="md-toolbar-tools">
@@ -56,7 +55,5 @@
             <div ui-view></div>
         </md-content>
     </div>
-
-</pip-main>
 </body>
 </html>
