@@ -74,7 +74,7 @@
                     {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}
                 ]
             ];
-
+            pipAppBar.part('menu', true);
             $scope.notificationCount = 2;
 
             $scope.$on('pipAppBarActionClicked', function (event, action) {
