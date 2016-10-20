@@ -1,9 +1,13 @@
 <md-toolbar class="pip-nav {{ class }}" ng-class="{'pip-visible': show(), 'pip-shadow': showShadow()}">
-    <md-tabs ng-if="$mdMedia('gt-xs')" md-selected="activeTab" ng-class="{'disabled': disabled()}" md-stretch-tabs="true" md-dynamic-height="true">
-        <md-tab ng-repeat="tab in tabs track by $index"  ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)">
+    <md-tabs ng-if="$mdMedia('gt-xs')" md-selected="activeTab" ng-class="{'disabled': disabled()}"
+             md-stretch-tabs="true" md-dynamic-height="true">
+        <md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)"
+                md-on-select="onSelect($index)">
             <md-tab-label>
-                {{ ::tab.nameLocal }}
-                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div>
+                {{::tab.nameLocal }}
+                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
+                    {{::tab.newCounts }}
+                </div>
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>
             </md-tab-label>
         </md-tab>
@@ -11,10 +15,13 @@
     <md-content class="md-subhead color-primary-bg md-hue-1 " ng-if="$mdMedia('xs')">
         <div class="pip-divider position-top m0"></div>
         <md-select ng-model="activeIndex" ng-disabled="disabled()"
-                   md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple md-on-close="onSelect(activeIndex)">
-            <md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}" >
+                   md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple
+                   md-on-close="onSelect(activeIndex)">
+            <md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}">
                 {{ ::tab.nameLocal }}
-                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div>
+                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
+                    {{ ::tab.newCounts }}
+                </div>
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>
             </md-option>
         </md-select>
