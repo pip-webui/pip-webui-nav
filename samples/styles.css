@@ -45,3 +45,9 @@ md-card {
 .p24{
     padding: 24px
 }
+
+.pip-pic{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
