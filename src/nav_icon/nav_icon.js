@@ -45,11 +45,11 @@
                 if (_.isFunction($scope.config.callback)) {
                     // Execute nav icon callback
                     $scope.config.callback();
-                }
-                else if ($scope.config.event) {
+                } else if ($scope.config.event) {
                     $rootScope.$broadcast($scope.config.event);
-                }
-                else if ($scope.config.type == 'back') {
+                } else if ($scope.config.type == 'menu') {
+                    $rootScope.$broadcast('pipOpenSideNav');
+                } else if ($scope.config.type == 'back') {
                     $window.history.back();
                 } else {
                     $rootScope.$broadcast('pipNavIconClicked');

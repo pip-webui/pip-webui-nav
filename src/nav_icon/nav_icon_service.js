@@ -11,7 +11,7 @@
     thisModule.provider('pipNavIcon', function () {
         var config = {
             // Type of nav icon: 'back', 'menu', 'image' or 'none'
-            type: 'none',
+            type: 'menu',
             // Image url
             imageUrl: null,
             // Icon name

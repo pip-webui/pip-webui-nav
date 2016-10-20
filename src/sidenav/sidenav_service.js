@@ -22,8 +22,8 @@
         this.parts = initParts;
 
         this.$get = function ($rootScope, $mdSidenav) {
-            $rootScope.$on('pipSideNavOpen', open);
-            $rootScope.$on('pipSideNavClose', close);
+            $rootScope.$on('pipOpenSideNav', open);
+            $rootScope.$on('pipCloseSideNav', close);
 
             return {
                 config: getConfig,
