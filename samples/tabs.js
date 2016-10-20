@@ -5,31 +5,32 @@
 
     var thisModule = angular.module('appNav.Tabs', ['pipTabs']);
 
-    thisModule.config(function ($mdIconProvider, pipAppBarProvider, pipTranslateProvider) {
-        pipTranslateProvider.translations('en', {
-            TAB_INDEX: 'Current tab index',
-            LIST_CHANGES: 'List of changes',
-            ADDING: 'Counts of first tab',
-            VISIBLE: 'Visible',
-            DISABLED: 'Disabled',
-            SHADOW: 'Shadow',
-            TABS_CONFIG_AND_INFO: 'Tabs configuration and info',
-            CODE_SAMPLE: 'Code sample'
-        });
-        pipTranslateProvider.translations('ru', {
-            TAB_INDEX: 'Текущий индекс',
-            LIST_CHANGES: 'Список изменений',
-            ADDING: 'Устанавливает количество для первого таба',
-            VISIBLE: 'Видимость',
-            DISABLED: 'Отключен',
-            SHADOW: 'Тень',
-            TABS_CONFIG_AND_INFO: 'Настройка и информация о табах',
-            CODE_SAMPLE: 'Пример кода'
-        });
-    });
-
     thisModule.controller('TabsController',
-        function ($scope, $mdMedia, pipTranslate) {
+        function ($scope, $mdMedia, pipTranslate, $injector) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+            if (pipTranslate) {
+                pipTranslate.translations('en', {
+                    TAB_INDEX: 'Current tab index',
+                    LIST_CHANGES: 'List of changes',
+                    ADDING: 'Counts of first tab',
+                    VISIBLE: 'Visible',
+                    DISABLED: 'Disabled',
+                    SHADOW: 'Shadow',
+                    TABS_CONFIG_AND_INFO: 'Tabs configuration and info',
+                    CODE_SAMPLE: 'Code sample'
+                });
+                pipTranslate.translations('ru', {
+                    TAB_INDEX: 'Текущий индекс',
+                    LIST_CHANGES: 'Список изменений',
+                    ADDING: 'Устанавливает количество для первого таба',
+                    VISIBLE: 'Видимость',
+                    DISABLED: 'Отключен',
+                    SHADOW: 'Тень',
+                    TABS_CONFIG_AND_INFO: 'Настройка и информация о табах',
+                    CODE_SAMPLE: 'Пример кода'
+                });
+            }
+            
             $scope.messages = [];
             $scope.$mdMedia = $mdMedia;
             $scope.selected = {};
