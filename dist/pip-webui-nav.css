@@ -274,7 +274,7 @@ md-content md-option .md-text .pip-tabs-badge {
   padding-left: 8px;
   padding-right: 8px;
 }
-.pip-appbar.pip-shadow {
+.pip-appbar .pip-shadow {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 .pip-appbar-ext {
@@ -287,12 +287,12 @@ md-content md-option .md-text .pip-tabs-badge {
   z-index: 0;
 }
 @media (max-width: 768px) {
-  .pip-appbar.pip-appbar-hide-sm {
+  .pip-appbar .pip-appbar-hide-sm {
     display: none;
   }
 }
 @media (min-width: 768px) {
-  .pip-appbar.pip-appbar-show-sm {
+  .pip-appbar .pip-appbar-show-sm {
     display: none;
   }
 }
@@ -303,12 +303,12 @@ md-content md-option .md-text .pip-tabs-badge {
   }
 }
 @media (max-width: 1200px) and (min-width: 768px) {
-  .pip-appbar.pip-shadow-sm {
+  .pip-appbar .pip-shadow-sm {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   }
 }
 @media (max-width: 768px) {
-  .pip-appbar.pip-shadow-xs {
+  .pip-appbar .pip-shadow-xs {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   }
 }
