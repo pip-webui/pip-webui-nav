@@ -36,13 +36,18 @@
                 pipAppBar.part('title', 'text');
                 $rootScope.$broadcast('pipSearchClose');
             };
-
+            
+            function searchClicked (search) {
+                alert('Search'+ search);
+            };
+            
             $scope.onShowSearch = function () {
                 pipAppBar.part('search', true);
                 pipAppBar.part('title', false);
-                pipSearch.set(null, $scope.searchCriteria, null);
+                pipSearch.set(searchClicked, $scope.searchCriteria, null);
                 $rootScope.$broadcast('pipSearchOpen');
             };
+            
 
             $scope.onUpdateSearch = function () {
                 pipSearch.criteria($scope.searchCriteria);
