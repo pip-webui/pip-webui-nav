@@ -75,6 +75,7 @@
                 ]
             ];
             pipAppBar.part('menu', true);
+            pipAppBar.part('actions', 'primary');
             $scope.notificationCount = 2;
 
             $scope.$on('pipAppBarActionClicked', function (event, action) {
@@ -83,7 +84,7 @@
 
             $scope.onHideActions = function () {
                 pipActions.hideLocalActions();
-                pipAppBar.part('actions', false);
+                //pipAppBar.part('actions', false);
             };
 
             $scope.onShowLanguage = function () {
