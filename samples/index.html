@@ -3,66 +3,61 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>WebUI Framework. PipDevs Team</title>
+    <title>App Bar Sample</title>
 
     <link rel="stylesheet" href="../lib/pip-webui-lib.css"/>
-    <!--<link rel="stylesheet" href="../lib/pip-webui-css.css"/>-->
-    <link rel="stylesheet" href="../lib/pip-webui-csscomponents.css"/>
-    <link rel="stylesheet" href="../lib/pip-webui-dates.css"/>
-    <!--<link rel="stylesheet" href="../lib/pip-webui-pictures.css"/>-->
-    
+    <link rel="stylesheet" href="../lib/pip-webui-css.css"/>
+    <link rel="stylesheet" href="../lib/pip-webui-layouts.css"/>
+    <link rel="stylesheet" href="../dist/pip-webui-nav.css"/>
+    <link rel="stylesheet" href="styles.css"/>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-
-    <style>
-        .pip-title > h1 {
-            margin-top: 20px;
-            margin-bottom: 5px;
-        }
-
-        .pip-title > div {
-            margin-bottom: 30px;
-        }
-
-        .pip-section > h2 {
-            margin-bottom: 5px;
-        }
-    </style>
 
     <script src="../lib/pip-webui-lib.js"></script>
     <script src="../lib/pip-webui-services.js"></script>
-    <script src="../lib/pip-webui-dates.js"></script>
-    <!--<script src="../lib/pip-webui-pictures.js"></script>-->
+    <script src="../dist/pip-webui-nav.js"></script>
 
-    <script>
-        app = angular.module('app', ['ngMaterial']);
-    </script>
+    <script src="appbar_actions.js"></script>
+    <script src="appbar_icons.js"></script>
+    <script src="appbar_search.js"></script>
+    <script src="appbar_shadows.js"></script>
+    <script src="appbar_titles.js"></script>
+    <script src="tabs.js"></script>
+    <script src="dropdown.js"></script>
+    <script src="index.js"></script>
 </head>
-<body class="layout-column layout-align-start-center" ng-app="app" md-theme="{{ $theme || 'blue' }}" >
-    <section>
-        <div class="pip-title">
-            <h1>WebUI Framework. PipDevs Team</h1>
-            <div>(c) Digital Living Software Corp.</div>
+<body ng-app="app" ng-controller="appController" ng-if="!$reset"
+      md-theme="{{ $theme || 'blue' }}" class="{{ $theme }} layout-column">
+
+<pip-main class="pip-main">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="menu"
+                       ng-click="onToggleMenu()" hide-gt-sm>
+                <md-icon md-svg-icon="icons:menu"></md-icon>
+            </md-button>
+            <span>App bar components</span>
         </div>
+    </md-toolbar>
 
-        <section class="pip-section">
-            <h2>Basic Controls</h2>
-            <ul>
-                <li><a href="nav_controls/index.html#/dropdown">Dropdown</a></li>
-                <li><a href="nav_controls/index.html#/tabs">Tabs</a></li>
-                <li><a href="appbar/index.html">App Bar</a></li>
-                <li><a href="sidenav/index.html">Side Nav</a></li>
-            </ul>
-        </section>            
+    <div class="layout-row flex">
+        <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+                    class="md-whiteframe-z2 md-sidenav-left layout-column">
+            <md-list>
+                <md-list-item ng-repeat="contentItem in content"
+                              ng-click="onSwitchPage(contentItem.state)"
+                              ng-class="{ 'selected-state': isActiveState(contentItem.state) }">
+                    <p ui-sref="{{contentItem.state}}">{{contentItem.title}}</p>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
 
-        <section class="pip-section">
-            <h2>References</h2>
-            <ul>
-                <li><a href="https://material.angularjs.org/latest/#/">Angular Material Intro</a></li>
-                <li><a href="https://github.com/angular/material">Angular Material GitHub</a></li>
-                <li><a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design Guidelines</a></li>
-                <li><a href="http://design.google.com">Google Design References</a></li>
-            </ul>
-        </section>
-    </section>
+        <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
+            <div ui-view></div>
+        </md-content>
+    </div>
+
+</pip-main>
 </body>
 </html>

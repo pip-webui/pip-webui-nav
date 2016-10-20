@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appNav.Tabs', []);
+    var thisModule = angular.module('appNav.Tabs', ['pipTabs']);
 
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, pipTranslateProvider) {
         pipTranslateProvider.translations('en', {

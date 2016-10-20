@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.Dropdown', []);
+    var thisModule = angular.module('appNav.Dropdown', ['pipDropdown']);
 
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, pipTranslateProvider) {
         pipTranslateProvider.translations('en', {
