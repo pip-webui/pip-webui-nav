@@ -1,25 +1,3 @@
-/**
- * @file Registration of navigation WebUI controls
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
-
-(function () {
-    'use strict';
-
-    angular.module('pipNav', [        
-        'pipDropdown',
-        'pipTabs',
-
-        'pipAppBar',
-        'pipSideNav'
-    ]);
-    
-})();
-
-
-
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -445,6 +423,28 @@ module.run(['$templateCache', function($templateCache) {
     '');
 }]);
 })();
+
+/**
+ * @file Registration of navigation WebUI controls
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+/* global angular */
+
+(function () {
+    'use strict';
+
+    angular.module('pipNav', [        
+        'pipDropdown',
+        'pipTabs',
+
+        'pipAppBar',
+        'pipSideNav'
+    ]);
+    
+})();
+
+
 
 /**
  * @file Application Actions service
@@ -1060,6 +1060,8 @@ module.run(['$templateCache', function($templateCache) {
 
     var thisModule = angular.module('pipShadow.Service', []);
 
+
+    // Todo: Merge service with pipAppBar
     thisModule.provider('pipShadow', function () {
         var config = {
             cssClass: '',
@@ -1213,6 +1215,8 @@ module.run(['$templateCache', function($templateCache) {
             criteria: '',
         };
 
+        this.text = initText;
+
         // Get the service instance
         this.$get = ['$rootScope', function ($rootScope) {
             return {
@@ -1268,6 +1272,13 @@ module.run(['$templateCache', function($templateCache) {
             }
         }];
         
+        function initText(text) {
+            if (text != undefined) {
+                config.text = text;
+            }
+            return config.text;
+        }
+
     });
 
 })(window.angular, window._);
@@ -1575,10 +1586,17 @@ module.run(['$templateCache', function($templateCache) {
             event: null
         };
 
+        this.config = getConfig;
+        this.clear = clear;
+        this.setMenu = setMenu;
+        this.setBack = setBack;
+        this.setIcon = setIcon;
+        this.setImage = setImage;
+
         // Get the service instance
         this.$get = ['$rootScope', function ($rootScope) {
             return {
-                getConfig: getConfig,
+                config: getConfig,
                 hide: hide,
                 showMenu: showMenu,
                 showBack: showBack,
@@ -1588,69 +1606,28 @@ module.run(['$templateCache', function($templateCache) {
 
             // ----------------------
             
-            function getConfig() {
-                return config;
-            }
-
-            // Show navigation icon
             function hide() {
-                config.type = 'none';
-                config.callback = null;
-                config.event = null;
+                clear();
                 sendConfigEvent();
             }
 
             function showMenu(callbackOrEvent) {
-                config.type = 'menu';
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
+                setMenu(callbackOrEvent);
                 sendConfigEvent();
             }
 
             function showIcon(iconName, callbackOrEvent) {
-                config.type = 'icon';
-                config.iconName = iconName;
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
+                setIcon(iconName, callbackOrEvent);
                 sendConfigEvent();
             }
 
             function showBack(callbackOrEvent) {
-                config.type = 'back';
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
+                setBack(callbackOrEvent);
                 sendConfigEvent();
             }
 
             function showImage(imageUrl, callbackOrEvent) {
-                config.type = 'image';
-                config.imageUrl = imageUrl;
-                config.callback = null;
-                config.event = null;
-
-                if (_.isFunction(callbackOrEvent))
-                    config.callback = callbackOrEvent;
-                if (_.isString(callbackOrEvent))
-                    config.event = callbackOrEvent;
-
+                setImage(imageUrl, callbackOrEvent);
                 sendConfigEvent();
             }
 
@@ -1659,6 +1636,63 @@ module.run(['$templateCache', function($templateCache) {
             }
 
         }];
+
+        function getConfig() {
+            return config;
+        }
+
+        // Show navigation icon
+        function clear() {
+            config.type = 'none';
+            config.callback = null;
+            config.event = null;
+        }
+
+        function setMenu(callbackOrEvent) {
+            config.type = 'menu';
+            config.callback = null;
+            config.event = null;
+
+            if (_.isFunction(callbackOrEvent))
+                config.callback = callbackOrEvent;
+            if (_.isString(callbackOrEvent))
+                config.event = callbackOrEvent;
+        }
+
+        function setIcon(iconName, callbackOrEvent) {
+            config.type = 'icon';
+            config.iconName = iconName;
+            config.callback = null;
+            config.event = null;
+
+            if (_.isFunction(callbackOrEvent))
+                config.callback = callbackOrEvent;
+            if (_.isString(callbackOrEvent))
+                config.event = callbackOrEvent;
+        }
+
+        function setBack(callbackOrEvent) {
+            config.type = 'back';
+            config.callback = null;
+            config.event = null;
+
+            if (_.isFunction(callbackOrEvent))
+                config.callback = callbackOrEvent;
+            if (_.isString(callbackOrEvent))
+                config.event = callbackOrEvent;
+        }
+
+        function setImage(imageUrl, callbackOrEvent) {
+            config.type = 'image';
+            config.imageUrl = imageUrl;
+            config.callback = null;
+            config.event = null;
+
+            if (_.isFunction(callbackOrEvent))
+                config.callback = callbackOrEvent;
+            if (_.isString(callbackOrEvent))
+                config.event = callbackOrEvent;
+        }
 
     });
 

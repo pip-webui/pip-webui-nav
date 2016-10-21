@@ -8,6 +8,8 @@
 
     var thisModule = angular.module('pipShadow.Service', []);
 
+
+    // Todo: Merge service with pipAppBar
     thisModule.provider('pipShadow', function () {
         var config = {
             cssClass: '',

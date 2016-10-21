@@ -18,6 +18,8 @@
             criteria: '',
         };
 
+        this.text = initText;
+
         // Get the service instance
         this.$get = function ($rootScope) {
             return {
@@ -73,6 +75,13 @@
             }
         };
         
+        function initText(text) {
+            if (text != undefined) {
+                config.text = text;
+            }
+            return config.text;
+        }
+
     });
 
 })(window.angular, window._);
