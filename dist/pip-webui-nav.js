@@ -1748,8 +1748,7 @@ module.run(['$templateCache', function($templateCache) {
             //------------------------
             
             function itemVisible(item) {
-                if (!item || !item.access) return true;
-                return item && item.access;
+                return item && item.access && !item.access(item);
             }
 
             function isSectionEmpty(linkCollection) {

@@ -85,11 +85,11 @@
             });
 
             $scope.onHideActions = function () {
-                pipActions.hideLocalActions();
+                pipActions.hide();
                 pipAppBar.part('actions', false);
             };
             $scope.onHideLocalActions = function () {
-                pipActions.hideLocalActions();
+                pipActions.hide();
                 //pipAppBar.part('actions', false);
             };
 
@@ -102,8 +102,8 @@
             };
 
             $scope.onShowActions = function () {
-                pipActions.showLocalActions($scope.localActions[0], $scope.localActions[1]);
-                pipActions.updateActionCount('sample.notifications', $scope.notificationCount);
+                pipActions.show($scope.localActions[0], $scope.localActions[1]);
+                pipActions.count('sample.notifications', $scope.notificationCount);
                 pipAppBar.part('actions', 'primary');
             };
 
