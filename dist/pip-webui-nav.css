@@ -274,6 +274,9 @@ md-content md-option .md-text .pip-tabs-badge {
   padding-left: 8px;
   padding-right: 8px;
 }
+.pip-appbar md-toolbar md-button md-icon {
+  color: #fff;
+}
 .pip-appbar .pip-shadow {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
