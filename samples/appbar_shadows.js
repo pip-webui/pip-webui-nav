@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Shadows', ['pipShadow.Service', 'pipAppBar']);
+    var thisModule = angular.module('appAppbar.Shadows', ['pipAppBar.Service']);
 
     thisModule.controller('ShadowsController',
-        function($scope, pipShadow, $injector) {
+        function($scope, pipAppBar, $injector) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate) {
                 pipTranslate.translations('en', {
@@ -22,15 +22,15 @@
             }
             
             $scope.onShowShadow = function () {
-                pipShadow.showShadow();
+                pipAppBar.showShadow();
             };
 
             $scope.onShowShadowSm = function () {
-                pipShadow.showShadowSm();
+                pipAppBar.showShadowSm();
             };
 
             $scope.onHideShadow = function () {
-                pipShadow.hideShadow();
+                pipAppBar.hideShadow();
             };
         }
     );

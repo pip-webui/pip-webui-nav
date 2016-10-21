@@ -29,7 +29,12 @@
                 cssClass: cssClass,
 
                 part: getOrSetPart,
-                parts: getOrSetParts
+                parts: getOrSetParts,
+                
+                showShadow: showShadow,
+                showShadowSm: showShadowSm,
+                showShadowSmXs: showShadowSmXs,
+                hideShadow: hideShadow
             };
 
             // ----------------------
@@ -46,6 +51,37 @@
                 }
 
                 return config.cssClass;
+            }
+
+            // Show, hide appbar shadow
+            function showShadowSm() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = true;
+                config.ngClasses['pip-shadow-xs'] = false;
+                sendConfigEvent();
+            }
+
+            function showShadowSmXs() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = true;
+                config.ngClasses['pip-shadow-xs'] = true;
+                sendConfigEvent();
+            }
+
+            function showShadow() {
+                config.ngClasses['pip-shadow'] = true;
+                sendConfigEvent();
+            }
+
+            function hideShadow() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = false;
+                config.ngClasses['pip-shadow-xs'] = false;
+                sendConfigEvent();
+            }
+
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipAppBarChanged', config);
             }
 
             function getOrSetPart(name, value) {
