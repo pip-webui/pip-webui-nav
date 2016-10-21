@@ -13,7 +13,12 @@
         'pipTabs',
 
         'pipAppBar',
-        'pipSideNav'
+        'pipSideNav',
+        'pipNavIcon',
+        'pipNavMenu',
+        'pipBreadcrumb',
+        'pipPrimaryActions', 
+        'pipSecondaryActions'
     ]);
     
 })();

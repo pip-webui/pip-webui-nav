@@ -1,3 +1,30 @@
+/**
+ * @file Registration of navigation WebUI controls
+ * @copyright Digital Living Software Corp. 2014-2016
+ */
+
+/* global angular */
+
+(function () {
+    'use strict';
+
+    angular.module('pipNav', [        
+        'pipDropdown',
+        'pipTabs',
+
+        'pipAppBar',
+        'pipSideNav',
+        'pipNavIcon',
+        'pipNavMenu',
+        'pipBreadcrumb',
+        'pipPrimaryActions', 
+        'pipSecondaryActions'
+    ]);
+    
+})();
+
+
+
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -425,28 +452,6 @@ module.run(['$templateCache', function($templateCache) {
 })();
 
 /**
- * @file Registration of navigation WebUI controls
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
-
-(function () {
-    'use strict';
-
-    angular.module('pipNav', [        
-        'pipDropdown',
-        'pipTabs',
-
-        'pipAppBar',
-        'pipSideNav'
-    ]);
-    
-})();
-
-
-
-/**
  * @file Application Actions service
  * @copyright Digital Living Software Corp. 2014-2016
  */
@@ -479,9 +484,9 @@ module.run(['$templateCache', function($templateCache) {
             return {
                 config: getConfig,
                 
-                showLocalActions: showLocalActions,
-                hideLocalActions: hideLocalActions,
-                updateActionCount: updateActionCount,
+                show: showLocalActions,
+                hide: hideLocalActions,
+                count: updateActionCount,
             };
 
             // ----------------------
@@ -1530,7 +1535,7 @@ module.run(['$templateCache', function($templateCache) {
             // Apply class and call resize
             $element.addClass('pip-nav-icon');
 
-            $scope.config = pipNavIcon.getConfig();
+            $scope.config = pipNavIcon.config();
 
             $rootScope.$on('pipNavIconChanged', onNavIconChanged);
 
@@ -1588,20 +1593,20 @@ module.run(['$templateCache', function($templateCache) {
 
         this.config = getConfig;
         this.clear = clear;
-        this.setMenu = setMenu;
-        this.setBack = setBack;
-        this.setIcon = setIcon;
-        this.setImage = setImage;
+        this.menu = setMenu;
+        this.back = setBack;
+        this.icon = setIcon;
+        this.image = setImage;
 
         // Get the service instance
         this.$get = ['$rootScope', function ($rootScope) {
             return {
                 config: getConfig,
                 hide: hide,
-                showMenu: showMenu,
-                showBack: showBack,
-                showIcon: showIcon,
-                showImage: showImage
+                menu: showMenu,
+                back: showBack,
+                icon: showIcon,
+                image: showImage
             };
 
             // ----------------------

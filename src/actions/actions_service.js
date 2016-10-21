@@ -31,9 +31,9 @@
             return {
                 config: getConfig,
                 
-                showLocalActions: showLocalActions,
-                hideLocalActions: hideLocalActions,
-                updateActionCount: updateActionCount,
+                show: showLocalActions,
+                hide: hideLocalActions,
+                count: updateActionCount,
             };
 
             // ----------------------

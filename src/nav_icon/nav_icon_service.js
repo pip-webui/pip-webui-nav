@@ -24,20 +24,20 @@
 
         this.config = getConfig;
         this.clear = clear;
-        this.setMenu = setMenu;
-        this.setBack = setBack;
-        this.setIcon = setIcon;
-        this.setImage = setImage;
+        this.menu = setMenu;
+        this.back = setBack;
+        this.icon = setIcon;
+        this.image = setImage;
 
         // Get the service instance
         this.$get = function ($rootScope) {
             return {
                 config: getConfig,
                 hide: hide,
-                showMenu: showMenu,
-                showBack: showBack,
-                showIcon: showIcon,
-                showImage: showImage
+                menu: showMenu,
+                back: showBack,
+                icon: showIcon,
+                image: showImage
             };
 
             // ----------------------

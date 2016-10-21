@@ -29,7 +29,7 @@
             // Apply class and call resize
             $element.addClass('pip-nav-icon');
 
-            $scope.config = pipNavIcon.getConfig();
+            $scope.config = pipNavIcon.config();
 
             $rootScope.$on('pipNavIconChanged', onNavIconChanged);
 
