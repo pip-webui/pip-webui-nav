@@ -95,7 +95,9 @@
                     return;
                 }
                 else if (link.state) {
-                    if ($state.current.name === link.state) {
+                    var $state = $injector.has('$state') ? $injector.get('$state') : null;
+                    
+                    if ($state != null && $state.current.name === link.state) {
                         pipSideNav.close();
                         return;
                     }
