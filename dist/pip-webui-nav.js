@@ -142,6 +142,26 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('appbar/appbar.html',
+    '<!--\n' +
+    '@file App Bar component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
+    '            class="{{ config.cssClass }}" ng-transclude>\n' +
+    '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('breadcrumb/breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
@@ -186,26 +206,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-menu>\n' +
     '\n' +
     '</div>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('appbar/appbar.html',
-    '<!--\n' +
-    '@file App Bar component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
-    '            class="{{ config.cssClass }}" ng-transclude>\n' +
-    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -432,7 +432,7 @@ module.run(['$templateCache', function($templateCache) {
     '            </md-tab-label>\n' +
     '        </md-tab>\n' +
     '    </md-tabs>\n' +
-    '    <md-content class="md-subhead color-primary-bg md-hue-1 " ng-if="$mdMedia(\'xs\')">\n' +
+    '    <div class="md-subhead pip-tabs-content color-primary-bg  " ng-if="$mdMedia(\'xs\')">\n' +
     '        <div class="pip-divider position-top m0"></div>\n' +
     '        <md-select ng-model="activeIndex" ng-disabled="disabled()"\n' +
     '                   md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple\n' +
@@ -445,7 +445,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>\n' +
     '            </md-option>\n' +
     '        </md-select>\n' +
-    '    </md-content>\n' +
+    '    </div>\n' +
     '</md-toolbar>\n' +
     '');
 }]);
