@@ -122,7 +122,7 @@
                 if (action.state) {
                     if ($injector.has('pipState')) {
                         var pipState = $injector.get('pipState');
-                        $state.go(action.state, action.stateParams);
+                        pipState.go(action.state, action.stateParams);
                     }
                     else if ($injector.has('$state')) {
                         var $state = $injector.get('$state');

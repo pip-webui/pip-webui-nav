@@ -673,7 +673,7 @@ module.run(['$templateCache', function($templateCache) {
                 if (action.state) {
                     if ($injector.has('pipState')) {
                         var pipState = $injector.get('pipState');
-                        $state.go(action.state, action.stateParams);
+                        pipState.go(action.state, action.stateParams);
                     }
                     else if ($injector.has('$state')) {
                         var $state = $injector.get('$state');
@@ -831,7 +831,7 @@ module.run(['$templateCache', function($templateCache) {
                 if (action.state) {
                     if ($injector.has('pipState')) {
                         var pipState = $injector.get('pipState');
-                        $state.go(action.state, action.stateParams);
+                        pipState.go(action.state, action.stateParams);
                     }
                     else if ($injector.has('$state')) {
                         var $state = $injector.get('$state');
@@ -1800,7 +1800,9 @@ module.run(['$templateCache', function($templateCache) {
                     return;
                 }
                 else if (link.state) {
-                    if ($state.current.name === link.state) {
+                    var $state = $injector.has('$state') ? $injector.get('$state') : null;
+                    
+                    if ($state != null && $state.current.name === link.state) {
                         pipSideNav.close();
                         return;
                     }
