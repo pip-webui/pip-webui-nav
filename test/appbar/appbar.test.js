@@ -14,7 +14,7 @@ describe('pipAppBar', function () {
         beforeEach(module('pipTranslateFilters'));
         beforeEach(module('pipTranslate'));
         beforeEach(module('pipAppBar.Service'));
-        beforeEach(module('pipState'));
+        beforeEach(module('pipRouting'));
 
         beforeEach(inject(function (_pipAppBar_, _$compile_, _$rootScope_, _pipTranslate_) {
             pipAppBar = _pipAppBar_;

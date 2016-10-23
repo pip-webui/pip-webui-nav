@@ -103,11 +103,7 @@
 
                     pipSideNav.close();
                     $timeout(function() {
-                        if ($injector.has('pipState')) {
-                            var pipState = $injector.get('pipState');
-                            pipState.go(link.state, link.stateParams);
-                        }
-                        else if ($injector.has('$state')) {
+                        if ($injector.has('$state')) {
                             var $state = $injector.get('$state');
                             $state.go(link.state, link.stateParams);
                         }

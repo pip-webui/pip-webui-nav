@@ -16,7 +16,7 @@ describe('pipSideNav', function () {
        beforeEach(module('pipDateTimeFilters'));
        beforeEach(module('pipTranslate'));
        beforeEach(module('pipSideNav.Service'));
-       beforeEach(module('pipState'));
+       beforeEach(module('pipRouting'));
 //
        beforeEach(inject(function(_pipSideNav_,_$compile_, _$rootScope_, _pipTranslate_) {
            pipSideNav = _pipSideNav_;
