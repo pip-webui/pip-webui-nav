@@ -2,12 +2,12 @@
     <span class="pip-language"
         ng-click="$mdOpenMenu()"
         aria-label="language selection">
-        {{language() | translate}}
+        {{vm.language | translate}}
         <md-icon md-svg-icon="icons:triangle-down"></md-icon>
     </span>
     <md-menu-content width="3">
-        <md-menu-item ng-repeat="lang in languages">
-            <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>
+        <md-menu-item ng-repeat="language in vm.languages">
+            <md-button ng-click="vm.onLanguageClick(lang)">{{language | translate}}</md-button>
         </md-menu-item>
     </md-menu-content>
 </md-menu>

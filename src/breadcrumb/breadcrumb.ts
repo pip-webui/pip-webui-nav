@@ -1,13 +1,23 @@
 /// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="./breadcrumb_service.ts" />
 
 module pip.nav {
 
     class BreadcrumbController {
         private _rootScope: ng.IRootScopeService;
         private _window: ng.IWindowService;
-        public config: any;
+        
+        public config: BreadcrumbConfig;
 
-        public constructor($scope, $element, $attrs, $rootScope, $window, $state, pipBreadcrumb) {
+        public constructor(
+            $scope: ng.IScope,
+            $element: any, 
+            $attrs: any, 
+            $rootScope: ng.IRootScopeService,
+            $window: ng.IWindowService,
+            $state: ng.ui.IStateService,
+            pipBreadcrumb: IBreadcrumbService
+        ) {
             "ngInject";
 
             this._rootScope = $rootScope;
@@ -18,8 +28,8 @@ module pip.nav {
 
             this.config = pipBreadcrumb.config;
 
-            $rootScope.$on('pipBreadcrumbChanged', this.onBreadcrumbChanged);
-            $rootScope.$on('pipBreadcrumbBack', this.onBreadcrumbBack);
+            $rootScope.$on(BreadcrumbChangedEvent, this.onBreadcrumbChanged);
+            $rootScope.$on(BreadcrumbBackEvent, this.onBreadcrumbBack);
         }
 
         private onBreadcrumbChanged(event, config) {

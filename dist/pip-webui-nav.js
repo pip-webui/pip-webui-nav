@@ -214,12 +214,12 @@ module.run(['$templateCache', function($templateCache) {
     '    <span class="pip-language"\n' +
     '        ng-click="$mdOpenMenu()"\n' +
     '        aria-label="language selection">\n' +
-    '        {{language() | translate}}\n' +
+    '        {{vm.language | translate}}\n' +
     '        <md-icon md-svg-icon="icons:triangle-down"></md-icon>\n' +
     '    </span>\n' +
     '    <md-menu-content width="3">\n' +
-    '        <md-menu-item ng-repeat="lang in languages">\n' +
-    '            <md-button ng-click="onLanguageClick(lang)">{{lang | translate}}</md-button>\n' +
+    '        <md-menu-item ng-repeat="language in vm.languages">\n' +
+    '            <md-button ng-click="vm.onLanguageClick(lang)">{{language | translate}}</md-button>\n' +
     '        </md-menu-item>\n' +
     '    </md-menu-content>\n' +
     '</md-menu>\n' +
@@ -888,8 +888,8 @@ var pip;
                 this._window = $window;
                 $element.addClass('pip-breadcrumb');
                 this.config = pipBreadcrumb.config;
-                $rootScope.$on('pipBreadcrumbChanged', this.onBreadcrumbChanged);
-                $rootScope.$on('pipBreadcrumbBack', this.onBreadcrumbBack);
+                $rootScope.$on(nav.BreadcrumbChangedEvent, this.onBreadcrumbChanged);
+                $rootScope.$on(nav.BreadcrumbBackEvent, this.onBreadcrumbBack);
             }
             BreadcrumbController.prototype.onBreadcrumbChanged = function (event, config) {
                 this.config = config;
@@ -943,6 +943,7 @@ var pip;
     var nav;
     (function (nav) {
         nav.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
+        nav.BreadcrumbBackEvent = "pipBreadcrumbBack";
         var BreadcrumbItem = (function () {
             function BreadcrumbItem() {
             }
@@ -1097,44 +1098,63 @@ var pip;
     }]);
 })();
 
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipLanguagePicker', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
-    thisModule.directive('pipLanguagePicker', function () {
-        return {
-            restrict: 'E',
-            scope: {
-                languages: '=languages',
-            },
-            replace: false,
-            templateUrl: function (element, attr) {
-                return 'language_picker/language_picker.html';
-            },
-            controller: 'pipLanguagePickerController'
-        };
-    });
-    thisModule.controller('pipLanguagePickerController', ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', '$location', '$injector', function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector) {
-        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        $element.addClass('pip-language-picker');
-        $scope.language = getLanguage;
-        $scope.onLanguageClick = onLanguageClick;
-        $rootScope.$on('pipSetLanguages', setLanguages);
-        function setLanguages(lang) {
-            $scope.languages = lang.length > 0 ? lang : ['en', 'ru'];
-        }
-        function getLanguage() {
-            return pipTranslate ? pipTranslate.use() : null;
-        }
-        function onLanguageClick(language) {
-            if (pipTranslate) {
-                setTimeout(function () {
-                    pipTranslate.use(language);
-                    $rootScope.$apply();
-                }, 0);
+var pip;
+(function (pip) {
+    var nav;
+    (function (nav) {
+        'use strict';
+        var LanguagePickerController = (function () {
+            LanguagePickerController.$inject = ['$scope', '$element', '$attrs', '$rootScope', '$timeout', '$injector'];
+            function LanguagePickerController($scope, $element, $attrs, $rootScope, $timeout, $injector) {
+                "ngInject";
+                this.languages = ['en', 'ru'];
+                this._timeout = $timeout;
+                this._translate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+                $element.addClass('pip-language-picker');
+                this.languages = $scope.languages;
+                $rootScope.$on('pipSetLanguages', this.setLanguages);
             }
+            Object.defineProperty(LanguagePickerController.prototype, "language", {
+                get: function () {
+                    return this._translate ? this._translate.language : null;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            LanguagePickerController.prototype.setLanguages = function (lang) {
+                this.languages = lang.length > 0 ? lang : ['en', 'ru'];
+            };
+            LanguagePickerController.prototype.onLanguageClick = function (language) {
+                var _this = this;
+                if (this._translate != null) {
+                    this._timeout(function () {
+                        _this._translate.language = _this.language;
+                    }, 0);
+                }
+            };
+            return LanguagePickerController;
+        }());
+        function languagePickerDirective() {
+            return {
+                restrict: 'E',
+                scope: {
+                    languages: '=languages',
+                },
+                replace: false,
+                templateUrl: function (element, attr) {
+                    return 'language_picker/language_picker.html';
+                },
+                controller: LanguagePickerController,
+                controllerAs: 'vm'
+            };
         }
-    }]);
-})();
+        angular
+            .module('pipLanguagePicker', [
+            'ngMaterial', 'pipNav.Translate', 'pipNav.Templates'
+        ])
+            .directive('pipLanguagePicker', languagePickerDirective);
+    })(nav = pip.nav || (pip.nav = {}));
+})(pip || (pip = {}));
 
 (function () {
     'use strict';

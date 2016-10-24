@@ -3,6 +3,7 @@
 module pip.nav {
 
     export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
+    export let BreadcrumbBackEvent = "pipBreadcrumbBack";
 
     export class BreadcrumbItem {
         title: string;

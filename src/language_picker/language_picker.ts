@@ -1,13 +1,55 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-(function () {
+module pip.nav {
     'use strict';
 
-    var thisModule = angular.module('pipLanguagePicker',
-        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
+    class LanguagePickerController {
+        private _translate: any;
+        private _timeout: ng.ITimeoutService;
 
-    // Main application header directive
-    thisModule.directive('pipLanguagePicker', function () {
+        public constructor(
+            $scope: any, 
+            $element: any, 
+            $attrs: any, 
+            $rootScope: ng.IRootScopeService, 
+            $timeout: ng.ITimeoutService,
+            $injector: any
+        ) {
+            "ngInject";
+
+            this._timeout = $timeout;
+            this._translate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+
+            // Apply class and call resize
+            $element.addClass('pip-language-picker');
+
+            this.languages = $scope.languages;
+
+            // Todo: Where is this event coming from? Why not through service or attribute?
+            $rootScope.$on('pipSetLanguages', this.setLanguages);
+        }
+
+        public languages: string[] = ['en', 'ru'];
+
+        public get language() {
+            return this._translate ? this._translate.language : null;
+        }
+
+        public setLanguages(lang) {
+            this.languages = lang.length > 0 ? lang : ['en', 'ru'];
+        }
+
+        public onLanguageClick(language) {
+            if (this._translate != null) {
+                this._timeout(() => {
+                    this._translate.language = this.language;
+                }, 0);
+            }
+        }
+
+    }
+
+    function languagePickerDirective() {
         return {
             restrict: 'E',
             scope: {
@@ -17,46 +59,14 @@
             templateUrl: function (element, attr) {
                 return 'language_picker/language_picker.html';
             },
-            controller: 'pipLanguagePickerController'
+            controller: LanguagePickerController,
+            controllerAs: 'vm'
         };
-    });
+    }
 
-    thisModule.controller('pipLanguagePickerController',
-        function ($scope, $element, $attrs, $rootScope, $window, $state, $location, $injector) {
-            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-
-            // Initialize default application title
-            // if ($scope.title) {
-            //     pipLanguagePicker.showTitleText($scope.title);
-            // }
-            // if ($scope.showMenu) {
-            //     pipLanguagePicker.showMenuNavIcon();
-            // }
-            // Apply class and call resize
-            $element.addClass('pip-language-picker');
-
-            $scope.language = getLanguage;
-            $scope.onLanguageClick = onLanguageClick;
-            $rootScope.$on('pipSetLanguages', setLanguages);
-
-            function setLanguages(lang) {
-                $scope.languages = lang.length > 0 ? lang : ['en', 'ru'];
-            }
-
-            function getLanguage() {
-                return pipTranslate ? pipTranslate.use() : null;
-            }
-
-            function onLanguageClick(language) {
-                if (pipTranslate) {
-                    setTimeout(function () {
-                        pipTranslate.use(language);
-                        $rootScope.$apply();
-                    }, 0);
-                }
-            }
-
-        }
-    );
-
-})();
+    angular
+        .module('pipLanguagePicker', [
+            'ngMaterial', 'pipNav.Translate', 'pipNav.Templates'
+        ])
+        .directive('pipLanguagePicker', languagePickerDirective);
+}
