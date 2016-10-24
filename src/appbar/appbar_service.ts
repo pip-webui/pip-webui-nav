@@ -1,17 +1,14 @@
-/**
- * @file Application App Bar service
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipAppBar.Service', []);
 
-    thisModule.provider('pipAppBar', function () {
+    thisModule.provider('pipAppBar', function (): any {
         var config = {
             // Theme to be applied to the header
-            theme: 'blue',
+            theme: 'default',
             cssClass: '',
             ngClasses: {},
             // Parts of the appbar
@@ -80,13 +77,9 @@
                 sendConfigEvent();
             }
 
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipAppBarChanged', config);
-            }
-
             function getOrSetPart(name, value) {
                 if (!_.isString(name))
-                    throw new Exception("Part name has to be a string");
+                    throw new Error("Part name has to be a string");
 
                 if (value != undefined) {
                     if (config.parts[name] != value) {
@@ -129,4 +122,4 @@
 
     });
 
-})(window.angular, window._);
+})();

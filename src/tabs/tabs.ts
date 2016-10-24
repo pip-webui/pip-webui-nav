@@ -1,10 +1,4 @@
-/**
- * @file Tabs control
- * @copyright Digital Living Software Corp. 2014-2016
- * 
- */
-
-/* global _, angular */
+/// <reference path="../../typings/tsd.d.ts" />
 
 (function () {
     'use strict';
@@ -28,7 +22,6 @@
                     function ($scope, $element, $attrs, $mdMedia, localStorageService, $injector) {
                         // Todo: Remove dependency on local storage or made it optional
                         $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                        pipAssert.isArray($scope.tabs, 'pipTabs: pipTabs attribute should take an array');
                         $scope.$mdMedia = $mdMedia;
                         $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
 

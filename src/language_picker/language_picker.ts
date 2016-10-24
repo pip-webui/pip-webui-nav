@@ -1,9 +1,6 @@
-/**
- * @file Application Language Picker component
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _, $) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipLanguagePicker',
@@ -29,12 +26,12 @@
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
 
             // Initialize default application title
-            if ($scope.title) {
-                pipLanguagePicker.showTitleText($scope.title);
-            }
-            if ($scope.showMenu) {
-                pipLanguagePicker.showMenuNavIcon();
-            }
+            // if ($scope.title) {
+            //     pipLanguagePicker.showTitleText($scope.title);
+            // }
+            // if ($scope.showMenu) {
+            //     pipLanguagePicker.showMenuNavIcon();
+            // }
             // Apply class and call resize
             $element.addClass('pip-language-picker');
 
@@ -62,4 +59,4 @@
         }
     );
 
-})(window.angular, window._, window.jQuery);
+})();

@@ -1,9 +1,6 @@
-/**
- * @file Application App Bar part component
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _, $) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
@@ -18,7 +15,7 @@
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
             scope: true,
-            link: function linkFunction($scope, $element, $attrs) {
+            link: function linkFunction($scope: any, $element, $attrs: any) {
                 // Visualize based on visible variable in scope
                 $attrs.ngIf = function () {
                     return $scope.visible;
@@ -59,4 +56,4 @@
         }
     );
 
-})(window.angular, window._, window.jQuery);
+})();

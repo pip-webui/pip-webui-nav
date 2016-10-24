@@ -1,65 +1,50 @@
-/**
- * @file Application Secondary Actions component
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _, $) {
+(function () {
     'use strict';
 
-    var thisModule = angular.module('pipSecondaryActions',
+    var thisModule = angular.module('pipPrimaryActions',
         ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
 
     // Main application header directive
-    thisModule.directive('pipSecondaryActions', function () {
+    thisModule.directive('pipPrimaryActions', function () {
         return {
             restrict: 'E',
             scope: {
-                title: '=pipTitle',
-                showMenu: '=pipShowMenu',
                 localActions: '=pipLocalActions',
-                globalActions: '=pipGlobalActions',
-                partyAvatarUrl: '=pipPartyAvatarUrl'
+                globalActions: '=pipGlobalActions'
             },
             replace: false,
             templateUrl: function (element, attr) {
-                return 'actions/secondary_actions.html';
+                return 'actions/primary_actions.html';
             },
-            controller: 'pipSecondaryActionsController'
+            controller: 'pipPrimaryActionsController'
         };
     });
 
-    thisModule.controller('pipSecondaryActionsController',
+    thisModule.controller('pipPrimaryActionsController',
         function ($scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
             // Apply class and call resize
-            $element.addClass('pip-secondary-actions');
+            $element.addClass('pip-primary-actions');
 
             $scope.config = pipActions.config();
 
             if ($scope.localActions) {
-                pipSecondaryActions.showLocalActions();
-                $scope.config.secondaryLocalActions = $scope.localActions[1];
+                pipActions.showLocalActions();
+                $scope.config.primaryLocalActions = $scope.localActions[0];
             }
 
             if ($scope.globalActions) {
-                pipSecondaryActions.showLocalActions();
-                $scope.config.secondaryGlobalActions = $scope.globalActions[0];
+                pipActions.showLocalActions();
+                $scope.config.primaryGlobalActions = $scope.globalActions[0];
             }
 
             $rootScope.$on('pipActionsChanged', onActionsChanged);
 
             $scope.actionHidden = actionHidden;
             $scope.actionCount = actionCount;
-            $scope.secondaryActionsVisible = secondaryActionsVisible;
-            $scope.secondaryDividerVisible = secondaryDividerVisible;
 
             $scope.onActionClick = onActionClick;
-
-            $scope.openMenu = openMenu;
-
-            function openMenu($mdOpenMenu, ev) {
-                $scope.originatorEv = ev;
-                $mdOpenMenu(ev);
-            }
 
             function onActionsChanged(event, config) {
                 $scope.config = config;
@@ -150,4 +135,4 @@
         }
     );
 
-})(window.angular, window._, window.jQuery);
+})();

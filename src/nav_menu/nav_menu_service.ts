@@ -1,16 +1,11 @@
-/**
- * @file Application Nav Menu service
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
+/// <reference path="../../typings/tsd.d.ts" />
 
 (function () {
     'use strict';
 
     var thisModule = angular.module('pipNavMenu.Service', []);
 
-    thisModule.provider('pipNavMenu', function () {
+    thisModule.provider('pipNavMenu', function (): any {
         var config = [];
 
         this.sections = init;

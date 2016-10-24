@@ -3,15 +3,22 @@ module.exports = {
         name: 'pipNav',
         styles: 'nav'
     },
+
     build: {
         js: true,
-        ts: false,
+        ts: true,
         html: true,
         css: true,
         lib: true,
         images: true,
         dist: false
     },
+
+    typescript: {
+        noImplicitAny: false,
+        declaration: true
+    },
+
     file: {
         lib: [
             '../pip-webui-test/dist/**/*',
@@ -36,9 +43,11 @@ module.exports = {
             // '../pip-webui-help/dist/**/*'
         ]
     },
+
     samples: {
         port: 8070
     },
+
     api: {
         port: 8071
     }

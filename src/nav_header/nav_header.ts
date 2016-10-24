@@ -1,9 +1,4 @@
-/**
- * @file Application Nav Header component
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
+/// <reference path="../../typings/tsd.d.ts" />
 
 (function () {
     'use strict';

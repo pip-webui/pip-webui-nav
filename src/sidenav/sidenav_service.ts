@@ -1,19 +1,14 @@
-/**
- * @file Application Side Nav service
- * @copyright Digital Living Software Corp. 2014-2016
- */
-
-/* global angular */
+/// <reference path="../../typings/tsd.d.ts" />
 
 (function () {
     'use strict';
 
     var thisModule = angular.module('pipSideNav.Service', []);
 
-    thisModule.provider('pipSideNav', function () {
+    thisModule.provider('pipSideNav', function (): any {
         var config = {
             // Theme to be applied to the header
-            theme: 'blue',
+            theme: 'default',
             // Parts of the sidenav
             parts: []
         };
@@ -43,7 +38,7 @@
                             
             function getOrSetPart(name, value) {
                 if (!_.isString(name))
-                    throw new Exception("Part name has to be a string");
+                    throw new Error("Part name has to be a string");
 
                 if (value != undefined) {
                     if (config.parts[name] != value) {

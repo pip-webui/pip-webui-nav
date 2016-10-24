@@ -1,11 +1,6 @@
-/**
- * @file Application Side Nav component
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-/* global angular, moment */
-
-(function (angular, moment) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipSideNav', 
@@ -42,4 +37,4 @@
         }
     );
 
-})(window.angular, window.moment);
+})();

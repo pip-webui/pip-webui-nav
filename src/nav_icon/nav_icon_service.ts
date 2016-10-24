@@ -1,14 +1,11 @@
-/**
- * @file Nav Icon service
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipNavIcon.Service', []);
 
-    thisModule.provider('pipNavIcon', function () {
+    thisModule.provider('pipNavIcon', function (): any {
         var config = {
             // Type of nav icon: 'back', 'menu', 'image' or 'none'
             type: 'menu',
@@ -132,4 +129,4 @@
 
     });
 
-})(window.angular, window._);
+})();

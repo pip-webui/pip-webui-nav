@@ -1,14 +1,11 @@
-/**
- * @file Search service
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipSearch.Service', []);
 
-    thisModule.provider('pipSearch', function () {
+    thisModule.provider('pipSearch', function (): any {
         var config = {
             // Search visible
             visible: false,
@@ -86,4 +83,4 @@
 
     });
 
-})(window.angular, window._);
+})();

@@ -1,9 +1,6 @@
-/**
- * @file Application Sid Nav part component
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _, $) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
@@ -18,7 +15,7 @@
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
             scope: true,
-            link: function($scope, $element, $attrs) {
+            link: function($scope: any, $element, $attrs) {
                 // Visualize based on visible variable in scope
                 $attrs.ngIf = function() { return $scope.visible };
                 ngIf.link.apply(ngIf);
@@ -33,7 +30,7 @@
             var partValue = null;
 
             // Break part apart
-            var pos = part.indexOf(':');
+            var pos = partName.indexOf(':');
             if (pos > 0) {
                 partValue = partName.substr(pos + 1);
                 partName = partName.substr(0, pos);
@@ -53,4 +50,4 @@
         }
     );
 
-})(window.angular, window._, window.jQuery);
+})();

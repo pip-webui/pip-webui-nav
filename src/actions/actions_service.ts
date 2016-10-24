@@ -1,14 +1,11 @@
-/**
- * @file Application Actions service
- * @copyright Digital Living Software Corp. 2014-2016
- */
+/// <reference path="../../typings/tsd.d.ts" />
 
-(function (angular, _) {
+(function () {
     'use strict';
 
     var thisModule = angular.module('pipActions.Service', []);
 
-    thisModule.provider('pipActions', function () {
+    thisModule.provider('pipActions', function (): any {
         var config = {
             // Primary global actions visible on the screen
             primaryGlobalActions: [],
@@ -94,4 +91,4 @@
 
     });
 
-})(window.angular, window._);
+})();
