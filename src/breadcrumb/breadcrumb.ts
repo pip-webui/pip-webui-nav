@@ -16,7 +16,7 @@ module pip.nav {
             // Apply class and call resize
             $element.addClass('pip-breadcrumb');
 
-            this.config = pipBreadcrumb.config();
+            this.config = pipBreadcrumb.config;
 
             $rootScope.$on('pipBreadcrumbChanged', this.onBreadcrumbChanged);
             $rootScope.$on('pipBreadcrumbBack', this.onBreadcrumbBack);

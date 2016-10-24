@@ -47,11 +47,11 @@
                     icon: false,
                     title: 'breadcrumb',
                 });
-                pipBreadcrumb.items([
+                pipBreadcrumb.items=[
                     {title: 'Header'},
                     {title: 'SubHeader'},
                     {title: $scope.title}
-                ]);
+                ];
 
             };
         }
