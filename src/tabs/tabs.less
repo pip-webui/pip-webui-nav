@@ -38,15 +38,16 @@ pip-tabs {
       -webkit-user-drag: none;
       opacity: 0.5;
       cursor: default;
-      color: rgba(0,0,0,0.26) !important;
+      color: rgba(0, 0, 0, 0.26) !important;
       .pip-tabs-badge {
         opacity: @opacity-secondary;
       }
     }
   }
 
-  md-content {
+  .pip-tabs-content {
     overflow: hidden !important;
+    //background-color: rgb(63, 81, 181);
     .pip-divider {
       border-top-color: rgba(255, 255, 255, 0.12);
     }
@@ -80,11 +81,11 @@ pip-tabs {
   }
 }
 
-.pip-full-width-dropdown md-select-menu md-content md-option .md-text {
+.pip-full-width-dropdown md-select-menu .pip-tabs-content md-option .md-text {
   padding-right: 25px !important;
 }
 
-md-tabs md-tab-item, md-content md-option, md-select md-select-value {
+md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
   .md-text {
     position: relative;
     height: 40px;
@@ -103,6 +104,7 @@ md-tabs md-tab-item, md-content md-option, md-select md-select-value {
     vertical-align: middle;
     text-align: center;
     color: @color-content;
+    background-color: @color-error;
   }
 }
 
@@ -115,7 +117,7 @@ md-select md-select-value {
   }
 }
 
-md-content md-option {
+.pip-tabs-content md-option {
   .md-text {
     .pip-tabs-badge {
       top: 9px !important;

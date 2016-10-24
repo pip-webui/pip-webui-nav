@@ -1,0 +1,31 @@
+<h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES' | translate }}</h3>
+
+<pip-appbar>
+
+    <div class="flex"></div>
+    <pip-primary-actions pip-appbar-part="actions:primary"></pip-primary-actions> <!---->
+    <pip-language-picker languages="languages" pip-appbar-part="actions:language"></pip-language-picker><!---->
+    <pip-secondary-actions pip-appbar-part="menu"></pip-secondary-actions> <!--pip-appbar-part="menu"-->
+</pip-appbar>
+
+
+<md-input-container class="w-stretch bm0 tm24">
+    <label>{{ 'NOTIFICATION_COUNT' | translate }}</label>
+    <input ng-model="notificationCount" ng-change="onChangeNotificationCount()"
+           type="number">
+</md-input-container>
+
+<div>
+    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowActions()">
+        {{ 'SHOW_ACTIONS' | translate }}
+    </md-button>
+    <md-button class="md-raised md-accent flat" ng-click="onHideActions()">
+        {{ 'HIDE_ACTIONS' | translate }}
+    </md-button>
+    <md-button class="md-raised md-accent flat" ng-click="onHideLocalActions()">
+        {{ 'HIDE_LOCAL_ACTIONS' | translate }}
+    </md-button>
+    <md-button class="md-raised md-accent flat" ng-click="onShowLanguage()">
+        {{ 'SHOW_LANGUAGES' | translate }}
+    </md-button>
+</div>

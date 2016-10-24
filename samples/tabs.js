@@ -1,0 +1,58 @@
+/* global angular */
+
+(function () {
+    'use strict';
+
+    var thisModule = angular.module('appNav.Tabs', ['pipTabs']);
+
+    thisModule.controller('TabsController',
+        function ($scope, $mdMedia, pipTranslate, $injector) {
+            var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+            if (pipTranslate) {
+                pipTranslate.translations('en', {
+                    TAB_INDEX: 'Current tab index',
+                    LIST_CHANGES: 'List of changes',
+                    ADDING: 'Counts of first tab',
+                    VISIBLE: 'Visible',
+                    DISABLED: 'Disabled',
+                    SHADOW: 'Shadow',
+                    TABS_CONFIG_AND_INFO: 'Tabs configuration and info',
+                    CODE_SAMPLE: 'Code sample'
+                });
+                pipTranslate.translations('ru', {
+                    TAB_INDEX: 'Текущий индекс',
+                    LIST_CHANGES: 'Список изменений',
+                    ADDING: 'Устанавливает количество для первого таба',
+                    VISIBLE: 'Видимость',
+                    DISABLED: 'Отключен',
+                    SHADOW: 'Тень',
+                    TABS_CONFIG_AND_INFO: 'Настройка и информация о табах',
+                    CODE_SAMPLE: 'Пример кода'
+                });
+            }
+            
+            $scope.messages = [];
+            $scope.$mdMedia = $mdMedia;
+            $scope.selected = {};
+            $scope.selected.showTabs = true;
+            $scope.selected.showShadow = false;
+            $scope.selected.disabled = false;
+
+            $scope.tabs = [{
+                title: 'TABS_CONFIG_AND_INFO',
+                newCounts: 0
+            }, {title: 'CODE_SAMPLE',
+                newCounts: 0
+            }, {title: 'LIST_CHANGES',
+                newCounts: 0
+            }];
+
+            $scope.onSelect = function (tab, tabIndex) {
+                $scope.messages.push({text: 'Tab object: [title:' + pipTranslate.translate(tab.title) +
+                                                        '], tabIndex: ' + tabIndex});
+                $scope.tabs[2].newCounts ++;
+            };
+        }
+    );
+
+})();
