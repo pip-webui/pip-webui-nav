@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-export module pip.nav {
+module pip.nav {
 
     export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 

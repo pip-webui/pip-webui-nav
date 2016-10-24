@@ -876,7 +876,6 @@ module.run(['$templateCache', function($templateCache) {
     });
 })();
 
-"use strict";
 var pip;
 (function (pip) {
     var nav;
@@ -935,7 +934,6 @@ var pip;
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
 
-"use strict";
 var pip;
 (function (pip) {
     var nav;
@@ -1035,7 +1033,7 @@ var pip;
             .module('pipBreadcrumb.Service', [])
             .provider('pipBreadcrumb', BreadcrumbProvider);
     })(nav = pip.nav || (pip.nav = {}));
-})(pip = exports.pip || (exports.pip = {}));
+})(pip || (pip = {}));
 
 (function () {
     'use strict';

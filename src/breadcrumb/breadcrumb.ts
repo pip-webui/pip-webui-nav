@@ -1,13 +1,11 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-import * as service from './breadcrumb_service';
-
 module pip.nav {
 
     class BreadcrumbController {
         private _rootScope: ng.IRootScopeService;
         private _window: ng.IWindowService;
-        public config: service.pip.nav.BreadcrumbConfig;
+        public config: any;
 
         public constructor($scope, $element, $attrs, $rootScope, $window, $state, pipBreadcrumb) {
             "ngInject";

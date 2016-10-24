@@ -13,9 +13,11 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
+declare module pip.nav {
+}
 
 /// <reference path="../../typings/tsd.d.ts" />
-export declare module pip.nav {
+declare module pip.nav {
     let BreadcrumbChangedEvent: string;
     class BreadcrumbItem {
         title: string;
