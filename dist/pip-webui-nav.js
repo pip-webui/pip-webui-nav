@@ -433,6 +433,7 @@ module.run(['$templateCache', function($templateCache) {
         'pipSideNav',
         'pipNavIcon',
         'pipNavMenu',
+        'pipBreadcrumb',
         'pipPrimaryActions',
         'pipSecondaryActions'
     ]);
@@ -928,12 +929,113 @@ var pip;
             };
         }
         angular
-            .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate', 'pipBreadcrumb.Service'
+            .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate',
         ])
             .directive('pipBreadcrumb', breadcrumbDirective);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
 
+"use strict";
+var pip;
+(function (pip) {
+    var nav;
+    (function (nav) {
+        nav.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
+        var BreadcrumbItem = (function () {
+            function BreadcrumbItem() {
+            }
+            return BreadcrumbItem;
+        }());
+        nav.BreadcrumbItem = BreadcrumbItem;
+        var BreadcrumbConfig = (function () {
+            function BreadcrumbConfig() {
+            }
+            return BreadcrumbConfig;
+        }());
+        nav.BreadcrumbConfig = BreadcrumbConfig;
+        var BreadcrumbService = (function () {
+            function BreadcrumbService(config, $rootScope) {
+                this._config = config;
+                this._rootScope = $rootScope;
+            }
+            Object.defineProperty(BreadcrumbService.prototype, "config", {
+                get: function () {
+                    return this._config;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BreadcrumbService.prototype, "text", {
+                get: function () {
+                    return this._config.text;
+                },
+                set: function (value) {
+                    this._config.text = value;
+                    this._config.items = null;
+                    this.sendEvent();
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BreadcrumbService.prototype, "items", {
+                get: function () {
+                    return this._config.items;
+                },
+                set: function (value) {
+                    this._config.text = null;
+                    this._config.items = value;
+                    this.sendEvent();
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BreadcrumbService.prototype, "criteria", {
+                get: function () {
+                    return this._config.criteria;
+                },
+                set: function (value) {
+                    this._config.criteria = value;
+                    this.sendEvent();
+                },
+                enumerable: true,
+                configurable: true
+            });
+            BreadcrumbService.prototype.sendEvent = function () {
+                this._rootScope.$broadcast(pip.nav.BreadcrumbChangedEvent, this._config);
+            };
+            return BreadcrumbService;
+        }());
+        var BreadcrumbProvider = (function () {
+            function BreadcrumbProvider() {
+                this._config = {
+                    text: null,
+                    items: null,
+                    criteria: null
+                };
+            }
+            Object.defineProperty(BreadcrumbProvider.prototype, "text", {
+                get: function () {
+                    return this._config.text;
+                },
+                set: function (value) {
+                    this._config.text = value;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            BreadcrumbProvider.prototype.$get = ['$rootScope', function ($rootScope) {
+                "ngInject";
+                if (this._service == null)
+                    this._service = new BreadcrumbService(this._config, $rootScope);
+                return this._service;
+            }];
+            return BreadcrumbProvider;
+        }());
+        angular
+            .module('pipBreadcrumb.Service', [])
+            .provider('pipBreadcrumb', BreadcrumbProvider);
+    })(nav = pip.nav || (pip.nav = {}));
+})(pip = exports.pip || (exports.pip = {}));
 
 (function () {
     'use strict';

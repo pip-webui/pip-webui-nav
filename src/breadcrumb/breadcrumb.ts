@@ -65,7 +65,7 @@ module pip.nav {
     }
 
     angular
-        .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate', 'pipBreadcrumb.Service'
+        .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate', // 'pipBreadcrumb.Service'
         ])
         .directive('pipBreadcrumb', breadcrumbDirective);
 

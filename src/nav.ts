@@ -11,7 +11,7 @@
         'pipSideNav',
         'pipNavIcon',
         'pipNavMenu',
-        //'pipBreadcrumb',
+        'pipBreadcrumb',
         'pipPrimaryActions', 
         'pipSecondaryActions'
     ]);

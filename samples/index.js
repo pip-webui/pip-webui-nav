@@ -9,7 +9,7 @@
         'pipNav',
         
         'appAppbar.Icons',
-        //'appAppbar.Titles',
+        'appAppbar.Titles',
         'appAppbar.Actions',
         'appAppbar.Search',
         'appAppbar.Shadows',
@@ -24,7 +24,7 @@
 
     var content = [
         { title: 'Nav icons', state: 'nav_icons', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
-        //{ title: 'Titles', state: 'titles', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
+        { title: 'Titles', state: 'titles', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
         { title: 'Actions', state: 'actions', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
         { title: 'Search', state: 'search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },
         { title: 'Shadows', state: 'shadows', url: '/shadows', controller: 'ShadowsController', templateUrl: 'appbar_shadows.html' },
