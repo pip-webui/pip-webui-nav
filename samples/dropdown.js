@@ -9,7 +9,7 @@
         function ($scope, $injector) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate) {
+            if (pipTranslate && pipTranslate.translations) {
                 pipTranslate.translations('en', {
                     ACTIVE_INDEX: 'Active index',
                     WITH: 'with',

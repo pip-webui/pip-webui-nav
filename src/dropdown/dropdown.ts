@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module("pipDropdown", ['pipNav.Templates']);
+    var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
 
     thisModule.directive('pipDropdown',
         function ($mdMedia) {

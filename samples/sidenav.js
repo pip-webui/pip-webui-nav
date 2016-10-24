@@ -2,15 +2,15 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.SideNav', ['pipServices', 'pipSideNav', 'ngMaterial',
+    var thisModule = angular.module('appNav.SideNav', [ 'pipSideNav', 'ngMaterial',
         'pipNavMenu', 'pipNavHeader']);
 
     thisModule.controller('SideNavController',
-        function ($scope, $rootScope, pipSideNav, pipTranslate, $mdTheming, localStorageService, $timeout,
+        function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout,
                   $injector) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate) {
+            if (pipTranslate && pipTranslate.translations) {
 
                 // Set translation strings for the module
                 pipTranslate.translations('en', {

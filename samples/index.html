@@ -25,7 +25,7 @@
     <script src="sidenav.js"></script>
     <script src="index.js"></script>
 </head>
-<body ng-app="app" ng-controller="appController" ng-if="!$reset"
+<pip-nav ng-app="app" ng-controller="appController" ng-if="!$reset"
       md-theme="{{ $theme || 'blue' }}" class="{{ $theme }} layout-column">
 
 
@@ -55,5 +55,5 @@
             <div ui-view></div>
         </md-content>
     </div>
-</body>
+</pip-nav>
 </html>

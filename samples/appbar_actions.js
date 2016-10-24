@@ -28,7 +28,7 @@
         function ($scope, pipActions, pipAppBar, $injector, $rootScope) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate) {
+            if (pipTranslate && pipTranslate.translations) {
                 pipTranslate.translations('en', {
                     TITLE_TEXT: 'Title text',
                     THEME: 'Theme',

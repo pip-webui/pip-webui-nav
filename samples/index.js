@@ -1,17 +1,22 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('app', ['pipAppBar', 'pipServices', 'ngMaterial', 
-        'pipBreadcrumb',
+    var thisModule = angular.module('app', [
+        'pipAppBar',
+        //'pipServices',
+        'ui.router',
+        'ngMaterial', 
+        'pipNav',
         
-        'appAppbar.Icons', 
-        'appAppbar.Titles',
+        //'appAppbar.Icons',
+        //'appAppbar.Titles',
         'appAppbar.Actions',
         'appAppbar.Search',
         'appAppbar.Shadows',
         
         'appNav.Dropdown',
         'appNav.Tabs',
+
         'appNav.SideNav',
         
         'pipTranslate'
@@ -19,7 +24,7 @@
 
     var content = [
         { title: 'Nav icons', state: 'nav_icons', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
-        { title: 'Titles', state: 'titles', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
+        //{ title: 'Titles', state: 'titles', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
         { title: 'Actions', state: 'actions', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
         { title: 'Search', state: 'search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },
         { title: 'Shadows', state: 'shadows', url: '/shadows', controller: 'ShadowsController', templateUrl: 'appbar_shadows.html' },
@@ -43,8 +48,8 @@
     });
 
     thisModule.controller('appController',
-        function ($scope, $mdDialog, $rootScope, pipBreadcrumb, pipTranslate, $mdTheming, $timeout,
-            $state, $mdSidenav) {
+        function ($scope, $mdDialog, $rootScope, $mdTheming, $timeout,
+            $state, $mdSidenav) { //  pipBreadcrumb,
 
             $timeout(function() {
                 $('pre code').each(function(i, block) {

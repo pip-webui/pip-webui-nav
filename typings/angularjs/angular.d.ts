@@ -1,4 +1,6 @@
-// Type definitions for Angular JS 1.5
+import pipBreadcrumbModule
+.
+BreadcrumbProvider; // Type definitions for Angular JS 1.5
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -240,7 +242,7 @@ declare namespace angular {
         provider(name: string, serviceProviderConstructor: IServiceProviderClass): IModule;
         provider(name: string, inlineAnnotatedConstructor: any[]): IModule;
         provider(name: string, providerObject: IServiceProvider): IModule;
-        provider(object: Object): IModule;
+        provider(object:Object, BreadcrumbProvider:pipBreadcrumbModule.BreadcrumbProvider): angular.IModule;
         /**
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
          */

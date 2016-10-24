@@ -3,7 +3,6 @@
 import * as service from './breadcrumb_service';
 
 module pip.nav {
-    'use strict';
 
     class BreadcrumbController {
         private _rootScope: ng.IRootScopeService;
@@ -66,9 +65,7 @@ module pip.nav {
     }
 
     angular
-        .module('pipBreadcrumb', [
-            'ngMaterial', 'pipNav.Translate', 'pipNav.Templates',
-            'pipBreadcrumb.Service'
+        .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate', 'pipBreadcrumb.Service'
         ])
         .directive('pipBreadcrumb', breadcrumbDirective);
 

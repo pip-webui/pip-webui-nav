@@ -7,7 +7,7 @@
         function($scope, pipNavIcon, pipAppBar, $injector) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate) {
+            if (pipTranslate &&  pipTranslate.translations) {
                 pipTranslate.translations('en', {
 
                     DISPLAY_AND_HIDE_NAV_ICONS: 'Display and hide nav icons',

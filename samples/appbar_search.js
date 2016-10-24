@@ -8,7 +8,7 @@
     thisModule.controller('SearchController',
         function($scope, $rootScope, pipAppBar, pipSearch, $injector) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate) {
+            if (pipTranslate && pipTranslate.translations) {
                 pipTranslate.translations('en', {
                     DISPLAY_AND_HIDE_SEARCH: 'Display and hide search',
                     SHOW_SEARCH: 'Show search',

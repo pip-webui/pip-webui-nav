@@ -6,7 +6,7 @@
     var thisModule = angular.module("pipTabs", ['pipNav.Templates']);
 
     thisModule.directive('pipTabs',
-        function ($mdMedia, pipAssert) {
+        function () {
             return {
                 restrict: 'E',
                 scope: {

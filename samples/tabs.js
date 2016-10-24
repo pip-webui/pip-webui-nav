@@ -6,9 +6,9 @@
     var thisModule = angular.module('appNav.Tabs', ['pipTabs']);
 
     thisModule.controller('TabsController',
-        function ($scope, $mdMedia, pipTranslate, $injector) {
+        function ($scope, $mdMedia, $injector) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate) {
+            if (pipTranslate && pipTranslate.translations) {
                 pipTranslate.translations('en', {
                     TAB_INDEX: 'Current tab index',
                     LIST_CHANGES: 'List of changes',
@@ -48,7 +48,7 @@
             }];
 
             $scope.onSelect = function (tab, tabIndex) {
-                $scope.messages.push({text: 'Tab object: [title:' + pipTranslate.translate(tab.title) +
+                $scope.messages.push({text: 'Tab object: [title:' + tab.title +
                                                         '], tabIndex: ' + tabIndex});
                 $scope.tabs[2].newCounts ++;
             };

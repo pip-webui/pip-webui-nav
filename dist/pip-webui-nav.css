@@ -89,19 +89,18 @@
 .divider {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
-<<<<<<< HEAD
-.pip-title {
-  font: normal 500 20px Roboto, 'Helvetica Neue', sans-serif;
+input:focus,
+p:focus,
+div:focus,
+li:focus,
+md-list-item:focus,
+md-list:focus,
+a:focus,
+md-autocomplete:focus,
+span:focus,
+button:focus {
+  outline-width: 0 !important;
 }
-.flex-var {
-  -webkit-box-flex: 1 1 auto;
-  -moz-box-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
-=======
->>>>>>> c1b0e404b0830e03ed6d5bae8c07543d0afda673
 pip-dropdown md-toolbar {
   min-height: 48px;
 }
@@ -270,99 +269,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-<<<<<<< HEAD
-}
-.pip-appbar .pip-toolbar-tools {
-  padding-left: 24px;
-  padding-right: 24px;
-}
-@media (min-width: 768px) {
-  .pip-appbar .pip-toolbar-tools {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-}
-.pip-appbar .pip-icon-button {
-  -webkit-box-flex: 0 0 auto;
-  -moz-box-flex: 0 0 auto;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  padding: 0;
-}
-.pip-appbar .md-toolbar-tools > .md-button.pip-third-party:first-child {
-  margin-left: 0px;
-  margin-right: 16px !important;
-}
-.pip-appbar .md-toolbar-tools > .md-button:first-child {
-  margin-left: -10px;
-  margin-right: 24px !important;
-}
-.pip-appbar .pip-appbar-logo {
-  display: block;
-  height: 20px;
-  max-height: 45px;
-}
-.pip-appbar .pip-appbar-actions {
-  margin-right: -18px;
-}
-.pip-appbar .pip-appbar-actions.pip-language-action {
-  margin-right: -7px;
-}
-.pip-appbar .pip-appbar-breadcrumb,
-.pip-appbar .pip-appbar-language {
-  cursor: pointer;
-  outline: none;
-}
-.pip-appbar .pip-title,
-.pip-appbar .pip-appbar-breadcrumb {
-  vertical-align: middle;
-}
-.pip-appbar .pip-appbar-breadcrumb {
-  display: inline-block;
-}
-.pip-appbar .pip-appbar-mobile-breadcrumb,
-.pip-appbar .pip-appbar-breadcrumb {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.pip-appbar .pip-appbar-mobile-breadcrumb md-icon,
-.pip-appbar .pip-appbar-breadcrumb md-icon {
-  margin-top: 3px !important;
-}
-.pip-appbar .pip-appbar-badge {
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  font-size: 9px;
-  width: 15px;
-  height: 15px !important;
-  border-radius: 7.5px;
-  line-height: 17px;
-  vertical-align: middle;
-  text-align: center;
-}
-.pip-appbar .pip-search-text {
-  color: #fff !important;
-  background-color: transparent;
-  border: none;
-  font-size: 16px;
-  outline: none;
-}
-.pip-appbar .pip-search-text::-ms-clear {
-  display: none;
-}
-.pip-appbar .pip-search-text::-webkit-search-cancel-button {
-  /* псевдо что-то, что отвечает за кнопку очистки */
-  -webkit-appearance: none;
-  /* без сброса оформление не применится */
-}
-.pip-appbar md-toolbar {
-=======
   min-height: 56px;
->>>>>>> c1b0e404b0830e03ed6d5bae8c07543d0afda673
   z-index: 11;
 }
 .pip-appbar md-toolbar {
