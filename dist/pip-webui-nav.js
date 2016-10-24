@@ -115,50 +115,15 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('breadcrumb/breadcrumb.html',
-    '<div>\n' +
-    '    <div class="hide-xs text-overflow">\n' +
-    '        <!-- Search criteria -->\n' +
-    '        <span ng-if="config.criteria"\n' +
-    '            ng-click="onSearchEnable()">{{config.criteria}} -</span>\n' +
-    '        <!-- Breadcrumb navigation -->\n' +
-    '        <span class="pip-breadcrumb-item"\n' +
-    '            ng-repeat-start="item in config.items"\n' +
-    '            ng-click="onBreadcrumbClick(item)"\n' +
-    '            ng-init="stepWidth = 100/(config.items.length + 1)"\n' +
-    '            ng-style="{\'max-width\': stepWidth + \'%\'}">\n' +
-    '            {{item.title | translate}}\n' +
-    '        </span>\n' +
-    '        <md-icon ng-repeat-end md-svg-icon="icons:chevron-right"></md-icon>\n' +
-    '        <!-- Text title -->\n' +
-    '        <span class="pip-title">{{config.text | translate}}</span>\n' +
-    '    </div>\n' +
+  $templateCache.put('appbar/appbar.html',
+    '<!--\n' +
+    '@file App Bar component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
     '\n' +
-    '    <!-- Mobile breadcrumb dropdown -->\n' +
-    '    <md-menu xmd-offset="0 48" class="hide-gt-xs">\n' +
-    '        <span class="pip-mobile-breadcrumb layout-row"\n' +
-    '            ng-click="$mdOpenMenu()"\n' +
-    '            md-ink-ripple\n' +
-    '            aria-label="open breadcrumb">\n' +
-    '            <span class="text-overflow">\n' +
-    '                <!-- Search criteria -->\n' +
-    '                <span ng-if="config.criteria"\n' +
-    '                    ng-click="onSearchEnable()">{{config.criteria}} -</span>\n' +
-    '                {{config.text | translate}}\n' +
-    '            </span>\n' +
-    '            <md-icon class="pip-triangle-down" md-svg-icon="icons:triangle-down"></md-icon>\n' +
-    '        </span>\n' +
-    '        <md-menu-content width="3">\n' +
-    '            <md-menu-item  ng-repeat="item in config.items" >\n' +
-    '                <md-button ng-click="onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>\n' +
-    '            </md-menu-item>\n' +
-    '            <md-menu-item  >\n' +
-    '                <md-button><span class="text-grey">{{config.text | translate}}</span></md-button>\n' +
-    '            </md-menu-item>\n' +
-    '        </md-menu-content>\n' +
-    '    </md-menu>\n' +
-    '\n' +
-    '</div>\n' +
+    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
+    '            class="{{ config.cssClass }}" ng-transclude>\n' +
+    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -170,15 +135,50 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('appbar/appbar.html',
-    '<!--\n' +
-    '@file App Bar component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
+  $templateCache.put('breadcrumb/breadcrumb.html',
+    '<div>\n' +
+    '    <div class="hide-xs text-overflow">\n' +
+    '        <!-- Search criteria -->\n' +
+    '        <span ng-if="vm.config.criteria"\n' +
+    '            ng-click="vm.onSearchOpen()">{{vm.config.criteria}} -</span>\n' +
+    '        <!-- Breadcrumb navigation -->\n' +
+    '        <span class="pip-breadcrumb-item"\n' +
+    '            ng-repeat-start="item in vm.config.items"\n' +
+    '            ng-click="vm.onBreadcrumbClick(item)"\n' +
+    '            ng-init="stepWidth = 100/(vm.config.items.length + 1)"\n' +
+    '            ng-style="{\'max-width\': stepWidth + \'%\'}">\n' +
+    '            {{item.title | translate}}\n' +
+    '        </span>\n' +
+    '        <md-icon ng-repeat-end md-svg-icon="icons:chevron-right"></md-icon>\n' +
+    '        <!-- Text title -->\n' +
+    '        <span class="pip-title">{{vm.config.text | translate}}</span>\n' +
+    '    </div>\n' +
     '\n' +
-    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
-    '            class="{{ config.cssClass }}" ng-transclude>\n' +
-    '</md-toolbar>\n' +
+    '    <!-- Mobile breadcrumb dropdown -->\n' +
+    '    <md-menu xmd-offset="0 48" class="hide-gt-xs">\n' +
+    '        <span class="pip-mobile-breadcrumb layout-row"\n' +
+    '            ng-click="$mdOpenMenu()"\n' +
+    '            md-ink-ripple\n' +
+    '            aria-label="open breadcrumb">\n' +
+    '            <span class="text-overflow">\n' +
+    '                <!-- Search criteria -->\n' +
+    '                <span ng-if="vm.config.criteria"\n' +
+    '                    ng-click="vm.onSearchOpen()">{{vm.config.criteria}} -</span>\n' +
+    '                {{vm.config.text | translate}}\n' +
+    '            </span>\n' +
+    '            <md-icon class="pip-triangle-down" md-svg-icon="icons:triangle-down"></md-icon>\n' +
+    '        </span>\n' +
+    '        <md-menu-content width="3">\n' +
+    '            <md-menu-item  ng-repeat="item in vm.config.items" >\n' +
+    '                <md-button ng-click="vm.onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>\n' +
+    '            </md-menu-item>\n' +
+    '            <md-menu-item  >\n' +
+    '                <md-button><span class="text-grey">{{vm.config.text | translate}}</span></md-button>\n' +
+    '            </md-menu-item>\n' +
+    '        </md-menu-content>\n' +
+    '    </md-menu>\n' +
+    '\n' +
+    '</div>\n' +
     '');
 }]);
 })();
@@ -720,7 +720,6 @@ module.run(['$templateCache', function($templateCache) {
     }]);
 })();
 
-<<<<<<< HEAD
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
@@ -877,9 +876,6 @@ module.run(['$templateCache', function($templateCache) {
     });
 })();
 
-=======
-"use strict";
->>>>>>> 2a3b4033e4498340dff680edd8b82714f224dda6
 var pip;
 (function (pip) {
     var nav;
@@ -891,7 +887,7 @@ var pip;
                 this._rootScope = $rootScope;
                 this._window = $window;
                 $element.addClass('pip-breadcrumb');
-                this.config = pipBreadcrumb.config();
+                this.config = pipBreadcrumb.config;
                 $rootScope.$on('pipBreadcrumbChanged', this.onBreadcrumbChanged);
                 $rootScope.$on('pipBreadcrumbBack', this.onBreadcrumbBack);
             }
@@ -932,7 +928,11 @@ var pip;
             };
         }
         angular
-            .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate', 'pipBreadcrumb.Service'
+            .module('pipBreadcrumb', [
+            'ngMaterial',
+            'pipNav.Templates',
+            'pipNav.Translate',
+            'pipBreadcrumb.Service'
         ])
             .directive('pipBreadcrumb', breadcrumbDirective);
     })(nav = pip.nav || (pip.nav = {}));
@@ -1038,165 +1038,6 @@ var pip;
             .provider('pipBreadcrumb', BreadcrumbProvider);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
-<<<<<<< HEAD
-=======
-
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
-    thisModule.directive('pipAppbar', function () {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: true,
-            templateUrl: 'appbar/appbar.html',
-            controller: 'pipAppBarController'
-        };
-    });
-    thisModule.controller('pipAppBarController', ['$scope', '$element', '$rootScope', 'pipAppBar', function ($scope, $element, $rootScope, pipAppBar) {
-        $element.addClass('pip-appbar');
-        $element.addClass('color-primary-bg');
-        $scope.$emit('pipResizeWindow');
-        $scope.config = pipAppBar.config();
-        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-        function onAppBarChanged(event, config) {
-            $scope.config = config;
-        }
-    }]);
-})();
-
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
-    thisModule.directive('pipAppbarPart', ['ngIfDirective', function (ngIfDirective) {
-        var ngIf = ngIfDirective[0];
-        return {
-            transclude: ngIf.transclude,
-            priority: ngIf.priority,
-            terminal: ngIf.terminal,
-            restrict: ngIf.restrict,
-            scope: true,
-            link: function linkFunction($scope, $element, $attrs) {
-                $attrs.ngIf = function () {
-                    return $scope.visible;
-                };
-                ngIf.link.apply(ngIf, arguments);
-            },
-            controller: 'pipAppBarPartController'
-        };
-    }]);
-    thisModule.controller('pipAppBarPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, pipAppBar) {
-        var partName = '' + $attrs.pipAppbarPart;
-        var partValue = null;
-        var pos = partName.indexOf(':');
-        if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
-        }
-        onAppBarChanged(null, pipAppBar.config());
-        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-        function onAppBarChanged(event, config) {
-            var parts = config.parts || {};
-            var currentPartValue = parts[partName];
-            var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
-            if (visible != $scope.visible)
-                $scope.visible = visible;
-        }
-    }]);
-})();
-
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipAppBar.Service', []);
-    thisModule.provider('pipAppBar', function () {
-        var config = {
-            theme: 'default',
-            cssClass: '',
-            ngClasses: {},
-            parts: {}
-        };
-        this.theme = theme;
-        this.parts = initParts;
-        this.$get = ['$rootScope', function ($rootScope) {
-            return {
-                config: getConfig,
-                cssClass: cssClass,
-                part: getOrSetPart,
-                parts: getOrSetParts,
-                showShadow: showShadow,
-                showShadowSm: showShadowSm,
-                showShadowSmXs: showShadowSmXs,
-                hideShadow: hideShadow
-            };
-            function getConfig() {
-                return config;
-            }
-            function cssClass(newCssClass) {
-                if (newCssClass != undefined) {
-                    config.cssClass = newCssClass;
-                    sendConfigEvent();
-                }
-                return config.cssClass;
-            }
-            function showShadowSm() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = true;
-                config.ngClasses['pip-shadow-xs'] = false;
-                sendConfigEvent();
-            }
-            function showShadowSmXs() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = true;
-                config.ngClasses['pip-shadow-xs'] = true;
-                sendConfigEvent();
-            }
-            function showShadow() {
-                config.ngClasses['pip-shadow'] = true;
-                sendConfigEvent();
-            }
-            function hideShadow() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = false;
-                config.ngClasses['pip-shadow-xs'] = false;
-                sendConfigEvent();
-            }
-            function getOrSetPart(name, value) {
-                if (!_.isString(name))
-                    throw new Error("Part name has to be a string");
-                if (value != undefined) {
-                    if (config.parts[name] != value) {
-                        config.parts[name] = value;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts[name];
-            }
-            function getOrSetParts(parts) {
-                if (_.isObject(parts)) {
-                    if (!_.isEqual(config.parts, parts)) {
-                        config.parts = parts;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts;
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipAppBarChanged', config);
-            }
-        }];
-        function theme(theme) {
-            config.theme = theme || config.theme;
-            return config.theme;
-        }
-        function initParts(parts) {
-            if (_.isObject(parts)) {
-                config.parts = parts;
-            }
-            return config.parts;
-        }
-    });
-})();
->>>>>>> 2a3b4033e4498340dff680edd8b82714f224dda6
 
 (function () {
     'use strict';
@@ -1595,11 +1436,11 @@ var pip;
     var thisModule = angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
     thisModule.run(['$injector', function ($injector) {
         var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        if (pipTranslate && pipTranslate.translations) {
-            pipTranslate.translations('en', {
+        if (pipTranslate && pipTranslate.setTranslations) {
+            pipTranslate.setTranslations('en', {
                 'APPBAR_SEARCH': 'Search'
             });
-            pipTranslate.translations('ru', {
+            pipTranslate.setTranslations('ru', {
                 'APPBAR_SEARCH': 'Поиск'
             });
         }
