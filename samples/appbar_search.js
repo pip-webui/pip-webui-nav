@@ -8,14 +8,14 @@
     thisModule.controller('SearchController',
         function($scope, $rootScope, pipAppBar, pipSearch, $injector) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate && pipTranslate.translations) {
-                pipTranslate.translations('en', {
+            if (pipTranslate && pipTranslate.setTranslations) {
+                pipTranslate.setTranslations('en', {
                     DISPLAY_AND_HIDE_SEARCH: 'Display and hide search',
                     SHOW_SEARCH: 'Show search',
                     HIDE_SEARCH: 'Hide search',
                     UPDATE_SEARCH: 'Update search',
                 });
-                pipTranslate.translations('ru', {
+                pipTranslate.setTranslations('ru', {
                   
                     DISPLAY_AND_HIDE_SEARCH: 'Отображение и скрытие поиска',
                     SHOW_SEARCH: 'Отобразить поиск',

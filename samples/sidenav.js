@@ -10,10 +10,10 @@
                   $injector) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate && pipTranslate.translations) {
+            if (pipTranslate && pipTranslate.setTranslations) {
 
                 // Set translation strings for the module
-                pipTranslate.translations('en', {
+                pipTranslate.setTranslations('en', {
                     SAMPLE: 'sample',
                     CODE_TO_CONFIGURE_AND_DISPLAY: 'Code sample to configure and display Side Nav',
                     OPEN: 'Open',
@@ -22,7 +22,7 @@
                     TOGGLE: 'Toggle'
                 });
 
-                pipTranslate.translations('ru', {
+                pipTranslate.setTranslations('ru', {
                     SAMPLE: 'пример',
                     CODE_TO_CONFIGURE_AND_DISPLAY: 'Пример кода для конфигурации и отображения Side Nav',
                     OPEN: 'Открыть',

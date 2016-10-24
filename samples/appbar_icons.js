@@ -7,8 +7,8 @@
         function($scope, pipNavIcon, pipAppBar, $injector) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate &&  pipTranslate.translations) {
-                pipTranslate.translations('en', {
+            if (pipTranslate &&  pipTranslate.setTranslations) {
+                pipTranslate.setTranslations('en', {
 
                     DISPLAY_AND_HIDE_NAV_ICONS: 'Display and hide nav icons',
                     SHOW_MENU: 'Show menu icon',
@@ -16,7 +16,7 @@
                     HIDE_NAV_ICON: 'Hide nav icon'
 
                 });
-                pipTranslate.translations('ru', {
+                pipTranslate.setTranslations('ru', {
 
                     DISPLAY_AND_HIDE_NAV_ICONS: 'Отображение и скрытие навигационных иконок',
                     SHOW_MENU: 'Отобразить иконку меню',

@@ -28,8 +28,8 @@
         function ($scope, pipActions, pipAppBar, $injector, $rootScope) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate && pipTranslate.translations) {
-                pipTranslate.translations('en', {
+            if (pipTranslate && pipTranslate.setTranslations) {
+                pipTranslate.setTranslations('en', {
                     TITLE_TEXT: 'Title text',
                     THEME: 'Theme',
                     TITLE_LOCAL_ACTION: 'Title of first primary action',
@@ -42,7 +42,7 @@
                     SHOW_LANGUAGES: 'Show languages',
                     
                 });
-                pipTranslate.translations('ru', {
+                pipTranslate.setTranslations('ru', {
                     TITLE_LOCAL_ACTION: 'Заголовок первого основного действия',
                     DISPLAY_AND_HIDE_ACTIONS_AND_LANGUAGES: 'Отображение и скрытие списка действий и языков',
                     SHOW_ACTIONS: 'Отобразить список действий',

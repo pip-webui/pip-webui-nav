@@ -8,8 +8,8 @@
     thisModule.controller('TabsController',
         function ($scope, $mdMedia, $injector) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate && pipTranslate.translations) {
-                pipTranslate.translations('en', {
+            if (pipTranslate && pipTranslate.setTranslations) {
+                pipTranslate.setTranslations('en', {
                     TAB_INDEX: 'Current tab index',
                     LIST_CHANGES: 'List of changes',
                     ADDING: 'Counts of first tab',
@@ -19,7 +19,7 @@
                     TABS_CONFIG_AND_INFO: 'Tabs configuration and info',
                     CODE_SAMPLE: 'Code sample'
                 });
-                pipTranslate.translations('ru', {
+                pipTranslate.setTranslations('ru', {
                     TAB_INDEX: 'Текущий индекс',
                     LIST_CHANGES: 'Список изменений',
                     ADDING: 'Устанавливает количество для первого таба',

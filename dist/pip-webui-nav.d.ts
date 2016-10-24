@@ -9,6 +9,7 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
+<<<<<<< HEAD
 
 /// <reference path="../../typings/tsd.d.ts" />
 
@@ -17,6 +18,8 @@ declare module pip.nav {
 }
 
 /// <reference path="../../typings/tsd.d.ts" />
+=======
+>>>>>>> 2a3b4033e4498340dff680edd8b82714f224dda6
 declare module pip.nav {
     let BreadcrumbChangedEvent: string;
     class BreadcrumbItem {
@@ -38,6 +41,12 @@ declare module pip.nav {
         text: string;
     }
 }
+
+/// <reference path="../../typings/tsd.d.ts" />
+
+/// <reference path="../../typings/tsd.d.ts" />
+
+/// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
 
