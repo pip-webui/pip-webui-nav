@@ -1,13 +1,13 @@
 <div>
     <div class="hide-xs text-overflow">
         <!-- Search criteria -->
-        <span ng-if="config.criteria"
-            ng-click="onSearchEnable()">{{config.criteria}} -</span>
+        <span ng-if="vm.config.criteria"
+            ng-click="vm.onSearchOpen()">{{vm.config.criteria}} -</span>
         <!-- Breadcrumb navigation -->
         <span class="pip-breadcrumb-item"
-            ng-repeat-start="item in config.items"
-            ng-click="onBreadcrumbClick(item)"
-            ng-init="stepWidth = 100/(config.items.length + 1)"
+            ng-repeat-start="item in vm.config.items"
+            ng-click="vm.onBreadcrumbClick(item)"
+            ng-init="stepWidth = 100/(vm.config.items.length + 1)"
             ng-style="{'max-width': stepWidth + '%'}">
             {{item.title | translate}}
         </span>
@@ -24,18 +24,18 @@
             aria-label="open breadcrumb">
             <span class="text-overflow">
                 <!-- Search criteria -->
-                <span ng-if="config.criteria"
-                    ng-click="onSearchEnable()">{{config.criteria}} -</span>
-                {{config.text | translate}}
+                <span ng-if="vm.config.criteria"
+                    ng-click="vm.onSearchOpen()">{{vm.config.criteria}} -</span>
+                {{vm.config.text | translate}}
             </span>
             <md-icon class="pip-triangle-down" md-svg-icon="icons:triangle-down"></md-icon>
         </span>
         <md-menu-content width="3">
-            <md-menu-item  ng-repeat="item in config.items" >
-                <md-button ng-click="onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>
+            <md-menu-item  ng-repeat="item in vm.config.items" >
+                <md-button ng-click="vm.onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>
             </md-menu-item>
             <md-menu-item  >
-                <md-button><span class="text-grey">{{config.text | translate}}</span></md-button>
+                <md-button><span class="text-grey">{{vm.config.text | translate}}</span></md-button>
             </md-menu-item>
         </md-menu-content>
     </md-menu>
