@@ -8,12 +8,12 @@
 
     thisModule.run(function ($injector) {
         var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        if (pipTranslate && pipTranslate.translations) {
-            pipTranslate.translations('en', {
+        if (pipTranslate && pipTranslate.setTranslations) {
+            pipTranslate.setTranslations('en', {
                 'APPBAR_SEARCH': 'Search'
             });
 
-            pipTranslate.translations('ru', {
+            pipTranslate.setTranslations('ru', {
                 'APPBAR_SEARCH': 'Поиск'
             });
         }

@@ -115,26 +115,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('appbar/appbar.html',
-    '<!--\n' +
-    '@file App Bar component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
-    '            class="{{ config.cssClass }}" ng-transclude>\n' +
-    '</md-toolbar>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('breadcrumb/breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
@@ -179,6 +159,26 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-menu>\n' +
     '\n' +
     '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('appbar/appbar.html',
+    '<!--\n' +
+    '@file App Bar component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset" ng-class="config.ngClasses"\n' +
+    '            class="{{ config.cssClass }}" ng-transclude>\n' +
+    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -720,6 +720,166 @@ module.run(['$templateCache', function($templateCache) {
     }]);
 })();
 
+"use strict";
+var pip;
+(function (pip) {
+    var nav;
+    (function (nav) {
+        var BreadcrumbController = (function () {
+            BreadcrumbController.$inject = ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', 'pipBreadcrumb'];
+            function BreadcrumbController($scope, $element, $attrs, $rootScope, $window, $state, pipBreadcrumb) {
+                "ngInject";
+                this._rootScope = $rootScope;
+                this._window = $window;
+                $element.addClass('pip-breadcrumb');
+                this.config = pipBreadcrumb.config();
+                $rootScope.$on('pipBreadcrumbChanged', this.onBreadcrumbChanged);
+                $rootScope.$on('pipBreadcrumbBack', this.onBreadcrumbBack);
+            }
+            BreadcrumbController.prototype.onBreadcrumbChanged = function (event, config) {
+                this.config = config;
+            };
+            BreadcrumbController.prototype.onBreadcrumbBack = function () {
+                var items = this.config.items;
+                if (_.isArray(items) && items.length > 0) {
+                    var backCallback = items[items.length - 1].click;
+                    if (_.isFunction(backCallback))
+                        backCallback();
+                    else
+                        this._window.history.back();
+                }
+                else
+                    this._window.history.back();
+            };
+            BreadcrumbController.prototype.onBreadcrumbClick = function (item) {
+                if (_.isFunction(item.click))
+                    item.click(item);
+            };
+            BreadcrumbController.prototype.onSearchOpen = function () {
+                this._rootScope.$broadcast('pipSearchOpen');
+            };
+            return BreadcrumbController;
+        }());
+        function breadcrumbDirective() {
+            return {
+                restrict: 'E',
+                scope: {},
+                replace: false,
+                templateUrl: function (element, attr) {
+                    return 'breadcrumb/breadcrumb.html';
+                },
+                controller: BreadcrumbController,
+                controllerAs: 'vm'
+            };
+        }
+        angular
+            .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate', 'pipBreadcrumb.Service'
+        ])
+            .directive('pipBreadcrumb', breadcrumbDirective);
+    })(nav = pip.nav || (pip.nav = {}));
+})(pip || (pip = {}));
+
+var pip;
+(function (pip) {
+    var nav;
+    (function (nav) {
+        nav.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
+        var BreadcrumbItem = (function () {
+            function BreadcrumbItem() {
+            }
+            return BreadcrumbItem;
+        }());
+        nav.BreadcrumbItem = BreadcrumbItem;
+        var BreadcrumbConfig = (function () {
+            function BreadcrumbConfig() {
+            }
+            return BreadcrumbConfig;
+        }());
+        nav.BreadcrumbConfig = BreadcrumbConfig;
+        var BreadcrumbService = (function () {
+            function BreadcrumbService(config, $rootScope) {
+                this._config = config;
+                this._rootScope = $rootScope;
+            }
+            Object.defineProperty(BreadcrumbService.prototype, "config", {
+                get: function () {
+                    return this._config;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BreadcrumbService.prototype, "text", {
+                get: function () {
+                    return this._config.text;
+                },
+                set: function (value) {
+                    this._config.text = value;
+                    this._config.items = null;
+                    this.sendEvent();
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BreadcrumbService.prototype, "items", {
+                get: function () {
+                    return this._config.items;
+                },
+                set: function (value) {
+                    this._config.text = null;
+                    this._config.items = value;
+                    this.sendEvent();
+                },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(BreadcrumbService.prototype, "criteria", {
+                get: function () {
+                    return this._config.criteria;
+                },
+                set: function (value) {
+                    this._config.criteria = value;
+                    this.sendEvent();
+                },
+                enumerable: true,
+                configurable: true
+            });
+            BreadcrumbService.prototype.sendEvent = function () {
+                this._rootScope.$broadcast(pip.nav.BreadcrumbChangedEvent, this._config);
+            };
+            return BreadcrumbService;
+        }());
+        var BreadcrumbProvider = (function () {
+            function BreadcrumbProvider() {
+                this._config = {
+                    text: null,
+                    items: null,
+                    criteria: null
+                };
+            }
+            Object.defineProperty(BreadcrumbProvider.prototype, "text", {
+                get: function () {
+                    return this._config.text;
+                },
+                set: function (value) {
+                    this._config.text = value;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            BreadcrumbProvider.prototype.$get = ['$rootScope', function ($rootScope) {
+                "ngInject";
+                if (this._service == null)
+                    this._service = new BreadcrumbService(this._config, $rootScope);
+                return this._service;
+            }];
+            return BreadcrumbProvider;
+        }());
+        angular
+            .module('pipBreadcrumb.Service', [])
+            .provider('pipBreadcrumb', BreadcrumbProvider);
+    })(nav = pip.nav || (pip.nav = {}));
+})(pip || (pip = {}));
+
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
@@ -875,167 +1035,6 @@ module.run(['$templateCache', function($templateCache) {
         }
     });
 })();
-
-"use strict";
-var pip;
-(function (pip) {
-    var nav;
-    (function (nav) {
-        var BreadcrumbController = (function () {
-            BreadcrumbController.$inject = ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', 'pipBreadcrumb'];
-            function BreadcrumbController($scope, $element, $attrs, $rootScope, $window, $state, pipBreadcrumb) {
-                "ngInject";
-                this._rootScope = $rootScope;
-                this._window = $window;
-                $element.addClass('pip-breadcrumb');
-                this.config = pipBreadcrumb.config();
-                $rootScope.$on('pipBreadcrumbChanged', this.onBreadcrumbChanged);
-                $rootScope.$on('pipBreadcrumbBack', this.onBreadcrumbBack);
-            }
-            BreadcrumbController.prototype.onBreadcrumbChanged = function (event, config) {
-                this.config = config;
-            };
-            BreadcrumbController.prototype.onBreadcrumbBack = function () {
-                var items = this.config.items;
-                if (_.isArray(items) && items.length > 0) {
-                    var backCallback = items[items.length - 1].click;
-                    if (_.isFunction(backCallback))
-                        backCallback();
-                    else
-                        this._window.history.back();
-                }
-                else
-                    this._window.history.back();
-            };
-            BreadcrumbController.prototype.onBreadcrumbClick = function (item) {
-                if (_.isFunction(item.click))
-                    item.click(item);
-            };
-            BreadcrumbController.prototype.onSearchOpen = function () {
-                this._rootScope.$broadcast('pipSearchOpen');
-            };
-            return BreadcrumbController;
-        }());
-        function breadcrumbDirective() {
-            return {
-                restrict: 'E',
-                scope: {},
-                replace: false,
-                templateUrl: function (element, attr) {
-                    return 'breadcrumb/breadcrumb.html';
-                },
-                controller: BreadcrumbController,
-                controllerAs: 'vm'
-            };
-        }
-        angular
-            .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate',
-        ])
-            .directive('pipBreadcrumb', breadcrumbDirective);
-    })(nav = pip.nav || (pip.nav = {}));
-})(pip || (pip = {}));
-
-"use strict";
-var pip;
-(function (pip) {
-    var nav;
-    (function (nav) {
-        nav.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
-        var BreadcrumbItem = (function () {
-            function BreadcrumbItem() {
-            }
-            return BreadcrumbItem;
-        }());
-        nav.BreadcrumbItem = BreadcrumbItem;
-        var BreadcrumbConfig = (function () {
-            function BreadcrumbConfig() {
-            }
-            return BreadcrumbConfig;
-        }());
-        nav.BreadcrumbConfig = BreadcrumbConfig;
-        var BreadcrumbService = (function () {
-            function BreadcrumbService(config, $rootScope) {
-                this._config = config;
-                this._rootScope = $rootScope;
-            }
-            Object.defineProperty(BreadcrumbService.prototype, "config", {
-                get: function () {
-                    return this._config;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(BreadcrumbService.prototype, "text", {
-                get: function () {
-                    return this._config.text;
-                },
-                set: function (value) {
-                    this._config.text = value;
-                    this._config.items = null;
-                    this.sendEvent();
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(BreadcrumbService.prototype, "items", {
-                get: function () {
-                    return this._config.items;
-                },
-                set: function (value) {
-                    this._config.text = null;
-                    this._config.items = value;
-                    this.sendEvent();
-                },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(BreadcrumbService.prototype, "criteria", {
-                get: function () {
-                    return this._config.criteria;
-                },
-                set: function (value) {
-                    this._config.criteria = value;
-                    this.sendEvent();
-                },
-                enumerable: true,
-                configurable: true
-            });
-            BreadcrumbService.prototype.sendEvent = function () {
-                this._rootScope.$broadcast(pip.nav.BreadcrumbChangedEvent, this._config);
-            };
-            return BreadcrumbService;
-        }());
-        var BreadcrumbProvider = (function () {
-            function BreadcrumbProvider() {
-                this._config = {
-                    text: null,
-                    items: null,
-                    criteria: null
-                };
-            }
-            Object.defineProperty(BreadcrumbProvider.prototype, "text", {
-                get: function () {
-                    return this._config.text;
-                },
-                set: function (value) {
-                    this._config.text = value;
-                },
-                enumerable: true,
-                configurable: true
-            });
-            BreadcrumbProvider.prototype.$get = ['$rootScope', function ($rootScope) {
-                "ngInject";
-                if (this._service == null)
-                    this._service = new BreadcrumbService(this._config, $rootScope);
-                return this._service;
-            }];
-            return BreadcrumbProvider;
-        }());
-        angular
-            .module('pipBreadcrumb.Service', [])
-            .provider('pipBreadcrumb', BreadcrumbProvider);
-    })(nav = pip.nav || (pip.nav = {}));
-})(pip = exports.pip || (exports.pip = {}));
 
 (function () {
     'use strict';
