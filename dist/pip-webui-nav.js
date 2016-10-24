@@ -931,7 +931,8 @@ var pip;
         }
         angular
             .module('pipBreadcrumb', [
-            'ngMaterial', 'pipNav.Translate', 'pipNav.Templates'
+            'ngMaterial', 'pipNav.Translate', 'pipNav.Templates',
+            'pipBreadcrumb.Service'
         ])
             .directive('pipBreadcrumb', breadcrumbDirective);
     })(nav = pip.nav || (pip.nav = {}));
@@ -1035,7 +1036,7 @@ var pip;
             return BreadcrumbProvider;
         }());
         angular
-            .module('pipBreadcrumb')
+            .module('pipBreadcrumb.Service', [])
             .provider('pipBreadcrumb', BreadcrumbProvider);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip = exports.pip || (exports.pip = {}));

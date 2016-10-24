@@ -106,7 +106,7 @@ export module pip.nav {
     }
 
     angular
-        .module('pipBreadcrumb')
+        .module('pipBreadcrumb.Service', [])
         .provider('pipBreadcrumb', BreadcrumbProvider);
 
 }
