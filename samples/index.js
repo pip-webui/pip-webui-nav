@@ -8,7 +8,7 @@
         'ngMaterial', 
         'pipNav',
         
-        //'appAppbar.Icons',
+        'appAppbar.Icons',
         //'appAppbar.Titles',
         'appAppbar.Actions',
         'appAppbar.Search',

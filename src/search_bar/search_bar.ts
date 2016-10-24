@@ -8,7 +8,7 @@
 
     thisModule.run(function ($injector) {
         var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        if (pipTranslate) {
+        if (pipTranslate && pipTranslate.translations) {
             pipTranslate.translations('en', {
                 'APPBAR_SEARCH': 'Search'
             });
