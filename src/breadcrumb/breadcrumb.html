@@ -11,7 +11,7 @@
             ng-style="{'max-width': stepWidth + '%'}">
             {{item.title | translate}}
         </span>
-        <md-icon ng-repeat-end md-svg-icon="icons:chevron-right"></md-icon>
+        <md-icon ng-repeat-end md-svg-icon="icons:chevron-right" ng-hide="$last"></md-icon>
         <!-- Text title -->
         <span class="pip-title">{{vm.config.text | translate}}</span>
     </div>
