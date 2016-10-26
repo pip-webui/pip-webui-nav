@@ -1,22 +1,17 @@
-<md-toolbar md-theme="{{ $theme }}" ng-hide="!user">
+<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">
 
     <md-button class="pip-nav-header-user md-icon-button"
                 ng-click="onUserClick()"
                 aria-label="current user">
-        <!--<pip-avatar ng-if="!$avatarReset"
-                    pip-default-icon="icon-person"
-                    pip-party-name="getParty('name')"
-                    pip-image-url="primaryPartyAvatar"
-                    pip-rebind-avatar="true"
-                    pip-rebind="true">
-        </pip-avatar>-->
+
+        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>
     </md-button>
     
     <div class="pip-nav-header-user-text">
         <a class="pip-nav-header-user-pri cursor-pointer"
-            ng-click="onUserClick()">{{ getUser('fullName') }}</a>
+            ng-click="onUserClick()">{{ title }}</a>
         <div class="pip-nav-header-user-sec">
-            {{ getUser('details') | translate }}
+            {{ subtitle | translate }}
         </div>
     </div>
 

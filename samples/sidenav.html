@@ -1,6 +1,8 @@
 
 <pip-sidenav>
-    <pip-nav-header pip-user="user"></pip-nav-header>
+    <pip-nav-header pip-title="user.fullName" 
+                    pip-sub-title="user.details" 
+                    xxpip-image="user.imageUrl"></pip-nav-header>
     <pip-nav-menu pip-links="links"></pip-nav-menu>
 </pip-sidenav>
 
@@ -11,3 +13,7 @@
         <md-button class="lm0 md-raised md-accent flat" ng-click="onCloseSideNav()">{{ 'CLOSE' | translate }} Side Nav</md-button>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">{{ 'TOGGLE' | translate }} Side Nav</md-button>
     </div>
+               title: '=pipTitle',
+               subTitle: '=pipSubTitle',
+               imageUrl: '=pipImage',
+               imageCss: 'pipImageCss'

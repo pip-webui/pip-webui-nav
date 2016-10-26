@@ -7,7 +7,7 @@
 
     thisModule.controller('SideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout,
-                  $injector) {
+                  $injector, pipNavHeader) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
@@ -38,9 +38,12 @@
                 });
             });
 
+            pipNavHeader.image('http://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png');
+
             $scope.user = {
                 fullName: 'Kate Negrienko',
-                details: 'details'
+                details: 'details',
+                imageUrl: 'http://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
             
             $scope.links = [

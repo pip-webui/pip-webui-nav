@@ -44,6 +44,8 @@ declare module pip.nav {
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
+
+/// <reference path="../../typings/tsd.d.ts" />
 declare module pip.nav {
 }
 
