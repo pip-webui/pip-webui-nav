@@ -4,7 +4,7 @@
     'use strict';
 
     var thisModule = angular.module('pipAppBar',
-        ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
+        ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Part', 'pipAppBar.Service']);
 
     // Main application header directive
     thisModule.directive('pipAppbar', function () {

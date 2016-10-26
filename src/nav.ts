@@ -11,6 +11,7 @@
         'pipSideNav',
         'pipNavIcon',
         'pipNavMenu',
+        'pipNavHeader',
         'pipBreadcrumb',
         'pipPrimaryActions', 
         'pipSecondaryActions'

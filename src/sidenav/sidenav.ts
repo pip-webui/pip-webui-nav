@@ -4,7 +4,7 @@
     'use strict';
 
     var thisModule = angular.module('pipSideNav', 
-        ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Service']);
+        ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
 
     // Main application sidenav directive
     thisModule.directive('pipSidenav', function() {
