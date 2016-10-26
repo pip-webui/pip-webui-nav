@@ -65,10 +65,6 @@
     }
 
     .pip-nav-header-user {
-        // display: inline-block;
-        // position: absolute;
-        // top: @nav-header-padding-sm;
-        // left: @nav-header-padding;
         width: @nav-header-big-size;
         min-width: initial;
         height: @nav-header-big-size;
@@ -80,10 +76,22 @@
             width: @nav-header-big-size; 
             height: @nav-header-big-size;
         }
+    }
 
+    .pip-nav-header-user-text {
         .pip-nav-header-user-pri {
             cursor: pointer !important;
+            font-size: @nav-header-party-font-size;
+            text-decoration: none;
+            color: @nav-header-party-color;
+            letter-spacing: @nav-header-party-font-letter-spacing;
+		  	word-wrap: break-word;
         }
+        .pip-nav-header-user-sec {
+            margin-top: 4px;
+            font-size: @nav-header-party-info-font-size;
+            .text-overflow();
+        } 
     }
 
     .pip-nav-header-party-text {
@@ -93,8 +101,8 @@
             text-decoration: none;
             color: @nav-header-party-color;
             letter-spacing: @nav-header-party-font-letter-spacing;
-            //font-family: @nav-header-party-font-family;
 		  	word-wrap: break-word;
+            cursor: pointer !important;
 
             &:hover, &:focus {
 				color: @nav-header-party-color;
@@ -105,7 +113,6 @@
         .pip-nav-header-party-sec {
             font-size: @nav-header-party-info-font-size;
             .text-overflow();
-            //font-family: @nav-header-party-info-font-family;
         }
     }
     

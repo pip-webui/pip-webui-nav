@@ -80,7 +80,14 @@
                     config = pipNavHeader.config();
 
                 url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
-                $image.attr('src', url);
+                if (url) {
+                    console.log('url', url);
+                    $image.attr('src', url);
+                } else {
+                    console.log('display none');
+                    imageBlock.css('display', 'none');
+                }
+                
             }
 
             function onUserClick() {
