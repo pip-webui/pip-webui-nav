@@ -25,35 +25,34 @@
     <script src="sidenav.js"></script>
     <script src="index.js"></script>
 </head>
-<pip-nav ng-app="app" ng-controller="appController" ng-if="!$reset"
-      md-theme="{{ $theme || 'blue' }}" class="{{ $theme }} layout-column">
 
+<body ng-app="app" ng-if="!$reset" ng-controller="appController"
+     class="pip-main layout-column {{$theme}}" md-theme="{{$theme}}">
 
-    <md-toolbar>
-        <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="menu"
-                       ng-click="onToggleMenu()" hide-gt-sm>
-                <md-icon md-svg-icon="icons:menu"></md-icon>
-            </md-button>
-            <span>Nav components</span>
-        </div>
-    </md-toolbar>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="menu"
+                        ng-click="onToggleMenu()" hide-gt-sm>
+                    <md-icon md-svg-icon="icons:menu"></md-icon>
+                </md-button>
+                <span>Nav components</span>
+            </div>
+        </md-toolbar>
 
-    <div class="layout-row flex">
-        <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
-                    class="md-whiteframe-z2 md-sidenav-left layout-column">
-            <md-list>
-                <md-list-item ng-repeat="contentItem in content"
-                              ng-click="onSwitchPage(contentItem.state)"
-                              ng-class="{ 'selected-state': isActiveState(contentItem.state) }">
-                    <p ui-sref="{{contentItem.state}}">{{contentItem.title}}</p>
-                </md-list-item>
-            </md-list>
-        </md-sidenav>
+        <div class="layout-row flex">
+            <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+                        class="md-whiteframe-z2 md-sidenav-left layout-column">
+                <md-list>
+                    <md-list-item ng-repeat="contentItem in content"
+                                ng-click="onSwitchPage(contentItem.state)"
+                                ng-class="{ 'selected-state': isActiveState(contentItem.state) }">
+                        <p ui-sref="{{contentItem.state}}">{{contentItem.title}}</p>
+                    </md-list-item>
+                </md-list>
+            </md-sidenav>
 
-        <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-            <div ui-view></div>
-        </md-content>
-    </div>
-</pip-nav>
+            <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
+                <div ui-view></div>
+            </md-content>
+</body>
 </html>
