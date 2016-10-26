@@ -13,6 +13,10 @@
                 ng-hide="!link.icon" 
                 class="tm0 bm0"></md-icon>
             <p>{{::link.title | translate}}</p>
+            <div class="flex"></div>
+            <div class="pip-nav-menu-badge xxcolor-badge-bg" ng-if="link.count">
+                 {{link.count}} 
+            </div>
         </md-list-item>
     </div>
 </md-list>

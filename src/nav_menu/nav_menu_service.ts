@@ -13,7 +13,8 @@
         this.$get = function ($rootScope, $mdSidenav) {
             return {
                 get: getConfig,
-                set: setConfig
+                set: setConfig,
+                setCounter: setCounter
             };
             
             //---------------------
@@ -26,6 +27,20 @@
                 init(newConfig);
                 $rootScope.$broadcast('pipNavMenuChanged', config);
                 return config;  
+            }
+
+            function setCounter(linkTitle, counter) {
+                var item: any;
+
+                item = _.find(config, function(section) {
+                    console.log('section', section);
+                    var ss = _.find(section.links, {title: linkTitle});
+console.log('ss', ss);
+                    if (ss) {
+                        return ss;
+                    } else return false;
+                });
+                console.log('setCounter', config, item);
             }
         };
 
@@ -47,13 +62,15 @@
         //     });
         // }
 
+
+
         function init(newConfig) {
             // if (pipDebugProvider.enabled()) 
             //     validateConfig(newConfig);
-
+console.log('newConfig', newConfig);
             if (_.isArray(newConfig))
                 config = newConfig;
-
+console.log('config config', config);
             return config;
         };
     });

@@ -506,6 +506,17 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.pip-nav-menu .pip-nav-menu-badge {
+  font-size: 12px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  border-radius: 14px;
+  line-height: 28px;
+  vertical-align: middle;
+  text-align: center;
+  color: #fafafa;
+  background: red;
+}
 @media (max-width: 768px) {
   .pip-nav-menu md-list-item .md-button {
     padding-left: 16px;

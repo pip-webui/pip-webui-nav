@@ -7,7 +7,7 @@
 
     thisModule.controller('SideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout,
-                  $injector, pipNavHeader) {
+                  $injector, pipNavHeader, pipNavMenu) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
@@ -50,14 +50,14 @@
                 {
                     links: [
                         {title: 'Dashboard', url: '/dashboard?party_id=:party_id'},
-                        {title: 'About', url: '/about?party_id=:party_id'}
+                        {title: 'About', url: '/about?party_id=:party_id', count: 4}
                     ]
                 },
                 {
                     title: 'Get',
                     links: [
                         {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
-                        {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id'},
+                        {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id', count: 25},
                         {title: 'Events', icon: 'icons:star', url: '/ultimate_todo?party_id=:party_id'}
                     ]
                 },
@@ -65,7 +65,7 @@
                     links: [
                         {title: 'Help', url: '/help'},
                         {title: 'Support', url: '/support?party_id=:user_id'},
-                        {title: 'Settings', url: '/settings?party_id=:party_id'}
+                        {title: 'Settings', url: '/settings?party_id=:party_id', count: 25}
                     ]
                 }
             ];
@@ -92,6 +92,10 @@
 
             $scope.onToggleSideNav = function () {
                 pipSideNav.toggle();
+            };
+
+            $scope.onRefreshCounter = function () {
+                pipNavMenu.setCounter('Help', 55);
             };
 
         }

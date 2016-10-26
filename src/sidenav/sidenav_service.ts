@@ -88,6 +88,7 @@
             if (_.isObject(parts)) {
                 config.parts = parts;
             }
+            console.log('initParts', parts);
             return config.parts;
         }
     });

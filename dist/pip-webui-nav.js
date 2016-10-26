@@ -197,6 +197,31 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('language_picker/language_picker.html',
+    '<md-menu md-position-mode="target-right target">\n' +
+    '    <span class="pip-language"\n' +
+    '        ng-click="$mdOpenMenu()"\n' +
+    '        aria-label="language selection">\n' +
+    '        {{vm.language | translate}}\n' +
+    '        <md-icon md-svg-icon="icons:triangle-down"></md-icon>\n' +
+    '    </span>\n' +
+    '    <md-menu-content width="3">\n' +
+    '        <md-menu-item ng-repeat="language in vm.languages">\n' +
+    '            <md-button ng-click="vm.onLanguageClick(lang)">{{language | translate}}</md-button>\n' +
+    '        </md-menu-item>\n' +
+    '    </md-menu-content>\n' +
+    '</md-menu>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('dropdown/dropdown.html',
     '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
     '    <div class="pip-divider"></div>\n' +
@@ -216,20 +241,27 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('language_picker/language_picker.html',
-    '<md-menu md-position-mode="target-right target">\n' +
-    '    <span class="pip-language"\n' +
-    '        ng-click="$mdOpenMenu()"\n' +
-    '        aria-label="language selection">\n' +
-    '        {{vm.language | translate}}\n' +
-    '        <md-icon md-svg-icon="icons:triangle-down"></md-icon>\n' +
-    '    </span>\n' +
-    '    <md-menu-content width="3">\n' +
-    '        <md-menu-item ng-repeat="language in vm.languages">\n' +
-    '            <md-button ng-click="vm.onLanguageClick(lang)">{{language | translate}}</md-button>\n' +
-    '        </md-menu-item>\n' +
-    '    </md-menu-content>\n' +
-    '</md-menu>\n' +
+  $templateCache.put('nav_header/nav_header.html',
+    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
+    '\n' +
+    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
+    '                ng-click="onUserClick()"\n' +
+    '                aria-label="current user">\n' +
+    '\n' +
+    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
+    '    </md-button>\n' +
+    '    \n' +
+    '    <div class="pip-nav-header-user-text">\n' +
+    '        <a class="pip-nav-header-user-pri"\n' +
+    '            ng-click="onUserClick()">\n' +
+    '            {{ title }}\n' +
+    '        </a>\n' +
+    '        <div class="pip-nav-header-user-sec">\n' +
+    '            {{ subtitle | translate }}\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -277,38 +309,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_header/nav_header.html',
-    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
-    '\n' +
-    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
-    '                ng-click="onUserClick()"\n' +
-    '                aria-label="current user">\n' +
-    '\n' +
-    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
-    '    </md-button>\n' +
-    '    \n' +
-    '    <div class="pip-nav-header-user-text">\n' +
-    '        <a class="pip-nav-header-user-pri"\n' +
-    '            ng-click="onUserClick()">\n' +
-    '            {{ title }}\n' +
-    '        </a>\n' +
-    '        <div class="pip-nav-header-user-sec">\n' +
-    '            {{ subtitle | translate }}\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '</md-toolbar>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_menu/nav_menu.html',
     '<md-list>\n' +
     '    <div class="pip-section" ng-repeat="section in config"\n' +
@@ -325,6 +325,10 @@ module.run(['$templateCache', function($templateCache) {
     '                ng-hide="!link.icon" \n' +
     '                class="tm0 bm0"></md-icon>\n' +
     '            <p>{{::link.title | translate}}</p>\n' +
+    '            <div class="flex"></div>\n' +
+    '            <div class="pip-nav-menu-badge xxcolor-badge-bg" ng-if="link.count">\n' +
+    '                 {{link.count}} \n' +
+    '            </div>\n' +
     '        </md-list-item>\n' +
     '    </div>\n' +
     '</md-list>\n' +
@@ -749,7 +753,7 @@ module.run(['$templateCache', function($templateCache) {
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Part', 'pipAppBar.Service']);
+    var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
     // Main application header directive
     thisModule.directive('pipAppbar', function () {
         return {
@@ -1114,55 +1118,6 @@ var pip;
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
-    thisModule.directive('pipDropdown', ['$mdMedia', function ($mdMedia) {
-        return {
-            restrict: 'E',
-            scope: {
-                ngDisabled: '&',
-                actions: '=pipActions',
-                showDropdown: '&pipShow',
-                activeIndex: '=pipActiveIndex',
-                select: '=pipDropdownSelect'
-            },
-            templateUrl: 'dropdown/dropdown.html',
-            controller: ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
-                // Todo: Remove dependency on local storage or make it optional
-                $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
-                $scope.$mdMedia = $mdMedia;
-                $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
-                $scope.activeIndex = $scope.activeIndex || 0;
-                $scope.disabled = function () {
-                    if ($scope.ngDisabled()) {
-                        return $scope.ngDisabled();
-                    }
-                    else {
-                        return false;
-                    }
-                };
-                $scope.onSelect = function (index) {
-                    $scope.activeIndex = index;
-                    if ($scope.select) {
-                        $scope.select($scope.actions[index], $scope.activeIndex);
-                    }
-                };
-                $scope.show = function () {
-                    if ($scope.showDropdown()) {
-                        return $scope.showDropdown();
-                    }
-                    else {
-                        return true;
-                    }
-                };
-            }]
-        };
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
 var pip;
 (function (pip) {
     var nav;
@@ -1222,6 +1177,169 @@ var pip;
             .directive('pipLanguagePicker', languagePickerDirective);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
+    thisModule.directive('pipDropdown', ['$mdMedia', function ($mdMedia) {
+        return {
+            restrict: 'E',
+            scope: {
+                ngDisabled: '&',
+                actions: '=pipActions',
+                showDropdown: '&pipShow',
+                activeIndex: '=pipActiveIndex',
+                select: '=pipDropdownSelect'
+            },
+            templateUrl: 'dropdown/dropdown.html',
+            controller: ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
+                // Todo: Remove dependency on local storage or make it optional
+                $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+                $scope.$mdMedia = $mdMedia;
+                $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
+                $scope.activeIndex = $scope.activeIndex || 0;
+                $scope.disabled = function () {
+                    if ($scope.ngDisabled()) {
+                        return $scope.ngDisabled();
+                    }
+                    else {
+                        return false;
+                    }
+                };
+                $scope.onSelect = function (index) {
+                    $scope.activeIndex = index;
+                    if ($scope.select) {
+                        $scope.select($scope.actions[index], $scope.activeIndex);
+                    }
+                };
+                $scope.show = function () {
+                    if ($scope.showDropdown()) {
+                        return $scope.showDropdown();
+                    }
+                    else {
+                        return true;
+                    }
+                };
+            }]
+        };
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
+    // Main application nav-header directive
+    thisModule.directive('pipNavHeader', function () {
+        return {
+            restrict: 'EA',
+            scope: {
+                title: '=pipTitle',
+                subtitle: '=pipSubTitle',
+                imageUrl: '=pipImage',
+                imageCss: '=pipImageCss'
+            },
+            replace: false,
+            templateUrl: 'nav_header/nav_header.html',
+            controller: 'pipNavHeaderController'
+        };
+    });
+    thisModule.controller('pipNavHeaderController', ['$scope', '$element', '$rootScope', '$timeout', 'pipNavHeader', function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
+        var image = null, imageBlock = $element.find('.pip-nav-header-user'), $image;
+        // Apply class and call resize
+        $element.addClass('pip-nav-header');
+        $rootScope.$on('pipIdentityChanged', onIdentityChanged);
+        $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
+        $scope.onUserClick = onUserClick;
+        $timeout(function () {
+            $image = $element.find('.pip-nav-header-user-image');
+            onIdentityChanged();
+            $image.load(function ($event) {
+                image = $($event.target);
+                setImageMarginCSS(imageBlock, image);
+            });
+        }, 10);
+        return;
+        //------------------------
+        function setImageMarginCSS(container, image) {
+            var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
+            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
+                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
+                cssParams['margin-left'] = '' + margin + 'px';
+                cssParams['height'] = '' + containerHeight + 'px';
+                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
+                cssParams['margin-top'] = '';
+            }
+            else {
+                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
+                cssParams['margin-top'] = '' + margin + 'px';
+                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
+                cssParams['width'] = '' + containerWidth + 'px';
+                cssParams['margin-left'] = '';
+            }
+            image.css(cssParams);
+        }
+        ;
+        function onIdentityChanged() {
+            var url, config = pipNavHeader.config();
+            url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
+            if (url) {
+                console.log('url', url);
+                $image.attr('src', url);
+            }
+            else {
+                console.log('display none');
+                imageBlock.css('display', 'none');
+            }
+        }
+        function onUserClick() {
+            $rootScope.$broadcast('pipNavUserClicked');
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNavHeader.Service', []);
+    thisModule.provider('pipNavHeader', function () {
+        var config = {
+            // Image url
+            defaultImageUrl: null,
+        };
+        this.config = getConfig;
+        this.clear = clear;
+        this.image = setImage;
+        // Get the service instance
+        this.$get = ['$rootScope', function ($rootScope) {
+            return {
+                config: getConfig,
+                image: showImage
+            };
+            // ----------------------
+            function showImage(imageUrl) {
+                console.log('showImage', imageUrl);
+                setImage(imageUrl);
+                sendConfigEvent();
+            }
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipNavHeaderImageChanged', config);
+            }
+        }];
+        function getConfig() {
+            return config;
+        }
+        // Show navigation icon
+        function clear() {
+            config.defaultImageUrl = null;
+        }
+        function setImage(imageUrl) {
+            config.defaultImageUrl = imageUrl;
+        }
+    });
+})();
 
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
@@ -1383,120 +1501,6 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
-    // Main application nav-header directive
-    thisModule.directive('pipNavHeader', function () {
-        return {
-            restrict: 'EA',
-            scope: {
-                title: '=pipTitle',
-                subtitle: '=pipSubTitle',
-                imageUrl: '=pipImage',
-                imageCss: '=pipImageCss'
-            },
-            replace: false,
-            templateUrl: 'nav_header/nav_header.html',
-            controller: 'pipNavHeaderController'
-        };
-    });
-    thisModule.controller('pipNavHeaderController', ['$scope', '$element', '$rootScope', '$timeout', 'pipNavHeader', function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
-        var image = null, imageBlock = $element.find('.pip-nav-header-user'), $image;
-        // Apply class and call resize
-        $element.addClass('pip-nav-header');
-        $rootScope.$on('pipIdentityChanged', onIdentityChanged);
-        $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-        $scope.onUserClick = onUserClick;
-        $timeout(function () {
-            $image = $element.find('.pip-nav-header-user-image');
-            onIdentityChanged();
-            $image.load(function ($event) {
-                image = $($event.target);
-                setImageMarginCSS(imageBlock, image);
-            });
-        }, 10);
-        return;
-        //------------------------
-        function setImageMarginCSS(container, image) {
-            var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
-            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
-                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
-                cssParams['margin-left'] = '' + margin + 'px';
-                cssParams['height'] = '' + containerHeight + 'px';
-                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
-                cssParams['margin-top'] = '';
-            }
-            else {
-                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
-                cssParams['margin-top'] = '' + margin + 'px';
-                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
-                cssParams['width'] = '' + containerWidth + 'px';
-                cssParams['margin-left'] = '';
-            }
-            image.css(cssParams);
-        }
-        ;
-        function onIdentityChanged() {
-            var url, config = pipNavHeader.config();
-            url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
-            if (url) {
-                console.log('url', url);
-                $image.attr('src', url);
-            }
-            else {
-                console.log('display none');
-                imageBlock.css('display', 'none');
-            }
-        }
-        function onUserClick() {
-            $rootScope.$broadcast('pipNavUserClicked');
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipNavHeader.Service', []);
-    thisModule.provider('pipNavHeader', function () {
-        var config = {
-            // Image url
-            defaultImageUrl: null,
-        };
-        this.config = getConfig;
-        this.clear = clear;
-        this.image = setImage;
-        // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {
-            return {
-                config: getConfig,
-                image: showImage
-            };
-            // ----------------------
-            function showImage(imageUrl) {
-                console.log('showImage', imageUrl);
-                setImage(imageUrl);
-                sendConfigEvent();
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipNavHeaderImageChanged', config);
-            }
-        }];
-        function getConfig() {
-            return config;
-        }
-        // Show navigation icon
-        function clear() {
-            config.defaultImageUrl = null;
-        }
-        function setImage(imageUrl) {
-            config.defaultImageUrl = imageUrl;
-        }
-    });
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
     var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
     // Main application navmenu directive
     thisModule.directive('pipNavMenu', function () {
@@ -1518,6 +1522,7 @@ var pip;
         $scope.itemVisible = itemVisible;
         $scope.onLinkClick = onLinkClick;
         $scope.isSectionEmpty = isSectionEmpty;
+        console.log('pipNavMenuController', $scope.config);
         return;
         //------------------------
         function itemVisible(item) {
@@ -1594,7 +1599,8 @@ var pip;
         this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
             return {
                 get: getConfig,
-                set: setConfig
+                set: setConfig,
+                setCounter: setCounter
             };
             //---------------------
             function getConfig() {
@@ -1604,6 +1610,20 @@ var pip;
                 init(newConfig);
                 $rootScope.$broadcast('pipNavMenuChanged', config);
                 return config;
+            }
+            function setCounter(linkTitle, counter) {
+                var item;
+                item = _.find(config, function (section) {
+                    console.log('section', section);
+                    var ss = _.find(section.links, { title: linkTitle });
+                    console.log('ss', ss);
+                    if (ss) {
+                        return ss;
+                    }
+                    else
+                        return false;
+                });
+                console.log('setCounter', config, item);
             }
         }];
         // function validateConfig(sections) {
@@ -1626,8 +1646,10 @@ var pip;
         function init(newConfig) {
             // if (pipDebugProvider.enabled()) 
             //     validateConfig(newConfig);
+            console.log('newConfig', newConfig);
             if (_.isArray(newConfig))
                 config = newConfig;
+            console.log('config config', config);
             return config;
         }
         ;
@@ -1932,6 +1954,7 @@ var pip;
             if (_.isObject(parts)) {
                 config.parts = parts;
             }
+            console.log('initParts', parts);
             return config.parts;
         }
     });

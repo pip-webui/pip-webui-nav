@@ -33,6 +33,8 @@
             $scope.onLinkClick = onLinkClick;
             $scope.isSectionEmpty = isSectionEmpty;
 
+            console.log('pipNavMenuController', $scope.config);
+
             return;
             
             //------------------------
