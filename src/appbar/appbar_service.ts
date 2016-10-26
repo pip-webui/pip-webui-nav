@@ -12,7 +12,8 @@
             cssClass: '',
             ngClasses: {},
             // Parts of the appbar
-            parts: {}
+            parts: {},
+            showAppBar: true
         };
 
         // Configure global parameters
@@ -28,6 +29,8 @@
                 part: getOrSetPart,
                 parts: getOrSetParts,
                 
+                show: showAppBar,
+                hide: hideAppBar,
                 showShadow: showShadow,
                 showShadowSm: showShadowSm,
                 showShadowSmXs: showShadowSmXs,
@@ -48,6 +51,18 @@
                 }
 
                 return config.cssClass;
+            }
+
+            // Show, show appbar 
+            function showAppBar() {
+                config.showAppBar = true;
+                sendConfigEvent();
+            }
+
+            // Show, hide appbar 
+            function hideAppBar() {
+                config.showAppBar = false;
+                sendConfigEvent();
             }
 
             // Show, hide appbar shadow

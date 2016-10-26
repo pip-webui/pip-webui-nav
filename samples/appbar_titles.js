@@ -17,11 +17,15 @@
                     SHOW_LOGO: 'Show logo',
                     SHOW_TEXT: 'Show title text',
                     SHOW_BREADCRUMB: 'Show breadcrumbs',
+                    SHOW_APPBAR: 'Show appBar',
+                    HIDE_APPBAR: 'Hide appBar'
                 });
                     pipTranslate.setTranslations('ru', {
                         SHOW_LOGO: 'Отобразить логотип',
                         SHOW_TEXT: 'Отобразить текст заголовка',
-                        SHOW_BREADCRUMB: 'Отобразить breadcrumbs'
+                        SHOW_BREADCRUMB: 'Отобразить breadcrumbs',
+                        SHOW_APPBAR: 'Показать appBar',
+                        HIDE_APPBAR: 'Скрыть appBar'                        
                     });
 
             }
@@ -31,6 +35,14 @@
                 pipAppBar.part('logo', true);
                 pipAppBar.part('icon', false);
                 pipAppBar.part('title', false);
+            };
+
+            $scope.onShowAppBar = function () {
+                pipAppBar.show();
+            };
+
+            $scope.onHideAppBar = function () {
+                pipAppBar.hide();
             };
 
             $scope.onShowTitleText = function () {
