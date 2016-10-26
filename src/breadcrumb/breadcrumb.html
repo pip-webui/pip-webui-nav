@@ -8,6 +8,7 @@
             ng-repeat-start="item in vm.config.items"
             ng-click="vm.onBreadcrumbClick(item)"
             ng-init="stepWidth = 100/(vm.config.items.length + 1)"
+            ng-class="{'cursor-pointer': !$last}"
             ng-style="{'max-width': stepWidth + '%'}">
             {{item.title | translate}}
         </span>
