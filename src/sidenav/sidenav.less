@@ -41,7 +41,10 @@
 @sidenav-small-width: 72px;
 @sidenav-width-sm: 300px;
 @sidenav-small-width-sm: 56px;
-
+@sidenav-bg: #e0e0e0;
+@sidenav-selected-item-bg: rgba(0, 0, 0, 0.08);
+@sidenav-border: solid 1px #ffffff; // border right
+ 
 // @sidenav-padding: 24px;
 // @sidenav-party-size: 80px;
 // @sidenav-user-size: 50px;
@@ -49,108 +52,78 @@
 // @sidenav-width-sm: 300px;
 // @sidenav-padding-sm: 16px;
 
+.pip-sidenav.pip-nav-small {
+	width: @sidenav-small-width !important;
+	overflow-x: hidden;
+
+    md-sidenav {
+        width: @sidenav-small-width !important;
+        min-width: @sidenav-small-width !important;
+        max-width: @sidenav-small-width !important;
+    }
+}	
 
 .pip-sidenav {
-
-//   md-list-item .md-button {
-// 	.md-list-item-inner {
-// 	  line-height: 48px;
-// 	}
-//   }
-
-//   md-list {
-// 	.md-subheader {
-// 	  line-height: 48px;
-// 	  .md-subheader-inner {
-// 		padding: 24px;
-// 		padding-top: 0px;
-// 		padding-bottom: 0px;
-// 	  }
-// 	}
-
-// 	.pip-section {
-// 	  padding-bottom: 8px;
-// 	  md-divider {
-// 		margin-bottom: 8px;
-// 	  }
-// 	}
-//   }
-
-//   .pip-sidenav-header {
-//         position: relative;
-// 		padding-top: 102px;
-// 	  	min-height: 164px !important;
-// 		padding-bottom: @sidenav-padding-sm;
-// 		padding-left: @sidenav-padding;
-// 		padding-right: @sidenav-padding;
-
-// 	  	&.pip-sidenav-owner {
-// 		  min-height: 144px !important;
-// 		}
-
-// 		.pip-sidenav-party {
-// 			display: inline-block;
-// 			position: absolute;
-// 			top: @sidenav-padding-sm;
-// 			left: @sidenav-padding;
-// 			min-width: initial;
-// 			width: @sidenav-party-size;
-// 			height: @sidenav-party-size;
-// 			margin: 0px;
-// 			padding: 0px;
-	
-// 			// pip-avatar {
-// 			// 	.circle(@sidenav-party-size);
-// 			// }
-// 		}
-	
-// 		.pip-sidenav-user {
-// 			display: inline-block;
-// 			position: absolute;
-// 			top: @sidenav-padding-sm;
-// 			right: @sidenav-padding;
-// 			width: @sidenav-user-size;
-// 			min-width: initial;
-// 			height: @sidenav-user-size;
-// 			margin: 0px;
-// 			padding: 0px;
-	
-// 			// pip-avatar {
-// 			// 	.circle(@sidenav-user-size);
-// 			// }
-// 		}
-//     }
-
-//     .pip-sidenav-party-text {
-//         .pip-sidenav-party-pri {
-//             display: block;
-//             font-size: @sidenav-party-font-size;
-//             text-decoration: none;
-//             color: @sidenav-party-color;
-//             letter-spacing: @sidenav-party-font-letter-spacing;
-//             //font-family: @sidenav-party-font-family;
-// 		  	word-wrap: break-word;
-
-//             &:hover, &:focus {
-// 				color: @sidenav-party-color;
-// 				text-decoration: none;
-// 			}
-//         }
-
-//         .pip-sidenav-party-sec {
-//             font-size: @sidenav-party-info-font-size;
-//             .text-overflow();
-//             //font-family: @sidenav-party-info-font-family;
-//         }
-//     }
-    
-
-	// md-list-item .md-button {
-	// 	padding-left: @sidenav-padding;
-	// 	padding-right: @sidenav-padding;
-	// 	border-radius: 0;
-	// }	
+    -webkit-transition: width .2s ease;
+    -moz-transition: width .2s ease;
+    -o-transition: width .2s ease;
+    transition: width .2s ease;
+	width: @sidenav-width;
+	overflow-x: hidden;
+	md-sidenav {
+		background: @sidenav-bg;
+		border-right: solid 1px #ffffff; 		
+        width: @sidenav-width !important;
+        min-width: @sidenav-width !important;
+        max-width: @sidenav-width !important;
+		overflow-x: hidden;
+    }	
 }
+
+
+@media (max-width: 456px) {
+	.pip-sidenav.pip-nav-small {
+		overflow-x: hidden;
+
+		md-sidenav {
+			width: @sidenav-small-width !important;
+			min-width: @sidenav-small-width !important;
+			max-width: @sidenav-small-width !important;
+		}
+	}	
+
+	.pip-sidenav {
+		overflow-x: hidden;
+
+		md-sidenav {
+			width: @sidenav-width !important;
+			min-width: @sidenav-width !important;
+			max-width: @sidenav-width !important;			
+		}	
+	}
+}
+@media (max-width: 768px) {
+	.pip-sidenav.pip-nav-small {
+		overflow-x: hidden;
+
+		md-sidenav {
+			width: @sidenav-small-width !important;
+			min-width: @sidenav-small-width !important;
+			max-width: @sidenav-small-width !important;			
+		}
+	}	
+
+	.pip-sidenav {
+		overflow-x: hidden;
+
+		md-sidenav {
+			width: @sidenav-width !important;
+			min-width: @sidenav-width !important;
+			max-width: @sidenav-width !important;					
+		}	
+	}
+}
+
 
 // @media (max-width: 768px) {
 //    .pip-sidenav {

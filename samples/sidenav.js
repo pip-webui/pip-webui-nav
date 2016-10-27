@@ -6,7 +6,7 @@
         'pipNavMenu', 'pipNavHeader']);
 
     thisModule.controller('SideNavController',
-        function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout,
+        function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
                   $injector, pipNavHeader, pipNavMenu) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -32,6 +32,8 @@
                 });
             }
 
+            $scope.$mdMedia = $mdMedia;
+
             $timeout(function() {
                 $('pre code').each(function(i, block) {
                     Prism.highlightElement(block);
@@ -49,8 +51,8 @@
             $scope.links = [
                 {
                     links: [
-                        {title: 'Dashboard', url: '/dashboard?party_id=:party_id'},
-                        {title: 'About', url: '/about?party_id=:party_id', count: 4}
+                        {title: 'Dashboard', icon: 'icons:list', url: '/dashboard?party_id=:party_id'},
+                        {title: 'About', icon: 'icons:person', url: '/about?party_id=:party_id', count: 4}
                     ]
                 },
                 {
@@ -58,14 +60,14 @@
                     links: [
                         {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
                         {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id', count: 25},
-                        {title: 'Events', icon: 'icons:star', url: '/ultimate_todo?party_id=:party_id'}
+                        {title: 'Events', icon: 'icons:action', url: '/ultimate_todo?party_id=:party_id'}
                     ]
                 },
                 {
                     links: [
-                        {title: 'Help', url: '/help'},
-                        {title: 'Support', url: '/support?party_id=:user_id'},
-                        {title: 'Settings', url: '/settings?party_id=:party_id', count: 25}
+                        {title: 'Help', icon: 'icons:help', url: '/help'},
+                        {title: 'Support', icon: 'icons:phone', url: '/support?party_id=:user_id'},
+                        {title: 'Settings', icon: 'icons:star', url: '/settings?party_id=:party_id', count: 25}
                     ]
                 }
             ];

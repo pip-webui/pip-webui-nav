@@ -66,7 +66,7 @@
             }
 
             function open(event) {
-                $mdSidenav('pip-sidenav').open();
+                $mdSidenav('pip-sidenav md-is-locked-open').open();
             }
                  
             function close(event) {

@@ -1,6 +1,8 @@
 
-<pip-sidenav class="">
-    <pip-nav-header pip-title="user.fullName" 
+<div class="layout-row">
+<pip-sidenav ng-class="{'flex-fixed': $mdMedia('gt-xs')}">
+    <pip-nav-header 
+                    pip-title="user.fullName" 
                     pip-sub-title="user.details" 
                     pip-image="user.imageUrl"></pip-nav-header>
     <pip-nav-menu pip-links="links"></pip-nav-menu>
@@ -14,3 +16,4 @@
         <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">{{ 'TOGGLE' | translate }} Side Nav</md-button>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onRefreshCounter()">{{ 'REFRESH_COUNTER' | translate }} Side Nav</md-button>
     </div>
+</div>

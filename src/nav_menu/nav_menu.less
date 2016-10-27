@@ -33,6 +33,19 @@
 }
 
 .pip-nav-menu {
+    width: @sidenav-width;
+    overflow-x: hidden;
+        .pip-nav-menu-expander {
+            opacity: 1px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
+        }
+
+        .pip-nav-menu-title {
+            opacity: 1px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
+        }
 
     .md-subheader {
         line-height: 48px;
@@ -55,7 +68,7 @@
             .pip-nav-menu-icon {
                 margin-top: 12px;
                 margin-bottom: 12px;
-                margin-right: 32px;
+                margin-right: 24px;
             }
           }
         } 
@@ -96,8 +109,8 @@
 @media (max-width: 768px) {
     .pip-nav-expanded-button {
         height: 48px;
-        padding-left: @nav-menu-padding-sm !important;
-        padding-right: @nav-menu-padding-sm !important;;
+        // padding-left: @nav-menu-padding-sm !important;
+        // padding-right: @nav-menu-padding-sm !important;;
     }
    .pip-nav-menu {
        .pip-nav-menu-item {
@@ -131,11 +144,9 @@
 }
 
 .pip-nav-small {
-    md-sidenav {
-        width: @sidenav-small-width !important;
-    }
-
     .pip-nav-menu {   
+        width: @sidenav-small-width !important;
+
         .pip-nav-menu-badge {
             position: absolute;
             top: 5px;
@@ -144,10 +155,16 @@
 
         .pip-nav-menu-expander {
             display: none;
+            opacity: 0px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
         }
 
         .pip-nav-menu-title {
             display: none;
+            opacity: 0px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
         }
 
        .pip-nav-menu-item {
@@ -168,3 +185,4 @@
         } 
     }
 }
+
