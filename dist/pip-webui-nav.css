@@ -389,8 +389,8 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-breadcrumb .cursor-pointer {
   cursor: pointer !important;
 }
-.pip-nav-menu md-list-item .md-button .md-list-item-inner {
-  line-height: 48px;
+.pip-nav-expanded-button .md-button .pip-nav-menu-icon {
+  margin-left: 0px;
 }
 .pip-nav-menu .md-subheader {
   line-height: 48px;
@@ -406,7 +406,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-nav-menu .pip-section md-divider {
   margin-bottom: 8px;
 }
-.pip-nav-menu .pip-section md-list-item.pip-nav-menu-item .md-list-item-inner .pip-nav-menu-icon {
+.pip-nav-menu .pip-nav-menu-item .md-list-item-inner .pip-nav-menu-icon {
   margin-top: 12px;
   margin-bottom: 12px;
   margin-right: 32px;
@@ -421,6 +421,9 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.pip-nav-menu .pip-nav-menu-item .md-button .md-list-item-inner {
+  line-height: 48px;
+}
 .pip-nav-menu .pip-nav-menu-badge {
   font-size: 12px !important;
   min-width: 22px !important;
@@ -433,6 +436,11 @@ md-select md-select-value .md-text .pip-tabs-badge {
   background: red;
 }
 @media (max-width: 768px) {
+  .pip-nav-expanded-button {
+    height: 48px;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
   .pip-nav-menu .pip-nav-menu-item .md-button {
     padding-left: 16px;
     padding-right: 16px;

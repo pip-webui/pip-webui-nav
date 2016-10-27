@@ -7,6 +7,7 @@
 
     thisModule.provider('pipNavMenu', function (): any {
         var config = [];
+        var collapsed = true;
 
         this.sections = init;
 
@@ -14,15 +15,25 @@
             return {
                 get: getConfig,
                 set: setConfig,
-                setCounter: setCounter
+                setCounter: setCounter,
+                collapsed: setCollapsed
             };
             
             //---------------------
 
             function getConfig() {
-                
+
                 return config;  
             }
+
+            function setCollapsed(value: boolean) {
+                if (value !== undefined) {
+                    collapsed = value;
+                }
+
+                return collapsed;
+            }
+
                                                         
             function setConfig(newConfig) {
                 init(newConfig);
@@ -50,8 +61,9 @@
         };
 
         function init(newConfig) {
-            if (_.isArray(newConfig))
+            if (_.isArray(newConfig)) {
                 config = newConfig;
+            }
 
             return config;
         };

@@ -24,14 +24,15 @@
 @nav-menu-padding: 24px;
 @nav-menu-padding-sm: 16px;
 
-
-.pip-nav-menu {
-
-    md-list-item .md-button {
-        .md-list-item-inner {
-            line-height: 48px;
+.pip-nav-expanded-button {
+    .md-button {
+        .pip-nav-menu-icon {
+            margin-left: 0px;
         }
     }
+}
+
+.pip-nav-menu {
 
     .md-subheader {
         line-height: 48px;
@@ -47,8 +48,9 @@
         md-divider {
             margin-bottom: 8px;
         }
+    }
 
-        md-list-item.pip-nav-menu-item {
+        .pip-nav-menu-item {
           .md-list-item-inner {  
             .pip-nav-menu-icon {
                 margin-top: 12px;
@@ -56,9 +58,8 @@
                 margin-right: 32px;
             }
           }
-        }        
-    }
-    
+        } 
+
     .pip-nav-menu-item {
         .md-button {
             padding-left: @nav-menu-padding !important;
@@ -71,6 +72,10 @@
             -moz-background-clip:    padding;
             -webkit-background-clip: padding-box;
             background-clip:         padding-box;
+
+            .md-list-item-inner {
+                line-height: 48px;
+            }
         }
 	}	
 
@@ -89,6 +94,11 @@
 }
 
 @media (max-width: 768px) {
+    .pip-nav-expanded-button {
+        height: 48px;
+        padding-left: @nav-menu-padding-sm !important;
+        padding-right: @nav-menu-padding-sm !important;;
+    }
    .pip-nav-menu {
        .pip-nav-menu-item {
           .md-button {

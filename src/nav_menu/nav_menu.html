@@ -1,7 +1,11 @@
 <md-list>
+    <md-list-item class="pip-focusable no-border pip-nav-menu-item pip-nav-expanded-button" ng-click="onExpand()">
+        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-nav-menu-icon"></md-icon>
+        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-nav-menu-icon"></md-icon>
+    </md-list-item>    
     <div class="pip-section" ng-repeat="section in config"
         ng-hide="section.access && !section.access(section)">
-        
+
         <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
         <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>
         
