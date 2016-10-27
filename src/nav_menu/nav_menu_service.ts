@@ -20,29 +20,45 @@
             //---------------------
 
             function getConfig() {
+                
                 return config;  
             }
                                                         
             function setConfig(newConfig) {
                 init(newConfig);
                 $rootScope.$broadcast('pipNavMenuChanged', config);
+
                 return config;  
             }
 
-            function setCounter(linkTitle, counter) {
-                var item: any;
+            function setCounter(linkTitle: string, counter: number) {
+                if (!linkTitle || !angular.isNumber(counter)) { return; }
 
-                item = _.find(config, function(section) {
-                    console.log('section', section);
-                    var ss = _.find(section.links, {title: linkTitle});
-console.log('ss', ss);
-                    if (ss) {
-                        return ss;
-                    } else return false;
+                let section: any, menuItem: any;
+
+                section = _.find(config, function(s) {
+                    let item = _.find(s.links, {title: linkTitle});
+                    if (item) {
+                        return item;
+                    } else { return false };
                 });
-                console.log('setCounter', config, item);
+
+                menuItem = _.find(section.links, {title: linkTitle});
+                menuItem.count = counter;
+                setConfig(config);
             }
         };
+
+        function init(newConfig) {
+            if (_.isArray(newConfig))
+                config = newConfig;
+
+            return config;
+        };
+    });
+
+})();
+
 
         // function validateConfig(sections) {
         //     pipAssertProvider.isArray(sections, 'pipNavMenuProvider.config or pipNavMenu.config: sections should be an array');
@@ -61,18 +77,3 @@ console.log('ss', ss);
         //         }
         //     });
         // }
-
-
-
-        function init(newConfig) {
-            // if (pipDebugProvider.enabled()) 
-            //     validateConfig(newConfig);
-console.log('newConfig', newConfig);
-            if (_.isArray(newConfig))
-                config = newConfig;
-console.log('config config', config);
-            return config;
-        };
-    });
-
-})();

@@ -197,6 +197,25 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dropdown/dropdown.html',
+    '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
+    '    <div class="pip-divider"></div>\n' +
+    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
+    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
+    '                {{ (action.title || action.name) | translate }}\n' +
+    '            </md-option>\n' +
+    '        </md-select>\n' +
+    '</md-toolbar>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('language_picker/language_picker.html',
     '<md-menu md-position-mode="target-right target">\n' +
     '    <span class="pip-language"\n' +
@@ -212,25 +231,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-menu-content>\n' +
     '</md-menu>\n' +
     '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dropdown/dropdown.html',
-    '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
-    '    <div class="pip-divider"></div>\n' +
-    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
-    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
-    '                {{ (action.title || action.name) | translate }}\n' +
-    '            </md-option>\n' +
-    '        </md-select>\n' +
-    '</md-toolbar>');
 }]);
 })();
 
@@ -262,6 +262,40 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '            <div class="flex"></div>\n' +
+    '            <div class="pip-nav-menu-badge xxcolor-badge-bg" ng-if="link.count">\n' +
+    '                 {{link.count}} \n' +
+    '            </div>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();
@@ -309,29 +343,15 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '            <div class="flex"></div>\n' +
-    '            <div class="pip-nav-menu-badge xxcolor-badge-bg" ng-if="link.count">\n' +
-    '                 {{link.count}} \n' +
-    '            </div>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
+  $templateCache.put('sidenav/sidenav.html',
+    '<!--\n' +
+    '@file Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
+    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
     '');
 }]);
 })();
@@ -367,26 +387,6 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/sidenav.html',
-    '<!--\n' +
-    '@file Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
-    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
     '');
 }]);
 })();
@@ -1118,6 +1118,55 @@ var pip;
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
+    thisModule.directive('pipDropdown', ['$mdMedia', function ($mdMedia) {
+        return {
+            restrict: 'E',
+            scope: {
+                ngDisabled: '&',
+                actions: '=pipActions',
+                showDropdown: '&pipShow',
+                activeIndex: '=pipActiveIndex',
+                select: '=pipDropdownSelect'
+            },
+            templateUrl: 'dropdown/dropdown.html',
+            controller: ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
+                // Todo: Remove dependency on local storage or make it optional
+                $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+                $scope.$mdMedia = $mdMedia;
+                $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
+                $scope.activeIndex = $scope.activeIndex || 0;
+                $scope.disabled = function () {
+                    if ($scope.ngDisabled()) {
+                        return $scope.ngDisabled();
+                    }
+                    else {
+                        return false;
+                    }
+                };
+                $scope.onSelect = function (index) {
+                    $scope.activeIndex = index;
+                    if ($scope.select) {
+                        $scope.select($scope.actions[index], $scope.activeIndex);
+                    }
+                };
+                $scope.show = function () {
+                    if ($scope.showDropdown()) {
+                        return $scope.showDropdown();
+                    }
+                    else {
+                        return true;
+                    }
+                };
+            }]
+        };
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
 var pip;
 (function (pip) {
     var nav;
@@ -1177,55 +1226,6 @@ var pip;
             .directive('pipLanguagePicker', languagePickerDirective);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
-    thisModule.directive('pipDropdown', ['$mdMedia', function ($mdMedia) {
-        return {
-            restrict: 'E',
-            scope: {
-                ngDisabled: '&',
-                actions: '=pipActions',
-                showDropdown: '&pipShow',
-                activeIndex: '=pipActiveIndex',
-                select: '=pipDropdownSelect'
-            },
-            templateUrl: 'dropdown/dropdown.html',
-            controller: ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
-                // Todo: Remove dependency on local storage or make it optional
-                $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
-                //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
-                $scope.$mdMedia = $mdMedia;
-                $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
-                $scope.activeIndex = $scope.activeIndex || 0;
-                $scope.disabled = function () {
-                    if ($scope.ngDisabled()) {
-                        return $scope.ngDisabled();
-                    }
-                    else {
-                        return false;
-                    }
-                };
-                $scope.onSelect = function (index) {
-                    $scope.activeIndex = index;
-                    if ($scope.select) {
-                        $scope.select($scope.actions[index], $scope.activeIndex);
-                    }
-                };
-                $scope.show = function () {
-                    if ($scope.showDropdown()) {
-                        return $scope.showDropdown();
-                    }
-                    else {
-                        return true;
-                    }
-                };
-            }]
-        };
-    }]);
-})();
 
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
@@ -1340,6 +1340,177 @@ var pip;
         }
     });
 })();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
+    // Main application navmenu directive
+    thisModule.directive('pipNavMenu', function () {
+        return {
+            restrict: 'EA',
+            scope: {
+                config: '=pipLinks'
+            },
+            replace: false,
+            templateUrl: 'nav_menu/nav_menu.html',
+            controller: 'pipNavMenuController'
+        };
+    });
+    thisModule.controller('pipNavMenuController', ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
+        // Apply class and call resize
+        $element.addClass('pip-nav-menu');
+        console.log('pipNavMenu.setConfig1', _.cloneDeep($scope.config));
+        $scope.config = $scope.config || pipNavMenu.get();
+        console.log('pipNavMenu.setConfig2', _.cloneDeep($scope.config));
+        pipNavMenu.set($scope.config);
+        console.log('pipNavMenu.setConfig3', _.cloneDeep($scope.config));
+        $rootScope.$on('pipNavMenuChanged', onConfigChanged);
+        $scope.itemVisible = itemVisible;
+        $scope.onLinkClick = onLinkClick;
+        $scope.isSectionEmpty = isSectionEmpty;
+        console.log('pipNavMenuController', $scope.config);
+        return;
+        //------------------------
+        function itemVisible(item) {
+            return item && item.access && !item.access(item);
+        }
+        function isSectionEmpty(linkCollection) {
+            var result = true;
+            _.each(linkCollection, function (link) {
+                if (!itemVisible(link))
+                    result = false;
+            });
+            return result;
+        }
+        function onConfigChanged(event, config) {
+            console.log('pipNavMenu.setConfig4', _.cloneDeep($scope.config));
+            $scope.config = config;
+        }
+        function onLinkClick(event, link) {
+            event.stopPropagation();
+            if (!link) {
+                pipSideNav.close();
+                return;
+            }
+            if (link.href) {
+                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
+                    pipSideNav.close();
+                    return;
+                }
+                pipSideNav.close();
+                $timeout(function () {
+                    $window.location.href = link.href;
+                }, 300);
+                return;
+            }
+            else if (link.url) {
+                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
+                    pipSideNav.close();
+                    return;
+                }
+                pipSideNav.close();
+                $timeout(function () {
+                    $location.url(link.url);
+                }, 300);
+                return;
+            }
+            else if (link.state) {
+                var $state = $injector.has('$state') ? $injector.get('$state') : null;
+                if ($state != null && $state.current.name === link.state) {
+                    pipSideNav.close();
+                    return;
+                }
+                pipSideNav.close();
+                $timeout(function () {
+                    if ($injector.has('$state')) {
+                        var $state = $injector.get('$state');
+                        $state.go(link.state, link.stateParams);
+                    }
+                }, 300);
+                return;
+            }
+            else if (link.event)
+                $rootScope.$broadcast(link.event, link);
+            pipSideNav.close();
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNavMenu.Service', []);
+    thisModule.provider('pipNavMenu', function () {
+        var config = [];
+        this.sections = init;
+        this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
+            return {
+                get: getConfig,
+                set: setConfig,
+                setCounter: setCounter
+            };
+            //---------------------
+            function getConfig() {
+                return config;
+            }
+            function setConfig(newConfig) {
+                console.log('setConfig newConfig', _.cloneDeep(newConfig));
+                init(newConfig);
+                console.log('setConfig config', _.cloneDeep(config));
+                $rootScope.$broadcast('pipNavMenuChanged', config);
+                return config;
+            }
+            function setCounter(linkTitle, counter) {
+                if (!linkTitle || !angular.isNumber(counter)) {
+                    return;
+                }
+                var section, menuItem;
+                section = _.find(config, function (s) {
+                    console.log('section', s);
+                    var item = _.find(s.links, { title: linkTitle });
+                    console.log('ss', item);
+                    if (item) {
+                        return item;
+                    }
+                    else
+                        return false;
+                });
+                menuItem = _.find(section.links, { title: linkTitle });
+                menuItem.count = counter;
+                console.log('setCounter', config, menuItem);
+                setConfig(config);
+            }
+        }];
+        function init(newConfig) {
+            // if (pipDebugProvider.enabled()) 
+            //     validateConfig(newConfig);
+            console.log('init', newConfig);
+            if (_.isArray(newConfig))
+                config = newConfig;
+            console.log('init config', config);
+            return config;
+        }
+        ;
+    });
+})();
+// function validateConfig(sections) {
+//     pipAssertProvider.isArray(sections, 'pipNavMenuProvider.config or pipNavMenu.config: sections should be an array');
+//     _.each(sections, function (section, number) {
+//         if (section.access) {
+//             pipAssertProvider.isFunction(section.access, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
+//                 + number + " with title " + section.title + ' access should be a function');
+//         }
+//         if (section.links) {
+//             pipAssertProvider.isArray(section.links, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
+//                 + number + " with title " + section.title + ' links should be an array');
+//             _.each(section.links, function (link) {
+//                 if (link.access) pipAssertProvider.isFunction(link.access, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
+//                     + number + " with title " + section.title + ' in link with title ' + link.title + ' access should be a function');
+//             });
+//         }
+//     });
+// }
 
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
@@ -1501,90 +1672,26 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
-    // Main application navmenu directive
-    thisModule.directive('pipNavMenu', function () {
+    var thisModule = angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
+    // Main application sidenav directive
+    thisModule.directive('pipSidenav', function () {
         return {
-            restrict: 'EA',
-            scope: {
-                config: '=pipLinks'
-            },
-            replace: false,
-            templateUrl: 'nav_menu/nav_menu.html',
-            controller: 'pipNavMenuController'
+            restrict: 'E',
+            transclude: true,
+            scope: true,
+            templateUrl: 'sidenav/sidenav.html',
+            controller: 'pipSideNavController'
         };
     });
-    thisModule.controller('pipNavMenuController', ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
+    thisModule.controller('pipSideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', function ($scope, $element, $rootScope, pipSideNav) {
         // Apply class and call resize
-        $element.addClass('pip-nav-menu');
-        $scope.config = $scope.config || pipNavMenu.get();
-        $rootScope.$on('pipNavMenuChanged', onConfigChanged);
-        $scope.itemVisible = itemVisible;
-        $scope.onLinkClick = onLinkClick;
-        $scope.isSectionEmpty = isSectionEmpty;
-        console.log('pipNavMenuController', $scope.config);
+        $element.addClass('pip-sidenav');
+        $rootScope.$on('pipNavIconClicked', onNavIconClick);
+        //$rootScope.$on('pipSideNavChanged', onConfigChanged);
         return;
         //------------------------
-        function itemVisible(item) {
-            return item && item.access && !item.access(item);
-        }
-        function isSectionEmpty(linkCollection) {
-            var result = true;
-            _.each(linkCollection, function (link) {
-                if (!itemVisible(link))
-                    result = false;
-            });
-            return result;
-        }
-        function onConfigChanged(event, config) {
-            $scope.config = config;
-        }
-        function onLinkClick(event, link) {
-            event.stopPropagation();
-            if (!link) {
-                pipSideNav.close();
-                return;
-            }
-            if (link.href) {
-                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
-                    pipSideNav.close();
-                    return;
-                }
-                pipSideNav.close();
-                $timeout(function () {
-                    $window.location.href = link.href;
-                }, 300);
-                return;
-            }
-            else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
-                    pipSideNav.close();
-                    return;
-                }
-                pipSideNav.close();
-                $timeout(function () {
-                    $location.url(link.url);
-                }, 300);
-                return;
-            }
-            else if (link.state) {
-                var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.current.name === link.state) {
-                    pipSideNav.close();
-                    return;
-                }
-                pipSideNav.close();
-                $timeout(function () {
-                    if ($injector.has('$state')) {
-                        var $state = $injector.get('$state');
-                        $state.go(link.state, link.stateParams);
-                    }
-                }, 300);
-                return;
-            }
-            else if (link.event)
-                $rootScope.$broadcast(link.event, link);
-            pipSideNav.close();
+        function onNavIconClick(event) {
+            pipSideNav.open();
         }
     }]);
 })();
@@ -1592,67 +1699,117 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipNavMenu.Service', []);
-    thisModule.provider('pipNavMenu', function () {
-        var config = [];
-        this.sections = init;
+    var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
+    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
+    thisModule.directive('pipSidenavPart', ['ngIfDirective', function (ngIfDirective) {
+        var ngIf = ngIfDirective[0];
+        return {
+            transclude: ngIf.transclude,
+            priority: ngIf.priority,
+            terminal: ngIf.terminal,
+            restrict: ngIf.restrict,
+            scope: true,
+            link: function ($scope, $element, $attrs) {
+                // Visualize based on visible variable in scope
+                $attrs.ngIf = function () { return $scope.visible; };
+                ngIf.link.apply(ngIf);
+            },
+            controller: 'pipSideNavPartController'
+        };
+    }]);
+    thisModule.controller('pipSideNavPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav', function ($scope, $element, $attrs, $rootScope, pipSideNav) {
+        var partName = '' + $attrs.pipSidenavPart;
+        var partValue = null;
+        // Break part apart
+        var pos = partName.indexOf(':');
+        if (pos > 0) {
+            partValue = partName.substr(pos + 1);
+            partName = partName.substr(0, pos);
+        }
+        onSideNavChanged(null, pipSideNav.config());
+        $rootScope.$on('pipSideNavChanged', onSideNavChanged);
+        function onSideNavChanged(event, config) {
+            var parts = config.parts || {};
+            var currentPartValue = config[partName];
+            // Set visible variable to switch ngIf
+            $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipSideNav.Service', []);
+    thisModule.provider('pipSideNav', function () {
+        var config = {
+            // Theme to be applied to the header
+            theme: 'default',
+            // Parts of the sidenav
+            parts: []
+        };
+        this.theme = theme;
+        this.parts = initParts;
         this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
+            $rootScope.$on('pipOpenSideNav', open);
+            $rootScope.$on('pipCloseSideNav', close);
             return {
-                get: getConfig,
-                set: setConfig,
-                setCounter: setCounter
+                config: getConfig,
+                //theme: setTheme,
+                part: getOrSetPart,
+                parts: getOrSetParts,
+                open: open,
+                close: close,
+                toggle: toggle
             };
             //---------------------
             function getConfig() {
                 return config;
             }
-            function setConfig(newConfig) {
-                init(newConfig);
-                $rootScope.$broadcast('pipNavMenuChanged', config);
-                return config;
-            }
-            function setCounter(linkTitle, counter) {
-                var item;
-                item = _.find(config, function (section) {
-                    console.log('section', section);
-                    var ss = _.find(section.links, { title: linkTitle });
-                    console.log('ss', ss);
-                    if (ss) {
-                        return ss;
+            function getOrSetPart(name, value) {
+                if (!_.isString(name))
+                    throw new Error("Part name has to be a string");
+                if (value != undefined) {
+                    if (config.parts[name] != value) {
+                        config.parts[name] = value;
+                        sendConfigEvent();
                     }
-                    else
-                        return false;
-                });
-                console.log('setCounter', config, item);
+                }
+                return config.parts[name];
+            }
+            function getOrSetParts(parts) {
+                if (_.isObject(parts)) {
+                    if (!_.isEqual(config.parts, parts)) {
+                        config.parts = parts;
+                        sendConfigEvent();
+                    }
+                }
+                return config.parts;
+            }
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipSideNavChanged', config);
+            }
+            function open(event) {
+                $mdSidenav('pip-sidenav').open();
+            }
+            function close(event) {
+                $mdSidenav('pip-sidenav').close();
+            }
+            function toggle() {
+                $mdSidenav('pip-sidenav').toggle();
             }
         }];
-        // function validateConfig(sections) {
-        //     pipAssertProvider.isArray(sections, 'pipNavMenuProvider.config or pipNavMenu.config: sections should be an array');
-        //     _.each(sections, function (section, number) {
-        //         if (section.access) {
-        //             pipAssertProvider.isFunction(section.access, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
-        //                 + number + " with title " + section.title + ' access should be a function');
-        //         }
-        //         if (section.links) {
-        //             pipAssertProvider.isArray(section.links, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
-        //                 + number + " with title " + section.title + ' links should be an array');
-        //             _.each(section.links, function (link) {
-        //                 if (link.access) pipAssertProvider.isFunction(link.access, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
-        //                     + number + " with title " + section.title + ' in link with title ' + link.title + ' access should be a function');
-        //             });
-        //         }
-        //     });
-        // }
-        function init(newConfig) {
-            // if (pipDebugProvider.enabled()) 
-            //     validateConfig(newConfig);
-            console.log('newConfig', newConfig);
-            if (_.isArray(newConfig))
-                config = newConfig;
-            console.log('config config', config);
-            return config;
+        function theme(theme) {
+            config.theme = theme || config.theme;
+            return config.theme;
         }
-        ;
+        function initParts(parts) {
+            if (_.isObject(parts)) {
+                config.parts = parts;
+            }
+            console.log('initParts', parts);
+            return config.parts;
+        }
     });
 })();
 
@@ -1813,150 +1970,6 @@ var pip;
                 $rootScope.$broadcast('pipSearchChanged', config);
             }
         }];
-    });
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
-    // Main application sidenav directive
-    thisModule.directive('pipSidenav', function () {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: true,
-            templateUrl: 'sidenav/sidenav.html',
-            controller: 'pipSideNavController'
-        };
-    });
-    thisModule.controller('pipSideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', function ($scope, $element, $rootScope, pipSideNav) {
-        // Apply class and call resize
-        $element.addClass('pip-sidenav');
-        $rootScope.$on('pipNavIconClicked', onNavIconClick);
-        //$rootScope.$on('pipSideNavChanged', onConfigChanged);
-        return;
-        //------------------------
-        function onNavIconClick(event) {
-            pipSideNav.open();
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
-    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
-    thisModule.directive('pipSidenavPart', ['ngIfDirective', function (ngIfDirective) {
-        var ngIf = ngIfDirective[0];
-        return {
-            transclude: ngIf.transclude,
-            priority: ngIf.priority,
-            terminal: ngIf.terminal,
-            restrict: ngIf.restrict,
-            scope: true,
-            link: function ($scope, $element, $attrs) {
-                // Visualize based on visible variable in scope
-                $attrs.ngIf = function () { return $scope.visible; };
-                ngIf.link.apply(ngIf);
-            },
-            controller: 'pipSideNavPartController'
-        };
-    }]);
-    thisModule.controller('pipSideNavPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav', function ($scope, $element, $attrs, $rootScope, pipSideNav) {
-        var partName = '' + $attrs.pipSidenavPart;
-        var partValue = null;
-        // Break part apart
-        var pos = partName.indexOf(':');
-        if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
-        }
-        onSideNavChanged(null, pipSideNav.config());
-        $rootScope.$on('pipSideNavChanged', onSideNavChanged);
-        function onSideNavChanged(event, config) {
-            var parts = config.parts || {};
-            var currentPartValue = config[partName];
-            // Set visible variable to switch ngIf
-            $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSideNav.Service', []);
-    thisModule.provider('pipSideNav', function () {
-        var config = {
-            // Theme to be applied to the header
-            theme: 'default',
-            // Parts of the sidenav
-            parts: []
-        };
-        this.theme = theme;
-        this.parts = initParts;
-        this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
-            $rootScope.$on('pipOpenSideNav', open);
-            $rootScope.$on('pipCloseSideNav', close);
-            return {
-                config: getConfig,
-                //theme: setTheme,
-                part: getOrSetPart,
-                parts: getOrSetParts,
-                open: open,
-                close: close,
-                toggle: toggle
-            };
-            //---------------------
-            function getConfig() {
-                return config;
-            }
-            function getOrSetPart(name, value) {
-                if (!_.isString(name))
-                    throw new Error("Part name has to be a string");
-                if (value != undefined) {
-                    if (config.parts[name] != value) {
-                        config.parts[name] = value;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts[name];
-            }
-            function getOrSetParts(parts) {
-                if (_.isObject(parts)) {
-                    if (!_.isEqual(config.parts, parts)) {
-                        config.parts = parts;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts;
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipSideNavChanged', config);
-            }
-            function open(event) {
-                $mdSidenav('pip-sidenav').open();
-            }
-            function close(event) {
-                $mdSidenav('pip-sidenav').close();
-            }
-            function toggle() {
-                $mdSidenav('pip-sidenav').toggle();
-            }
-        }];
-        function theme(theme) {
-            config.theme = theme || config.theme;
-            return config.theme;
-        }
-        function initParts(parts) {
-            if (_.isObject(parts)) {
-                config.parts = parts;
-            }
-            console.log('initParts', parts);
-            return config.parts;
-        }
     });
 })();
 

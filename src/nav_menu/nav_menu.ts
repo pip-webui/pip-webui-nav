@@ -24,16 +24,14 @@
 
             // Apply class and call resize
             $element.addClass('pip-nav-menu');
-
             $scope.config = $scope.config || pipNavMenu.get();
+            pipNavMenu.set($scope.config);
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);
 
             $scope.itemVisible = itemVisible;
             $scope.onLinkClick = onLinkClick;
             $scope.isSectionEmpty = isSectionEmpty;
-
-            console.log('pipNavMenuController', $scope.config);
 
             return;
             
