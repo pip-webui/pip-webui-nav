@@ -11,7 +11,8 @@
        return {
            restrict: 'EA',
            scope: {
-               config: '=pipLinks'
+               config: '=pipLinks',
+               
            },
            replace: false,
            templateUrl: 'nav_menu/nav_menu.html',
