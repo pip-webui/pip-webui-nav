@@ -10,13 +10,16 @@ module pip.nav {
         'pipTabs',
 
         'pipAppBar',
-        'pipSideNav',
         'pipNavIcon',
-        'pipNavMenu',
-        'pipNavHeader',
         'pipBreadcrumb',
         'pipPrimaryActions', 
-        'pipSecondaryActions'
+        'pipSecondaryActions',
+        'pipSideNav',
+        'pipNavMenu',
+        'pipNavHeader',
+        'pipScaleSideNav',
+        'pipScaleNavMenu',
+        'pipScaleNavHeader'
     ]);
     
 }
