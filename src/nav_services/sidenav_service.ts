@@ -96,7 +96,6 @@
         };
 
         function id(id) {
-            console.log('set id', sideNavId);
             sideNavId = id || sideNavId;
 
             return sideNavId;

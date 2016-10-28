@@ -6,17 +6,21 @@
     var thisModule = angular.module('pipNavMenu.Service', []);
 
     thisModule.provider('pipNavMenu', function (): any {
-        var config = [];
-        var collapsed = true;
+        var config = [],
+            collapsed = true,
+            sectionIcon: string;
 
         this.sections = init;
+        this.sectionIcon = setOrGetIcon;
+        this.collapsed = setOrGetCollapsed;
 
         this.$get = function ($rootScope, $mdSidenav) {
             return {
                 get: getConfig,
                 set: setConfig,
                 setCounter: setCounter,
-                collapsed: setCollapsed
+                collapsed: setOrGetCollapsed,
+                icon: setOrGetIcon
             };
             
             //---------------------
@@ -26,15 +30,6 @@
                 return config;  
             }
 
-            function setCollapsed(value: boolean) {
-                if (value !== undefined) {
-                    collapsed = value;
-                }
-
-                return collapsed;
-            }
-
-                                                        
             function setConfig(newConfig) {
                 init(newConfig);
                 $rootScope.$broadcast('pipNavMenuChanged', config);
@@ -59,6 +54,22 @@
                 setConfig(config);
             }
         };
+
+        function setOrGetIcon(value: string) {
+            if (_.isString(value)) {
+                sectionIcon = value;
+            }
+
+            return sectionIcon;
+        }
+
+        function setOrGetCollapsed(value: boolean) {
+            if (value !== undefined) {
+                collapsed = value;
+            }
+
+            return collapsed;
+        }
 
         function init(newConfig) {
             if (_.isArray(newConfig)) {
