@@ -67,6 +67,8 @@
                     ]
                 },
                 {
+                    title: 'Feedback',
+                    icon: 'icons:goal',
                     links: [
                         {title: 'Help', icon: 'icons:help', url: '/help'},
                         {title: 'Support', icon: 'icons:phone', url: '/support?party_id=:user_id'},

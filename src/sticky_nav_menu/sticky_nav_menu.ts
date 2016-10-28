@@ -30,6 +30,8 @@
             setCollapsible();
             $scope.expanded = true;
             pipNavMenu.set($scope.config);
+            // todo set from services
+            $scope.defaultIicon = 'icons:folder';
 
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);

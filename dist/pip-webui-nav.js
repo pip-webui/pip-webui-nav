@@ -273,36 +273,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_icon/nav_icon.html',
     '<md-button class="md-icon-button pip-nav-icon"\n' +
     '            ng-if="config.type != \'none\'"\n' +
@@ -339,15 +309,25 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/sidenav.html',
-    '<!--\n' +
-    '@file Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
-    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();
@@ -383,6 +363,26 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sidenav/sidenav.html',
+    '<!--\n' +
+    '@file Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
+    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
     '');
 }]);
 })();
@@ -436,7 +436,14 @@ module.run(['$templateCache', function($templateCache) {
     '        ng-hide="section.access && !section.access(section)">\n' +
     '\n' +
     '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        <md-subheader ng-show="section.title" style="height: 48px;">\n' +
+    '             <!--|| !expanded && section.icon-->\n' +
+    '            <span ng-if="expanded">\n' +
+    '                {{::section.title | translate}}\n' +
+    '            </span>\n' +
+    '            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
+    '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
+    '        </md-subheader>\n' +
     '        \n' +
     '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" \n' +
     '            ng-repeat="link in section.links"\n' +
@@ -1058,6 +1065,19 @@ var pip;
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNav.Translate', []);
+    thisModule.filter('translate', ['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate')
+            ? $injector.get('pipTranslate') : null;
+        return function (key) {
+            return pipTranslate ? pipTranslate.translate(key) || key : key;
+        };
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="./breadcrumb_service.ts" />
 var pip;
 (function (pip) {
@@ -1225,19 +1245,6 @@ var pip;
             .provider('pipBreadcrumb', BreadcrumbProvider);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipNav.Translate', []);
-    thisModule.filter('translate', ['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate')
-            ? $injector.get('pipTranslate') : null;
-        return function (key) {
-            return pipTranslate ? pipTranslate.translate(key) || key : key;
-        };
-    }]);
-})();
 
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
@@ -1425,96 +1432,6 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
-    // Main application navmenu directive
-    thisModule.directive('pipNavMenu', function () {
-        return {
-            restrict: 'EA',
-            scope: {
-                config: '=pipLinks'
-            },
-            replace: false,
-            templateUrl: 'nav_menu/nav_menu.html',
-            controller: 'pipNavMenuController'
-        };
-    });
-    thisModule.controller('pipNavMenuController', ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
-        // Apply class and call resize
-        $element.addClass('pip-nav-menu');
-        $scope.config = $scope.config || pipNavMenu.get();
-        $rootScope.$on('pipNavMenuChanged', onConfigChanged);
-        $scope.itemVisible = itemVisible;
-        $scope.onLinkClick = onLinkClick;
-        $scope.isSectionEmpty = isSectionEmpty;
-        return;
-        //------------------------
-        function itemVisible(item) {
-            return item && item.access && !item.access(item);
-        }
-        function isSectionEmpty(linkCollection) {
-            var result = true;
-            _.each(linkCollection, function (link) {
-                if (!itemVisible(link))
-                    result = false;
-            });
-            return result;
-        }
-        function onConfigChanged(event, config) {
-            $scope.config = config;
-        }
-        function onLinkClick(event, link) {
-            event.stopPropagation();
-            if (!link) {
-                pipSideNav.close();
-                return;
-            }
-            if (link.href) {
-                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
-                    pipSideNav.close();
-                    return;
-                }
-                pipSideNav.close();
-                $timeout(function () {
-                    $window.location.href = link.href;
-                }, 300);
-                return;
-            }
-            else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
-                    pipSideNav.close();
-                    return;
-                }
-                pipSideNav.close();
-                $timeout(function () {
-                    $location.url(link.url);
-                }, 300);
-                return;
-            }
-            else if (link.state) {
-                var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.current.name === link.state) {
-                    pipSideNav.close();
-                    return;
-                }
-                pipSideNav.close();
-                $timeout(function () {
-                    if ($injector.has('$state')) {
-                        var $state = $injector.get('$state');
-                        $state.go(link.state, link.stateParams);
-                    }
-                }, 300);
-                return;
-            }
-            else if (link.event)
-                $rootScope.$broadcast(link.event, link);
-            pipSideNav.close();
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
     var thisModule = angular.module('pipNavIcon', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavIcon.Service']);
     thisModule.directive('pipNavIcon', function () {
         return {
@@ -1667,6 +1584,96 @@ var pip;
                 config.event = callbackOrEvent;
         }
     });
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
+    // Main application navmenu directive
+    thisModule.directive('pipNavMenu', function () {
+        return {
+            restrict: 'EA',
+            scope: {
+                config: '=pipLinks'
+            },
+            replace: false,
+            templateUrl: 'nav_menu/nav_menu.html',
+            controller: 'pipNavMenuController'
+        };
+    });
+    thisModule.controller('pipNavMenuController', ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
+        // Apply class and call resize
+        $element.addClass('pip-nav-menu');
+        $scope.config = $scope.config || pipNavMenu.get();
+        $rootScope.$on('pipNavMenuChanged', onConfigChanged);
+        $scope.itemVisible = itemVisible;
+        $scope.onLinkClick = onLinkClick;
+        $scope.isSectionEmpty = isSectionEmpty;
+        return;
+        //------------------------
+        function itemVisible(item) {
+            return item && item.access && !item.access(item);
+        }
+        function isSectionEmpty(linkCollection) {
+            var result = true;
+            _.each(linkCollection, function (link) {
+                if (!itemVisible(link))
+                    result = false;
+            });
+            return result;
+        }
+        function onConfigChanged(event, config) {
+            $scope.config = config;
+        }
+        function onLinkClick(event, link) {
+            event.stopPropagation();
+            if (!link) {
+                pipSideNav.close();
+                return;
+            }
+            if (link.href) {
+                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
+                    pipSideNav.close();
+                    return;
+                }
+                pipSideNav.close();
+                $timeout(function () {
+                    $window.location.href = link.href;
+                }, 300);
+                return;
+            }
+            else if (link.url) {
+                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
+                    pipSideNav.close();
+                    return;
+                }
+                pipSideNav.close();
+                $timeout(function () {
+                    $location.url(link.url);
+                }, 300);
+                return;
+            }
+            else if (link.state) {
+                var $state = $injector.has('$state') ? $injector.get('$state') : null;
+                if ($state != null && $state.current.name === link.state) {
+                    pipSideNav.close();
+                    return;
+                }
+                pipSideNav.close();
+                $timeout(function () {
+                    if ($injector.has('$state')) {
+                        var $state = $injector.get('$state');
+                        $state.go(link.state, link.stateParams);
+                    }
+                }, 300);
+                return;
+            }
+            else if (link.event)
+                $rootScope.$broadcast(link.event, link);
+            pipSideNav.close();
+        }
+    }]);
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
@@ -1907,34 +1914,6 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
-    // Main application sidenav directive
-    thisModule.directive('pipSidenav', function () {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: true,
-            templateUrl: 'sidenav/sidenav.html',
-            controller: 'pipSideNavController'
-        };
-    });
-    thisModule.controller('pipSideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', function ($scope, $element, $rootScope, pipSideNav) {
-        // Apply class and call resize
-        $element.addClass('pip-sidenav');
-        pipSideNav.id('pip-sidenav');
-        $rootScope.$on('pipNavIconClicked', onNavIconClick);
-        //$rootScope.$on('pipSideNavChanged', onConfigChanged);
-        return;
-        //------------------------
-        function onNavIconClick(event) {
-            pipSideNav.open();
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
     var thisModule = angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
     thisModule.run(['$injector', function ($injector) {
         var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -2095,6 +2074,34 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
+    var thisModule = angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
+    // Main application sidenav directive
+    thisModule.directive('pipSidenav', function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: true,
+            templateUrl: 'sidenav/sidenav.html',
+            controller: 'pipSideNavController'
+        };
+    });
+    thisModule.controller('pipSideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', function ($scope, $element, $rootScope, pipSideNav) {
+        // Apply class and call resize
+        $element.addClass('pip-sidenav');
+        pipSideNav.id('pip-sidenav');
+        $rootScope.$on('pipNavIconClicked', onNavIconClick);
+        //$rootScope.$on('pipSideNavChanged', onConfigChanged);
+        return;
+        //------------------------
+        function onNavIconClick(event) {
+            pipSideNav.open();
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
     var thisModule = angular.module('pipStickyNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
     // Main application nav-header directive
     thisModule.directive('pipStickyNavHeader', function () {
@@ -2195,6 +2202,8 @@ var pip;
         setCollapsible();
         $scope.expanded = true;
         pipNavMenu.set($scope.config);
+        // todo set from services
+        $scope.defaultIicon = 'icons:folder';
         $rootScope.$on('pipNavMenuChanged', onConfigChanged);
         $scope.itemVisible = itemVisible;
         $scope.onLinkClick = onLinkClick;

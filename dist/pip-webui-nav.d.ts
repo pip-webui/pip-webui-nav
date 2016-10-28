@@ -30,6 +30,8 @@ declare module pip.nav {
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
+
+/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="breadcrumb_service.d.ts" />
 declare module pip.nav {
 }
@@ -57,8 +59,6 @@ declare module pip.nav {
         text: string;
     }
 }
-
-/// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
 
