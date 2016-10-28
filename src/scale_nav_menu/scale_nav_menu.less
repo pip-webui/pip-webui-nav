@@ -1,0 +1,187 @@
+// @file CSS styles for application Navigation Menu component
+// @copyright Digital Living Software Corp. 2014-2016
+
+// Section
+//-------------------------------------------
+
+// @nav-menu-section-font-size:              @font-size-body1;
+// @nav-menu-section-color:                  @color-secondary;
+// @nav-menu-section-font-family:            @font-family;
+// @nav-menu-section-line-height:            1em;
+
+// Link // Kate add
+//-------------------------------------------
+
+// @nav-menu-link-font-size:                 @font-size-body2;
+// @nav-menu-link-color:                     @color-primary;
+// @nav-menu-link-font-family:               @font-family;
+// @nav-menu-link-line-height:               1em;
+
+
+// Sizes
+//-----------
+
+@nav-menu-padding: 24px;
+@nav-menu-padding-sm: 16px;
+
+.pip-scale-nav-expanded-button {
+    .md-button {
+        .pip-scale-nav-menu-icon {
+            margin-left: 0px;
+        }
+    }
+}
+
+.pip-scale-nav-menu {
+    width: @sidenav-width;
+    overflow-x: hidden;
+        .pip-scale-nav-menu-expander {
+            opacity: 1px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
+        }
+
+        .pip-scale-nav-menu-title {
+            opacity: 1px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
+        }
+
+    .md-subheader {
+        line-height: 48px;
+        .md-subheader-inner {
+            padding: 24px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    .pip-section {
+        padding-bottom: 8px;
+        md-divider {
+            margin-bottom: 8px;
+        }
+    }
+
+        .pip-scale-nav-menu-item {
+          .md-list-item-inner {  
+            .pip-scale-nav-menu-icon {
+                margin-top: 12px;
+                margin-bottom: 12px;
+                margin-right: 24px;
+            }
+          }
+        } 
+
+    .pip-scale-nav-menu-item {
+        .md-button {
+            padding-left: @nav-menu-padding !important;
+            padding-right: @nav-menu-padding !important;;
+
+            // .border-radius(0px);
+            -webkit-border-radius: 0px;
+            -moz-border-radius:    0px;
+            border-radius:         0px;
+            -moz-background-clip:    padding;
+            -webkit-background-clip: padding-box;
+            background-clip:         padding-box;
+
+            .md-list-item-inner {
+                line-height: 48px;
+            }
+        }
+	}	
+
+  .pip-scale-nav-menu-badge {
+    font-size: 12px !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    border-radius: 14px;
+    line-height: 22px;
+    vertical-align: middle;
+    text-align: center;
+    color: @color-content;
+    background: red;
+  }    
+
+}
+
+@media (max-width: 768px) {
+    .pip-scale-nav-expanded-button {
+        height: 48px;
+    }
+    
+   .pip-scale-nav-menu {
+       .pip-scale-nav-menu-item {
+          .md-button {
+                padding-left: @nav-menu-padding-sm;
+                padding-right: @nav-menu-padding-sm;
+            }	
+        }
+    }
+
+    .pip-scale-nav-small {
+        md-sidenav {
+            width: @sidenav-small-width-sm !important;
+        }
+        .pip-scale-nav-menu {   
+            .pip-scale-nav-menu-badge {
+                position: absolute;
+                top: 5px;
+                left: 28px;
+            } 
+
+            .pip-scale-nav-menu-item {
+                .md-button {
+                    width: @sidenav-small-width-sm !important;
+                    min-width: @sidenav-small-width-sm !important;
+                    max-width: @sidenav-small-width-sm !important;
+                }
+            }              
+        }
+    }
+}
+
+.pip-scale-nav-small {
+    .pip-scale-nav-menu {   
+        width: @sidenav-small-width !important;
+
+        .pip-scale-nav-menu-badge {
+            position: absolute;
+            top: 5px;
+            left: 32px;
+        }    
+
+        .pip-scale-nav-menu-expander {
+            display: none;
+            opacity: 0px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
+        }
+
+        .pip-scale-nav-menu-title {
+            display: none;
+            opacity: 0px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;    
+        }
+
+       .pip-scale-nav-menu-item {
+          .md-button {
+              width: @sidenav-small-width !important;
+              min-width: @sidenav-small-width !important;
+              max-width: @sidenav-small-width !important;
+          }
+
+          .md-list-item-inner {  
+              width: 24px;
+              min-width: 24px;
+            .pip-scale-nav-menu-icon {
+                margin-right: 0px;
+                margin-left: 0px;
+            }
+          }
+        } 
+    }
+}
+

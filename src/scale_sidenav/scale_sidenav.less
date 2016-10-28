@@ -1,0 +1,77 @@
+// @file CSS styles for application Side Nav component
+// @copyright Digital Living Software Corp. 2014-2016
+
+// Sizes
+//-----------
+
+@sidenav-width: 320px;
+@sidenav-small-width: 72px;
+@sidenav-width-sm: 300px;
+@sidenav-small-width-sm: 56px;
+@sidenav-bg: #e0e0e0;
+@sidenav-selected-item-bg: rgba(0, 0, 0, 0.08);
+@sidenav-border: solid 1px #ffffff;
+
+.pip-scale-sidenav.overflow-visible {
+	overflow: visible!important;
+}
+.pip-scale-sidenav.pip-scale-nav-small {
+    md-sidenav {
+        width: @sidenav-small-width !important;
+        min-width: @sidenav-small-width !important;
+        max-width: @sidenav-small-width !important;
+		border-right: @sidenav-border;
+    }
+}	
+
+.pip-scale-sidenav {
+    -webkit-transition: width .2s ease;
+    -moz-transition: width .2s ease;
+    -o-transition: width .2s ease;
+    transition: width .2s ease;
+
+	md-sidenav {
+		background: @sidenav-bg;
+		border-right: solid 1px #ffffff; 		
+        width: @sidenav-width !important;
+        min-width: @sidenav-width !important;
+        max-width: @sidenav-width !important;
+		overflow-x: hidden;
+    }	
+}
+
+
+@media (max-width: 456px) {
+	.pip-scale-sidenav.pip-scale-nav-small {
+		md-sidenav {
+			width: @sidenav-small-width !important;
+			min-width: @sidenav-small-width !important;
+			max-width: @sidenav-small-width !important;
+		}
+	}	
+
+	.pip-scale-sidenav {
+		md-sidenav {
+			width: @sidenav-width !important;
+			min-width: @sidenav-width !important;
+			max-width: @sidenav-width !important;			
+		}	
+	}
+}
+@media (max-width: 768px) {
+	.pip-scale-sidenav.pip-scale-nav-small {
+		md-sidenav {
+			width: @sidenav-small-width !important;
+			min-width: @sidenav-small-width !important;
+			max-width: @sidenav-small-width !important;			
+		}
+	}	
+
+	.pip-scale-sidenav {
+		md-sidenav {
+			width: @sidenav-width !important;
+			min-width: @sidenav-width !important;
+			max-width: @sidenav-width !important;					
+		}	
+	}
+}

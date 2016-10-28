@@ -2,12 +2,12 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.SideNav', [ 'pipSideNav', 'ngMaterial',
-        'pipNavMenu', 'pipNavHeader']);
+    var thisModule = angular.module('appNav.ScaleSideNav', [ 'pipScaleSideNav', 'ngMaterial',
+        'pipScaleNavMenu', 'pipScaleNavHeader']);
 
-    thisModule.controller('SideNavController',
-        function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
-                  $injector, pipNavHeader, pipNavMenu) {
+    thisModule.controller('ScaleSideNavController',
+        function ($scope, $rootScope, pipScaleSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
+                  $injector, pipScaleNavHeader, pipScaleNavMenu) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
@@ -40,17 +40,19 @@
                 });
             });
 
+            pipScaleNavHeader.image('http://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png');
 
             $scope.user = {
                 fullName: 'Kate Negrienko',
-                details: 'details'
+                details: 'details',
+                imageUrl: 'http://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
             
             $scope.links = [
                 {
                     links: [
-                        {title: 'Dashboard', url: '/dashboard?party_id=:party_id'},
-                        {title: 'About',  url: '/about?party_id=:party_id', count: 4}
+                        {title: 'Dashboard', icon: 'icons:list', url: '/dashboard?party_id=:party_id'},
+                        {title: 'About', icon: 'icons:person', url: '/about?party_id=:party_id', count: 4}
                     ]
                 },
                 {
@@ -78,20 +80,24 @@
                 pipTranslate.use(language);
             };
 
-            $scope.$on('pipSideNavLinkClicked', function (event, link) {
+            $scope.$on('pipScaleSideNavLinkClicked', function (event, link) {
                 console.log('Link ' + link + ' Clicked');// eslint-disable-line
             });
 
             $scope.onOpenSideNav = function () {
-                pipSideNav.open();
+                pipScaleSideNav.open();
             };
 
             $scope.onCloseSideNav = function () {
-                pipSideNav.close();
+                pipScaleSideNav.close();
             };
 
             $scope.onToggleSideNav = function () {
-                pipSideNav.toggle();
+                pipScaleSideNav.toggle();
+            };
+
+            $scope.onRefreshCounter = function () {
+                pipScaleNavMenu.setCounter('Help', 55);
             };
 
         }

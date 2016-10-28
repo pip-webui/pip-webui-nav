@@ -53,13 +53,14 @@
 // @sidenav-padding-sm: 16px;
 
 .pip-sidenav.pip-nav-small {
-	width: @sidenav-small-width !important;
-	overflow-x: hidden;
+	// width: @sidenav-small-width !important;
+	// overflow-x: hidden;
 
     md-sidenav {
         width: @sidenav-small-width !important;
         min-width: @sidenav-small-width !important;
         max-width: @sidenav-small-width !important;
+		border-right: @sidenav-border;
     }
 }	
 
@@ -68,8 +69,8 @@
     -moz-transition: width .2s ease;
     -o-transition: width .2s ease;
     transition: width .2s ease;
-	width: @sidenav-width;
-	overflow-x: hidden;
+	// width: @sidenav-width;
+	// overflow-x: hidden;
 	md-sidenav {
 		background: @sidenav-bg;
 		border-right: solid 1px #ffffff; 		
@@ -83,7 +84,7 @@
 
 @media (max-width: 456px) {
 	.pip-sidenav.pip-nav-small {
-		overflow-x: hidden;
+		// overflow-x: hidden;
 
 		md-sidenav {
 			width: @sidenav-small-width !important;
@@ -93,7 +94,7 @@
 	}	
 
 	.pip-sidenav {
-		overflow-x: hidden;
+		// overflow-x: hidden;
 
 		md-sidenav {
 			width: @sidenav-width !important;
@@ -104,7 +105,7 @@
 }
 @media (max-width: 768px) {
 	.pip-sidenav.pip-nav-small {
-		overflow-x: hidden;
+		// overflow-x: hidden;
 
 		md-sidenav {
 			width: @sidenav-small-width !important;
@@ -114,7 +115,7 @@
 	}	
 
 	.pip-sidenav {
-		overflow-x: hidden;
+		// overflow-x: hidden;
 
 		md-sidenav {
 			width: @sidenav-width !important;

@@ -1,14 +1,13 @@
-
 <div class="layout-row">
-<pip-sidenav xxxng-class="{'flex-fixed': $mdMedia('gt-xs')}">
-    <pip-nav-header 
+<pip-scale-sidenav xxxng-class="{'flex-fixed': $mdMedia('gt-xs')}">
+    <pip-scale-nav-header 
                     pip-title="user.fullName" 
                     pip-sub-title="user.details" 
-                    pip-image="user.imageUrl"></pip-nav-header>
-    <pip-nav-menu pip-links="links"></pip-nav-menu>
-</pip-sidenav>
+                    pip-image="user.imageUrl"></pip-scale-nav-header>
+    <pip-scale-nav-menu pip-links="links"></pip-scale-nav-menu>
+</pip-scale-sidenav>
 
-    <h2 class="text-title tm0 bm24">Side Nav {{ 'SAMPLE' | translate }}</h2>
+    <h2 class="text-title">Side Nav {{ 'SAMPLE' | translate }}</h2>
 
     <div>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onOpenSideNav()">{{ 'OPEN' | translate }} Side Nav</md-button>

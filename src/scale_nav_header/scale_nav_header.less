@@ -1,0 +1,132 @@
+// @file CSS styles for application Scale Nav Header component
+// @copyright Digital Living Software Corp. 2014-2016
+
+// Party Name under Avatar
+//------------------------------------------
+
+@nav-header-party-font-size:            22px;
+@nav-header-party-color:                rgb(255, 255, 255);
+@nav-header-party-font-letter-spacing:  0.005em;
+
+// Relationship and Privacy
+//-------------------------------------------
+
+@nav-header-party-info-font-size:           14px;
+@nav-header-party-info-color:               rgb(255, 255, 255);
+@nav-header-party-info-font-letter-spacing: 0.01em;
+
+// Sizes
+//-----------
+
+@nav-header-padding: 24px;
+@nav-header-big-size: 80px;
+@nav-header-small-size: 40px;
+@nav-header-padding-sm: 16px;
+@nav-header-height: 112px;
+@nav-header-height-sm: 96px;
+
+
+.pip-scale-nav-header {
+        height: @nav-header-height;
+    	overflow-x: hidden;
+        width: @sidenav-width;
+    md-toolbar{
+        position: relative;
+        padding-top: @nav-header-padding-sm;//120px;
+        height: @nav-header-height;
+        padding-bottom: @nav-header-padding-sm;
+        padding-left: @nav-header-padding;
+        padding-right: @nav-header-padding;
+        
+
+        &.pip-scale-nav-header-owner {
+            min-height: 82px !important;
+        }
+    }
+
+    .pip-scale-nav-header-user {
+        width: @nav-header-big-size;
+        min-width: initial;
+        height: @nav-header-big-size;
+        margin: 0px 16px 0px 0px;
+        padding: 0px;
+
+        .pip-scale-nav-header-user-image {
+            border-radius: 50%;
+            width: @nav-header-big-size; 
+            height: @nav-header-big-size;
+        }
+    }
+
+    .pip-scale-nav-header-user-text {
+            opacity: 1px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;  
+        .pip-scale-nav-header-user-pri {
+            cursor: pointer !important;
+            font-size: @nav-header-party-font-size;
+            text-decoration: none;
+            color: @nav-header-party-color;
+            letter-spacing: @nav-header-party-font-letter-spacing;
+		  	word-wrap: break-word;
+        }
+        .pip-scale-nav-header-user-sec {
+            margin-top: 4px;
+            font-size: @nav-header-party-info-font-size;
+            .text-overflow();
+        } 
+    }
+   
+}
+
+@media (max-width: 768px) {
+   .pip-scale-nav-header {
+        height: @nav-header-height;
+                md-toolbar {
+        padding-left: @nav-header-padding-sm;
+        padding-right: @nav-header-padding-sm;
+                }
+
+   }
+}
+
+.pip-scale-nav-small {
+    .pip-scale-nav-header {
+        width: @sidenav-small-width !important;
+        height: @nav-header-height;
+        md-toolbar{
+            position: relative;
+            padding-top: @nav-header-padding-sm;//120px;
+            min-height: 82px !important;
+            padding-bottom: @nav-header-padding-sm;
+            padding-left: 0px;
+            padding-right: 0px;
+
+            &.pip-scale-nav-header-owner {
+                min-height: 82px !important;
+            }
+        }
+
+        .pip-scale-nav-header-user-text {
+            display: none;
+            opacity: 0px;
+            transition-delay: 0.4s;  
+            transition: opacity 0.2s linear;           
+        }
+
+        .pip-scale-nav-header-user {
+            width: @nav-header-small-size;
+            min-width: initial;
+            height: @nav-header-small-size;
+            margin: 0px auto;
+            padding: 0px;
+
+            .pip-scale-nav-header-user-image {
+                border-radius: 50%;
+                width: @nav-header-small-size; 
+                height: @nav-header-small-size;
+            }
+        }        
+    }
+}
+
