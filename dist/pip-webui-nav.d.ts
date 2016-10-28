@@ -1,27 +1,49 @@
-/// <reference path="../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
+declare module pip.nav {
+}
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
+declare module pip.nav {
+    interface INavService {
+        appBar: any;
+        sideNav: any;
+        navIcon: any;
+        breadcrumb: IBreadcrumbService;
+        actions: any;
+        navHeader: any;
+        navMenu: any;
+        search: any;
+    }
+}
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
+
+
+
+
+
+
+
+
+
+
+
+
+<<<<<<< HEAD
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="breadcrumb_service.d.ts" />
+=======
+>>>>>>> 56c0f0b80b99764f69fd98cbcecc24beea46ec74
 declare module pip.nav {
 }
 
-/// <reference path="../../typings/tsd.d.ts" />
+
 declare module pip.nav {
     let BreadcrumbChangedEvent: string;
     let BreadcrumbBackEvent: string;
@@ -45,6 +67,7 @@ declare module pip.nav {
     }
 }
 
+<<<<<<< HEAD
 /// <reference path="../../typings/tsd.d.ts" />
 declare module pip.nav {
 }
@@ -58,31 +81,40 @@ declare module pip.nav {
 /// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
+=======
+>>>>>>> 56c0f0b80b99764f69fd98cbcecc24beea46ec74
 
-/// <reference path="../../typings/tsd.d.ts" />
 
+<<<<<<< HEAD
 /// <reference path="../../typings/tsd.d.ts" />
+=======
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
+declare module pip.nav {
+}
+>>>>>>> 56c0f0b80b99764f69fd98cbcecc24beea46ec74
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
