@@ -1,4 +1,4 @@
-// @file CSS styles for application Scale Nav Header component
+// @file CSS styles for application Sticky Nav Header component
 // @copyright Digital Living Software Corp. 2014-2016
 
 // Party Name under Avatar
@@ -26,7 +26,7 @@
 @nav-header-height-sm: 96px;
 
 
-.pip-scale-nav-header {
+.pip-sticky-nav-header {
         height: @nav-header-height;
     	overflow-x: hidden;
         width: @sidenav-width;
@@ -39,30 +39,30 @@
         padding-right: @nav-header-padding;
         
 
-        &.pip-scale-nav-header-owner {
+        &.pip-sticky-nav-header-owner {
             min-height: 82px !important;
         }
     }
 
-    .pip-scale-nav-header-user {
+    .pip-sticky-nav-header-user {
         width: @nav-header-big-size;
         min-width: initial;
         height: @nav-header-big-size;
         margin: 0px 16px 0px 0px;
         padding: 0px;
 
-        .pip-scale-nav-header-user-image {
+        .pip-sticky-nav-header-user-image {
             border-radius: 50%;
             width: @nav-header-big-size; 
             height: @nav-header-big-size;
         }
     }
 
-    .pip-scale-nav-header-user-text {
+    .pip-sticky-nav-header-user-text {
             opacity: 1px;
             transition-delay: 0.4s;  
             transition: opacity 0.2s linear;  
-        .pip-scale-nav-header-user-pri {
+        .pip-sticky-nav-header-user-pri {
             cursor: pointer !important;
             font-size: @nav-header-party-font-size;
             text-decoration: none;
@@ -70,7 +70,7 @@
             letter-spacing: @nav-header-party-font-letter-spacing;
 		  	word-wrap: break-word;
         }
-        .pip-scale-nav-header-user-sec {
+        .pip-sticky-nav-header-user-sec {
             margin-top: 4px;
             font-size: @nav-header-party-info-font-size;
             .text-overflow();
@@ -80,7 +80,7 @@
 }
 
 @media (max-width: 768px) {
-   .pip-scale-nav-header {
+   .pip-sticky-nav-header {
         height: @nav-header-height;
                 md-toolbar {
         padding-left: @nav-header-padding-sm;
@@ -90,8 +90,8 @@
    }
 }
 
-.pip-scale-nav-small {
-    .pip-scale-nav-header {
+.pip-sticky-nav-small {
+    .pip-sticky-nav-header {
         width: @sidenav-small-width !important;
         height: @nav-header-height;
         md-toolbar{
@@ -102,26 +102,26 @@
             padding-left: 0px;
             padding-right: 0px;
 
-            &.pip-scale-nav-header-owner {
+            &.pip-sticky-nav-header-owner {
                 min-height: 82px !important;
             }
         }
 
-        .pip-scale-nav-header-user-text {
+        .pip-sticky-nav-header-user-text {
             display: none;
             opacity: 0px;
             transition-delay: 0.4s;  
             transition: opacity 0.2s linear;           
         }
 
-        .pip-scale-nav-header-user {
+        .pip-sticky-nav-header-user {
             width: @nav-header-small-size;
             min-width: initial;
             height: @nav-header-small-size;
             margin: 0px auto;
             padding: 0px;
 
-            .pip-scale-nav-header-user-image {
+            .pip-sticky-nav-header-user-image {
                 border-radius: 50%;
                 width: @nav-header-small-size; 
                 height: @nav-header-small-size;

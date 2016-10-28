@@ -1,0 +1,26 @@
+<md-list>
+    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">
+        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>
+        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>
+    </md-list-item>    
+    <div class="pip-section" ng-repeat="section in config"
+        ng-hide="section.access && !section.access(section)">
+
+        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
+        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>
+        
+        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" 
+            ng-repeat="link in section.links"
+            ng-click="onLinkClick($event, link)"
+            ng-hide="link.access && !link.access(link)">
+            <md-icon md-svg-icon="{{link.icon}}" 
+                ng-hide="!link.icon" 
+                class="pip-sticky-nav-menu-icon"></md-icon>
+            <p class="pip-sticky-nav-menu-title">{{::link.title | translate}}</p>
+            <div class="flex pip-sticky-nav-menu-expander"></div>
+            <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">
+                 {{link.count}} 
+            </div>
+        </md-list-item>
+    </div>
+</md-list>

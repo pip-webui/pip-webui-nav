@@ -2,10 +2,10 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.ScaleSideNav', [ 'pipSideNav', 'ngMaterial',
+    var thisModule = angular.module('appNav.StickySideNav', [ 'pipSideNav', 'ngMaterial',
         'pipNavMenu', 'pipNavHeader']);
 
-    thisModule.controller('ScaleSideNavController',
+    thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
                   $injector, pipNavHeader, pipNavMenu) {
             
@@ -33,7 +33,7 @@
             }
 
             // set sidenav 
-            pipSideNav.id('pip-scale-sidenav');
+            pipSideNav.id('pip-sticky-sidenav');
 
             $scope.$mdMedia = $mdMedia;
 

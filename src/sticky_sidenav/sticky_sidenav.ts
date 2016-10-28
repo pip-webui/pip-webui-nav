@@ -3,31 +3,31 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipScaleSideNav', 
+    var thisModule = angular.module('pipStickySideNav', 
         ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
 
     // Main application sidenav directive
-    thisModule.directive('pipScaleSidenav', function() {
+    thisModule.directive('pipStickySidenav', function() {
        return {
            restrict: 'E',
            transclude: true,
            scope: true,
-           templateUrl: 'scale_sidenav/scale_sidenav.html',
-           controller: 'pipScaleSideNavController'
+           templateUrl: 'sticky_sidenav/sticky_sidenav.html',
+           controller: 'pipStickySideNavController'
        };
     });
 
-    thisModule.controller('pipScaleSideNavController', 
+    thisModule.controller('pipStickySideNavController', 
         function ($scope, $element, $rootScope, pipSideNav, $mdMedia) {
 
             // Apply class and call resize
-            $element.addClass('pip-scale-sidenav');
+            $element.addClass('pip-sticky-sidenav');
             $scope.$mdMedia = $mdMedia;
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
             $rootScope.$on('pipSideNavToggle', onNavToggle);
 
-            pipSideNav.id('pip-scale-sidenav');
+            pipSideNav.id('pip-sticky-sidenav');
 
             return;
             

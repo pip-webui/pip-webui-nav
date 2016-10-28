@@ -17,9 +17,9 @@ module pip.nav {
         'pipSideNav',
         'pipNavMenu',
         'pipNavHeader',
-        'pipScaleSideNav',
-        'pipScaleNavMenu',
-        'pipScaleNavHeader'
+        'pipStickySideNav',
+        'pipStickyNavMenu',
+        'pipStickyNavHeader'
     ]);
     
 }

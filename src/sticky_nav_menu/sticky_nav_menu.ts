@@ -3,11 +3,11 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipScaleNavMenu', 
+    var thisModule = angular.module('pipStickyNavMenu', 
         ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
 
     // Main application navmenu directive
-    thisModule.directive('pipScaleNavMenu', function() {
+    thisModule.directive('pipStickyNavMenu', function() {
        return {
            restrict: 'EA',
            scope: {
@@ -15,17 +15,17 @@
                collapsed: '=pipCollapsed'
            },
            replace: false,
-           templateUrl: 'scale_nav_menu/scale_nav_menu.html',
-           controller: 'pipScaleNavMenuController'
+           templateUrl: 'sticky_nav_menu/sticky_nav_menu.html',
+           controller: 'pipStickyNavMenuController'
        };
     });
 
-    thisModule.controller('pipScaleNavMenuController', 
+    thisModule.controller('pipStickyNavMenuController', 
         function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
 
             var pipSdeNavElement = $element.parent().parent();
             // Apply class and call resize
-            $element.addClass('pip-scale-nav-menu');
+            $element.addClass('pip-sticky-nav-menu');
             $scope.config = $scope.config || pipNavMenu.get();
             setCollapsible();
             $scope.expanded = true;
@@ -59,9 +59,9 @@
                 $scope.expanded = !$scope.expanded;
 
                 if ($scope.expanded) {
-                    pipSdeNavElement.removeClass('pip-scale-nav-small');
+                    pipSdeNavElement.removeClass('pip-sticky-nav-small');
                 } else {
-                    pipSdeNavElement.addClass('pip-scale-nav-small');
+                    pipSdeNavElement.addClass('pip-sticky-nav-small');
                 }
                 $rootScope.$broadcast('pipNavExpanded', $scope.expanded);
             }

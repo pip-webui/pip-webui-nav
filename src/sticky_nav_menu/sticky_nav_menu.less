@@ -24,24 +24,24 @@
 @nav-menu-padding: 24px;
 @nav-menu-padding-sm: 16px;
 
-.pip-scale-nav-expanded-button {
+.pip-sticky-nav-expanded-button {
     .md-button {
-        .pip-scale-nav-menu-icon {
+        .pip-sticky-nav-menu-icon {
             margin-left: 0px;
         }
     }
 }
 
-.pip-scale-nav-menu {
+.pip-sticky-nav-menu {
     width: @sidenav-width;
     overflow-x: hidden;
-        .pip-scale-nav-menu-expander {
+        .pip-sticky-nav-menu-expander {
             opacity: 1px;
             transition-delay: 0.4s;  
             transition: opacity 0.2s linear;    
         }
 
-        .pip-scale-nav-menu-title {
+        .pip-sticky-nav-menu-title {
             opacity: 1px;
             transition-delay: 0.4s;  
             transition: opacity 0.2s linear;    
@@ -63,9 +63,9 @@
         }
     }
 
-        .pip-scale-nav-menu-item {
+        .pip-sticky-nav-menu-item {
           .md-list-item-inner {  
-            .pip-scale-nav-menu-icon {
+            .pip-sticky-nav-menu-icon {
                 margin-top: 12px;
                 margin-bottom: 12px;
                 margin-right: 24px;
@@ -73,7 +73,7 @@
           }
         } 
 
-    .pip-scale-nav-menu-item {
+    .pip-sticky-nav-menu-item {
         .md-button {
             padding-left: @nav-menu-padding !important;
             padding-right: @nav-menu-padding !important;;
@@ -92,7 +92,7 @@
         }
 	}	
 
-  .pip-scale-nav-menu-badge {
+  .pip-sticky-nav-menu-badge {
     font-size: 12px !important;
     min-width: 22px !important;
     height: 22px !important;
@@ -107,12 +107,12 @@
 }
 
 @media (max-width: 768px) {
-    .pip-scale-nav-expanded-button {
+    .pip-sticky-nav-expanded-button {
         height: 48px;
     }
     
-   .pip-scale-nav-menu {
-       .pip-scale-nav-menu-item {
+   .pip-sticky-nav-menu {
+       .pip-sticky-nav-menu-item {
           .md-button {
                 padding-left: @nav-menu-padding-sm;
                 padding-right: @nav-menu-padding-sm;
@@ -120,18 +120,18 @@
         }
     }
 
-    .pip-scale-nav-small {
+    .pip-sticky-nav-small {
         md-sidenav {
             width: @sidenav-small-width-sm !important;
         }
-        .pip-scale-nav-menu {   
-            .pip-scale-nav-menu-badge {
+        .pip-sticky-nav-menu {   
+            .pip-sticky-nav-menu-badge {
                 position: absolute;
                 top: 5px;
                 left: 28px;
             } 
 
-            .pip-scale-nav-menu-item {
+            .pip-sticky-nav-menu-item {
                 .md-button {
                     width: @sidenav-small-width-sm !important;
                     min-width: @sidenav-small-width-sm !important;
@@ -142,31 +142,31 @@
     }
 }
 
-.pip-scale-nav-small {
-    .pip-scale-nav-menu {   
+.pip-sticky-nav-small {
+    .pip-sticky-nav-menu {   
         width: @sidenav-small-width !important;
 
-        .pip-scale-nav-menu-badge {
+        .pip-sticky-nav-menu-badge {
             position: absolute;
             top: 5px;
             left: 32px;
         }    
 
-        .pip-scale-nav-menu-expander {
+        .pip-sticky-nav-menu-expander {
             display: none;
             opacity: 0px;
             transition-delay: 0.4s;  
             transition: opacity 0.2s linear;    
         }
 
-        .pip-scale-nav-menu-title {
+        .pip-sticky-nav-menu-title {
             display: none;
             opacity: 0px;
             transition-delay: 0.4s;  
             transition: opacity 0.2s linear;    
         }
 
-       .pip-scale-nav-menu-item {
+       .pip-sticky-nav-menu-item {
           .md-button {
               width: @sidenav-small-width !important;
               min-width: @sidenav-small-width !important;
@@ -176,7 +176,7 @@
           .md-list-item-inner {  
               width: 24px;
               min-width: 24px;
-            .pip-scale-nav-menu-icon {
+            .pip-sticky-nav-menu-icon {
                 margin-right: 0px;
                 margin-left: 0px;
             }

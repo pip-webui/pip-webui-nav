@@ -33,7 +33,7 @@
             }
 
             // set sidenav 
-            pipSideNav.id('pip-scale-sidenav');
+            pipSideNav.id('pip-sticky-sidenav');
             $scope.$mdMedia = $mdMedia;
 
             $timeout(function() {

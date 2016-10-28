@@ -18,7 +18,7 @@
         'appNav.Tabs',
 
         'appNav.SideNav',
-        'appNav.ScaleSideNav',
+        'appNav.StickySideNav',
         'pipTranslate'
     ]);
 
@@ -33,7 +33,7 @@
         { title: 'Dropdown', state: 'dropdown', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
         
         { title: 'SideNav', state: 'sidenav', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
-        { title: 'ScaleSideNav', state: 'scale_sidenav', url: '/scale_sidenav', controller: 'ScaleSideNavController', templateUrl: 'scale_sidenav.html' },
+        { title: 'StickySideNav', state: 'sticky_sidenav', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
 
     ];
     

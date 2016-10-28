@@ -3,11 +3,11 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipScaleNavHeader', 
+    var thisModule = angular.module('pipStickyNavHeader', 
         ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
 
     // Main application nav-header directive
-    thisModule.directive('pipScaleNavHeader', function() {
+    thisModule.directive('pipStickyNavHeader', function() {
        return {
            restrict: 'EA',
            scope: {
@@ -17,21 +17,21 @@
                imageCss: '=pipImageCss'
            },
            replace: false,
-           templateUrl: 'scale_nav_header/scale_nav_header.html',
-           controller: 'pipScaleNavHeaderController'
+           templateUrl: 'sticky_nav_header/sticky_nav_header.html',
+           controller: 'pipStickyNavHeaderController'
        };
     });
 
-    thisModule.controller('pipScaleNavHeaderController', 
+    thisModule.controller('pipStickyNavHeaderController', 
         function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
            
             var 
                 image = null, 
-                imageBlock = $element.find('.pip-scale-nav-header-user'),
+                imageBlock = $element.find('.pip-sticky-nav-header-user'),
                 $image;
 
             // Apply class and call resize
-            $element.addClass('pip-scale-nav-header');
+            $element.addClass('pip-sticky-nav-header');
 
             $rootScope.$on('pipIdentityChanged', onIdentityChanged);
             $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
@@ -39,7 +39,7 @@
             $scope.onUserClick = onUserClick;
 
             $timeout(function() {
-                $image = $element.find('.pip-scale-nav-header-user-image');
+                $image = $element.find('.pip-sticky-nav-header-user-image');
                 onIdentityChanged();
                 $image.load(function ($event) {
                     image = $($event.target);
@@ -51,7 +51,7 @@
 
             function resizeImage() {
                 if (!image) {
-                    image = $element.find('.pip-scale-nav-header-user-image')
+                    image = $element.find('.pip-sticky-nav-header-user-image')
                 } 
                 setImageMarginCSS(imageBlock, image);
             }
