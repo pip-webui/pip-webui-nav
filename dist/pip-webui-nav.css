@@ -618,6 +618,9 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-sidenav.overflow-visible {
   overflow: visible!important;
 }
+.pip-sticky-sidenav md-backdrop.md-opaque.ng-enter {
+  opacity: .48;
+}
 .pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
   width: 72px !important;
   min-width: 72px !important;
@@ -664,7 +667,6 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-header {
   height: 112px;
-  overflow-x: hidden;
   width: 320px;
 }
 .pip-sticky-nav-header md-toolbar {
@@ -757,7 +759,6 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-menu {
   width: 320px;
-  overflow-x: hidden;
 }
 .pip-sticky-nav-menu .pip-sticky-nav-menu-expander {
   opacity: 1px;

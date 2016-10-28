@@ -19,8 +19,8 @@
 //-----------
 
 @nav-header-padding: 24px;
-@nav-header-big-size: 80px;
-@nav-header-small-size: 40px;
+@nav-header-image-big-size: 80px;
+@nav-header-image-small-size: 40px;
 @nav-header-padding-sm: 16px;
 @nav-header-height: 112px;
 @nav-header-height-sm: 96px;
@@ -28,16 +28,15 @@
 
 .pip-sticky-nav-header {
         height: @nav-header-height;
-    	overflow-x: hidden;
+    	// overflow-x: hidden;
         width: @sidenav-width;
     md-toolbar{
         position: relative;
-        padding-top: @nav-header-padding-sm;//120px;
+        padding-top: @nav-header-padding-sm;
         height: @nav-header-height;
         padding-bottom: @nav-header-padding-sm;
         padding-left: @nav-header-padding;
         padding-right: @nav-header-padding;
-        
 
         &.pip-sticky-nav-header-owner {
             min-height: 82px !important;
@@ -45,16 +44,16 @@
     }
 
     .pip-sticky-nav-header-user {
-        width: @nav-header-big-size;
+        width: @nav-header-image-big-size;
         min-width: initial;
-        height: @nav-header-big-size;
+        height: @nav-header-image-big-size;
         margin: 0px 16px 0px 0px;
         padding: 0px;
 
         .pip-sticky-nav-header-user-image {
             border-radius: 50%;
-            width: @nav-header-big-size; 
-            height: @nav-header-big-size;
+            width: @nav-header-image-big-size; 
+            height: @nav-header-image-big-size;
         }
     }
 
@@ -82,10 +81,10 @@
 @media (max-width: 768px) {
    .pip-sticky-nav-header {
         height: @nav-header-height;
-                md-toolbar {
-        padding-left: @nav-header-padding-sm;
-        padding-right: @nav-header-padding-sm;
-                }
+        md-toolbar {
+            padding-left: @nav-header-padding-sm;
+            padding-right: @nav-header-padding-sm;
+        }
 
    }
 }
@@ -115,16 +114,16 @@
         }
 
         .pip-sticky-nav-header-user {
-            width: @nav-header-small-size;
+            width: @nav-header-image-small-size;
             min-width: initial;
-            height: @nav-header-small-size;
+            height: @nav-header-image-small-size;
             margin: 0px auto;
             padding: 0px;
 
             .pip-sticky-nav-header-user-image {
                 border-radius: 50%;
-                width: @nav-header-small-size; 
-                height: @nav-header-small-size;
+                width: @nav-header-image-small-size; 
+                height: @nav-header-image-small-size;
             }
         }        
     }
