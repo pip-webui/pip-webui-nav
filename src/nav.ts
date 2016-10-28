@@ -1,9 +1,11 @@
 ﻿/// <reference path="../typings/tsd.d.ts" />
 
-(function () {
+module pip.nav {
     'use strict';
 
-    angular.module('pipNav', [        
+    angular.module('pipNav', [
+        'pipNav.Service',
+
         'pipDropdown',
         'pipTabs',
 
@@ -17,6 +19,6 @@
         'pipSecondaryActions'
     ]);
     
-})();
+}
 
 

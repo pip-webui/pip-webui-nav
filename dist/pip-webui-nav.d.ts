@@ -1,23 +1,40 @@
-/// <reference path="../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-/// <reference path="breadcrumb_service.d.ts" />
 declare module pip.nav {
 }
 
-/// <reference path="../../typings/tsd.d.ts" />
+
+
+declare module pip.nav {
+    interface INavService {
+        appBar: any;
+        sideNav: any;
+        navIcon: any;
+        breadcrumb: IBreadcrumbService;
+        actions: any;
+        navHeader: any;
+        navMenu: any;
+        search: any;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+declare module pip.nav {
+}
+
+
 declare module pip.nav {
     let BreadcrumbChangedEvent: string;
     let BreadcrumbBackEvent: string;
@@ -41,34 +58,34 @@ declare module pip.nav {
     }
 }
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
+
+
+
 declare module pip.nav {
 }
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
 
-/// <reference path="../../typings/tsd.d.ts" />
+
+
+
+
+
+
+
+
+
+
+
+
