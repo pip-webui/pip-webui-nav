@@ -35,11 +35,11 @@
 
             $rootScope.$on('pipIdentityChanged', onIdentityChanged);
             $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-            $rootScope.$on('pipNavExpanded', resizeImage);
+
             $scope.onUserClick = onUserClick;
 
             $timeout(function() {
-                $image = $element.find('.pip-nav-header-user-image');
+                $image = $element.find('.pip-nav-header-user-image')
                 onIdentityChanged();
                 $image.load(function ($event) {
                     image = $($event.target);
@@ -48,14 +48,6 @@
             }, 10);
 
             return;
-
-            function resizeImage() {
-                console.log('resize');
-                if (!image) {
-                    image = $element.find('.pip-nav-header-user-image')
-                } 
-                setImageMarginCSS(imageBlock, image);
-            }
 
             //------------------------
             function setImageMarginCSS(container, image) {
@@ -89,8 +81,10 @@
 
                 url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
                 if (url) {
+                    console.log('url', url);
                     $image.attr('src', url);
                 } else {
+                    console.log('display none');
                     imageBlock.css('display', 'none');
                 }
                 

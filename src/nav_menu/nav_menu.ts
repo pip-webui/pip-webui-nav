@@ -11,8 +11,7 @@
        return {
            restrict: 'EA',
            scope: {
-               config: '=pipLinks',
-               collapsed: '=pipCollapsed'
+               config: '=pipLinks'
            },
            replace: false,
            templateUrl: 'nav_menu/nav_menu.html',
@@ -23,48 +22,20 @@
     thisModule.controller('pipNavMenuController', 
         function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
 
-            var pipSdeNavElement = $element.parent().parent();
             // Apply class and call resize
             $element.addClass('pip-nav-menu');
-            $scope.config = $scope.config || pipNavMenu.get();
-            setCollapsible();
-            $scope.expanded = true;
-            pipNavMenu.set($scope.config);
 
+            $scope.config = $scope.config || pipNavMenu.get();
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);
 
             $scope.itemVisible = itemVisible;
             $scope.onLinkClick = onLinkClick;
             $scope.isSectionEmpty = isSectionEmpty;
-            $scope.onExpand = onExpand;
 
             return;
             
             //------------------------
-
-            function setCollapsible() {
-                var collapsed;
-                if (angular.isFunction($scope.collapsed)) {
-                    collapsed = $scope.collapsed();
-                } else {
-                    collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
-                }
-
-                $scope.collapsibled = collapsed;
-                pipNavMenu.collapsed(collapsed);
-            }
-
-            function onExpand() {
-                $scope.expanded = !$scope.expanded;
-
-                if ($scope.expanded) {
-                    pipSdeNavElement.removeClass('pip-nav-small');
-                } else {
-                    pipSdeNavElement.addClass('pip-nav-small');
-                }
-                $rootScope.$broadcast('pipNavExpanded', $scope.expanded);
-            }
             
             function itemVisible(item) {
                 return item && item.access && !item.access(item);
@@ -80,7 +51,6 @@
             }
 
             function onConfigChanged(event, config) {
-                $scope.isCollapsed = pipNavMenu.collapsed();
                 $scope.config = config;
             }
 

@@ -66,7 +66,7 @@
             }
 
             function open(event) {
-                $mdSidenav('pip-sidenav md-is-locked-open').open();
+                $mdSidenav('pip-sidenav').open();
             }
                  
             function close(event) {
@@ -88,7 +88,6 @@
             if (_.isObject(parts)) {
                 config.parts = parts;
             }
-
             return config.parts;
         }
     });

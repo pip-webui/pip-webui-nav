@@ -21,31 +21,20 @@
 // Sizes
 //-----------
 
+@nav-menu-width: 320px;
 @nav-menu-padding: 24px;
+
+@nav-menu-width-sm: 300px;
 @nav-menu-padding-sm: 16px;
 
-.pip-nav-expanded-button {
-    .md-button {
-        .pip-nav-menu-icon {
-            margin-left: 0px;
-        }
-    }
-}
 
 .pip-nav-menu {
-    width: @sidenav-width;
-    overflow-x: hidden;
-        .pip-nav-menu-expander {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
 
-        .pip-nav-menu-title {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
+    md-list-item .md-button {
+        .md-list-item-inner {
+            line-height: 48px;
         }
+    }
 
     .md-subheader {
         line-height: 48px;
@@ -62,127 +51,26 @@
             margin-bottom: 8px;
         }
     }
+    
+	md-list-item .md-button {
+		padding-left: @nav-menu-padding;
+		padding-right: @nav-menu-padding;
 
-        .pip-nav-menu-item {
-          .md-list-item-inner {  
-            .pip-nav-menu-icon {
-                margin-top: 12px;
-                margin-bottom: 12px;
-                margin-right: 24px;
-            }
-          }
-        } 
-
-    .pip-nav-menu-item {
-        .md-button {
-            padding-left: @nav-menu-padding !important;
-            padding-right: @nav-menu-padding !important;;
-
-            // .border-radius(0px);
-            -webkit-border-radius: 0px;
-            -moz-border-radius:    0px;
-            border-radius:         0px;
-            -moz-background-clip:    padding;
-            -webkit-background-clip: padding-box;
-            background-clip:         padding-box;
-
-            .md-list-item-inner {
-                line-height: 48px;
-            }
-        }
+        // .border-radius(0px);
+        -webkit-border-radius: 0px;
+        -moz-border-radius:    0px;
+        border-radius:         0px;
+        -moz-background-clip:    padding;
+        -webkit-background-clip: padding-box;
+        background-clip:         padding-box;
 	}	
-
-  .pip-nav-menu-badge {
-    font-size: 12px !important;
-    min-width: 22px !important;
-    height: 22px !important;
-    border-radius: 14px;
-    line-height: 22px;
-    vertical-align: middle;
-    text-align: center;
-    color: @color-content;
-    background: red;
-  }    
-
 }
 
 @media (max-width: 768px) {
-    .pip-nav-expanded-button {
-        height: 48px;
-        // padding-left: @nav-menu-padding-sm !important;
-        // padding-right: @nav-menu-padding-sm !important;;
-    }
    .pip-nav-menu {
-       .pip-nav-menu-item {
-          .md-button {
-                padding-left: @nav-menu-padding-sm;
-                padding-right: @nav-menu-padding-sm;
-            }	
-        }
-    }
-
-    .pip-nav-small {
-        md-sidenav {
-            width: @sidenav-small-width-sm !important;
-        }
-        .pip-nav-menu {   
-            .pip-nav-menu-badge {
-                position: absolute;
-                top: 5px;
-                left: 28px;
-            } 
-
-            .pip-nav-menu-item {
-                .md-button {
-                    width: @sidenav-small-width-sm !important;
-                    min-width: @sidenav-small-width-sm !important;
-                    max-width: @sidenav-small-width-sm !important;
-                }
-            }              
-        }
+		md-list-item .md-button {
+			padding-left: @nav-menu-padding-sm;
+			padding-right: @nav-menu-padding-sm;
+		}	
     }
 }
-
-.pip-nav-small {
-    .pip-nav-menu {   
-        width: @sidenav-small-width !important;
-
-        .pip-nav-menu-badge {
-            position: absolute;
-            top: 5px;
-            left: 32px;
-        }    
-
-        .pip-nav-menu-expander {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-        .pip-nav-menu-title {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-       .pip-nav-menu-item {
-          .md-button {
-              width: @sidenav-small-width !important;
-              min-width: @sidenav-small-width !important;
-              max-width: @sidenav-small-width !important;
-          }
-
-          .md-list-item-inner {  
-              width: 24px;
-              min-width: 24px;
-            .pip-nav-menu-icon {
-                margin-right: 0px;
-                margin-left: 0px;
-            }
-          }
-        } 
-    }
-}
-

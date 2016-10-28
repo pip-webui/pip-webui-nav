@@ -18,13 +18,13 @@
     });
 
     thisModule.controller('pipSideNavController', 
-        function ($scope, $element, $rootScope, pipSideNav, $mdMedia) {
+        function ($scope, $element, $rootScope, pipSideNav) {
 
             // Apply class and call resize
             $element.addClass('pip-sidenav');
-            $scope.$mdMedia = $mdMedia;
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
+            //$rootScope.$on('pipSideNavChanged', onConfigChanged);
 
             return;
             
