@@ -5,6 +5,26 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('appbar/appbar.html',
+    '<!--\n' +
+    '@file App Bar component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset && config.showAppBar" ng-class="config.ngClasses"\n' +
+    '            class="{{ config.cssClass }}" ng-transclude>\n' +
+    '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('actions/primary_actions.html',
     '<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryLocalActions">\n' +
     '    <md-button class="pip-primary-actions-action md-icon-button"\n' +
@@ -104,26 +124,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-menu-divider>                        \n' +
     '    </md-menu-content>\n' +
     '</md-menu>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('appbar/appbar.html',
-    '<!--\n' +
-    '@file App Bar component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset && config.showAppBar" ng-class="config.ngClasses"\n' +
-    '            class="{{ config.cssClass }}" ng-transclude>\n' +
-    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -339,6 +339,38 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('scale_nav_header/scale_nav_header.html',
+    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
+    '\n' +
+    '    <md-button class="pip-scale-nav-header-user md-icon-button flex-fixed"\n' +
+    '                ng-click="onUserClick()"\n' +
+    '                aria-label="current user">\n' +
+    '\n' +
+    '        <img  src="" class="pip-scale-nav-header-user-image flex-fixed" ng-class="imageCss"></img>\n' +
+    '    </md-button>\n' +
+    '    \n' +
+    '    <div class="pip-scale-nav-header-user-text">\n' +
+    '        <a class="pip-scale-nav-header-user-pri"\n' +
+    '            ng-click="onUserClick()">\n' +
+    '            {{ title }}\n' +
+    '        </a>\n' +
+    '        <div class="pip-scale-nav-header-user-sec">\n' +
+    '            {{ subtitle | translate }}\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('scale_nav_menu/scale_nav_menu.html',
     '<md-list>\n' +
     '    <md-list-item class="pip-focusable no-border pip-scale-nav-menu-item pip-scale-nav-expanded-button" ng-click="onExpand()">\n' +
@@ -366,38 +398,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-list-item>\n' +
     '    </div>\n' +
     '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('scale_nav_header/scale_nav_header.html',
-    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
-    '\n' +
-    '    <md-button class="pip-scale-nav-header-user md-icon-button flex-fixed"\n' +
-    '                ng-click="onUserClick()"\n' +
-    '                aria-label="current user">\n' +
-    '\n' +
-    '        <img  src="" class="pip-scale-nav-header-user-image flex-fixed" ng-class="imageCss"></img>\n' +
-    '    </md-button>\n' +
-    '    \n' +
-    '    <div class="pip-scale-nav-header-user-text">\n' +
-    '        <a class="pip-scale-nav-header-user-pri"\n' +
-    '            ng-click="onUserClick()">\n' +
-    '            {{ title }}\n' +
-    '        </a>\n' +
-    '        <div class="pip-scale-nav-header-user-sec">\n' +
-    '            {{ subtitle | translate }}\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -563,9 +563,6 @@ var pip;
                 this.sideNav = $injector.has('pipSideNav') ? $injector.get('pipSideNav') : null;
                 this.navHeader = $injector.has('pipNavHeader') ? $injector.get('pipNavHeader') : null;
                 this.navMenu = $injector.has('pipNavMenu') ? $injector.get('pipNavMenu') : null;
-                this.scaleSideNav = $injector.has('pipSacleSideNav') ? $injector.get('pipSacleSideNav') : null;
-                this.scaleNavHeader = $injector.has('pipSacleNavHeader') ? $injector.get('pipSacleNavHeader') : null;
-                this.scaleNavMenu = $injector.has('pipSacleNavMenu') ? $injector.get('pipSacleNavMenu') : null;
             }
             return NavService;
         }());
@@ -573,6 +570,191 @@ var pip;
             .service('pipNavService', NavService);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
+    // Main application header directive
+    thisModule.directive('pipAppbar', function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: true,
+            templateUrl: 'appbar/appbar.html',
+            controller: 'pipAppBarController'
+        };
+    });
+    thisModule.controller('pipAppBarController', ['$scope', '$element', '$rootScope', 'pipAppBar', function ($scope, $element, $rootScope, pipAppBar) {
+        // Apply class and call resize
+        $element.addClass('pip-appbar');
+        $element.addClass('color-primary-bg');
+        $scope.$emit('pipResizeWindow');
+        $scope.config = pipAppBar.config();
+        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
+        function onAppBarChanged(event, config) {
+            $scope.config = config;
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
+    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
+    thisModule.directive('pipAppbarPart', ['ngIfDirective', function (ngIfDirective) {
+        var ngIf = ngIfDirective[0];
+        return {
+            transclude: ngIf.transclude,
+            priority: ngIf.priority,
+            terminal: ngIf.terminal,
+            restrict: ngIf.restrict,
+            scope: true,
+            link: function linkFunction($scope, $element, $attrs) {
+                // Visualize based on visible variable in scope
+                $attrs.ngIf = function () {
+                    return $scope.visible;
+                };
+                ngIf.link.apply(ngIf, arguments);
+            },
+            controller: 'pipAppBarPartController'
+        };
+    }]);
+    thisModule.controller('pipAppBarPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, pipAppBar) {
+        var partName = '' + $attrs.pipAppbarPart;
+        var partValue = null;
+        // Break part apart
+        var pos = partName.indexOf(':');
+        if (pos > 0) {
+            partValue = partName.substr(pos + 1);
+            partName = partName.substr(0, pos);
+        }
+        onAppBarChanged(null, pipAppBar.config());
+        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
+        function onAppBarChanged(event, config) {
+            var parts = config.parts || {};
+            var currentPartValue = parts[partName];
+            // Set visible variable to switch ngIf
+            var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
+            if (visible != $scope.visible)
+                $scope.visible = visible;
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipAppBar.Service', []);
+    thisModule.provider('pipAppBar', function () {
+        var config = {
+            // Theme to be applied to the header
+            theme: 'default',
+            cssClass: '',
+            ngClasses: {},
+            // Parts of the appbar
+            parts: {},
+            showAppBar: true
+        };
+        // Configure global parameters
+        this.theme = theme;
+        this.parts = initParts;
+        // Get the service instance
+        this.$get = ['$rootScope', function ($rootScope) {
+            return {
+                config: getConfig,
+                cssClass: cssClass,
+                part: getOrSetPart,
+                parts: getOrSetParts,
+                show: showAppBar,
+                hide: hideAppBar,
+                showShadow: showShadow,
+                showShadowSm: showShadowSm,
+                showShadowSmXs: showShadowSmXs,
+                hideShadow: hideShadow
+            };
+            // ----------------------
+            function getConfig() {
+                return config;
+            }
+            // Todo: Do we need that "hack"?
+            function cssClass(newCssClass) {
+                if (newCssClass != undefined) {
+                    config.cssClass = newCssClass;
+                    sendConfigEvent();
+                }
+                return config.cssClass;
+            }
+            // Show, show appbar 
+            function showAppBar() {
+                config.showAppBar = true;
+                sendConfigEvent();
+            }
+            // Show, hide appbar 
+            function hideAppBar() {
+                config.showAppBar = false;
+                sendConfigEvent();
+            }
+            // Show, hide appbar shadow
+            function showShadowSm() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = true;
+                config.ngClasses['pip-shadow-xs'] = false;
+                sendConfigEvent();
+            }
+            function showShadowSmXs() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = true;
+                config.ngClasses['pip-shadow-xs'] = true;
+                sendConfigEvent();
+            }
+            function showShadow() {
+                config.ngClasses['pip-shadow'] = true;
+                sendConfigEvent();
+            }
+            function hideShadow() {
+                config.ngClasses['pip-shadow'] = false;
+                config.ngClasses['pip-shadow-sm'] = false;
+                config.ngClasses['pip-shadow-xs'] = false;
+                sendConfigEvent();
+            }
+            function getOrSetPart(name, value) {
+                if (!_.isString(name))
+                    throw new Error("Part name has to be a string");
+                if (value != undefined) {
+                    if (config.parts[name] != value) {
+                        config.parts[name] = value;
+                        sendConfigEvent();
+                    }
+                }
+                return config.parts[name];
+            }
+            function getOrSetParts(parts) {
+                if (_.isObject(parts)) {
+                    if (!_.isEqual(config.parts, parts)) {
+                        config.parts = parts;
+                        sendConfigEvent();
+                    }
+                }
+                return config.parts;
+            }
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipAppBarChanged', config);
+            }
+        }];
+        function theme(theme) {
+            config.theme = theme || config.theme;
+            return config.theme;
+        }
+        function initParts(parts) {
+            if (_.isObject(parts)) {
+                config.parts = parts;
+            }
+            return config.parts;
+        }
+    });
+})();
 
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
@@ -876,204 +1058,6 @@ var pip;
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
-    // Main application header directive
-    thisModule.directive('pipAppbar', function () {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: true,
-            templateUrl: 'appbar/appbar.html',
-            controller: 'pipAppBarController'
-        };
-    });
-    thisModule.controller('pipAppBarController', ['$scope', '$element', '$rootScope', 'pipAppBar', function ($scope, $element, $rootScope, pipAppBar) {
-        // Apply class and call resize
-        $element.addClass('pip-appbar');
-        $element.addClass('color-primary-bg');
-        $scope.$emit('pipResizeWindow');
-        $scope.config = pipAppBar.config();
-        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-        function onAppBarChanged(event, config) {
-            $scope.config = config;
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
-    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
-    thisModule.directive('pipAppbarPart', ['ngIfDirective', function (ngIfDirective) {
-        var ngIf = ngIfDirective[0];
-        return {
-            transclude: ngIf.transclude,
-            priority: ngIf.priority,
-            terminal: ngIf.terminal,
-            restrict: ngIf.restrict,
-            scope: true,
-            link: function linkFunction($scope, $element, $attrs) {
-                // Visualize based on visible variable in scope
-                $attrs.ngIf = function () {
-                    return $scope.visible;
-                };
-                ngIf.link.apply(ngIf, arguments);
-            },
-            controller: 'pipAppBarPartController'
-        };
-    }]);
-    thisModule.controller('pipAppBarPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipAppBar', function ($scope, $element, $attrs, $rootScope, pipAppBar) {
-        var partName = '' + $attrs.pipAppbarPart;
-        var partValue = null;
-        // Break part apart
-        var pos = partName.indexOf(':');
-        if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
-        }
-        onAppBarChanged(null, pipAppBar.config());
-        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-        function onAppBarChanged(event, config) {
-            var parts = config.parts || {};
-            var currentPartValue = parts[partName];
-            // Set visible variable to switch ngIf
-            var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
-            if (visible != $scope.visible)
-                $scope.visible = visible;
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipAppBar.Service', []);
-    thisModule.provider('pipAppBar', function () {
-        var config = {
-            // Theme to be applied to the header
-            theme: 'default',
-            cssClass: '',
-            ngClasses: {},
-            // Parts of the appbar
-            parts: {},
-            showAppBar: true
-        };
-        // Configure global parameters
-        this.theme = theme;
-        this.parts = initParts;
-        // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {
-            return {
-                config: getConfig,
-                cssClass: cssClass,
-                part: getOrSetPart,
-                parts: getOrSetParts,
-                show: showAppBar,
-                hide: hideAppBar,
-                showShadow: showShadow,
-                showShadowSm: showShadowSm,
-                showShadowSmXs: showShadowSmXs,
-                hideShadow: hideShadow
-            };
-            // ----------------------
-            function getConfig() {
-                return config;
-            }
-            // Todo: Do we need that "hack"?
-            function cssClass(newCssClass) {
-                if (newCssClass != undefined) {
-                    config.cssClass = newCssClass;
-                    sendConfigEvent();
-                }
-                return config.cssClass;
-            }
-            // Show, show appbar 
-            function showAppBar() {
-                config.showAppBar = true;
-                sendConfigEvent();
-            }
-            // Show, hide appbar 
-            function hideAppBar() {
-                config.showAppBar = false;
-                sendConfigEvent();
-            }
-            // Show, hide appbar shadow
-            function showShadowSm() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = true;
-                config.ngClasses['pip-shadow-xs'] = false;
-                sendConfigEvent();
-            }
-            function showShadowSmXs() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = true;
-                config.ngClasses['pip-shadow-xs'] = true;
-                sendConfigEvent();
-            }
-            function showShadow() {
-                config.ngClasses['pip-shadow'] = true;
-                sendConfigEvent();
-            }
-            function hideShadow() {
-                config.ngClasses['pip-shadow'] = false;
-                config.ngClasses['pip-shadow-sm'] = false;
-                config.ngClasses['pip-shadow-xs'] = false;
-                sendConfigEvent();
-            }
-            function getOrSetPart(name, value) {
-                if (!_.isString(name))
-                    throw new Error("Part name has to be a string");
-                if (value != undefined) {
-                    if (config.parts[name] != value) {
-                        config.parts[name] = value;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts[name];
-            }
-            function getOrSetParts(parts) {
-                if (_.isObject(parts)) {
-                    if (!_.isEqual(config.parts, parts)) {
-                        config.parts = parts;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts;
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipAppBarChanged', config);
-            }
-        }];
-        function theme(theme) {
-            config.theme = theme || config.theme;
-            return config.theme;
-        }
-        function initParts(parts) {
-            if (_.isObject(parts)) {
-                config.parts = parts;
-            }
-            return config.parts;
-        }
-    });
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipNav.Translate', []);
-    thisModule.filter('translate', ['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate')
-            ? $injector.get('pipTranslate') : null;
-        return function (key) {
-            return pipTranslate ? pipTranslate.translate(key) || key : key;
-        };
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="./breadcrumb_service.ts" />
 var pip;
 (function (pip) {
@@ -1241,6 +1225,19 @@ var pip;
             .provider('pipBreadcrumb', BreadcrumbProvider);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNav.Translate', []);
+    thisModule.filter('translate', ['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate')
+            ? $injector.get('pipTranslate') : null;
+        return function (key) {
+            return pipTranslate ? pipTranslate.translate(key) || key : key;
+        };
+    }]);
+})();
 
 /// <reference path="../../typings/tsd.d.ts" />
 var pip;
@@ -1423,47 +1420,6 @@ var pip;
             $rootScope.$broadcast('pipNavUserClicked');
         }
     }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipNavHeader.Service', []);
-    thisModule.provider('pipNavHeader', function () {
-        var config = {
-            // Image url
-            defaultImageUrl: null,
-        };
-        this.config = getConfig;
-        this.clear = clear;
-        this.image = setImage;
-        // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {
-            return {
-                config: getConfig,
-                image: showImage
-            };
-            // ----------------------
-            function showImage(imageUrl) {
-                console.log('showImage', imageUrl);
-                setImage(imageUrl);
-                sendConfigEvent();
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipNavHeaderImageChanged', config);
-            }
-        }];
-        function getConfig() {
-            return config;
-        }
-        // Show navigation icon
-        function clear() {
-            config.defaultImageUrl = null;
-        }
-        function setImage(imageUrl) {
-            config.defaultImageUrl = imageUrl;
-        }
-    });
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
@@ -1716,47 +1672,97 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
+    var thisModule = angular.module('pipNavHeader.Service', []);
+    thisModule.provider('pipNavHeader', function () {
+        var config = {
+            // Image url
+            defaultImageUrl: null,
+        };
+        this.config = getConfig;
+        this.clear = clear;
+        this.image = setImage;
+        // Get the service instance
+        this.$get = ['$rootScope', function ($rootScope) {
+            return {
+                config: getConfig,
+                image: showImage
+            };
+            // ----------------------
+            function showImage(imageUrl) {
+                setImage(imageUrl);
+                sendConfigEvent();
+            }
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipNavHeaderImageChanged', config);
+            }
+        }];
+        function getConfig() {
+            return config;
+        }
+        // Show navigation icon
+        function clear() {
+            config.defaultImageUrl = null;
+        }
+        function setImage(imageUrl) {
+            config.defaultImageUrl = imageUrl;
+        }
+    });
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
     var thisModule = angular.module('pipNavMenu.Service', []);
     thisModule.provider('pipNavMenu', function () {
         var config = [];
+        var collapsed = true;
         this.sections = init;
         this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
             return {
                 get: getConfig,
-                set: setConfig
+                set: setConfig,
+                setCounter: setCounter,
+                collapsed: setCollapsed
             };
             //---------------------
             function getConfig() {
                 return config;
+            }
+            function setCollapsed(value) {
+                if (value !== undefined) {
+                    collapsed = value;
+                }
+                return collapsed;
             }
             function setConfig(newConfig) {
                 init(newConfig);
                 $rootScope.$broadcast('pipNavMenuChanged', config);
                 return config;
             }
+            function setCounter(linkTitle, counter) {
+                if (!linkTitle || !angular.isNumber(counter)) {
+                    return;
+                }
+                var section, menuItem;
+                section = _.find(config, function (s) {
+                    var item = _.find(s.links, { title: linkTitle });
+                    if (item) {
+                        return item;
+                    }
+                    else {
+                        return false;
+                    }
+                    ;
+                });
+                menuItem = _.find(section.links, { title: linkTitle });
+                menuItem.count = counter;
+                setConfig(config);
+            }
         }];
-        // function validateConfig(sections) {
-        //     pipAssertProvider.isArray(sections, 'pipNavMenuProvider.config or pipNavMenu.config: sections should be an array');
-        //     _.each(sections, function (section, number) {
-        //         if (section.access) {
-        //             pipAssertProvider.isFunction(section.access, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
-        //                 + number + " with title " + section.title + ' access should be a function');
-        //         }
-        //         if (section.links) {
-        //             pipAssertProvider.isArray(section.links, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
-        //                 + number + " with title " + section.title + ' links should be an array');
-        //             _.each(section.links, function (link) {
-        //                 if (link.access) pipAssertProvider.isFunction(link.access, 'pipNavMenuProvider.config or pipNavMenu.config: in section number '
-        //                     + number + " with title " + section.title + ' in link with title ' + link.title + ' access should be a function');
-        //             });
-        //         }
-        //     });
-        // }
         function init(newConfig) {
-            // if (pipDebugProvider.enabled()) 
-            //     validateConfig(newConfig);
-            if (_.isArray(newConfig))
+            if (_.isArray(newConfig)) {
                 config = newConfig;
+            }
             return config;
         }
         ;
@@ -1766,7 +1772,220 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipScaleNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipScaleNavMenu.Service']);
+    var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
+    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
+    thisModule.directive('pipSidenavPart', ['ngIfDirective', function (ngIfDirective) {
+        var ngIf = ngIfDirective[0];
+        return {
+            transclude: ngIf.transclude,
+            priority: ngIf.priority,
+            terminal: ngIf.terminal,
+            restrict: ngIf.restrict,
+            scope: true,
+            link: function ($scope, $element, $attrs) {
+                // Visualize based on visible variable in scope
+                $attrs.ngIf = function () { return $scope.visible; };
+                ngIf.link.apply(ngIf);
+            },
+            controller: 'pipSideNavPartController'
+        };
+    }]);
+    thisModule.controller('pipSideNavPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav', function ($scope, $element, $attrs, $rootScope, pipSideNav) {
+        var partName = '' + $attrs.pipSidenavPart;
+        var partValue = null;
+        // Break part apart
+        var pos = partName.indexOf(':');
+        if (pos > 0) {
+            partValue = partName.substr(pos + 1);
+            partName = partName.substr(0, pos);
+        }
+        onSideNavChanged(null, pipSideNav.config());
+        $rootScope.$on('pipSideNavChanged', onSideNavChanged);
+        function onSideNavChanged(event, config) {
+            var parts = config.parts || {};
+            var currentPartValue = config[partName];
+            // Set visible variable to switch ngIf
+            $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipSideNav.Service', []);
+    thisModule.provider('pipSideNav', function () {
+        var config = {
+            // Theme to be applied to the header
+            theme: 'default',
+            // Parts of the sidenav
+            parts: []
+        }, sideNavId = 'pip-sidenav'; // sidenav identificatior
+        this.id = id;
+        this.theme = theme;
+        this.parts = initParts;
+        this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
+            $rootScope.$on('pipOpenSideNav', open);
+            $rootScope.$on('pipCloseSideNav', close);
+            return {
+                config: getConfig,
+                //theme: setTheme,
+                part: getOrSetPart,
+                parts: getOrSetParts,
+                id: getOrSetId,
+                open: open,
+                close: close,
+                toggle: toggle
+            };
+            //---------------------
+            function getConfig() {
+                return config;
+            }
+            function getOrSetPart(name, value) {
+                if (!_.isString(name))
+                    throw new Error("Part name has to be a string");
+                if (value != undefined) {
+                    if (config.parts[name] != value) {
+                        config.parts[name] = value;
+                        sendConfigEvent();
+                    }
+                }
+                return config.parts[name];
+            }
+            function getOrSetId(id) {
+                if (_.isString(id)) {
+                    if (sideNavId !== id) {
+                        sideNavId = id;
+                    }
+                }
+                return sideNavId;
+            }
+            function getOrSetParts(parts) {
+                if (_.isObject(parts)) {
+                    if (!_.isEqual(config.parts, parts)) {
+                        config.parts = parts;
+                        sendConfigEvent();
+                    }
+                }
+                return config.parts;
+            }
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipSideNavChanged', config);
+            }
+            function open(event) {
+                console.log('open pip', sideNavId);
+                $mdSidenav(sideNavId).open();
+            }
+            function close(event) {
+                console.log('close pip', sideNavId);
+                $mdSidenav(sideNavId).close();
+            }
+            function toggle() {
+                console.log('toggle pip', sideNavId);
+                $mdSidenav(sideNavId).toggle();
+                $rootScope.$broadcast('pipSideNavToggle', config);
+            }
+        }];
+        function id(id) {
+            console.log('set id', sideNavId);
+            sideNavId = id || sideNavId;
+            return sideNavId;
+        }
+        function theme(theme) {
+            config.theme = theme || config.theme;
+            return config.theme;
+        }
+        function initParts(parts) {
+            if (_.isObject(parts)) {
+                config.parts = parts;
+            }
+            return config.parts;
+        }
+    });
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipScaleNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
+    // Main application nav-header directive
+    thisModule.directive('pipScaleNavHeader', function () {
+        return {
+            restrict: 'EA',
+            scope: {
+                title: '=pipTitle',
+                subtitle: '=pipSubTitle',
+                imageUrl: '=pipImage',
+                imageCss: '=pipImageCss'
+            },
+            replace: false,
+            templateUrl: 'scale_nav_header/scale_nav_header.html',
+            controller: 'pipScaleNavHeaderController'
+        };
+    });
+    thisModule.controller('pipScaleNavHeaderController', ['$scope', '$element', '$rootScope', '$timeout', 'pipNavHeader', function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
+        var image = null, imageBlock = $element.find('.pip-scale-nav-header-user'), $image;
+        // Apply class and call resize
+        $element.addClass('pip-scale-nav-header');
+        $rootScope.$on('pipIdentityChanged', onIdentityChanged);
+        $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
+        $rootScope.$on('pipNavExpanded', resizeImage);
+        $scope.onUserClick = onUserClick;
+        $timeout(function () {
+            $image = $element.find('.pip-scale-nav-header-user-image');
+            onIdentityChanged();
+            $image.load(function ($event) {
+                image = $($event.target);
+                setImageMarginCSS(imageBlock, image);
+            });
+        }, 10);
+        return;
+        function resizeImage() {
+            if (!image) {
+                image = $element.find('.pip-scale-nav-header-user-image');
+            }
+            setImageMarginCSS(imageBlock, image);
+        }
+        //------------------------
+        function setImageMarginCSS(container, image) {
+            var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
+            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
+                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
+                cssParams['margin-left'] = '' + margin + 'px';
+                cssParams['height'] = '' + containerHeight + 'px';
+                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
+                cssParams['margin-top'] = '';
+            }
+            else {
+                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
+                cssParams['margin-top'] = '' + margin + 'px';
+                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
+                cssParams['width'] = '' + containerWidth + 'px';
+                cssParams['margin-left'] = '';
+            }
+            image.css(cssParams);
+        }
+        ;
+        function onIdentityChanged() {
+            var url, config = pipNavHeader.config();
+            url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
+            if (url) {
+                $image.attr('src', url);
+            }
+            else {
+                imageBlock.css('display', 'none');
+            }
+        }
+        function onUserClick() {
+            $rootScope.$broadcast('pipNavUserClicked');
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipScaleNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
     // Main application navmenu directive
     thisModule.directive('pipScaleNavMenu', function () {
         return {
@@ -1780,15 +1999,15 @@ var pip;
             controller: 'pipScaleNavMenuController'
         };
     });
-    thisModule.controller('pipScaleNavMenuController', ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipScaleNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipScaleNavMenu) {
+    thisModule.controller('pipScaleNavMenuController', ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu', function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
         var pipSdeNavElement = $element.parent().parent();
         // Apply class and call resize
         $element.addClass('pip-scale-nav-menu');
-        $scope.config = $scope.config || pipScaleNavMenu.get();
+        $scope.config = $scope.config || pipNavMenu.get();
         setCollapsible();
         $scope.expanded = true;
-        pipScaleNavMenu.set($scope.config);
-        $rootScope.$on('pipScaleNavMenuChanged', onConfigChanged);
+        pipNavMenu.set($scope.config);
+        $rootScope.$on('pipNavMenuChanged', onConfigChanged);
         $scope.itemVisible = itemVisible;
         $scope.onLinkClick = onLinkClick;
         $scope.isSectionEmpty = isSectionEmpty;
@@ -1804,7 +2023,7 @@ var pip;
                 collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
             }
             $scope.collapsibled = collapsed;
-            pipScaleNavMenu.collapsed(collapsed);
+            pipNavMenu.collapsed(collapsed);
         }
         function onExpand() {
             $scope.expanded = !$scope.expanded;
@@ -1814,7 +2033,7 @@ var pip;
             else {
                 pipSdeNavElement.addClass('pip-scale-nav-small');
             }
-            $rootScope.$broadcast('pipScaleNavExpanded', $scope.expanded);
+            $rootScope.$broadcast('pipNavExpanded', $scope.expanded);
         }
         function itemVisible(item) {
             return item && item.access && !item.access(item);
@@ -1828,7 +2047,7 @@ var pip;
             return result;
         }
         function onConfigChanged(event, config) {
-            $scope.isCollapsed = pipScaleNavMenu.collapsed();
+            $scope.isCollapsed = pipNavMenu.collapsed();
             $scope.config = config;
         }
         function onLinkClick(event, link) {
@@ -1884,186 +2103,7 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipScaleNavMenu.Service', []);
-    thisModule.provider('pipScaleNavMenu', function () {
-        var config = [];
-        var collapsed = true;
-        this.sections = init;
-        this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
-            return {
-                get: getConfig,
-                set: setConfig,
-                setCounter: setCounter,
-                collapsed: setCollapsed
-            };
-            //---------------------
-            function getConfig() {
-                return config;
-            }
-            function setCollapsed(value) {
-                if (value !== undefined) {
-                    collapsed = value;
-                }
-                return collapsed;
-            }
-            function setConfig(newConfig) {
-                init(newConfig);
-                $rootScope.$broadcast('pipScaleNavMenuChanged', config);
-                return config;
-            }
-            function setCounter(linkTitle, counter) {
-                if (!linkTitle || !angular.isNumber(counter)) {
-                    return;
-                }
-                var section, menuItem;
-                section = _.find(config, function (s) {
-                    var item = _.find(s.links, { title: linkTitle });
-                    if (item) {
-                        return item;
-                    }
-                    else {
-                        return false;
-                    }
-                    ;
-                });
-                menuItem = _.find(section.links, { title: linkTitle });
-                menuItem.count = counter;
-                setConfig(config);
-            }
-        }];
-        function init(newConfig) {
-            if (_.isArray(newConfig)) {
-                config = newConfig;
-            }
-            return config;
-        }
-        ;
-    });
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipScaleNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipScaleNavHeader.Service']);
-    // Main application nav-header directive
-    thisModule.directive('pipScaleNavHeader', function () {
-        return {
-            restrict: 'EA',
-            scope: {
-                title: '=pipTitle',
-                subtitle: '=pipSubTitle',
-                imageUrl: '=pipImage',
-                imageCss: '=pipImageCss'
-            },
-            replace: false,
-            templateUrl: 'scale_nav_header/scale_nav_header.html',
-            controller: 'pipScaleNavHeaderController'
-        };
-    });
-    thisModule.controller('pipScaleNavHeaderController', ['$scope', '$element', '$rootScope', '$timeout', 'pipScaleNavHeader', function ($scope, $element, $rootScope, $timeout, pipScaleNavHeader) {
-        var image = null, imageBlock = $element.find('.pip-scale-nav-header-user'), $image;
-        // Apply class and call resize
-        $element.addClass('pip-scale-nav-header');
-        $rootScope.$on('pipIdentityChanged', onIdentityChanged);
-        $rootScope.$on('pipScaleNavHeaderImageChanged', onIdentityChanged);
-        $rootScope.$on('pipScaleNavExpanded', resizeImage);
-        $scope.onUserClick = onUserClick;
-        $timeout(function () {
-            $image = $element.find('.pip-scale-nav-header-user-image');
-            onIdentityChanged();
-            $image.load(function ($event) {
-                image = $($event.target);
-                setImageMarginCSS(imageBlock, image);
-            });
-        }, 10);
-        return;
-        function resizeImage() {
-            console.log('resize');
-            if (!image) {
-                image = $element.find('.pip-scale-nav-header-user-image');
-            }
-            setImageMarginCSS(imageBlock, image);
-        }
-        //------------------------
-        function setImageMarginCSS(container, image) {
-            var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
-            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
-                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
-                cssParams['margin-left'] = '' + margin + 'px';
-                cssParams['height'] = '' + containerHeight + 'px';
-                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
-                cssParams['margin-top'] = '';
-            }
-            else {
-                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
-                cssParams['margin-top'] = '' + margin + 'px';
-                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
-                cssParams['width'] = '' + containerWidth + 'px';
-                cssParams['margin-left'] = '';
-            }
-            image.css(cssParams);
-        }
-        ;
-        function onIdentityChanged() {
-            var url, config = pipScaleNavHeader.config();
-            url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
-            if (url) {
-                $image.attr('src', url);
-            }
-            else {
-                imageBlock.css('display', 'none');
-            }
-        }
-        function onUserClick() {
-            $rootScope.$broadcast('pipNavUserClicked');
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipScaleNavHeader.Service', []);
-    thisModule.provider('pipScaleNavHeader', function () {
-        var config = {
-            // Image url
-            defaultImageUrl: null,
-        };
-        this.config = getConfig;
-        this.clear = clear;
-        this.image = setImage;
-        // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {
-            return {
-                config: getConfig,
-                image: showImage
-            };
-            // ----------------------
-            function showImage(imageUrl) {
-                setImage(imageUrl);
-                sendConfigEvent();
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipScaleNavHeaderImageChanged', config);
-            }
-        }];
-        function getConfig() {
-            return config;
-        }
-        // Show navigation icon
-        function clear() {
-            config.defaultImageUrl = null;
-        }
-        function setImage(imageUrl) {
-            config.defaultImageUrl = imageUrl;
-        }
-    });
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipScaleSideNav', ['ngMaterial', 'pipNav.Templates', 'pipScaleSideNav.Part', 'pipScaleSideNav.Service']);
+    var thisModule = angular.module('pipScaleSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
     // Main application sidenav directive
     thisModule.directive('pipScaleSidenav', function () {
         return {
@@ -2074,139 +2114,23 @@ var pip;
             controller: 'pipScaleSideNavController'
         };
     });
-    thisModule.controller('pipScaleSideNavController', ['$scope', '$element', '$rootScope', 'pipScaleSideNav', '$mdMedia', function ($scope, $element, $rootScope, pipScaleSideNav, $mdMedia) {
+    thisModule.controller('pipScaleSideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', '$mdMedia', function ($scope, $element, $rootScope, pipSideNav, $mdMedia) {
         // Apply class and call resize
         $element.addClass('pip-scale-sidenav');
         $scope.$mdMedia = $mdMedia;
         $rootScope.$on('pipNavIconClicked', onNavIconClick);
-        $rootScope.$on('pipScaleSideNavToggle', onNavToggle);
+        $rootScope.$on('pipSideNavToggle', onNavToggle);
+        pipSideNav.id('pip-scale-sidenav');
         return;
         //------------------------
         function onNavIconClick(event) {
-            pipScaleSideNav.open();
+            pipSideNav.open();
         }
         function onNavToggle(event) {
             console.log('onNavToggle');
             $element.addClass('overflow-visible');
         }
     }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipScaleSideNav.Part', ['pipScaleSideNav.Service']);
-    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
-    thisModule.directive('pipScaleSidenavPart', ['ngIfDirective', function (ngIfDirective) {
-        var ngIf = ngIfDirective[0];
-        return {
-            transclude: ngIf.transclude,
-            priority: ngIf.priority,
-            terminal: ngIf.terminal,
-            restrict: ngIf.restrict,
-            scope: true,
-            link: function ($scope, $element, $attrs) {
-                // Visualize based on visible variable in scope
-                $attrs.ngIf = function () { return $scope.visible; };
-                ngIf.link.apply(ngIf);
-            },
-            controller: 'pipScaleSideNavPartController'
-        };
-    }]);
-    thisModule.controller('pipScaleSideNavPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipScaleSideNav', function ($scope, $element, $attrs, $rootScope, pipScaleSideNav) {
-        var partName = '' + $attrs.pipScaleSidenavPart;
-        var partValue = null;
-        // Break part apart
-        var pos = partName.indexOf(':');
-        if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
-        }
-        onSideNavChanged(null, pipScaleSideNav.config());
-        $rootScope.$on('pipScaleSideNavChanged', onSideNavChanged);
-        function onSideNavChanged(event, config) {
-            var parts = config.parts || {};
-            var currentPartValue = config[partName];
-            // Set visible variable to switch ngIf
-            $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipScaleSideNav.Service', []);
-    thisModule.provider('pipScaleSideNav', function () {
-        var config = {
-            // Theme to be applied to the header
-            theme: 'default',
-            // Parts of the sidenav
-            parts: []
-        };
-        this.theme = theme;
-        this.parts = initParts;
-        this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
-            $rootScope.$on('pipOpenScaleSideNav', open);
-            $rootScope.$on('pipCloseScaleSideNav', close);
-            return {
-                config: getConfig,
-                //theme: setTheme,
-                part: getOrSetPart,
-                parts: getOrSetParts,
-                open: open,
-                close: close,
-                toggle: toggle
-            };
-            //---------------------
-            function getConfig() {
-                return config;
-            }
-            function getOrSetPart(name, value) {
-                if (!_.isString(name))
-                    throw new Error("Part name has to be a string");
-                if (value != undefined) {
-                    if (config.parts[name] != value) {
-                        config.parts[name] = value;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts[name];
-            }
-            function getOrSetParts(parts) {
-                if (_.isObject(parts)) {
-                    if (!_.isEqual(config.parts, parts)) {
-                        config.parts = parts;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts;
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipScaleSideNavChanged', config);
-            }
-            function open(event) {
-                $mdSidenav('pip-scale-sidenav').open();
-            }
-            function close(event) {
-                $mdSidenav('pip-scale-sidenav').close();
-            }
-            function toggle() {
-                $mdSidenav('pip-scale-sidenav').toggle();
-                $rootScope.$broadcast('pipScaleSideNavToggle', config);
-            }
-        }];
-        function theme(theme) {
-            config.theme = theme || config.theme;
-            return config.theme;
-        }
-        function initParts(parts) {
-            if (_.isObject(parts)) {
-                config.parts = parts;
-            }
-            return config.parts;
-        }
-    });
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
@@ -2386,6 +2310,7 @@ var pip;
     thisModule.controller('pipSideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', function ($scope, $element, $rootScope, pipSideNav) {
         // Apply class and call resize
         $element.addClass('pip-sidenav');
+        pipSideNav.id('pip-sidenav');
         $rootScope.$on('pipNavIconClicked', onNavIconClick);
         //$rootScope.$on('pipSideNavChanged', onConfigChanged);
         return;
@@ -2394,122 +2319,6 @@ var pip;
             pipSideNav.open();
         }
     }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
-    // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
-    thisModule.directive('pipSidenavPart', ['ngIfDirective', function (ngIfDirective) {
-        var ngIf = ngIfDirective[0];
-        return {
-            transclude: ngIf.transclude,
-            priority: ngIf.priority,
-            terminal: ngIf.terminal,
-            restrict: ngIf.restrict,
-            scope: true,
-            link: function ($scope, $element, $attrs) {
-                // Visualize based on visible variable in scope
-                $attrs.ngIf = function () { return $scope.visible; };
-                ngIf.link.apply(ngIf);
-            },
-            controller: 'pipSideNavPartController'
-        };
-    }]);
-    thisModule.controller('pipSideNavPartController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav', function ($scope, $element, $attrs, $rootScope, pipSideNav) {
-        var partName = '' + $attrs.pipSidenavPart;
-        var partValue = null;
-        // Break part apart
-        var pos = partName.indexOf(':');
-        if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
-        }
-        onSideNavChanged(null, pipSideNav.config());
-        $rootScope.$on('pipSideNavChanged', onSideNavChanged);
-        function onSideNavChanged(event, config) {
-            var parts = config.parts || {};
-            var currentPartValue = config[partName];
-            // Set visible variable to switch ngIf
-            $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSideNav.Service', []);
-    thisModule.provider('pipSideNav', function () {
-        var config = {
-            // Theme to be applied to the header
-            theme: 'default',
-            // Parts of the sidenav
-            parts: []
-        };
-        this.theme = theme;
-        this.parts = initParts;
-        this.$get = ['$rootScope', '$mdSidenav', function ($rootScope, $mdSidenav) {
-            $rootScope.$on('pipOpenSideNav', open);
-            $rootScope.$on('pipCloseSideNav', close);
-            return {
-                config: getConfig,
-                //theme: setTheme,
-                part: getOrSetPart,
-                parts: getOrSetParts,
-                open: open,
-                close: close,
-                toggle: toggle
-            };
-            //---------------------
-            function getConfig() {
-                return config;
-            }
-            function getOrSetPart(name, value) {
-                if (!_.isString(name))
-                    throw new Error("Part name has to be a string");
-                if (value != undefined) {
-                    if (config.parts[name] != value) {
-                        config.parts[name] = value;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts[name];
-            }
-            function getOrSetParts(parts) {
-                if (_.isObject(parts)) {
-                    if (!_.isEqual(config.parts, parts)) {
-                        config.parts = parts;
-                        sendConfigEvent();
-                    }
-                }
-                return config.parts;
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipSideNavChanged', config);
-            }
-            function open(event) {
-                $mdSidenav('pip-sidenav').open();
-            }
-            function close(event) {
-                $mdSidenav('pip-sidenav').close();
-            }
-            function toggle() {
-                $mdSidenav('pip-sidenav').toggle();
-            }
-        }];
-        function theme(theme) {
-            config.theme = theme || config.theme;
-            return config.theme;
-        }
-        function initParts(parts) {
-            if (_.isObject(parts)) {
-                config.parts = parts;
-            }
-            return config.parts;
-        }
-    });
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />

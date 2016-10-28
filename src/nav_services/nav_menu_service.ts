@@ -3,9 +3,9 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipScaleNavMenu.Service', []);
+    var thisModule = angular.module('pipNavMenu.Service', []);
 
-    thisModule.provider('pipScaleNavMenu', function (): any {
+    thisModule.provider('pipNavMenu', function (): any {
         var config = [];
         var collapsed = true;
 
@@ -37,7 +37,7 @@
                                                         
             function setConfig(newConfig) {
                 init(newConfig);
-                $rootScope.$broadcast('pipScaleNavMenuChanged', config);
+                $rootScope.$broadcast('pipNavMenuChanged', config);
 
                 return config;  
             }

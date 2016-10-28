@@ -22,6 +22,7 @@
 
             // Apply class and call resize
             $element.addClass('pip-sidenav');
+            pipSideNav.id('pip-sidenav');
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
             //$rootScope.$on('pipSideNavChanged', onConfigChanged);

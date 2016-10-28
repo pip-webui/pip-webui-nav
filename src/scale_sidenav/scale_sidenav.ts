@@ -4,7 +4,7 @@
     'use strict';
 
     var thisModule = angular.module('pipScaleSideNav', 
-        ['ngMaterial', 'pipNav.Templates', 'pipScaleSideNav.Part', 'pipScaleSideNav.Service']);
+        ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
 
     // Main application sidenav directive
     thisModule.directive('pipScaleSidenav', function() {
@@ -18,21 +18,23 @@
     });
 
     thisModule.controller('pipScaleSideNavController', 
-        function ($scope, $element, $rootScope, pipScaleSideNav, $mdMedia) {
+        function ($scope, $element, $rootScope, pipSideNav, $mdMedia) {
 
             // Apply class and call resize
             $element.addClass('pip-scale-sidenav');
             $scope.$mdMedia = $mdMedia;
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
-            $rootScope.$on('pipScaleSideNavToggle', onNavToggle);
+            $rootScope.$on('pipSideNavToggle', onNavToggle);
+
+            pipSideNav.id('pip-scale-sidenav');
 
             return;
             
             //------------------------
 
             function onNavIconClick(event) {
-                pipScaleSideNav.open();
+                pipSideNav.open();
             }
 
             function onNavToggle(event) {

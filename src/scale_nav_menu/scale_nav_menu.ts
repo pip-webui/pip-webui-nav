@@ -4,7 +4,7 @@
     'use strict';
 
     var thisModule = angular.module('pipScaleNavMenu', 
-        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipScaleNavMenu.Service']);
+        ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
 
     // Main application navmenu directive
     thisModule.directive('pipScaleNavMenu', function() {
@@ -21,18 +21,18 @@
     });
 
     thisModule.controller('pipScaleNavMenuController', 
-        function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipScaleNavMenu) {
+        function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
 
             var pipSdeNavElement = $element.parent().parent();
             // Apply class and call resize
             $element.addClass('pip-scale-nav-menu');
-            $scope.config = $scope.config || pipScaleNavMenu.get();
+            $scope.config = $scope.config || pipNavMenu.get();
             setCollapsible();
             $scope.expanded = true;
-            pipScaleNavMenu.set($scope.config);
+            pipNavMenu.set($scope.config);
 
 
-            $rootScope.$on('pipScaleNavMenuChanged', onConfigChanged);
+            $rootScope.$on('pipNavMenuChanged', onConfigChanged);
 
             $scope.itemVisible = itemVisible;
             $scope.onLinkClick = onLinkClick;
@@ -52,7 +52,7 @@
                 }
 
                 $scope.collapsibled = collapsed;
-                pipScaleNavMenu.collapsed(collapsed);
+                pipNavMenu.collapsed(collapsed);
             }
 
             function onExpand() {
@@ -63,7 +63,7 @@
                 } else {
                     pipSdeNavElement.addClass('pip-scale-nav-small');
                 }
-                $rootScope.$broadcast('pipScaleNavExpanded', $scope.expanded);
+                $rootScope.$broadcast('pipNavExpanded', $scope.expanded);
             }
             
             function itemVisible(item) {
@@ -80,7 +80,7 @@
             }
 
             function onConfigChanged(event, config) {
-                $scope.isCollapsed = pipScaleNavMenu.collapsed();
+                $scope.isCollapsed = pipNavMenu.collapsed();
                 $scope.config = config;
             }
 

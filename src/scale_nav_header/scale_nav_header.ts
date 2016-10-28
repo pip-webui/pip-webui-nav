@@ -4,7 +4,7 @@
     'use strict';
 
     var thisModule = angular.module('pipScaleNavHeader', 
-        ['ngMaterial', 'pipNav.Templates', 'pipScaleNavHeader.Service']);
+        ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
 
     // Main application nav-header directive
     thisModule.directive('pipScaleNavHeader', function() {
@@ -23,7 +23,7 @@
     });
 
     thisModule.controller('pipScaleNavHeaderController', 
-        function ($scope, $element, $rootScope, $timeout, pipScaleNavHeader) {
+        function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
            
             var 
                 image = null, 
@@ -34,8 +34,8 @@
             $element.addClass('pip-scale-nav-header');
 
             $rootScope.$on('pipIdentityChanged', onIdentityChanged);
-            $rootScope.$on('pipScaleNavHeaderImageChanged', onIdentityChanged);
-            $rootScope.$on('pipScaleNavExpanded', resizeImage);
+            $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
+            $rootScope.$on('pipNavExpanded', resizeImage);
             $scope.onUserClick = onUserClick;
 
             $timeout(function() {
@@ -50,7 +50,6 @@
             return;
 
             function resizeImage() {
-                console.log('resize');
                 if (!image) {
                     image = $element.find('.pip-scale-nav-header-user-image')
                 } 
@@ -85,7 +84,7 @@
                         
             function onIdentityChanged() {
                 var url: string,
-                    config = pipScaleNavHeader.config();
+                    config = pipNavHeader.config();
 
                 url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
                 if (url) {

@@ -3,28 +3,31 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipScaleSideNav.Service', []);
+    var thisModule = angular.module('pipSideNav.Service', []);
 
-    thisModule.provider('pipScaleSideNav', function (): any {
+    thisModule.provider('pipSideNav', function (): any {
         var config = {
             // Theme to be applied to the header
             theme: 'default',
             // Parts of the sidenav
             parts: []
-        };
+        },
+        sideNavId = 'pip-sidenav'; // sidenav identificatior
 
+        this.id = id; 
         this.theme = theme;
         this.parts = initParts;
 
         this.$get = function ($rootScope, $mdSidenav) {
-            $rootScope.$on('pipOpenScaleSideNav', open);
-            $rootScope.$on('pipCloseScaleSideNav', close);
+            $rootScope.$on('pipOpenSideNav', open);
+            $rootScope.$on('pipCloseSideNav', close);
 
             return {
                 config: getConfig,
                 //theme: setTheme,
                 part: getOrSetPart,
                 parts: getOrSetParts,
+                id: getOrSetId,
                 open: open,
                 close: close,
                 toggle: toggle
@@ -50,6 +53,16 @@
                 return config.parts[name];
             }
 
+            function getOrSetId(id) {
+                if (_.isString(id)) {
+                    if (sideNavId !== id) {
+                        sideNavId = id;
+                    }
+                }
+
+                return sideNavId;
+            }
+
             function getOrSetParts(parts) {
                 if (_.isObject(parts)) {
                     if (!_.isEqual(config.parts, parts)) {
@@ -62,22 +75,32 @@
             }
                             
             function sendConfigEvent() {
-                $rootScope.$broadcast('pipScaleSideNavChanged', config);
+                $rootScope.$broadcast('pipSideNavChanged', config);
             }
 
             function open(event) {
-                $mdSidenav('pip-scale-sidenav').open();
+                console.log('open pip', sideNavId);
+                $mdSidenav(sideNavId).open();
             }
                  
             function close(event) {
-                $mdSidenav('pip-scale-sidenav').close();   
+                console.log('close pip', sideNavId);
+                $mdSidenav(sideNavId).close();   
             }                
 
             function toggle() {
-                $mdSidenav('pip-scale-sidenav').toggle();   
-                $rootScope.$broadcast('pipScaleSideNavToggle', config);
+                console.log('toggle pip', sideNavId);
+                $mdSidenav(sideNavId).toggle();   
+                $rootScope.$broadcast('pipSideNavToggle', config);
             }
         };
+
+        function id(id) {
+            console.log('set id', sideNavId);
+            sideNavId = id || sideNavId;
+
+            return sideNavId;
+        }
 
         function theme(theme) {
             config.theme = theme || config.theme;

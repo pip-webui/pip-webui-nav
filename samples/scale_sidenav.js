@@ -2,12 +2,12 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.ScaleSideNav', [ 'pipScaleSideNav', 'ngMaterial',
-        'pipScaleNavMenu', 'pipScaleNavHeader']);
+    var thisModule = angular.module('appNav.ScaleSideNav', [ 'pipSideNav', 'ngMaterial',
+        'pipNavMenu', 'pipNavHeader']);
 
     thisModule.controller('ScaleSideNavController',
-        function ($scope, $rootScope, pipScaleSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
-                  $injector, pipScaleNavHeader, pipScaleNavMenu) {
+        function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
+                  $injector, pipNavHeader, pipNavMenu) {
             
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
@@ -32,6 +32,9 @@
                 });
             }
 
+            // set sidenav 
+            pipSideNav.id('pip-scale-sidenav');
+
             $scope.$mdMedia = $mdMedia;
 
             $timeout(function() {
@@ -40,7 +43,7 @@
                 });
             });
 
-            pipScaleNavHeader.image('http://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png');
+            pipNavHeader.image('http://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png');
 
             $scope.user = {
                 fullName: 'Kate Negrienko',
@@ -80,24 +83,24 @@
                 pipTranslate.use(language);
             };
 
-            $scope.$on('pipScaleSideNavLinkClicked', function (event, link) {
+            $scope.$on('pipSideNavLinkClicked', function (event, link) {
                 console.log('Link ' + link + ' Clicked');// eslint-disable-line
             });
 
             $scope.onOpenSideNav = function () {
-                pipScaleSideNav.open();
+                pipSideNav.open();
             };
 
             $scope.onCloseSideNav = function () {
-                pipScaleSideNav.close();
+                pipSideNav.close();
             };
 
             $scope.onToggleSideNav = function () {
-                pipScaleSideNav.toggle();
+                pipSideNav.toggle();
             };
 
             $scope.onRefreshCounter = function () {
-                pipScaleNavMenu.setCounter('Help', 55);
+                pipNavMenu.setCounter('Help', 55);
             };
 
         }

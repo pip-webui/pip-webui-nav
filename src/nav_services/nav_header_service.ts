@@ -25,7 +25,6 @@
             // ----------------------
 
             function showImage(imageUrl) {
-                console.log('showImage', imageUrl)
                 setImage(imageUrl);
                 sendConfigEvent();
             }

@@ -32,6 +32,8 @@
                 });
             }
 
+            // set sidenav 
+            pipSideNav.id('pip-scale-sidenav');
             $scope.$mdMedia = $mdMedia;
 
             $timeout(function() {

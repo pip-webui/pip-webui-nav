@@ -13,9 +13,6 @@ module pip.nav {
         sideNav: any;
         navHeader: any;
         navMenu: any;   
-        scaleSideNav: any;
-        scaleNavHeader: any;
-        scaleNavMenu: any; 
    }
 
     class NavService implements INavService {
@@ -30,9 +27,6 @@ module pip.nav {
             this.sideNav = $injector.has('pipSideNav') ? $injector.get('pipSideNav') : null;
             this.navHeader = $injector.has('pipNavHeader') ? $injector.get('pipNavHeader') : null;
             this.navMenu = $injector.has('pipNavMenu') ? $injector.get('pipNavMenu') : null;    
-            this.scaleSideNav = $injector.has('pipSacleSideNav') ? $injector.get('pipSacleSideNav') : null;
-            this.scaleNavHeader = $injector.has('pipSacleNavHeader') ? $injector.get('pipSacleNavHeader') : null;
-            this.scaleNavMenu = $injector.has('pipSacleNavMenu') ? $injector.get('pipSacleNavMenu') : null;                          
         }
 
         public appBar: any;
@@ -43,9 +37,6 @@ module pip.nav {
         public sideNav: any;        
         public navHeader: any;
         public navMenu: any;    
-        public scaleSideNav: any;        
-        public scaleNavHeader: any;
-        public scaleNavMenu: any;            
     }
 
     angular.module('pipNav.Service', [])

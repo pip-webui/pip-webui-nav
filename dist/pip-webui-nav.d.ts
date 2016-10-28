@@ -14,13 +14,8 @@ declare module pip.nav {
         sideNav: any;
         navHeader: any;
         navMenu: any;
-        scaleSideNav: any;
-        scaleNavHeader: any;
-        scaleNavMenu: any;
     }
 }
-
-/// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
 
@@ -64,16 +59,10 @@ declare module pip.nav {
 }
 
 /// <reference path="../../typings/tsd.d.ts" />
+
+/// <reference path="../../typings/tsd.d.ts" />
 declare module pip.nav {
 }
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
-
-/// <reference path="../../typings/tsd.d.ts" />
 
 /// <reference path="../../typings/tsd.d.ts" />
 

@@ -1,10 +1,12 @@
 <div class="layout-row">
-<pip-scale-sidenav xxxng-class="{'flex-fixed': $mdMedia('gt-xs')}">
+<pip-scale-sidenav>
     <pip-scale-nav-header 
                     pip-title="user.fullName" 
                     pip-sub-title="user.details" 
-                    pip-image="user.imageUrl"></pip-scale-nav-header>
-    <pip-scale-nav-menu pip-links="links"></pip-scale-nav-menu>
+                    pip-image="user.imageUrl">
+    </pip-scale-nav-header>
+    <pip-scale-nav-menu pip-links="links">
+    </pip-scale-nav-menu>
 </pip-scale-sidenav>
 
     <h2 class="text-title">Side Nav {{ 'SAMPLE' | translate }}</h2>
