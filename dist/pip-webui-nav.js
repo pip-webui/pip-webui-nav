@@ -241,38 +241,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_header/nav_header.html',
-    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
-    '\n' +
-    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
-    '                ng-click="onUserClick()"\n' +
-    '                aria-label="current user">\n' +
-    '\n' +
-    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
-    '    </md-button>\n' +
-    '    \n' +
-    '    <div class="pip-nav-header-user-text">\n' +
-    '        <a class="pip-nav-header-user-pri"\n' +
-    '            ng-click="onUserClick()">\n' +
-    '            {{ title }}\n' +
-    '        </a>\n' +
-    '        <div class="pip-nav-header-user-sec">\n' +
-    '            {{ subtitle | translate }}\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '</md-toolbar>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_icon/nav_icon.html',
     '<md-button class="md-icon-button pip-nav-icon"\n' +
     '            ng-if="config.type != \'none\'"\n' +
@@ -298,6 +266,38 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-icon ng-if="config.type==\'icon\'"\n' +
     '             md-svg-icon="icons:{{config.iconName}}"></md-icon>\n' +
     '</md-button>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_header/nav_header.html',
+    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
+    '\n' +
+    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
+    '                ng-click="onUserClick()"\n' +
+    '                aria-label="current user">\n' +
+    '\n' +
+    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
+    '    </md-button>\n' +
+    '    \n' +
+    '    <div class="pip-nav-header-user-text">\n' +
+    '        <a class="pip-nav-header-user-pri"\n' +
+    '            ng-click="onUserClick()">\n' +
+    '            {{ title }}\n' +
+    '        </a>\n' +
+    '        <div class="pip-nav-header-user-sec">\n' +
+    '            {{ subtitle | translate }}\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -401,14 +401,14 @@ module.run(['$templateCache', function($templateCache) {
     '                ng-click="onUserClick()"\n' +
     '                aria-label="current user">\n' +
     '\n' +
-    '        <img  src="" class="pip-sticky-nav-header-user-image flex-fixed" ng-class="imageCss"></img>\n' +
+    '        <img  src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></img>\n' +
     '    </md-button>\n' +
     '    \n' +
     '    <div class="pip-sticky-nav-header-user-text">\n' +
-    '        <a class="pip-sticky-nav-header-user-pri"\n' +
+    '        <div class="pip-sticky-nav-header-user-pri"\n' +
     '            ng-click="onUserClick()">\n' +
     '            {{ title }}\n' +
-    '        </a>\n' +
+    '        </div>\n' +
     '        <div class="pip-sticky-nav-header-user-sec">\n' +
     '            {{ subtitle | translate }}\n' +
     '        </div>\n' +
@@ -449,14 +449,20 @@ module.run(['$templateCache', function($templateCache) {
     '            ng-repeat="link in section.links"\n' +
     '            ng-click="onLinkClick($event, link)"\n' +
     '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="pip-sticky-nav-menu-icon flex-fixed"></md-icon>\n' +
-    '            <p class="pip-sticky-nav-menu-title">{{::link.title | translate}}</p>\n' +
-    '            <div class="flex pip-sticky-nav-menu-expander"></div>\n' +
-    '            <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
-    '                 {{link.count}} \n' +
-    '            </div>\n' +
+    '\n' +
+    '                <div class="pip-sticky-nav-menu-icon-block">\n' +
+    '                    <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                        ng-hide="!link.icon" \n' +
+    '                        class="pip-sticky-nav-menu-icon flex-fixed">\n' +
+    '                    </md-icon>\n' +
+    '                </div>\n' +
+    '                <p class="pip-sticky-nav-menu-title">{{::link.title | translate}}</p>\n' +
+    '\n' +
+    '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
+    '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
+    '                    {{link.count}} \n' +
+    '                </div>\n' +
+    '\n' +
     '        </md-list-item>\n' +
     '    </div>\n' +
     '</md-list>\n' +
@@ -1065,6 +1071,19 @@ var pip;
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipNav.Translate', []);
+    thisModule.filter('translate', ['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate')
+            ? $injector.get('pipTranslate') : null;
+        return function (key) {
+            return pipTranslate ? pipTranslate.translate(key) || key : key;
+        };
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="./breadcrumb_service.ts" />
 var pip;
 (function (pip) {
@@ -1236,19 +1255,6 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipNav.Translate', []);
-    thisModule.filter('translate', ['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate')
-            ? $injector.get('pipTranslate') : null;
-        return function (key) {
-            return pipTranslate ? pipTranslate.translate(key) || key : key;
-        };
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
     var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
     thisModule.directive('pipDropdown', ['$mdMedia', function ($mdMedia) {
         return {
@@ -1355,79 +1361,6 @@ var pip;
             .directive('pipLanguagePicker', languagePickerDirective);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
-    // Main application nav-header directive
-    thisModule.directive('pipNavHeader', function () {
-        return {
-            restrict: 'EA',
-            scope: {
-                title: '=pipTitle',
-                subtitle: '=pipSubTitle',
-                imageUrl: '=pipImage',
-                imageCss: '=pipImageCss'
-            },
-            replace: false,
-            templateUrl: 'nav_header/nav_header.html',
-            controller: 'pipNavHeaderController'
-        };
-    });
-    thisModule.controller('pipNavHeaderController', ['$scope', '$element', '$rootScope', '$timeout', 'pipNavHeader', function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
-        var image = null, imageBlock = $element.find('.pip-nav-header-user'), $image;
-        // Apply class and call resize
-        $element.addClass('pip-nav-header');
-        $rootScope.$on('pipIdentityChanged', onIdentityChanged);
-        $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-        $scope.onUserClick = onUserClick;
-        $timeout(function () {
-            $image = $element.find('.pip-nav-header-user-image');
-            onIdentityChanged();
-            $image.load(function ($event) {
-                image = $($event.target);
-                setImageMarginCSS(imageBlock, image);
-            });
-        }, 10);
-        return;
-        //------------------------
-        function setImageMarginCSS(container, image) {
-            var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
-            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
-                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
-                cssParams['margin-left'] = '' + margin + 'px';
-                cssParams['height'] = '' + containerHeight + 'px';
-                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
-                cssParams['margin-top'] = '';
-            }
-            else {
-                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
-                cssParams['margin-top'] = '' + margin + 'px';
-                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
-                cssParams['width'] = '' + containerWidth + 'px';
-                cssParams['margin-left'] = '';
-            }
-            image.css(cssParams);
-        }
-        ;
-        function onIdentityChanged() {
-            var url, config = pipNavHeader.config();
-            url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
-            if (url) {
-                console.log('url', url);
-                $image.attr('src', url);
-            }
-            else {
-                console.log('display none');
-                imageBlock.css('display', 'none');
-            }
-        }
-        function onUserClick() {
-            $rootScope.$broadcast('pipNavUserClicked');
-        }
-    }]);
-})();
 
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
@@ -1589,6 +1522,79 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
+    var thisModule = angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
+    // Main application nav-header directive
+    thisModule.directive('pipNavHeader', function () {
+        return {
+            restrict: 'EA',
+            scope: {
+                title: '=pipTitle',
+                subtitle: '=pipSubTitle',
+                imageUrl: '=pipImage',
+                imageCss: '=pipImageCss'
+            },
+            replace: false,
+            templateUrl: 'nav_header/nav_header.html',
+            controller: 'pipNavHeaderController'
+        };
+    });
+    thisModule.controller('pipNavHeaderController', ['$scope', '$element', '$rootScope', '$timeout', 'pipNavHeader', function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
+        var image = null, imageBlock = $element.find('.pip-nav-header-user'), $image;
+        // Apply class and call resize
+        $element.addClass('pip-nav-header');
+        $rootScope.$on('pipIdentityChanged', onIdentityChanged);
+        $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
+        $scope.onUserClick = onUserClick;
+        $timeout(function () {
+            $image = $element.find('.pip-nav-header-user-image');
+            onIdentityChanged();
+            $image.load(function ($event) {
+                image = $($event.target);
+                setImageMarginCSS(imageBlock, image);
+            });
+        }, 10);
+        return;
+        //------------------------
+        function setImageMarginCSS(container, image) {
+            var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
+            if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
+                margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
+                cssParams['margin-left'] = '' + margin + 'px';
+                cssParams['height'] = '' + containerHeight + 'px';
+                cssParams['width'] = '' + imageWidth * containerHeight / imageHeight + 'px';
+                cssParams['margin-top'] = '';
+            }
+            else {
+                margin = -((imageHeight / imageWidth * containerWidth - containerHeight) / 2);
+                cssParams['margin-top'] = '' + margin + 'px';
+                cssParams['height'] = '' + imageHeight * containerWidth / imageWidth + 'px';
+                cssParams['width'] = '' + containerWidth + 'px';
+                cssParams['margin-left'] = '';
+            }
+            image.css(cssParams);
+        }
+        ;
+        function onIdentityChanged() {
+            var url, config = pipNavHeader.config();
+            url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
+            if (url) {
+                console.log('url', url);
+                $image.attr('src', url);
+            }
+            else {
+                console.log('display none');
+                imageBlock.css('display', 'none');
+            }
+        }
+        function onUserClick() {
+            $rootScope.$broadcast('pipNavUserClicked');
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
     var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
     // Main application navmenu directive
     thisModule.directive('pipNavMenu', function () {
@@ -1674,6 +1680,166 @@ var pip;
             pipSideNav.close();
         }
     }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
+    thisModule.run(['$injector', function ($injector) {
+        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+        if (pipTranslate && pipTranslate.setTranslations) {
+            pipTranslate.setTranslations('en', {
+                'APPBAR_SEARCH': 'Search'
+            });
+            pipTranslate.setTranslations('ru', {
+                'APPBAR_SEARCH': 'Поиск'
+            });
+        }
+    }]);
+    // Main application header directive
+    thisModule.directive('pipSearchBar', function () {
+        return {
+            restrict: 'E',
+            scope: {},
+            replace: false,
+            templateUrl: function (element, attr) {
+                return 'search_bar/search_bar.html';
+            },
+            controller: 'pipSearchBarController'
+        };
+    });
+    thisModule.controller('pipSearchBarController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSearch', function ($scope, $element, $attrs, $rootScope, pipSearch) {
+        // Apply class and call resize
+        $element.addClass('pip-search-bar');
+        $scope.config = pipSearch.config();
+        $scope.searchEnabled = false;
+        $scope.search = { text: '' };
+        $rootScope.$on('pipSearchChanged', onSearchBarChanged);
+        $scope.onSearchEnable = onSearchEnable;
+        $scope.onSearchClick = onSearchClick;
+        $scope.onSearchClear = onSearchClear;
+        $scope.onSearchKeyDown = onSearchKeyDown;
+        function onSearchBarChanged(event, config) {
+            $scope.config = config;
+            $scope.searchEnabled = false;
+            $scope.search.text = '';
+        }
+        function focusSearchText() {
+            var element;
+            setTimeout(function () {
+                element = $('.pip-search-text');
+                if (element.length > 0) {
+                    element.focus();
+                }
+            }, 0);
+        }
+        function onSearchEnable() {
+            $scope.search.text = $scope.config.criteria;
+            $scope.searchEnabled = true;
+            focusSearchText();
+        }
+        function onSearchClick() {
+            var searchText = $scope.search.text;
+            $scope.search.text = '';
+            $scope.searchEnabled = false;
+            if ($scope.config.callback) {
+                $scope.config.callback(searchText);
+            }
+            else {
+                $rootScope.$broadcast('pipSearchBarSearchClicked', searchText);
+            }
+        }
+        function onSearchClear() {
+            if ($scope.search.text) {
+                $scope.search.text = '';
+                focusSearchText();
+            }
+            else {
+                $scope.searchEnabled = false;
+                onSearchClick();
+            }
+        }
+        function onSearchKeyDown(event) {
+            // Enter pressed
+            if (event.keyCode === 13) {
+                $scope.onSearchClick();
+                return;
+            }
+            // ESC pressed
+            if (event.keyCode === 27) {
+                $scope.searchEnabled = false;
+            }
+        }
+    }]);
+})();
+
+/// <reference path="../../typings/tsd.d.ts" />
+(function () {
+    'use strict';
+    var thisModule = angular.module('pipSearch.Service', []);
+    thisModule.provider('pipSearch', function () {
+        var config = {
+            // Search visible
+            visible: false,
+            // Search criteria
+            criteria: '',
+            // History for search autocomplete
+            history: [],
+            // Callback for search
+            callback: null,
+        };
+        // Get the service instance
+        this.$get = ['$rootScope', function ($rootScope) {
+            $rootScope.$on('pipSearchOpen', open);
+            $rootScope.$on('pipSearchClose', close);
+            return {
+                config: getConfig,
+                set: setSearch,
+                clear: clearSearch,
+                criteria: updateCriteria,
+                history: updateHistory,
+            };
+            // ----------------------
+            function getConfig() {
+                return config;
+            }
+            function setSearch(callback, criteria, history) {
+                config.callback = callback;
+                config.criteria = criteria;
+                config.history = history;
+                sendConfigEvent();
+            }
+            function clearSearch() {
+                config.callback = null;
+                config.criteria = null;
+                sendConfigEvent();
+            }
+            function open(event) {
+                config.visible = true;
+                sendConfigEvent();
+            }
+            function close(event) {
+                config.visible = false;
+                sendConfigEvent();
+            }
+            function toggle() {
+                config.visible = !config.visible;
+                sendConfigEvent();
+            }
+            function updateCriteria(criteria) {
+                config.criteria = criteria;
+                sendConfigEvent();
+            }
+            function updateHistory(history) {
+                config.history = history;
+                sendConfigEvent();
+            }
+            function sendConfigEvent() {
+                $rootScope.$broadcast('pipSearchChanged', config);
+            }
+        }];
+    });
 })();
 
 /// <reference path="../../typings/tsd.d.ts" />
@@ -1921,166 +2087,6 @@ var pip;
 /// <reference path="../../typings/tsd.d.ts" />
 (function () {
     'use strict';
-    var thisModule = angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
-    thisModule.run(['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        if (pipTranslate && pipTranslate.setTranslations) {
-            pipTranslate.setTranslations('en', {
-                'APPBAR_SEARCH': 'Search'
-            });
-            pipTranslate.setTranslations('ru', {
-                'APPBAR_SEARCH': 'Поиск'
-            });
-        }
-    }]);
-    // Main application header directive
-    thisModule.directive('pipSearchBar', function () {
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: false,
-            templateUrl: function (element, attr) {
-                return 'search_bar/search_bar.html';
-            },
-            controller: 'pipSearchBarController'
-        };
-    });
-    thisModule.controller('pipSearchBarController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSearch', function ($scope, $element, $attrs, $rootScope, pipSearch) {
-        // Apply class and call resize
-        $element.addClass('pip-search-bar');
-        $scope.config = pipSearch.config();
-        $scope.searchEnabled = false;
-        $scope.search = { text: '' };
-        $rootScope.$on('pipSearchChanged', onSearchBarChanged);
-        $scope.onSearchEnable = onSearchEnable;
-        $scope.onSearchClick = onSearchClick;
-        $scope.onSearchClear = onSearchClear;
-        $scope.onSearchKeyDown = onSearchKeyDown;
-        function onSearchBarChanged(event, config) {
-            $scope.config = config;
-            $scope.searchEnabled = false;
-            $scope.search.text = '';
-        }
-        function focusSearchText() {
-            var element;
-            setTimeout(function () {
-                element = $('.pip-search-text');
-                if (element.length > 0) {
-                    element.focus();
-                }
-            }, 0);
-        }
-        function onSearchEnable() {
-            $scope.search.text = $scope.config.criteria;
-            $scope.searchEnabled = true;
-            focusSearchText();
-        }
-        function onSearchClick() {
-            var searchText = $scope.search.text;
-            $scope.search.text = '';
-            $scope.searchEnabled = false;
-            if ($scope.config.callback) {
-                $scope.config.callback(searchText);
-            }
-            else {
-                $rootScope.$broadcast('pipSearchBarSearchClicked', searchText);
-            }
-        }
-        function onSearchClear() {
-            if ($scope.search.text) {
-                $scope.search.text = '';
-                focusSearchText();
-            }
-            else {
-                $scope.searchEnabled = false;
-                onSearchClick();
-            }
-        }
-        function onSearchKeyDown(event) {
-            // Enter pressed
-            if (event.keyCode === 13) {
-                $scope.onSearchClick();
-                return;
-            }
-            // ESC pressed
-            if (event.keyCode === 27) {
-                $scope.searchEnabled = false;
-            }
-        }
-    }]);
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSearch.Service', []);
-    thisModule.provider('pipSearch', function () {
-        var config = {
-            // Search visible
-            visible: false,
-            // Search criteria
-            criteria: '',
-            // History for search autocomplete
-            history: [],
-            // Callback for search
-            callback: null,
-        };
-        // Get the service instance
-        this.$get = ['$rootScope', function ($rootScope) {
-            $rootScope.$on('pipSearchOpen', open);
-            $rootScope.$on('pipSearchClose', close);
-            return {
-                config: getConfig,
-                set: setSearch,
-                clear: clearSearch,
-                criteria: updateCriteria,
-                history: updateHistory,
-            };
-            // ----------------------
-            function getConfig() {
-                return config;
-            }
-            function setSearch(callback, criteria, history) {
-                config.callback = callback;
-                config.criteria = criteria;
-                config.history = history;
-                sendConfigEvent();
-            }
-            function clearSearch() {
-                config.callback = null;
-                config.criteria = null;
-                sendConfigEvent();
-            }
-            function open(event) {
-                config.visible = true;
-                sendConfigEvent();
-            }
-            function close(event) {
-                config.visible = false;
-                sendConfigEvent();
-            }
-            function toggle() {
-                config.visible = !config.visible;
-                sendConfigEvent();
-            }
-            function updateCriteria(criteria) {
-                config.criteria = criteria;
-                sendConfigEvent();
-            }
-            function updateHistory(history) {
-                config.history = history;
-                sendConfigEvent();
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipSearchChanged', config);
-            }
-        }];
-    });
-})();
-
-/// <reference path="../../typings/tsd.d.ts" />
-(function () {
-    'use strict';
     var thisModule = angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
     // Main application sidenav directive
     thisModule.directive('pipSidenav', function () {
@@ -2146,7 +2152,9 @@ var pip;
             if (!image) {
                 image = $element.find('.pip-sticky-nav-header-user-image');
             }
-            setImageMarginCSS(imageBlock, image);
+            $timeout(function () {
+                setImageMarginCSS(imageBlock, image);
+            }, 400);
         }
         //------------------------
         function setImageMarginCSS(container, image) {

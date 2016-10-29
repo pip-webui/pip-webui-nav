@@ -4,14 +4,14 @@
                 ng-click="onUserClick()"
                 aria-label="current user">
 
-        <img  src="" class="pip-sticky-nav-header-user-image flex-fixed" ng-class="imageCss"></img>
+        <img  src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></img>
     </md-button>
     
     <div class="pip-sticky-nav-header-user-text">
-        <a class="pip-sticky-nav-header-user-pri"
+        <div class="pip-sticky-nav-header-user-pri"
             ng-click="onUserClick()">
             {{ title }}
-        </a>
+        </div>
         <div class="pip-sticky-nav-header-user-sec">
             {{ subtitle | translate }}
         </div>
