@@ -407,6 +407,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -webkit-appearance: none;
   /* без сброса оформление не применится */
 }
+<<<<<<< HEAD
 .pip-sidenav md-list-item .md-button .md-list-item-inner {
   line-height: 48px;
 }
@@ -615,12 +616,15 @@ md-select md-select-value .md-text .pip-tabs-badge {
     padding-right: 16px;
   }
 }
+=======
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 .pip-sticky-sidenav.overflow-visible {
   overflow: visible!important;
 }
 .pip-sticky-sidenav md-backdrop.md-opaque.ng-enter {
   opacity: .48;
 }
+<<<<<<< HEAD
 .pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
   width: 72px !important;
   min-width: 72px !important;
@@ -633,10 +637,13 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -o-transition: width .2s ease;
   transition: width .2s ease;
 }
+=======
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 .pip-sticky-sidenav md-sidenav {
   background: #e0e0e0;
   border-right: solid 1px #ffffff;
   width: 320px !important;
+<<<<<<< HEAD
   min-width: 320px !important;
   max-width: 320px !important;
   overflow-x: hidden;
@@ -668,6 +675,21 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-header {
   height: 112px;
   width: 320px;
+=======
+  transition: width 0.35s ease;
+  overflow-x: hidden;
+}
+.pip-sticky-sidenav.pip-sticky-nav-small {
+  border-right: solid 1px #ffffff;
+}
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
+  width: 72px !important;
+  transition: width 0.35s ease;
+}
+.pip-sticky-nav-header {
+  height: 112px;
+  width: 100%;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 }
 .pip-sticky-nav-header md-toolbar {
   position: relative;
@@ -684,7 +706,11 @@ md-select md-select-value .md-text .pip-tabs-badge {
   width: 80px;
   min-width: initial;
   height: 80px;
+<<<<<<< HEAD
   margin: 0px 16px 0px 0px;
+=======
+  margin: 0px;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
   padding: 0px;
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user .pip-sticky-nav-header-user-image {
@@ -693,6 +719,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   height: 80px;
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user-text {
+<<<<<<< HEAD
   opacity: 1px;
   transition-delay: 0.4s;
   transition: opacity 0.2s linear;
@@ -702,6 +729,17 @@ md-select md-select-value .md-text .pip-tabs-badge {
   font-size: 22px;
   text-decoration: none;
   color: #ffffff;
+=======
+  max-height: 112px;
+  padding-left: 16px;
+  opacity: 1;
+}
+.pip-sticky-nav-header .pip-sticky-nav-header-user-text .pip-sticky-nav-header-user-pri {
+  max-height: 84px;
+  overflow: hidden;
+  cursor: pointer !important;
+  font-size: 22px;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
   letter-spacing: 0.005em;
   word-wrap: break-word;
 }
@@ -712,6 +750,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+<<<<<<< HEAD
 @media (max-width: 768px) {
   .pip-sticky-nav-header {
     height: 112px;
@@ -723,13 +762,21 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-small .pip-sticky-nav-header {
   width: 72px !important;
+=======
+.pip-sticky-nav-small .pip-sticky-nav-header {
+  width: 100%;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
   height: 112px;
 }
 .pip-sticky-nav-small .pip-sticky-nav-header md-toolbar {
   position: relative;
+<<<<<<< HEAD
   padding-top: 16px;
   min-height: 82px !important;
   padding-bottom: 16px;
+=======
+  min-height: 82px !important;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -737,16 +784,27 @@ md-select md-select-value .md-text .pip-tabs-badge {
   min-height: 82px !important;
 }
 .pip-sticky-nav-small .pip-sticky-nav-header .pip-sticky-nav-header-user-text {
+<<<<<<< HEAD
   display: none;
   opacity: 0px;
   transition-delay: 0.4s;
   transition: opacity 0.2s linear;
+=======
+  opacity: 0;
+  width: 0px;
+  padding-left: 0px;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 }
 .pip-sticky-nav-small .pip-sticky-nav-header .pip-sticky-nav-header-user {
   width: 40px;
   min-width: initial;
   height: 40px;
+<<<<<<< HEAD
   margin: 0px auto;
+=======
+  margin-left: 16px;
+  margin-right: 0px;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
   padding: 0px;
 }
 .pip-sticky-nav-small .pip-sticky-nav-header .pip-sticky-nav-header-user .pip-sticky-nav-header-user-image {
@@ -758,6 +816,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   margin-left: 0px;
 }
 .pip-sticky-nav-menu {
+<<<<<<< HEAD
   width: 320px;
 }
 .pip-sticky-nav-menu .pip-sticky-nav-menu-expander {
@@ -772,6 +831,13 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-menu .md-subheader {
   line-height: 48px;
+=======
+  width: 100%;
+}
+.pip-sticky-nav-menu .md-subheader {
+  line-height: 48px;
+  background: #e0e0e0;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 }
 .pip-sticky-nav-menu .md-subheader .md-subheader-inner {
   padding: 24px;
@@ -784,11 +850,14 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-menu .pip-section md-divider {
   margin-bottom: 8px;
 }
+<<<<<<< HEAD
 .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-list-item-inner .pip-sticky-nav-menu-icon {
   margin-top: 12px;
   margin-bottom: 12px;
   margin-right: 24px;
 }
+=======
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button {
   padding-left: 24px !important;
   padding-right: 24px !important;
@@ -802,7 +871,29 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner {
   line-height: 48px;
 }
+<<<<<<< HEAD
 .pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
+=======
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-title {
+  padding-right: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: title-animation 0.35s ease;
+}
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-icon-block {
+  width: 24px;
+  padding-right: 24px !important;
+}
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-icon-block .pip-sticky-nav-menu-icon {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
+  position: absolute;
+  left: 274px;
+  top: 11px;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
   font-size: 12px !important;
   min-width: 22px !important;
   height: 22px !important;
@@ -812,6 +903,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   text-align: center;
   color: #fafafa;
   background: red;
+<<<<<<< HEAD
 }
 @media (max-width: 768px) {
   .pip-sticky-nav-expanded-button {
@@ -837,11 +929,15 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-small .pip-sticky-nav-menu {
   width: 72px !important;
+=======
+  animation: badge-animation 0.35s ease;
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731
 }
 .pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
   position: absolute;
   top: 5px;
   left: 32px;
+<<<<<<< HEAD
 }
 .pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-expander {
   display: none;
@@ -868,3 +964,64 @@ md-select md-select-value .md-text .pip-tabs-badge {
   margin-right: 0px;
   margin-left: 0px;
 }
+=======
+  animation: bage-animation-back 0.35s ease;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button {
+  margin-right: 0px;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-title {
+  animation: title-animation-back 0.35s ease;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-icon-block .pip-sticky-nav-menu-icon {
+  margin-left: 0px;
+}
+@keyframes title-animation {
+  from {
+    opacity: 0;
+    width: 220px;
+  }
+  to {
+    opacity: 1;
+    width: 0px;
+  }
+}
+@keyframes title-animation-back {
+  0% {
+    opacity: 0;
+    width: 220px;
+  }
+  30% {
+    opacity: 0;
+    width: 220px;
+  }
+  100% {
+    opacity: 1;
+    width: 0px;
+  }
+}
+@keyframes bage-animation {
+  from {
+    top: 5px;
+    left: 32px;
+  }
+  to {
+    left: 274px;
+    top: 11px;
+  }
+}
+@keyframes bage-animation-back {
+  0% {
+    left: 274px;
+    top: 11px;
+  }
+  30% {
+    left: 274px;
+    top: 11px;
+  }
+  100% {
+    top: 5px;
+    left: 32px;
+  }
+}
+>>>>>>> 80bf80f07516efd80afee53288637a745a391731

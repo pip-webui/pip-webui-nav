@@ -1,0 +1,9 @@
+/*md-sidenav {
+    width: 400px;
+    transition: width 0.5s ease;
+}
+
+.small-sidenav md-sidenav {
+    width: 80px;
+    transition: width 0.5s ease;
+}*/

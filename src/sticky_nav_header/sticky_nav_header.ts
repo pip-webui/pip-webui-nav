@@ -53,7 +53,9 @@
                 if (!image) {
                     image = $element.find('.pip-sticky-nav-header-user-image')
                 } 
-                setImageMarginCSS(imageBlock, image);
+                $timeout(function() {
+                    setImageMarginCSS(imageBlock, image);
+                }, 400);
             }
 
             //------------------------

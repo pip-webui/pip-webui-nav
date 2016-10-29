@@ -1,8 +1,6 @@
 // @file CSS styles for application Sticky Nav Header component
 // @copyright Digital Living Software Corp. 2014-2016
 
-// Party Name under Avatar
-//------------------------------------------
 
 @nav-header-party-font-size:            22px;
 @nav-header-party-color:                rgb(255, 255, 255);
@@ -28,8 +26,9 @@
 
 .pip-sticky-nav-header {
         height: @nav-header-height;
-    	// overflow-x: hidden;
-        width: @sidenav-width;
+        width: 100%;//@sidenav-width;
+        // transition: all 0.35s ease;
+
     md-toolbar{
         position: relative;
         padding-top: @nav-header-padding-sm;
@@ -47,57 +46,52 @@
         width: @nav-header-image-big-size;
         min-width: initial;
         height: @nav-header-image-big-size;
-        margin: 0px 16px 0px 0px;
+        margin: 0px;
         padding: 0px;
+        // transition: width 0.35s ease, height 0.35s ease;
 
         .pip-sticky-nav-header-user-image {
             border-radius: 50%;
             width: @nav-header-image-big-size; 
             height: @nav-header-image-big-size;
+            
+            
         }
     }
 
     .pip-sticky-nav-header-user-text {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;  
+            max-height: @nav-header-height;
+            padding-left: 16px;
+            opacity: 1;
+            // transition:  all 0.35 ease;
         .pip-sticky-nav-header-user-pri {
+            max-height: 84px; // 3 line
+            overflow: hidden;
             cursor: pointer !important;
             font-size: @nav-header-party-font-size;
-            text-decoration: none;
-            color: @nav-header-party-color;
             letter-spacing: @nav-header-party-font-letter-spacing;
 		  	word-wrap: break-word;
         }
         .pip-sticky-nav-header-user-sec {
             margin-top: 4px;
             font-size: @nav-header-party-info-font-size;
-            .text-overflow();
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         } 
     }
    
 }
 
-@media (max-width: 768px) {
-   .pip-sticky-nav-header {
-        height: @nav-header-height;
-        md-toolbar {
-            padding-left: @nav-header-padding-sm;
-            padding-right: @nav-header-padding-sm;
-        }
-
-   }
-}
 
 .pip-sticky-nav-small {
     .pip-sticky-nav-header {
-        width: @sidenav-small-width !important;
+        width: 100%;//@sidenav-small-width !important;
         height: @nav-header-height;
-        md-toolbar{
+
+        md-toolbar {
             position: relative;
-            padding-top: @nav-header-padding-sm;//120px;
             min-height: 82px !important;
-            padding-bottom: @nav-header-padding-sm;
             padding-left: 0px;
             padding-right: 0px;
 
@@ -107,25 +101,25 @@
         }
 
         .pip-sticky-nav-header-user-text {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;           
+                opacity: 0;
+                width: 0px;
+                padding-left: 0px;
+                // transition:  all 0.35 ease;
         }
 
         .pip-sticky-nav-header-user {
             width: @nav-header-image-small-size;
             min-width: initial;
             height: @nav-header-image-small-size;
-            margin: 0px auto;
+            margin-left: 16px;
+            margin-right: 0px;
             padding: 0px;
-
             .pip-sticky-nav-header-user-image {
                 border-radius: 50%;
                 width: @nav-header-image-small-size; 
                 height: @nav-header-image-small-size;
+                
             }
         }        
     }
 }
-

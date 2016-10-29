@@ -1,23 +1,6 @@
 // @file CSS styles for application Navigation Menu component
 // @copyright Digital Living Software Corp. 2014-2016
 
-// Section
-//-------------------------------------------
-
-// @nav-menu-section-font-size:              @font-size-body1;
-// @nav-menu-section-color:                  @color-secondary;
-// @nav-menu-section-font-family:            @font-family;
-// @nav-menu-section-line-height:            1em;
-
-// Link // Kate add
-//-------------------------------------------
-
-// @nav-menu-link-font-size:                 @font-size-body2;
-// @nav-menu-link-color:                     @color-primary;
-// @nav-menu-link-font-family:               @font-family;
-// @nav-menu-link-line-height:               1em;
-
-
 // Sizes
 //-----------
 
@@ -33,22 +16,11 @@
 }
 
 .pip-sticky-nav-menu {
-    width: @sidenav-width;
-    // overflow-x: hidden;
-        .pip-sticky-nav-menu-expander {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-        .pip-sticky-nav-menu-title {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
+    width: 100%; //@sidenav-width;
 
     .md-subheader {
         line-height: 48px;
+        background: @sidenav-bg;
         .md-subheader-inner {
             padding: 24px;
             padding-top: 0px;
@@ -58,130 +30,148 @@
 
     .pip-section {
         padding-bottom: 8px;
+        
         md-divider {
             margin-bottom: 8px;
         }
     }
 
         .pip-sticky-nav-menu-item {
-          .md-list-item-inner {  
-            .pip-sticky-nav-menu-icon {
-                margin-top: 12px;
-                margin-bottom: 12px;
-                margin-right: 24px;
+            .md-button {
+                padding-left: @nav-menu-padding !important;
+                padding-right: @nav-menu-padding !important;
+
+                -webkit-border-radius: 0px;
+                -moz-border-radius:    0px;
+                border-radius:         0px;
+                -moz-background-clip:    padding;
+                -webkit-background-clip: padding-box;
+                background-clip:         padding-box;
+
+                .md-list-item-inner {
+                    line-height: 48px;
+
+                    .pip-sticky-nav-menu-title {
+                        padding-right: 24px; 
+                        .text-overflow();
+                        // opacity: 1;
+                        animation: title-animation 0.35s ease;
+                    }
+
+                .pip-sticky-nav-menu-icon-block {
+                    width: 24px;
+                    padding-right: @nav-menu-padding !important;
+                    .pip-sticky-nav-menu-icon {
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+                    }
+                }              
             }
-          }
+            }
         } 
 
-    .pip-sticky-nav-menu-item {
-        .md-button {
-            padding-left: @nav-menu-padding !important;
-            padding-right: @nav-menu-padding !important;;
+        .pip-sticky-nav-menu-badge {
+            position: absolute;
+            left: 274px;
+            // right: 16px;
+            top: 11px;
+            font-size: 12px !important;
+            min-width: 22px !important;
+            height: 22px !important;
+            border-radius: 14px;
+            line-height: 22px;
+            vertical-align: middle;
+            text-align: center;
+            color: @color-content;
+            background: red;
+            animation: badge-animation 0.35s ease;
+        }    
 
-            // .border-radius(0px);
-            -webkit-border-radius: 0px;
-            -moz-border-radius:    0px;
-            border-radius:         0px;
-            -moz-background-clip:    padding;
-            -webkit-background-clip: padding-box;
-            background-clip:         padding-box;
-
-            .md-list-item-inner {
-                line-height: 48px;
-            }
-        }
-	}	
-
-  .pip-sticky-nav-menu-badge {
-    font-size: 12px !important;
-    min-width: 22px !important;
-    height: 22px !important;
-    border-radius: 14px;
-    line-height: 22px;
-    vertical-align: middle;
-    text-align: center;
-    color: @color-content;
-    background: red;
-  }    
-
-}
-
-@media (max-width: 768px) {
-    .pip-sticky-nav-expanded-button {
-        height: 48px;
-    }
-    
-   .pip-sticky-nav-menu {
-       .pip-sticky-nav-menu-item {
-          .md-button {
-                padding-left: @nav-menu-padding-sm;
-                padding-right: @nav-menu-padding-sm;
-            }	
-        }
-    }
-
-    .pip-sticky-nav-small {
-        md-sidenav {
-            width: @sidenav-small-width-sm !important;
-        }
-        .pip-sticky-nav-menu {   
-            .pip-sticky-nav-menu-badge {
-                position: absolute;
-                top: 5px;
-                left: 28px;
-            } 
-
-            .pip-sticky-nav-menu-item {
-                .md-button {
-                    width: @sidenav-small-width-sm !important;
-                    min-width: @sidenav-small-width-sm !important;
-                    max-width: @sidenav-small-width-sm !important;
-                }
-            }              
-        }
-    }
 }
 
 .pip-sticky-nav-small {
     .pip-sticky-nav-menu {   
-        width: @sidenav-small-width !important;
+     //   width: 100%; //@sidenav-small-width !important;
 
         .pip-sticky-nav-menu-badge {
             position: absolute;
             top: 5px;
+            // right: 16px;
             left: 32px;
+            animation: bage-animation-back 0.35s ease;
         }    
 
-        .pip-sticky-nav-menu-expander {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-        .pip-sticky-nav-menu-title {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-       .pip-sticky-nav-menu-item {
-          .md-button {
-              width: @sidenav-small-width !important;
-              min-width: @sidenav-small-width !important;
-              max-width: @sidenav-small-width !important;
-          }
-
-          .md-list-item-inner {  
-              width: 24px;
-              min-width: 24px;
-            .pip-sticky-nav-menu-icon {
+        .pip-sticky-nav-menu-item {
+            .md-button {
                 margin-right: 0px;
-                margin-left: 0px;
+  
+
+                .md-list-item-inner {  
+                    .pip-sticky-nav-menu-title {
+                        // opacity: 0;
+                        animation: title-animation-back 0.35s ease;
+                    }
+
+                    .pip-sticky-nav-menu-icon-block {
+                        .pip-sticky-nav-menu-icon {
+                            margin-left: 0px;
+                        }
+                    }
+                }
             }
-          }
         } 
     }
 }
 
+ 
+@keyframes title-animation {
+    from {
+        opacity: 0;
+        width: 220px;
+    }
+    to {
+        opacity: 1;
+        width: 0px;
+    }
+}
+
+@keyframes title-animation-back {
+    0% {
+        opacity: 0;
+        width: 220px;
+    }
+    30% {
+        opacity: 0;
+        width: 220px;
+    }
+    100% {
+        opacity: 1;
+        width: 0px;
+    }
+}
+
+@keyframes bage-animation {
+    from {
+             top: 5px;
+            left: 32px;
+    }
+    to {
+            left: 274px;
+            top: 11px;            
+    }
+}
+
+@keyframes bage-animation-back {
+    0% {
+            left: 274px;
+            top: 11px;
+    }
+    30%{
+            left: 274px;
+            top: 11px;
+    }
+    100% {
+             top: 5px;
+            left: 32px;
+    }
+}
