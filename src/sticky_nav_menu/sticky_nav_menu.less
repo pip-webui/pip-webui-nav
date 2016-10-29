@@ -34,17 +34,21 @@
 
 .pip-sticky-nav-menu {
     width: @sidenav-width;
+    // transition: all 0.35s easy;
     // overflow-x: hidden;
         .pip-sticky-nav-menu-expander {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
+            // opacity: 1px;
+            // transition-delay: 0.4s;  
+            // transition: opacity 5s easy;    
+            // transition: all 5s easy;    
         }
 
         .pip-sticky-nav-menu-title {
-            opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
+            .text-overflow();
+            // opacity: 1px;
+            // transition-delay: 0.4s;  
+            // transition: opacity 5s easy, width 5s easy;    
+            // transition: all 0.35s easy;    
         }
 
     .md-subheader {
@@ -106,6 +110,54 @@
 
 }
 
+.pip-sticky-nav-small {
+    .pip-sticky-nav-menu {   
+        width: @sidenav-small-width !important;
+        // transition: all 0.35s easy;
+
+        .pip-sticky-nav-menu-badge {
+            position: absolute;
+            top: 5px;
+            left: 32px;
+        }    
+
+        .pip-sticky-nav-menu-expander {
+            // display: none;
+            // opacity: 0px;
+            // transition-delay: 0.4s;  
+            // transition: opacity 5s easy, width 5s easy;    
+            // transition: all 5s easy;    
+        }
+
+        .pip-sticky-nav-menu-title {
+            // display: none;
+            // opacity: 0px;
+            // width: 0px;
+            // transition-delay: 0.4s;  
+            // transition: opacity 5s easy, width 5s easy;    
+            // transition: all 5s easy;    
+        }
+
+       .pip-sticky-nav-menu-item {
+          .md-button {
+              width: @sidenav-small-width !important;
+              min-width: @sidenav-small-width !important;
+              max-width: @sidenav-small-width !important;
+          }
+
+          .md-list-item-inner {  
+              width: 24px;
+              min-width: 24px;
+            .pip-sticky-nav-menu-icon {
+                margin-right: 0px;
+                margin-left: 0px;
+            }
+          }
+        } 
+    }
+}
+
+// todo??
 @media (max-width: 768px) {
     .pip-sticky-nav-expanded-button {
         height: 48px;
@@ -141,47 +193,3 @@
         }
     }
 }
-
-.pip-sticky-nav-small {
-    .pip-sticky-nav-menu {   
-        width: @sidenav-small-width !important;
-
-        .pip-sticky-nav-menu-badge {
-            position: absolute;
-            top: 5px;
-            left: 32px;
-        }    
-
-        .pip-sticky-nav-menu-expander {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-        .pip-sticky-nav-menu-title {
-            display: none;
-            opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;    
-        }
-
-       .pip-sticky-nav-menu-item {
-          .md-button {
-              width: @sidenav-small-width !important;
-              min-width: @sidenav-small-width !important;
-              max-width: @sidenav-small-width !important;
-          }
-
-          .md-list-item-inner {  
-              width: 24px;
-              min-width: 24px;
-            .pip-sticky-nav-menu-icon {
-                margin-right: 0px;
-                margin-left: 0px;
-            }
-          }
-        } 
-    }
-}
-

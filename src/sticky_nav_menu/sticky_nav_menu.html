@@ -9,7 +9,7 @@
         <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
         <md-subheader ng-show="section.title" style="height: 48px;">
              <!--|| !expanded && section.icon-->
-            <span ng-if="expanded">
+            <span ng-if="expanded" class="pip-sticky-nav-menu-title"> 
                 {{::section.title | translate}}
             </span>
             <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon"></md-icon>
@@ -22,7 +22,7 @@
             ng-hide="link.access && !link.access(link)">
             <md-icon md-svg-icon="{{link.icon}}" 
                 ng-hide="!link.icon" 
-                class="pip-sticky-nav-menu-icon"></md-icon>
+                class="pip-sticky-nav-menu-icon flex-fixed"></md-icon>
             <p class="pip-sticky-nav-menu-title">{{::link.title | translate}}</p>
             <div class="flex pip-sticky-nav-menu-expander"></div>
             <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">

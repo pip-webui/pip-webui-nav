@@ -621,19 +621,12 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-sidenav md-backdrop.md-opaque.ng-enter {
   opacity: .48;
 }
-.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
-  width: 72px !important;
-  min-width: 72px !important;
-  max-width: 72px !important;
-  border-right: solid 1px #ffffff;
-}
-.pip-sticky-sidenav {
-  -webkit-transition: width .2s ease;
-  -moz-transition: width .2s ease;
-  -o-transition: width .2s ease;
-  transition: width .2s ease;
-}
-.pip-sticky-sidenav md-sidenav {
+.pip-sticky-sidenav md-sidenav.md-locked-open,
+.pip-sticky-sidenav md-sidenav.md-locked-open.md-closed,
+.pip-sticky-sidenav md-sidenav.md-locked-open.md-closed.md-sidenav-left,
+.pip-sticky-sidenav md-sidenav.md-locked-open.md-closed,
+.pip-sticky-sidenav md-sidenav.md-locked-open.md-closed.md-sidenav-right,
+.pip-sticky-sidenav md-sidenav.md-locked-open-remove.md-closed {
   background: #e0e0e0;
   border-right: solid 1px #ffffff;
   width: 320px !important;
@@ -641,29 +634,19 @@ md-select md-select-value .md-text .pip-tabs-badge {
   max-width: 320px !important;
   overflow-x: hidden;
 }
-@media (max-width: 456px) {
-  .pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
-    width: 72px !important;
-    min-width: 72px !important;
-    max-width: 72px !important;
-  }
-  .pip-sticky-sidenav md-sidenav {
-    width: 320px !important;
-    min-width: 320px !important;
-    max-width: 320px !important;
-  }
+.pip-sticky-sidenav.pip-sticky-nav-small {
+  border-right: solid 1px #ffffff;
 }
-@media (max-width: 768px) {
-  .pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
-    width: 72px !important;
-    min-width: 72px !important;
-    max-width: 72px !important;
-  }
-  .pip-sticky-sidenav md-sidenav {
-    width: 320px !important;
-    min-width: 320px !important;
-    max-width: 320px !important;
-  }
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav.md-locked-open,
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav.md-locked-open.md-closed,
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav.md-locked-open.md-closed.md-sidenav-left,
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav.md-locked-open.md-closed,
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav.md-locked-open.md-closed.md-sidenav-right,
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav.md-locked-open-remove.md-closed {
+  width: 72px !important;
+  min-width: 72px !important;
+  max-width: 72px !important;
+  transition: all 3s easy;
 }
 .pip-sticky-nav-header {
   height: 112px;
@@ -694,8 +677,6 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user-text {
   opacity: 1px;
-  transition-delay: 0.4s;
-  transition: opacity 0.2s linear;
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user-text .pip-sticky-nav-header-user-pri {
   cursor: pointer !important;
@@ -711,15 +692,6 @@ md-select md-select-value .md-text .pip-tabs-badge {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-@media (max-width: 768px) {
-  .pip-sticky-nav-header {
-    height: 112px;
-  }
-  .pip-sticky-nav-header md-toolbar {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
 }
 .pip-sticky-nav-small .pip-sticky-nav-header {
   width: 72px !important;
@@ -737,10 +709,11 @@ md-select md-select-value .md-text .pip-tabs-badge {
   min-height: 82px !important;
 }
 .pip-sticky-nav-small .pip-sticky-nav-header .pip-sticky-nav-header-user-text {
-  display: none;
   opacity: 0px;
-  transition-delay: 0.4s;
-  transition: opacity 0.2s linear;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 0px;
 }
 .pip-sticky-nav-small .pip-sticky-nav-header .pip-sticky-nav-header-user {
   width: 40px;
@@ -760,15 +733,10 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-menu {
   width: 320px;
 }
-.pip-sticky-nav-menu .pip-sticky-nav-menu-expander {
-  opacity: 1px;
-  transition-delay: 0.4s;
-  transition: opacity 0.2s linear;
-}
 .pip-sticky-nav-menu .pip-sticky-nav-menu-title {
-  opacity: 1px;
-  transition-delay: 0.4s;
-  transition: opacity 0.2s linear;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .pip-sticky-nav-menu .md-subheader {
   line-height: 48px;
@@ -813,6 +781,27 @@ md-select md-select-value .md-text .pip-tabs-badge {
   color: #fafafa;
   background: red;
 }
+.pip-sticky-nav-small .pip-sticky-nav-menu {
+  width: 72px !important;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
+  position: absolute;
+  top: 5px;
+  left: 32px;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button {
+  width: 72px !important;
+  min-width: 72px !important;
+  max-width: 72px !important;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-list-item-inner {
+  width: 24px;
+  min-width: 24px;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-list-item-inner .pip-sticky-nav-menu-icon {
+  margin-right: 0px;
+  margin-left: 0px;
+}
 @media (max-width: 768px) {
   .pip-sticky-nav-expanded-button {
     height: 48px;
@@ -834,37 +823,4 @@ md-select md-select-value .md-text .pip-tabs-badge {
     min-width: 56px !important;
     max-width: 56px !important;
   }
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu {
-  width: 72px !important;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
-  position: absolute;
-  top: 5px;
-  left: 32px;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-expander {
-  display: none;
-  opacity: 0px;
-  transition-delay: 0.4s;
-  transition: opacity 0.2s linear;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-title {
-  display: none;
-  opacity: 0px;
-  transition-delay: 0.4s;
-  transition: opacity 0.2s linear;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button {
-  width: 72px !important;
-  min-width: 72px !important;
-  max-width: 72px !important;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-list-item-inner {
-  width: 24px;
-  min-width: 24px;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-list-item-inner .pip-sticky-nav-menu-icon {
-  margin-right: 0px;
-  margin-left: 0px;
 }

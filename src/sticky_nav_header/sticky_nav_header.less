@@ -28,8 +28,9 @@
 
 .pip-sticky-nav-header {
         height: @nav-header-height;
-    	// overflow-x: hidden;
         width: @sidenav-width;
+        // transition: all 5s easy;
+
     md-toolbar{
         position: relative;
         padding-top: @nav-header-padding-sm;
@@ -59,8 +60,9 @@
 
     .pip-sticky-nav-header-user-text {
             opacity: 1px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;  
+            // transition-delay: 0.4s;  
+            // transition: opacity 5s easy, width 5s easy;  
+            // transition: all 0.35s easy;  
         .pip-sticky-nav-header-user-pri {
             cursor: pointer !important;
             font-size: @nav-header-party-font-size;
@@ -78,21 +80,13 @@
    
 }
 
-@media (max-width: 768px) {
-   .pip-sticky-nav-header {
-        height: @nav-header-height;
-        md-toolbar {
-            padding-left: @nav-header-padding-sm;
-            padding-right: @nav-header-padding-sm;
-        }
-
-   }
-}
 
 .pip-sticky-nav-small {
     .pip-sticky-nav-header {
         width: @sidenav-small-width !important;
         height: @nav-header-height;
+        // transition: all 5s easy;
+
         md-toolbar{
             position: relative;
             padding-top: @nav-header-padding-sm;//120px;
@@ -107,10 +101,13 @@
         }
 
         .pip-sticky-nav-header-user-text {
-            display: none;
+            // display: none;
             opacity: 0px;
-            transition-delay: 0.4s;  
-            transition: opacity 0.2s linear;           
+            .text-overflow();
+            width: 0px;
+            // transition-delay: 0.4s;  
+            // transition: opacity 5s easy, width 5s easy;           
+            // transition: all 0.35s easy;           
         }
 
         .pip-sticky-nav-header-user {
@@ -129,3 +126,15 @@
     }
 }
 
+
+// @media (max-width: 768px) {
+//    .pip-sticky-nav-header {
+//         height: @nav-header-height;
+//         transition: all 5s easy;
+//         md-toolbar {
+//             padding-left: @nav-header-padding-sm;
+//             padding-right: @nav-header-padding-sm;
+//         }
+
+//    }
+// }
