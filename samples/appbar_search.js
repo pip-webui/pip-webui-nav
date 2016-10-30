@@ -25,7 +25,7 @@
             }
             $scope.searchCriteria = 'Find this';
             
-            $scope.$on('pipAppBarSearchClicked', function (event, search) {
+            $scope.$on('pipSearchActivated', function (event, search) {
                 console.log('Search Clicked: ' + search);// eslint-disable-line
                 $scope.searchCriteria = search;
                 pipSearch.criteria($scope.searchCriteria);
@@ -34,7 +34,7 @@
             $scope.onHideSearch = function () {
                 pipAppBar.part('search', false);
                 pipAppBar.part('title', 'text');
-                $rootScope.$broadcast('pipSearchClose');
+                $rootScope.$broadcast('pipCloseSearch');
             };
             
             function searchClicked (search) {
@@ -45,7 +45,7 @@
                 pipAppBar.part('search', true);
                 pipAppBar.part('title', false);
                 pipSearch.set(searchClicked, $scope.searchCriteria, null);
-                $rootScope.$broadcast('pipSearchOpen');
+                $rootScope.$broadcast('pipOpenSearch');
             };
             
 

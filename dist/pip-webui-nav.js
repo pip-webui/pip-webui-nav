@@ -1,5 +1,44 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.pip || (g.pip = {})).nav = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
+var NavService_1 = require('./NavService');
+angular
+    .module('pipNav', [
+    'pipDropdown',
+    'pipTabs',
+    'pipAppBar',
+    'pipSearchBar',
+    'pipNavIcon',
+    'pipBreadcrumb',
+    'pipPrimaryActions',
+    'pipSecondaryActions',
+    'pipSideNav',
+    'pipNavMenu',
+    'pipNavHeader',
+    'pipStickySideNav',
+    'pipStickyNavMenu',
+    'pipStickyNavHeader'
+])
+    .service('pipNav', NavService_1.NavService);
+},{"./NavService":2}],2:[function(require,module,exports){
+'use strict';
+var NavService = (function () {
+    NavService.$inject = ['$injector'];
+    function NavService($injector) {
+        "ngInject";
+        this.appBar = $injector.has('pipAppBar') ? $injector.get('pipAppBar') : null;
+        this.navIcon = $injector.has('pipNavIcon') ? $injector.get('pipNavIcon') : null;
+        this.breadcrumb = $injector.has('pipBreadcrumb') ? $injector.get('pipBreadcrumb') : null;
+        this.actions = $injector.has('pipActions') ? $injector.get('pipActions') : null;
+        this.search = $injector.has('pipSearch') ? $injector.get('pipSearch') : null;
+        this.sideNav = $injector.has('pipSideNav') ? $injector.get('pipSideNav') : null;
+        this.navHeader = $injector.has('pipNavHeader') ? $injector.get('pipNavHeader') : null;
+        this.navMenu = $injector.has('pipNavMenu') ? $injector.get('pipNavMenu') : null;
+    }
+    return NavService;
+}());
+exports.NavService = NavService;
+},{}],3:[function(require,module,exports){
+'use strict';
 var thisModule = angular.module('pipActions.Service', []);
 thisModule.provider('pipActions', function () {
     var config = {
@@ -59,7 +98,7 @@ thisModule.provider('pipActions', function () {
         config.secondaryGlobalActions = secondaryActions || [];
     }
 });
-},{}],2:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipPrimaryActions', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
@@ -163,7 +202,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipSecondaryActions', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
@@ -277,7 +316,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
@@ -301,7 +340,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
@@ -341,7 +380,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar.Service', []);
@@ -444,20 +483,21 @@ thisModule.provider('pipActions', function () {
         }
     });
 })();
-},{}],7:[function(require,module,exports){
-"use strict";
-var breadcrumb_service_1 = require('./breadcrumb_service');
-var breadcrumb_service_2 = require('./breadcrumb_service');
+},{}],9:[function(require,module,exports){
+'use strict';
+var BreadcrumbService_1 = require('./BreadcrumbService');
+var BreadcrumbService_2 = require('./BreadcrumbService');
+var SearchService_1 = require('../search/SearchService');
 var BreadcrumbController = (function () {
-    BreadcrumbController.$inject = ['$scope', '$element', '$attrs', '$rootScope', '$window', '$state', 'pipBreadcrumb'];
-    function BreadcrumbController($scope, $element, $attrs, $rootScope, $window, $state, pipBreadcrumb) {
+    BreadcrumbController.$inject = ['$element', '$rootScope', '$window', '$state', 'pipBreadcrumb'];
+    function BreadcrumbController($element, $rootScope, $window, $state, pipBreadcrumb) {
         "ngInject";
         this._rootScope = $rootScope;
         this._window = $window;
         $element.addClass('pip-breadcrumb');
         this.config = pipBreadcrumb.config;
-        $rootScope.$on(breadcrumb_service_1.BreadcrumbChangedEvent, this.onBreadcrumbChanged);
-        $rootScope.$on(breadcrumb_service_2.BreadcrumbBackEvent, this.onBreadcrumbBack);
+        $rootScope.$on(BreadcrumbService_1.BreadcrumbChangedEvent, this.onBreadcrumbChanged);
+        $rootScope.$on(BreadcrumbService_2.BreadcrumbBackEvent, this.onBreadcrumbBack);
     }
     BreadcrumbController.prototype.onBreadcrumbChanged = function (event, config) {
         this.config = config;
@@ -465,51 +505,93 @@ var BreadcrumbController = (function () {
     BreadcrumbController.prototype.onBreadcrumbBack = function () {
         var items = this.config.items;
         if (_.isArray(items) && items.length > 0) {
-            var backCallback = items[items.length - 1].click;
+            var item = items[items.length - 1];
+            var backCallback = item.click;
             if (_.isFunction(backCallback))
-                backCallback();
+                backCallback(item);
             else
                 this._window.history.back();
         }
         else
             this._window.history.back();
     };
-    BreadcrumbController.prototype.onBreadcrumbClick = function (item) {
+    BreadcrumbController.prototype.onClick = function (item) {
         if (_.isFunction(item.click))
             item.click(item);
     };
-    BreadcrumbController.prototype.onSearchOpen = function () {
-        this._rootScope.$broadcast('pipSearchOpen');
+    BreadcrumbController.prototype.openSearch = function () {
+        this._rootScope.$broadcast(SearchService_1.OpenSearchEvent);
     };
     return BreadcrumbController;
 }());
+exports.BreadcrumbController = BreadcrumbController;
+},{"../search/SearchService":29,"./BreadcrumbService":13}],10:[function(require,module,exports){
+'use strict';
+var BreadcrumbController_1 = require('./BreadcrumbController');
 function breadcrumbDirective() {
     return {
         restrict: 'E',
         scope: {},
         replace: false,
-        templateUrl: function (element, attr) {
-            return 'breadcrumb/breadcrumb.html';
-        },
-        controller: BreadcrumbController,
+        templateUrl: 'breadcrumb/Breadcrumb.html',
+        controller: BreadcrumbController_1.BreadcrumbController,
         controllerAs: 'vm'
     };
 }
+exports.breadcrumbDirective = breadcrumbDirective;
+},{"./BreadcrumbController":9}],11:[function(require,module,exports){
+'use strict';
+var BreadcrumbProvider_1 = require('./BreadcrumbProvider');
+var BreadcrumbDirective_1 = require('./BreadcrumbDirective');
 angular
-    .module('pipBreadcrumb', [
-    'ngMaterial',
-    'pipNav.Templates',
-    'pipNav.Translate',
-    'pipBreadcrumb.Service'
-])
-    .directive('pipBreadcrumb', breadcrumbDirective);
-},{"./breadcrumb_service":8}],8:[function(require,module,exports){
-"use strict";
+    .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate'])
+    .provider('pipBreadcrumb', BreadcrumbProvider_1.BreadcrumbProvider)
+    .directive('pipBreadcrumb', BreadcrumbDirective_1.breadcrumbDirective);
+},{"./BreadcrumbDirective":10,"./BreadcrumbProvider":12}],12:[function(require,module,exports){
+'use strict';
+var BreadcrumbService_1 = require('./BreadcrumbService');
+var BreadcrumbProvider = (function () {
+    function BreadcrumbProvider() {
+        this._config = {
+            text: null,
+            items: null,
+            criteria: null
+        };
+    }
+    Object.defineProperty(BreadcrumbProvider.prototype, "text", {
+        get: function () {
+            return this._config.text;
+        },
+        set: function (value) {
+            this._config.text = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    BreadcrumbProvider.prototype.$get = ['$rootScope', function ($rootScope) {
+        "ngInject";
+        if (this._service == null)
+            this._service = new BreadcrumbService_1.BreadcrumbService(this._config, $rootScope);
+        return this._service;
+    }];
+    return BreadcrumbProvider;
+}());
+exports.BreadcrumbProvider = BreadcrumbProvider;
+},{"./BreadcrumbService":13}],13:[function(require,module,exports){
+'use strict';
 exports.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 exports.BreadcrumbBackEvent = "pipBreadcrumbBack";
 var BreadcrumbItem = (function () {
-    function BreadcrumbItem() {
+    function BreadcrumbItem(title, click) {
+        if (title === void 0) { title = null; }
+        if (click === void 0) { click = null; }
+        this.title = title;
+        this.click = click;
     }
+    BreadcrumbItem.prototype.withClick = function (click) {
+        this.click = click;
+        return this;
+    };
     return BreadcrumbItem;
 }());
 exports.BreadcrumbItem = BreadcrumbItem;
@@ -571,36 +653,8 @@ var BreadcrumbService = (function () {
     };
     return BreadcrumbService;
 }());
-var BreadcrumbProvider = (function () {
-    function BreadcrumbProvider() {
-        this._config = {
-            text: null,
-            items: null,
-            criteria: null
-        };
-    }
-    Object.defineProperty(BreadcrumbProvider.prototype, "text", {
-        get: function () {
-            return this._config.text;
-        },
-        set: function (value) {
-            this._config.text = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    BreadcrumbProvider.prototype.$get = ['$rootScope', function ($rootScope) {
-        "ngInject";
-        if (this._service == null)
-            this._service = new BreadcrumbService(this._config, $rootScope);
-        return this._service;
-    }];
-    return BreadcrumbProvider;
-}());
-angular
-    .module('pipBreadcrumb.Service', [])
-    .provider('pipBreadcrumb', BreadcrumbProvider);
-},{}],9:[function(require,module,exports){
+exports.BreadcrumbService = BreadcrumbService;
+},{}],14:[function(require,module,exports){
 'use strict';
 translateFilter.$inject = ['$injector'];
 function translateFilter($injector) {
@@ -613,7 +667,7 @@ function translateFilter($injector) {
 angular
     .module('pipNav.Translate', [])
     .filter('translate', translateFilter);
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
@@ -659,7 +713,7 @@ angular
         };
     }]);
 })();
-},{}],11:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var pip;
 (function (pip) {
     var nav;
@@ -717,31 +771,7 @@ var pip;
             .directive('pipLanguagePicker', languagePickerDirective);
     })(nav = pip.nav || (pip.nav = {}));
 })(pip || (pip = {}));
-},{}],12:[function(require,module,exports){
-var pip;
-(function (pip) {
-    var nav;
-    (function (nav) {
-        'use strict';
-        angular.module('pipNav', [
-            'pipNav.Service',
-            'pipDropdown',
-            'pipTabs',
-            'pipAppBar',
-            'pipNavIcon',
-            'pipBreadcrumb',
-            'pipPrimaryActions',
-            'pipSecondaryActions',
-            'pipSideNav',
-            'pipNavMenu',
-            'pipNavHeader',
-            'pipStickySideNav',
-            'pipStickyNavMenu',
-            'pipStickyNavHeader'
-        ]);
-    })(nav = pip.nav || (pip.nav = {}));
-})(pip || (pip = {}));
-},{}],13:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
@@ -810,7 +840,7 @@ var pip;
         }
     }]);
 })();
-},{}],14:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipNavIcon', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavIcon.Service']);
@@ -856,7 +886,7 @@ var pip;
         }
     }]);
 })();
-},{}],15:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipNavIcon.Service', []);
@@ -955,7 +985,7 @@ var pip;
         }
     });
 })();
-},{}],16:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
@@ -1041,26 +1071,7 @@ var pip;
         }
     }]);
 })();
-},{}],17:[function(require,module,exports){
-'use strict';
-var NavService = (function () {
-    NavService.$inject = ['$injector'];
-    function NavService($injector) {
-        "ngInject";
-        this.appBar = $injector.has('pipAppBar') ? $injector.get('pipAppBar') : null;
-        this.navIcon = $injector.has('pipNavIcon') ? $injector.get('pipNavIcon') : null;
-        this.breadcrumb = $injector.has('pipBreadcrumb') ? $injector.get('pipBreadcrumb') : null;
-        this.actions = $injector.has('pipActions') ? $injector.get('pipActions') : null;
-        this.search = $injector.has('pipSearch') ? $injector.get('pipSearch') : null;
-        this.sideNav = $injector.has('pipSideNav') ? $injector.get('pipSideNav') : null;
-        this.navHeader = $injector.has('pipNavHeader') ? $injector.get('pipNavHeader') : null;
-        this.navMenu = $injector.has('pipNavMenu') ? $injector.get('pipNavMenu') : null;
-    }
-    return NavService;
-}());
-angular.module('pipNav.Service', [])
-    .service('pipNavService', NavService);
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipNavHeader.Service', []);
@@ -1095,7 +1106,7 @@ angular.module('pipNav.Service', [])
         }
     });
 })();
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipNavMenu.Service', []);
@@ -1161,7 +1172,7 @@ angular.module('pipNav.Service', [])
         ;
     });
 })();
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipSideNav.Part', ['pipSideNav.Service']);
@@ -1197,7 +1208,7 @@ angular.module('pipNav.Service', [])
         }
     }]);
 })();
-},{}],21:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipSideNav.Service', []);
@@ -1285,155 +1296,174 @@ angular.module('pipNav.Service', [])
         }
     });
 })();
-},{}],22:[function(require,module,exports){
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipSearch.Service']);
-    thisModule.run(['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        if (pipTranslate && pipTranslate.setTranslations) {
-            pipTranslate.setTranslations('en', {
-                'APPBAR_SEARCH': 'Search'
-            });
-            pipTranslate.setTranslations('ru', {
-                'APPBAR_SEARCH': 'Поиск'
-            });
-        }
-    }]);
-    thisModule.directive('pipSearchBar', function () {
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: false,
-            templateUrl: function (element, attr) {
-                return 'search_bar/search_bar.html';
-            },
-            controller: 'pipSearchBarController'
-        };
-    });
-    thisModule.controller('pipSearchBarController', ['$scope', '$element', '$attrs', '$rootScope', 'pipSearch', function ($scope, $element, $attrs, $rootScope, pipSearch) {
+},{}],25:[function(require,module,exports){
+'use strict';
+var SearchService_1 = require('./SearchService');
+var SearchService_2 = require('./SearchService');
+var SearchBarController = (function () {
+    SearchBarController.$inject = ['$element', '$rootScope', 'pipSearch'];
+    function SearchBarController($element, $rootScope, pipSearch) {
+        "ngInject";
+        var _this = this;
+        this.enabled = false;
+        this.search = { text: '' };
+        this._rootScope = $rootScope;
         $element.addClass('pip-search-bar');
-        $scope.config = pipSearch.config();
-        $scope.searchEnabled = false;
-        $scope.search = { text: '' };
-        $rootScope.$on('pipSearchChanged', onSearchBarChanged);
-        $scope.onSearchEnable = onSearchEnable;
-        $scope.onSearchClick = onSearchClick;
-        $scope.onSearchClear = onSearchClear;
-        $scope.onSearchKeyDown = onSearchKeyDown;
-        function onSearchBarChanged(event, config) {
-            $scope.config = config;
-            $scope.searchEnabled = false;
-            $scope.search.text = '';
+        this.config = pipSearch.config;
+        $rootScope.$on(SearchService_1.SearchChangedEvent, function (event, config) {
+            _this.onSearchChanged(event, config);
+        });
+    }
+    SearchBarController.prototype.onSearchChanged = function (event, config) {
+        this.config = config;
+        this.enabled = false;
+        this.search.text = '';
+    };
+    SearchBarController.prototype.focusText = function () {
+        setTimeout(function () {
+            var element = $('.pip-search-text');
+            if (element.length > 0)
+                element.focus();
+        }, 0);
+    };
+    SearchBarController.prototype.enable = function () {
+        this.search.text = this.config.criteria;
+        this.enabled = true;
+        this.focusText();
+    };
+    SearchBarController.prototype.onClick = function () {
+        var search = this.search.text;
+        this.search.text = '';
+        this.enabled = false;
+        if (this.config.callback)
+            this.config.callback(search);
+        else
+            this._rootScope.$broadcast(SearchService_2.SearchActivatedEvent, search);
+    };
+    SearchBarController.prototype.clear = function () {
+        if (this.search.text) {
+            this.search.text = '';
+            this.focusText();
         }
-        function focusSearchText() {
-            var element;
-            setTimeout(function () {
-                element = $('.pip-search-text');
-                if (element.length > 0) {
-                    element.focus();
-                }
-            }, 0);
+        else {
+            this.enabled = false;
+            this.onClick();
         }
-        function onSearchEnable() {
-            $scope.search.text = $scope.config.criteria;
-            $scope.searchEnabled = true;
-            focusSearchText();
-        }
-        function onSearchClick() {
-            var searchText = $scope.search.text;
-            $scope.search.text = '';
-            $scope.searchEnabled = false;
-            if ($scope.config.callback) {
-                $scope.config.callback(searchText);
-            }
-            else {
-                $rootScope.$broadcast('pipSearchBarSearchClicked', searchText);
-            }
-        }
-        function onSearchClear() {
-            if ($scope.search.text) {
-                $scope.search.text = '';
-                focusSearchText();
-            }
-            else {
-                $scope.searchEnabled = false;
-                onSearchClick();
-            }
-        }
-        function onSearchKeyDown(event) {
-            if (event.keyCode === 13) {
-                $scope.onSearchClick();
-                return;
-            }
-            if (event.keyCode === 27) {
-                $scope.searchEnabled = false;
-            }
-        }
-    }]);
-})();
-},{}],23:[function(require,module,exports){
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipSearch.Service', []);
-    thisModule.provider('pipSearch', function () {
-        var config = {
-            visible: false,
-            criteria: '',
-            history: [],
-            callback: null,
-        };
-        this.$get = ['$rootScope', function ($rootScope) {
-            $rootScope.$on('pipSearchOpen', open);
-            $rootScope.$on('pipSearchClose', close);
-            return {
-                config: getConfig,
-                set: setSearch,
-                clear: clearSearch,
-                criteria: updateCriteria,
-                history: updateHistory,
-            };
-            function getConfig() {
-                return config;
-            }
-            function setSearch(callback, criteria, history) {
-                config.callback = callback;
-                config.criteria = criteria;
-                config.history = history;
-                sendConfigEvent();
-            }
-            function clearSearch() {
-                config.callback = null;
-                config.criteria = null;
-                sendConfigEvent();
-            }
-            function open(event) {
-                config.visible = true;
-                sendConfigEvent();
-            }
-            function close(event) {
-                config.visible = false;
-                sendConfigEvent();
-            }
-            function toggle() {
-                config.visible = !config.visible;
-                sendConfigEvent();
-            }
-            function updateCriteria(criteria) {
-                config.criteria = criteria;
-                sendConfigEvent();
-            }
-            function updateHistory(history) {
-                config.history = history;
-                sendConfigEvent();
-            }
-            function sendConfigEvent() {
-                $rootScope.$broadcast('pipSearchChanged', config);
-            }
-        }];
+    };
+    SearchBarController.prototype.onKeyDown = function (event) {
+        if (event.keyCode === 13)
+            this.onClick();
+        else if (event.keyCode === 27)
+            this.enabled = false;
+    };
+    return SearchBarController;
+}());
+exports.SearchBarController = SearchBarController;
+},{"./SearchService":29}],26:[function(require,module,exports){
+'use strict';
+var SearchBarController_1 = require('./SearchBarController');
+function searchBarDirective() {
+    return {
+        restrict: 'E',
+        scope: {},
+        replace: false,
+        templateUrl: 'search/SearchBar.html',
+        controller: SearchBarController_1.SearchBarController,
+        controllerAs: 'vm'
+    };
+}
+exports.searchBarDirective = searchBarDirective;
+},{"./SearchBarController":25}],27:[function(require,module,exports){
+'use strict';
+var SearchBarDirective_1 = require('./SearchBarDirective');
+var SearchProvider_1 = require('./SearchProvider');
+angular
+    .module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates'])
+    .provider('pipSearch', SearchProvider_1.SearchProvider)
+    .directive('pipSearchBar', SearchBarDirective_1.searchBarDirective);
+},{"./SearchBarDirective":26,"./SearchProvider":28}],28:[function(require,module,exports){
+'use strict';
+var SearchService_1 = require('./SearchService');
+var SearchService_2 = require('./SearchService');
+var SearchProvider = (function () {
+    function SearchProvider() {
+        this._config = new SearchService_1.SearchConfig();
+        this._service = null;
+    }
+    SearchProvider.prototype.$get = ['$rootScope', function ($rootScope) {
+        "ngInject";
+        if (this._service == null)
+            this._service = new SearchService_2.SearchService(this._config, $rootScope);
+        return this._service;
+    }];
+    return SearchProvider;
+}());
+exports.SearchProvider = SearchProvider;
+},{"./SearchService":29}],29:[function(require,module,exports){
+'use strict';
+exports.OpenSearchEvent = 'pipOpenSearch';
+exports.CloseSearchEvent = 'pipCloseSearch';
+exports.SearchChangedEvent = 'pipSearchChanged';
+exports.SearchActivatedEvent = 'pipSearchActivated';
+var SearchConfig = (function () {
+    function SearchConfig() {
+    }
+    return SearchConfig;
+}());
+exports.SearchConfig = SearchConfig;
+var SearchService = (function () {
+    function SearchService(config, $rootScope) {
+        var _this = this;
+        this._config = config;
+        this._rootScope = $rootScope;
+        $rootScope.$on(exports.OpenSearchEvent, function () { _this.open; });
+        $rootScope.$on(exports.CloseSearchEvent, function () { _this.close; });
+    }
+    Object.defineProperty(SearchService.prototype, "config", {
+        get: function () {
+            return this._config;
+        },
+        enumerable: true,
+        configurable: true
     });
-})();
-},{}],24:[function(require,module,exports){
+    SearchService.prototype.set = function (callback, criteria, history) {
+        this._config.callback = callback;
+        this._config.criteria = criteria;
+        this._config.history = history;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.clear = function () {
+        this._config.callback = null;
+        this._config.criteria = null;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.open = function () {
+        this._config.visible = true;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.close = function () {
+        this._config.visible = false;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.toggle = function () {
+        this._config.visible = !this._config.visible;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.criteria = function (value) {
+        this._config.criteria = value;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.history = function (history) {
+        this._config.history = history;
+        this.sendConfigEvent();
+    };
+    SearchService.prototype.sendConfigEvent = function () {
+        this._rootScope.$broadcast(exports.SearchChangedEvent, this._config);
+    };
+    return SearchService;
+}());
+exports.SearchService = SearchService;
+},{}],30:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
@@ -1456,7 +1486,7 @@ angular.module('pipNav.Service', [])
         }
     }]);
 })();
-},{}],25:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipStickyNavHeader', ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
@@ -1532,7 +1562,7 @@ angular.module('pipNav.Service', [])
         }
     }]);
 })();
-},{}],26:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipStickyNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
@@ -1647,7 +1677,7 @@ angular.module('pipNav.Service', [])
         }
     }]);
 })();
-},{}],27:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipStickySideNav', ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
@@ -1676,7 +1706,7 @@ angular.module('pipNav.Service', [])
         }
     }]);
 })();
-},{}],28:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module("pipTabs", ['pipNav.Templates']);
@@ -1744,7 +1774,7 @@ angular.module('pipNav.Service', [])
         };
     });
 })();
-},{}],29:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -1882,17 +1912,17 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('breadcrumb/breadcrumb.html',
+  $templateCache.put('breadcrumb/Breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
     '        <!-- Search criteria -->\n' +
     '        <span ng-if="vm.config.criteria"\n' +
-    '            ng-click="vm.onSearchOpen()">{{vm.config.criteria}} -</span>\n' +
+    '            ng-click="vm.openSearch()">{{vm.config.criteria}} -</span>\n' +
     '        <!-- Breadcrumb navigation -->\n' +
     '        <span class="pip-breadcrumb-item"\n' +
     '            ng-if="vm.config.items && vm.config.items.length > 0"\n' +
     '            ng-repeat-start="item in vm.config.items"\n' +
-    '            ng-click="vm.onBreadcrumbClick(item)"\n' +
+    '            ng-click="vm.onClick(item)"\n' +
     '            ng-init="stepWidth = 100/(vm.config.items.length + 1)"\n' +
     '            ng-class="{\'cursor-pointer\': !$last}"\n' +
     '            ng-style="{\'max-width\': stepWidth + \'%\'}">\n' +
@@ -1912,7 +1942,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <span class="text-overflow">\n' +
     '                <!-- Search criteria -->\n' +
     '                <span ng-if="vm.config.criteria"\n' +
-    '                    ng-click="vm.onSearchOpen()">{{vm.config.criteria}} -</span>\n' +
+    '                    ng-click="vm.openSearch()">{{vm.config.criteria}} -</span>\n' +
     '                <span ng-if="vm.config.text">    \n' +
     '                    {{vm.config.text | translate}}\n' +
     '                </span>   \n' +
@@ -1924,7 +1954,7 @@ module.run(['$templateCache', function($templateCache) {
     '        </span>\n' +
     '        <md-menu-content width="3">\n' +
     '            <md-menu-item  ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 0">\n' +
-    '                <md-button ng-click="vm.onBreadcrumbClick(item)"><span>{{item.title | translate}}</span></md-button>\n' +
+    '                <md-button ng-click="vm.onClick(item)"><span>{{item.title | translate}}</span></md-button>\n' +
     '            </md-menu-item>\n' +
     '            <md-menu-item  ng-if="vm.config.text">\n' +
     '                <md-button><span class="text-grey">{{vm.config.text | translate}}</span></md-button>\n' +
@@ -2086,27 +2116,27 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('search_bar/search_bar.html',
-    '<div class="md-toolbar-tools layout-row" ng-if="searchEnabled">\n' +
+  $templateCache.put('search/SearchBar.html',
+    '<div class="md-toolbar-tools layout-row" ng-if="vm.enabled">\n' +
     '    <md-button class="md-icon-button" \n' +
     '        aria-label="start search" \n' +
-    '        ng-click="onSearchClick()">\n' +
+    '        ng-click="vm.onClick()">\n' +
     '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '    </md-button>\n' +
     '    <input class="pip-search-text flex"\n' +
     '        type="search"\n' +
-    '        ng-model="search.text" \n' +
-    '        ng-keydown="onSearchKeyDown($event)" />\n' +
+    '        ng-model="vm.search.text" \n' +
+    '        ng-keydown="vm.onKeyDown($event)" />\n' +
     '    <md-button class="md-icon-button" \n' +
     '        aria-label="clear search" \n' +
-    '        ng-click="onSearchClear()">\n' +
+    '        ng-click="vm.clear()">\n' +
     '        <md-icon md-svg-icon="icons:cross-circle"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
-    '<div class="md-toolbar-tools layout-row layout-align-end-center"  ng-if="!searchEnabled">\n' +
+    '<div class="md-toolbar-tools layout-row layout-align-end-center"  ng-if="!vm.enabled">\n' +
     '    <md-button class="md-icon-button"\n' +
     '               aria-label="start search"\n' +
-    '               ng-click="onSearchEnable()">\n' +
+    '               ng-click="vm.enable()">\n' +
     '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
@@ -2281,7 +2311,7 @@ module.run(['$templateCache', function($templateCache) {
 
 
 
-},{}]},{},[1,2,3,5,6,4,8,7,9,10,11,13,15,14,16,17,18,19,20,21,12,22,23,24,25,26,27,28,29])(29)
+},{}]},{},[3,4,5,7,8,6,9,10,11,12,13,14,15,16,17,19,18,20,21,22,23,24,1,2,25,26,27,28,29,30,31,32,33,34,35])(35)
 });
 
 

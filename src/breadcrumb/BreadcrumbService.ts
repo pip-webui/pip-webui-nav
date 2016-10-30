@@ -1,9 +1,21 @@
+'use strict';
+
 export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 export let BreadcrumbBackEvent = "pipBreadcrumbBack";
 
 export class BreadcrumbItem {
     title: string;
-    click: () => void;
+    click: (item: BreadcrumbItem) => void;
+
+    public constructor(title: string = null, click: (item: BreadcrumbItem) => void = null) {
+        this.title = title;
+        this.click = click;
+    }
+
+    public withClick(click: (item: BreadcrumbItem) => void): BreadcrumbItem {
+        this.click = click;
+        return this;
+    }
 }
 
 export class BreadcrumbConfig {
@@ -19,11 +31,7 @@ export interface IBreadcrumbService {
     criteria: string;
 }
 
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
-
-class BreadcrumbService implements IBreadcrumbService {
+export class BreadcrumbService implements IBreadcrumbService {
     private _config: BreadcrumbConfig;
     private _rootScope: ng.IRootScopeService;
 
@@ -75,32 +83,3 @@ class BreadcrumbService implements IBreadcrumbService {
     }
 }
 
-class BreadcrumbProvider implements IBreadcrumbProvider {
-    private _config: BreadcrumbConfig = { 
-        text: null,
-        items: null,
-        criteria: null
-    };
-    private _service: IBreadcrumbService;
-
-    public get text(): string {
-        return this._config.text;
-    }
-
-    public set text(value: string) {
-        this._config.text = value;
-    }
-
-    public $get($rootScope: ng.IRootScopeService): any {
-        "ngInject";
-
-        if (this._service == null)
-            this._service = new BreadcrumbService(this._config, $rootScope);
-
-        return this._service;
-    }
-}
-
-angular
-    .module('pipBreadcrumb.Service', [])
-    .provider('pipBreadcrumb', BreadcrumbProvider);

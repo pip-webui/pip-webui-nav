@@ -1,19 +1,20 @@
 'use strict';
 
-import { IBreadcrumbService } from './breadcrumb/breadcrumb_service';
+import { IBreadcrumbService } from './breadcrumb/BreadcrumbService';
+import { ISearchService } from './search/SearchService';
 
 export interface INavService {
     appBar: any;
     navIcon: any; 
     breadcrumb: IBreadcrumbService;
     actions: any;
-    search: any;
+    search: ISearchService;
     sideNav: any;
     navHeader: any;
     navMenu: any;   
 }
 
-class NavService implements INavService {
+export class NavService implements INavService {
     public constructor($injector) {
         "ngInject";
 
@@ -31,11 +32,8 @@ class NavService implements INavService {
     public navIcon: any;
     public breadcrumb: IBreadcrumbService;
     public actions: any;
-    public search: any;
+    public search: ISearchService;
     public sideNav: any;        
     public navHeader: any;
     public navMenu: any;    
 }
-
-angular.module('pipNav.Service', [])
-    .service('pipNavService', NavService);

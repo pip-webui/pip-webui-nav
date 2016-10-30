@@ -1,15 +1,14 @@
-﻿/// <reference path="../typings/tsd.d.ts" />
+﻿'use strict';
 
-module pip.nav {
-    'use strict';
+import { NavService } from './NavService';
 
-    angular.module('pipNav', [
-        'pipNav.Service',
-
+angular
+    .module('pipNav', [
         'pipDropdown',
         'pipTabs',
 
         'pipAppBar',
+        'pipSearchBar',
         'pipNavIcon',
         'pipBreadcrumb',
         'pipPrimaryActions', 
@@ -20,8 +19,7 @@ module pip.nav {
         'pipStickySideNav',
         'pipStickyNavMenu',
         'pipStickyNavHeader'
-    ]);
-    
-}
+    ])
+    .service('pipNav', NavService);
 
 
