@@ -18,22 +18,25 @@
         
         <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" 
             ng-repeat="link in section.links"
-            ng-click="onLinkClick($event, link)"
+            xxxng-click="onLinkClick($event, link)"
             ng-hide="link.access && !link.access(link)">
-
+            <md-button class="layout-row layout-align-start-center" 
+                ng-click="onLinkClick($event, link)"
+                xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">
                 <div class="pip-sticky-nav-menu-icon-block">
                     <md-icon md-svg-icon="{{link.icon}}" 
                         ng-hide="!link.icon" 
                         class="pip-sticky-nav-menu-icon flex-fixed">
+                        <md-tooltip>jjjjjjjjj</md-tooltip>
                     </md-icon>
                 </div>
-                <p class="pip-sticky-nav-menu-title">{{::link.title | translate}}</p>
+                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>
 
                 <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->
                 <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">
                     {{link.count}} 
                 </div>
-
+            </md-button>
         </md-list-item>
     </div>
 </md-list>

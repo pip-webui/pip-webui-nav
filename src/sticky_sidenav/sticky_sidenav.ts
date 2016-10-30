@@ -22,12 +22,52 @@
 
             // Apply class and call resize
             $element.addClass('pip-sticky-sidenav');
+            pipSideNav.id('pip-sticky-sidenav');            
             $scope.$mdMedia = $mdMedia;
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
             $rootScope.$on('pipSideNavToggle', onNavToggle);
 
-            pipSideNav.id('pip-sticky-sidenav');
+            $scope.navState = {
+                toggle: { // media(sm, xs)
+                    addClass: '', // change size, color, selected?
+                    showHeader: true,
+                    isLockedOpen: false,
+                    expandedButton: false,
+                    isExpanded: false,
+                    expand: true,
+                    showIconTooltype: false
+                },
+                small: { // media(md)
+                    addClass: '', // change size, color, selected?
+                    showHeader: false,
+                    isLockedOpen: true,
+                    expandedButton: false,
+                    isExpanded: false,
+                    expand: false,
+                    showIconTooltype: true
+                },
+                large: { // media(lg)
+                    addClass: '', // change size, color, selected?
+                    showHeader: false,
+                    isLockedOpen: true,
+                    expandedButton: true,
+                    isExpanded: true,
+                    expand: true,
+                    showIconTooltype: true // if !expand
+                },
+                xlarge: { // media(xl)
+                    addClass: '', // change size, color, selected?
+                    showHeader: false,
+                    isLockedOpen: true,
+                    expandedButton: true,
+                    isExpanded: false,
+                    expand: true,                    
+                    showIconTooltype: false
+                }                                
+
+            };
+
 
             return;
             

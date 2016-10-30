@@ -417,7 +417,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
   background: #e0e0e0;
   border-right: solid 1px #ffffff;
   width: 320px !important;
-  transition: width 0.35s ease;
+  transition: width 35s ease;
   overflow-x: hidden;
 }
 .pip-sticky-sidenav.pip-sticky-nav-small {
@@ -425,7 +425,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
   width: 72px !important;
-  transition: width 0.35s ease;
+  transition: width 35s ease;
 }
 .pip-sticky-nav-header {
   height: 112px;
@@ -535,26 +535,30 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-}
-.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner {
   line-height: 48px;
+  height: 48px;
+  margin: 0px;
+  width: 100%;
 }
-.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-title {
-  padding-right: 24px;
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-title {
+  padding-right: 0px 24px 0px 0px;
+  width: 200px;
+  text-transform: none;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  animation: title-animation 0.35s ease;
+  animation: title-animation 35s ease;
+  text-align: left;
 }
-.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-icon-block {
-  width: 24px;
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-icon-block {
+  width: 48px;
   padding-right: 24px !important;
 }
-.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-icon-block .pip-sticky-nav-menu-icon {
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-icon-block .pip-sticky-nav-menu-icon {
   margin-top: 12px;
   margin-bottom: 12px;
 }
-.pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-badge {
   position: absolute;
   left: 274px;
   top: 11px;
@@ -567,63 +571,65 @@ md-select md-select-value .md-text .pip-tabs-badge {
   text-align: center;
   color: #fafafa;
   background: red;
-  animation: badge-animation 0.35s ease;
-}
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-badge {
-  position: absolute;
-  top: 5px;
-  left: 32px;
-  animation: bage-animation-back 0.35s ease;
+  animation: badge-animation 35s ease;
 }
 .pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button {
   margin-right: 0px;
 }
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-title {
-  animation: title-animation-back 0.35s ease;
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-badge {
+  top: 5px;
+  left: 32px;
+  animation: badge-animation-back 35s ease;
 }
-.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .md-list-item-inner .pip-sticky-nav-menu-icon-block .pip-sticky-nav-menu-icon {
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-title {
+  opacity: 0;
+  animation: title-animation-back 35s ease;
+}
+.pip-sticky-nav-small .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button .pip-sticky-nav-menu-icon-block .pip-sticky-nav-menu-icon {
   margin-left: 0px;
 }
 @keyframes title-animation {
-  from {
+  0% {
     opacity: 0;
-    width: 220px;
-  }
-  to {
-    opacity: 1;
     width: 0px;
+  }
+  50% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+    width: 200px;
   }
 }
 @keyframes title-animation-back {
   0% {
-    opacity: 0;
-    width: 220px;
+    opacity: 1;
+    width: 200px;
   }
-  30% {
+  50% {
+    opacity: 0.3;
+  }
+  80% {
     opacity: 0;
-    width: 220px;
+    width: 0px;
   }
   100% {
-    opacity: 1;
+    opacity: 0;
     width: 0px;
   }
 }
-@keyframes bage-animation {
-  from {
+@keyframes badge-animation {
+  0% {
     top: 5px;
     left: 32px;
   }
-  to {
+  100% {
     left: 274px;
     top: 11px;
   }
 }
-@keyframes bage-animation-back {
+@keyframes badge-animation-back {
   0% {
-    left: 274px;
-    top: 11px;
-  }
-  30% {
     left: 274px;
     top: 11px;
   }

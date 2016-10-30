@@ -1692,10 +1692,48 @@ exports.SearchService = SearchService;
     });
     thisModule.controller('pipStickySideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', '$mdMedia', function ($scope, $element, $rootScope, pipSideNav, $mdMedia) {
         $element.addClass('pip-sticky-sidenav');
+        pipSideNav.id('pip-sticky-sidenav');
         $scope.$mdMedia = $mdMedia;
         $rootScope.$on('pipNavIconClicked', onNavIconClick);
         $rootScope.$on('pipSideNavToggle', onNavToggle);
-        pipSideNav.id('pip-sticky-sidenav');
+        $scope.navState = {
+            toggle: {
+                addClass: '',
+                showHeader: true,
+                isLockedOpen: false,
+                expandedButton: false,
+                isExpanded: false,
+                expand: true,
+                showIconTooltype: false
+            },
+            small: {
+                addClass: '',
+                showHeader: false,
+                isLockedOpen: true,
+                expandedButton: false,
+                isExpanded: false,
+                expand: false,
+                showIconTooltype: true
+            },
+            large: {
+                addClass: '',
+                showHeader: false,
+                isLockedOpen: true,
+                expandedButton: true,
+                isExpanded: true,
+                expand: true,
+                showIconTooltype: true
+            },
+            xlarge: {
+                addClass: '',
+                showHeader: false,
+                isLockedOpen: true,
+                expandedButton: true,
+                isExpanded: false,
+                expand: true,
+                showIconTooltype: false
+            }
+        };
         return;
         function onNavIconClick(event) {
             pipSideNav.open();
@@ -1912,7 +1950,7 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('breadcrumb/Breadcrumb.html',
+  $templateCache.put('breadcrumb/breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
     '        <!-- Search criteria -->\n' +
@@ -1974,25 +2012,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dropdown/dropdown.html',
-    '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
-    '    <div class="pip-divider"></div>\n' +
-    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
-    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
-    '                {{ (action.title || action.name) | translate }}\n' +
-    '            </md-option>\n' +
-    '        </md-select>\n' +
-    '</md-toolbar>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('language_picker/language_picker.html',
     '<md-menu md-position-mode="target-right target">\n' +
     '    <span class="pip-language"\n' +
@@ -2008,6 +2027,25 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-menu-content>\n' +
     '</md-menu>\n' +
     '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dropdown/dropdown.html',
+    '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
+    '    <div class="pip-divider"></div>\n' +
+    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
+    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
+    '                {{ (action.title || action.name) | translate }}\n' +
+    '            </md-option>\n' +
+    '        </md-select>\n' +
+    '</md-toolbar>');
 }]);
 })();
 
@@ -2039,6 +2077,36 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();
@@ -2086,25 +2154,15 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
+  $templateCache.put('sidenav/sidenav.html',
+    '<!--\n' +
+    '@file Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
+    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
     '');
 }]);
 })();
@@ -2140,26 +2198,6 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/sidenav.html',
-    '<!--\n' +
-    '@file Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg"\n' +
-    '    md-component-id="pip-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
     '');
 }]);
 })();
@@ -2224,46 +2262,28 @@ module.run(['$templateCache', function($templateCache) {
     '        \n' +
     '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" \n' +
     '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
+    '            xxxng-click="onLinkClick($event, link)"\n' +
     '            ng-hide="link.access && !link.access(link)">\n' +
-    '\n' +
+    '            <md-button class="layout-row layout-align-start-center" \n' +
+    '                ng-click="onLinkClick($event, link)"\n' +
+    '                xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">\n' +
     '                <div class="pip-sticky-nav-menu-icon-block">\n' +
     '                    <md-icon md-svg-icon="{{link.icon}}" \n' +
     '                        ng-hide="!link.icon" \n' +
     '                        class="pip-sticky-nav-menu-icon flex-fixed">\n' +
+    '                        <md-tooltip>jjjjjjjjj</md-tooltip>\n' +
     '                    </md-icon>\n' +
     '                </div>\n' +
-    '                <p class="pip-sticky-nav-menu-title">{{::link.title | translate}}</p>\n' +
+    '                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>\n' +
     '\n' +
     '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
     '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
     '                    {{link.count}} \n' +
     '                </div>\n' +
-    '\n' +
+    '            </md-button>\n' +
     '        </md-list-item>\n' +
     '    </div>\n' +
     '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
-    '<!--\n' +
-    '@file Sticky Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia(\'gt-xs\')" \n' +
-    '    md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
-    '\n' +
     '');
 }]);
 })();
@@ -2305,6 +2325,27 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-select>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
+    '<!--\n' +
+    '@file Sticky Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="$mdMedia(\'gt-xs\')" \n' +
+    '    md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
+    '\n' +
     '');
 }]);
 })();
