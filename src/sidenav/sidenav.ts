@@ -3,21 +3,21 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipSideNav', 
+    var thisModule = angular.module('pipSideNav',
         ['ngMaterial', 'pipNav.Templates', 'pipSideNav.Part', 'pipSideNav.Service']);
 
     // Main application sidenav directive
     thisModule.directive('pipSidenav', function() {
-       return {
-           restrict: 'E',
-           transclude: true,
-           scope: true,
-           templateUrl: 'sidenav/sidenav.html',
-           controller: 'pipSideNavController'
-       };
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: true,
+            templateUrl: 'sidenav/sidenav.html',
+            controller: 'pipSideNavController'
+        };
     });
 
-    thisModule.controller('pipSideNavController', 
+    thisModule.controller('pipSideNavController',
         function ($scope, $element, $rootScope, pipSideNav) {
 
             // Apply class and call resize
@@ -25,10 +25,9 @@
             pipSideNav.id('pip-sidenav');
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
-            //$rootScope.$on('pipSideNavChanged', onConfigChanged);
 
             return;
-            
+
             //------------------------
 
             function onNavIconClick(event) {

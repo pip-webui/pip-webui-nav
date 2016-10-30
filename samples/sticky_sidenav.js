@@ -8,7 +8,7 @@
     thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
                   $injector, pipNavHeader, pipNavMenu) {
-            
+
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
 
@@ -32,7 +32,7 @@
                 });
             }
 
-            // set sidenav 
+            // set sidenav
             pipSideNav.id('pip-sticky-sidenav');
 
             $scope.$mdMedia = $mdMedia;
@@ -50,7 +50,7 @@
                 details: 'details',
                 imageUrl: 'http://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
-            
+
             $scope.links = [
                 {
                     links: [

@@ -3,30 +3,30 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipStickyNavHeader', 
+    var thisModule = angular.module('pipStickyNavHeader',
         ['ngMaterial', 'pipNav.Templates', 'pipNavHeader.Service']);
 
     // Main application nav-header directive
     thisModule.directive('pipStickyNavHeader', function() {
-       return {
-           restrict: 'EA',
-           scope: {
-               title: '=pipTitle',
-               subtitle: '=pipSubTitle',
-               imageUrl: '=pipImage',
-               imageCss: '=pipImageCss'
-           },
-           replace: false,
-           templateUrl: 'sticky_nav_header/sticky_nav_header.html',
-           controller: 'pipStickyNavHeaderController'
-       };
+        return {
+            restrict: 'EA',
+            scope: {
+                title: '=pipTitle',
+                subtitle: '=pipSubTitle',
+                imageUrl: '=pipImage',
+                imageCss: '=pipImageCss'
+            },
+            replace: false,
+            templateUrl: 'sticky_nav_header/sticky_nav_header.html',
+            controller: 'pipStickyNavHeaderController'
+        };
     });
 
-    thisModule.controller('pipStickyNavHeaderController', 
+    thisModule.controller('pipStickyNavHeaderController',
         function ($scope, $element, $rootScope, $timeout, pipNavHeader) {
-           
-            var 
-                image = null, 
+
+            var
+                image = null,
                 imageBlock = $element.find('.pip-sticky-nav-header-user'),
                 $image;
 
@@ -35,8 +35,7 @@
 
             $rootScope.$on('pipIdentityChanged', onIdentityChanged);
             $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-            // $rootScope.$on('pipNavExpanded', resizeImage);
-            $scope.onUserClick = onUserClick;
+             $scope.onUserClick = onUserClick;
 
             $timeout(function() {
                 $image = $element.find('.pip-sticky-nav-header-user-image');
@@ -44,25 +43,15 @@
                 $image.load(function ($event) {
                     image = $($event.target);
                     setImageMarginCSS(imageBlock, image);
-                });                
+                });
             }, 10);
 
             return;
 
-            // function resizeImage() {
-            //     if (!image) {
-            //         image = $element.find('.pip-sticky-nav-header-user-image')
-            //     } 
-            //     $timeout(function() {
-            //         setImageMarginCSS(imageBlock, image);
-            //     }, 400);
-            // }
-
-            //------------------------
             function setImageMarginCSS(container, image) {
                 var cssParams = {},
-                    containerWidth = container.width ? container.width() : container.clientWidth, 
-                    containerHeight = container.height ? container.height() : container.clientHeight, 
+                    containerWidth = container.width ? container.width() : container.clientWidth,
+                    containerHeight = container.height ? container.height() : container.clientHeight,
                     imageWidth = image[0].naturalWidth || image.width,
                     imageHeight = image[0].naturalHeight || image.height,
                     margin = 0;
@@ -83,7 +72,7 @@
 
                 image.css(cssParams);
             };
-                        
+
             function onIdentityChanged() {
                 var url: string,
                     config = pipNavHeader.config();
@@ -94,7 +83,6 @@
                 } else {
                     imageBlock.css('display', 'none');
                 }
-                
             }
 
             function onUserClick() {

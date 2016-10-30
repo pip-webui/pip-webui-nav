@@ -8,7 +8,7 @@
     thisModule.controller('SideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
                   $injector, pipNavHeader, pipNavMenu) {
-            
+
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
 
@@ -32,7 +32,7 @@
                 });
             }
 
-            // set sidenav 
+            // set sidenav
             pipSideNav.id('pip-sidenav');
             $scope.$mdMedia = $mdMedia;
 
@@ -47,7 +47,7 @@
                 fullName: 'Kate Negrienko',
                 details: 'details'
             };
-            
+
             $scope.links = [
                 {
                     links: [

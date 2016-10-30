@@ -2,43 +2,43 @@
     'use strict';
 
     var thisModule = angular.module('app', [
-        'ngAria', 'wu.masonry', 
-        'ngAnimate', 'pipTranslate', 
-        'pipLayout', 'ui.utils', 
+        'ngAria', 'wu.masonry',
+        'ngAnimate', 'pipTranslate',
+        'pipLayout', 'ui.utils',
         'pipServices', 'LocalStorageModule',
         'ui.router',
-        'ngMaterial', 
+        'ngMaterial',
         'pipNav',
         'pipTheme.Default', 'pipTheme.Bootbarn', 'pipTheme',  'pipBehaviors',
         'pipTranslate'
     ]);
 
     var content = [
-                {
-                    links: [
-                        {title: 'Dashboard', icon: 'icons:list', url: '/dashboard?party_id=:party_id'},
-                        {title: 'About', icon: 'icons:person', url: '/about?party_id=:party_id', count: 4}
-                    ]
-                },
-                {
-                    title: 'Get',
-                    links: [
-                        {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
-                        {title: 'Big Picture Big Picture Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id', count: 25},
-                        {title: 'Events', icon: 'icons:action', url: '/ultimate_todo?party_id=:party_id'}
-                    ]
-                },
-                {
-                    title: 'Feedback',
-                    icon: 'icons:goal',
-                    links: [
-                        {title: 'Help', icon: 'icons:help', url: '/help'},
-                        {title: 'Support', icon: 'icons:phone', url: '/support?party_id=:user_id'},
-                        {title: 'Settings', icon: 'icons:star', url: '/settings?party_id=:party_id', count: 25}
-                    ]
-                }
+        {
+            links: [
+                {title: 'Dashboard', icon: 'icons:list', url: '/dashboard?party_id=:party_id'},
+                {title: 'About', icon: 'icons:person', url: '/about?party_id=:party_id', count: 4}
+            ]
+        },
+        {
+            title: 'Get',
+            links: [
+                {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
+                {title: 'Big Picture Big Picture Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id', count: 25},
+                {title: 'Events', icon: 'icons:action', url: '/ultimate_todo?party_id=:party_id'}
+            ]
+        },
+        {
+            title: 'Feedback',
+            icon: 'icons:goal',
+            links: [
+                {title: 'Help', icon: 'icons:help', url: '/help'},
+                {title: 'Support', icon: 'icons:phone', url: '/support?party_id=:user_id'},
+                {title: 'Settings', icon: 'icons:star', url: '/settings?party_id=:party_id', count: 25}
+            ]
+        }
     ];
-    
+
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider,
                                 $urlRouterProvider) {
         $mdIconProvider.iconSet('icons', '../images/icons.svg', 512);
@@ -47,7 +47,7 @@
 
     thisModule.controller('appController',
         function ($scope, $mdDialog, $rootScope, $mdTheming, $timeout,
-            $state, $mdSidenav, pipSideNav) { //  pipBreadcrumb,
+                  $state, $mdSidenav, pipSideNav) { //  pipBreadcrumb,
 
             $timeout(function() {
                 $('pre code').each(function(i, block) {
@@ -68,7 +68,7 @@
 
                 { title: 'Tabs', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
                 { title: 'Dropdown', state: 'dropdown', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
-                
+
                 { title: 'SideNav', state: 'sidenav', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
                 { title: 'StickySideNav', state: 'sticky_sidenav', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
 

@@ -26,42 +26,42 @@
 </head>
 
 <body ng-app="app" ng-if="!$reset" ng-controller="appController"
-     class="pip-main layout-column {{$theme}}" md-theme="{{$theme}}">
+      class="pip-main layout-column {{$theme}}" md-theme="{{$theme}}">
 
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <md-button class="md-icon-button" aria-label="menu"
-                        ng-click="onToggleMenu()" hide-gt-sm>
-                    <md-icon md-svg-icon="icons:menu"></md-icon>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="menu"
+                   ng-click="onToggleMenu()" hide-gt-sm>
+            <md-icon md-svg-icon="icons:menu"></md-icon>
+        </md-button>
+        <span>Nav components</span>
+    </div>
+</md-toolbar>
+
+<div class="layout-row flex" ng-class="{'small-sidenav': smallSize}">
+    <pip-sticky-sidenav>
+        <pip-sticky-nav-header
+                pip-title="user.fullName"
+                pip-sub-title="user.details"
+                pip-image="user.imageUrl">
+        </pip-sticky-nav-header>
+        <pip-sticky-nav-menu pip-links="content">
+        </pip-sticky-nav-menu>
+    </pip-sticky-sidenav>
+
+    <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
+        <pip-main>
+            <pip-main-body style="padding: 20px">
+                <md-button ng-click="onTest()">
+                    Test
                 </md-button>
-                <span>Nav components</span>
-            </div>
-        </md-toolbar>
 
-        <div class="layout-row flex" ng-class="{'small-sidenav': smallSize}">
-        <pip-sticky-sidenav>
-            <pip-sticky-nav-header 
-                            pip-title="user.fullName" 
-                            pip-sub-title="user.details" 
-                            pip-image="user.imageUrl">
-            </pip-sticky-nav-header>
-            <pip-sticky-nav-menu pip-links="content">
-            </pip-sticky-nav-menu>
-        </pip-sticky-sidenav>   
-
-            <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-                <pip-main>
-                     <pip-main-body style="padding: 20px">
-                        <md-button ng-click="onTest()">
-                            Test
-                        </md-button>
-
-                        <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">
-                            {{ 'TOGGLE' | translate }} Side Nav
-                        </md-button>
-                     </pip-main-body>   
-                </pip-main>
-            </md-content>
-        </div>
+                <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">
+                    {{ 'TOGGLE' | translate }} Side Nav
+                </md-button>
+            </pip-main-body>
+        </pip-main>
+    </md-content>
+</div>
 </body>
 </html>

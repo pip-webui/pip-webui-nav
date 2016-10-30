@@ -2,30 +2,30 @@
     <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">
         <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>
         <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>
-    </md-list-item>    
+    </md-list-item>
     <div class="pip-section" ng-repeat="section in config"
-        ng-hide="section.access && !section.access(section)">
+         ng-hide="section.access && !section.access(section)">
 
         <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
         <md-subheader ng-show="section.title" style="height: 48px;">
-            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title"> 
+            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">
                 {{::section.title | translate}}
             </span>
             <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>
             <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>
         </md-subheader>
-        
-        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" 
-            ng-repeat="link in section.links"
-            xxxng-click="onLinkClick($event, link)"
-            ng-hide="link.access && !link.access(link)">
-            <md-button class="layout-row layout-align-start-center" 
-                ng-click="onLinkClick($event, link)"
-                xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">
+
+        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item"
+                      ng-repeat="link in section.links"
+                      xxxng-click="onLinkClick($event, link)"
+                      ng-hide="link.access && !link.access(link)">
+            <md-button class="layout-row layout-align-start-center"
+                       ng-click="onLinkClick($event, link)"
+                       xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">
                 <div class="pip-sticky-nav-menu-icon-block">
-                    <md-icon md-svg-icon="{{link.icon}}" 
-                        ng-hide="!link.icon" 
-                        class="pip-sticky-nav-menu-icon flex-fixed">
+                    <md-icon md-svg-icon="{{link.icon}}"
+                             ng-hide="!link.icon"
+                             class="pip-sticky-nav-menu-icon flex-fixed">
                         <md-tooltip>jjjjjjjjj</md-tooltip>
                     </md-icon>
                 </div>
@@ -33,7 +33,7 @@
 
                 <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->
                 <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">
-                    {{link.count}} 
+                    {{link.count}}
                 </div>
             </md-button>
         </md-list-item>

@@ -73,99 +73,99 @@
   }
 
   .pip-sidenav-header {
-        position: relative;
-		padding-top: 102px;
-	  	min-height: 164px !important;
-		padding-bottom: @sidenav-padding-sm;
-		padding-left: @sidenav-padding;
-		padding-right: @sidenav-padding;
+	position: relative;
+	padding-top: 102px;
+	min-height: 164px !important;
+	padding-bottom: @sidenav-padding-sm;
+	padding-left: @sidenav-padding;
+	padding-right: @sidenav-padding;
 
-	  	&.pip-sidenav-owner {
-		  min-height: 144px !important;
-		}
+	&.pip-sidenav-owner {
+	  min-height: 144px !important;
+	}
 
-		.pip-sidenav-party {
-			display: inline-block;
-			position: absolute;
-			top: @sidenav-padding-sm;
-			left: @sidenav-padding;
-			min-width: initial;
-			width: @sidenav-party-size;
-			height: @sidenav-party-size;
-			margin: 0px;
-			padding: 0px;
-	
-			// pip-avatar {
-			// 	.circle(@sidenav-party-size);
-			// }
-		}
-	
-		.pip-sidenav-user {
-			display: inline-block;
-			position: absolute;
-			top: @sidenav-padding-sm;
-			right: @sidenav-padding;
-			width: @sidenav-user-size;
-			min-width: initial;
-			height: @sidenav-user-size;
-			margin: 0px;
-			padding: 0px;
-	
-			// pip-avatar {
-			// 	.circle(@sidenav-user-size);
-			// }
-		}
-    }
+	.pip-sidenav-party {
+	  display: inline-block;
+	  position: absolute;
+	  top: @sidenav-padding-sm;
+	  left: @sidenav-padding;
+	  min-width: initial;
+	  width: @sidenav-party-size;
+	  height: @sidenav-party-size;
+	  margin: 0px;
+	  padding: 0px;
 
-    .pip-sidenav-party-text {
-        .pip-sidenav-party-pri {
-            display: block;
-            font-size: @sidenav-party-font-size;
-            text-decoration: none;
-            color: @sidenav-party-color;
-            letter-spacing: @sidenav-party-font-letter-spacing;
-            //font-family: @sidenav-party-font-family;
-		  	word-wrap: break-word;
+	  // pip-avatar {
+	  // 	.circle(@sidenav-party-size);
+	  // }
+	}
 
-            &:hover, &:focus {
-				color: @sidenav-party-color;
-				text-decoration: none;
-			}
-        }
+	.pip-sidenav-user {
+	  display: inline-block;
+	  position: absolute;
+	  top: @sidenav-padding-sm;
+	  right: @sidenav-padding;
+	  width: @sidenav-user-size;
+	  min-width: initial;
+	  height: @sidenav-user-size;
+	  margin: 0px;
+	  padding: 0px;
 
-        .pip-sidenav-party-sec {
-            font-size: @sidenav-party-info-font-size;
-            .text-overflow();
-            //font-family: @sidenav-party-info-font-family;
-        }
-    }
-    
+	  // pip-avatar {
+	  // 	.circle(@sidenav-user-size);
+	  // }
+	}
+  }
 
-	md-list-item .md-button {
-		padding-left: @sidenav-padding;
-		padding-right: @sidenav-padding;
-		border-radius: 0;
-	}	
+  .pip-sidenav-party-text {
+	.pip-sidenav-party-pri {
+	  display: block;
+	  font-size: @sidenav-party-font-size;
+	  text-decoration: none;
+	  color: @sidenav-party-color;
+	  letter-spacing: @sidenav-party-font-letter-spacing;
+	  //font-family: @sidenav-party-font-family;
+	  word-wrap: break-word;
+
+	  &:hover, &:focus {
+		color: @sidenav-party-color;
+		text-decoration: none;
+	  }
+	}
+
+	.pip-sidenav-party-sec {
+	  font-size: @sidenav-party-info-font-size;
+	  .text-overflow();
+	  //font-family: @sidenav-party-info-font-family;
+	}
+  }
+
+
+  md-list-item .md-button {
+	padding-left: @sidenav-padding;
+	padding-right: @sidenav-padding;
+	border-radius: 0;
+  }
 }
 
 @media (max-width: 768px) {
-   .pip-sidenav {
-		.pip-sidenav-header {
-			padding-left: @sidenav-padding-sm;
-			padding-right: @sidenav-padding-sm;
-		}
+  .pip-sidenav {
+	.pip-sidenav-header {
+	  padding-left: @sidenav-padding-sm;
+	  padding-right: @sidenav-padding-sm;
+	}
 
-		md-list-item .md-button {
-			padding-left: @sidenav-padding-sm;
-			padding-right: @sidenav-padding-sm;
-		}	
+	md-list-item .md-button {
+	  padding-left: @sidenav-padding-sm;
+	  padding-right: @sidenav-padding-sm;
+	}
 
-		.pip-sidenav-party {
-			left: @sidenav-padding-sm;
-		}
-	
-		.pip-sidenav-user {
-			right: @sidenav-padding-sm;
-		}
-   }
+	.pip-sidenav-party {
+	  left: @sidenav-padding-sm;
+	}
+
+	.pip-sidenav-user {
+	  right: @sidenav-padding-sm;
+	}
+  }
 }

@@ -5,15 +5,15 @@
         'pipAppBar',
         //'pipServices',
         'ui.router',
-        'ngMaterial', 
+        'ngMaterial',
         'pipNav',
-        
+
         'appAppbar.Icons',
         'appAppbar.Titles',
         'appAppbar.Actions',
         'appAppbar.Search',
         'appAppbar.Shadows',
-        
+
         'appNav.Dropdown',
         'appNav.Tabs',
 
@@ -31,12 +31,12 @@
 
         { title: 'Tabs', state: 'tabs', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
         { title: 'Dropdown', state: 'dropdown', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
-        
+
         { title: 'SideNav', state: 'sidenav', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
         { title: 'StickySideNav', state: 'sticky_sidenav', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
 
     ];
-    
+
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider,
                                 $urlRouterProvider) {
         $mdIconProvider.iconSet('icons', 'images/icons.svg', 512);
@@ -51,7 +51,7 @@
 
     thisModule.controller('appController',
         function ($scope, $mdDialog, $rootScope, $mdTheming, $timeout,
-            $state, $mdSidenav) { //  pipBreadcrumb,
+                  $state, $mdSidenav) { //  pipBreadcrumb,
 
             $timeout(function() {
                 $('pre code').each(function(i, block) {
@@ -75,7 +75,7 @@
             $scope.isActiveState = function(state) {
                 return $state.current.name == state;
             };
-            
+
         });
 
 })(window.angular);

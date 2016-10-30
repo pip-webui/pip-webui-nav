@@ -3,24 +3,24 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('pipStickyNavMenu', 
+    var thisModule = angular.module('pipStickyNavMenu',
         ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipNavMenu.Service']);
 
     // Main application navmenu directive
     thisModule.directive('pipStickyNavMenu', function() {
-       return {
-           restrict: 'EA',
-           scope: {
-               config: '=pipLinks',
-               collapsed: '=pipCollapsed'
-           },
-           replace: false,
-           templateUrl: 'sticky_nav_menu/sticky_nav_menu.html',
-           controller: 'pipStickyNavMenuController'
-       };
+        return {
+            restrict: 'EA',
+            scope: {
+                config: '=pipLinks',
+                collapsed: '=pipCollapsed'
+            },
+            replace: false,
+            templateUrl: 'sticky_nav_menu/sticky_nav_menu.html',
+            controller: 'pipStickyNavMenuController'
+        };
     });
 
-    thisModule.controller('pipStickyNavMenuController', 
+    thisModule.controller('pipStickyNavMenuController',
         function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
 
             var pipSdeNavElement = $element.parent().parent();
@@ -43,7 +43,7 @@
             $scope.onExpand = onExpand;
 
             return;
-            
+
             //------------------------
 
             function setCollapsible() {
@@ -68,7 +68,7 @@
                 }
                 $rootScope.$broadcast('pipNavExpanded', $scope.expanded);
             }
-            
+
             function itemVisible(item) {
                 return item && item.access && !item.access(item);
             }
@@ -127,7 +127,7 @@
                 }
                 else if (link.state) {
                     var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                    
+
                     if ($state != null && $state.current.name === link.state) {
                         pipSideNav.close();
                         return;

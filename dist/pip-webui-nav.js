@@ -2168,6 +2168,36 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('search/SearchBar.html',
     '<div class="md-toolbar-tools layout-row" ng-if="vm.enabled">\n' +
     '    <md-button class="md-icon-button" \n' +
@@ -2203,36 +2233,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('sidenav/sidenav.html',
     '<!--\n' +
     '@file Side Nav component\n' +
@@ -2257,15 +2257,15 @@ module.run(['$templateCache', function($templateCache) {
     '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
     '\n' +
     '    <md-button class="pip-sticky-nav-header-user md-icon-button flex-fixed"\n' +
-    '                ng-click="onUserClick()"\n' +
-    '                aria-label="current user">\n' +
+    '               ng-click="onUserClick()"\n' +
+    '               aria-label="current user">\n' +
     '\n' +
     '        <img  src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></img>\n' +
     '    </md-button>\n' +
-    '    \n' +
+    '\n' +
     '    <div class="pip-sticky-nav-header-user-text">\n' +
     '        <div class="pip-sticky-nav-header-user-pri"\n' +
-    '            ng-click="onUserClick()">\n' +
+    '             ng-click="onUserClick()">\n' +
     '            {{ title }}\n' +
     '        </div>\n' +
     '        <div class="pip-sticky-nav-header-user-sec">\n' +
@@ -2290,30 +2290,30 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">\n' +
     '        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
     '        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
-    '    </md-list-item>    \n' +
+    '    </md-list-item>\n' +
     '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
+    '         ng-hide="section.access && !section.access(section)">\n' +
     '\n' +
     '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
     '        <md-subheader ng-show="section.title" style="height: 48px;">\n' +
-    '            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title"> \n' +
+    '            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">\n' +
     '                {{::section.title | translate}}\n' +
     '            </span>\n' +
     '            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
     '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
     '        </md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            xxxng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-button class="layout-row layout-align-start-center" \n' +
-    '                ng-click="onLinkClick($event, link)"\n' +
-    '                xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">\n' +
+    '\n' +
+    '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item"\n' +
+    '                      ng-repeat="link in section.links"\n' +
+    '                      xxxng-click="onLinkClick($event, link)"\n' +
+    '                      ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-button class="layout-row layout-align-start-center"\n' +
+    '                       ng-click="onLinkClick($event, link)"\n' +
+    '                       xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">\n' +
     '                <div class="pip-sticky-nav-menu-icon-block">\n' +
-    '                    <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                        ng-hide="!link.icon" \n' +
-    '                        class="pip-sticky-nav-menu-icon flex-fixed">\n' +
+    '                    <md-icon md-svg-icon="{{link.icon}}"\n' +
+    '                             ng-hide="!link.icon"\n' +
+    '                             class="pip-sticky-nav-menu-icon flex-fixed">\n' +
     '                        <md-tooltip>jjjjjjjjj</md-tooltip>\n' +
     '                    </md-icon>\n' +
     '                </div>\n' +
@@ -2321,7 +2321,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
     '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
-    '                    {{link.count}} \n' +
+    '                    {{link.count}}\n' +
     '                </div>\n' +
     '            </md-button>\n' +
     '        </md-list-item>\n' +
@@ -2344,8 +2344,8 @@ module.run(['$templateCache', function($templateCache) {
     '@copyright Digital Living Software Corp. 2014-2016\n' +
     '-->\n' +
     '\n' +
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" \n' +
-    '    md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen"\n' +
+    '            md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
     '</md-sidenav>\n' +
     '\n' +
     '');
