@@ -1,84 +1,82 @@
-/// <reference path="../../typings/tsd.d.ts" />
-/// <reference path="./breadcrumb_service.ts" />
+import { BreadcrumbConfig } from './breadcrumb_service';
+import { IBreadcrumbService } from './breadcrumb_service';
+import { BreadcrumbChangedEvent } from './breadcrumb_service';
+import { BreadcrumbBackEvent } from './breadcrumb_service';
 
-module pip.nav {
+class BreadcrumbController {
+    private _rootScope: ng.IRootScopeService;
+    private _window: ng.IWindowService;
+    
+    public config: BreadcrumbConfig;
 
-    class BreadcrumbController {
-        private _rootScope: ng.IRootScopeService;
-        private _window: ng.IWindowService;
-        
-        public config: BreadcrumbConfig;
+    public constructor(
+        $scope: ng.IScope,
+        $element: any, 
+        $attrs: any, 
+        $rootScope: ng.IRootScopeService,
+        $window: ng.IWindowService,
+        $state: ng.ui.IStateService,
+        pipBreadcrumb: IBreadcrumbService
+    ) {
+        "ngInject";
 
-        public constructor(
-            $scope: ng.IScope,
-            $element: any, 
-            $attrs: any, 
-            $rootScope: ng.IRootScopeService,
-            $window: ng.IWindowService,
-            $state: ng.ui.IStateService,
-            pipBreadcrumb: IBreadcrumbService
-        ) {
-            "ngInject";
+        this._rootScope = $rootScope;
+        this._window = $window;
 
-            this._rootScope = $rootScope;
-            this._window = $window;
+        // Apply class and call resize
+        $element.addClass('pip-breadcrumb');
 
-            // Apply class and call resize
-            $element.addClass('pip-breadcrumb');
+        this.config = pipBreadcrumb.config;
 
-            this.config = pipBreadcrumb.config;
+        $rootScope.$on(BreadcrumbChangedEvent, this.onBreadcrumbChanged);
+        $rootScope.$on(BreadcrumbBackEvent, this.onBreadcrumbBack);
+    }
 
-            $rootScope.$on(BreadcrumbChangedEvent, this.onBreadcrumbChanged);
-            $rootScope.$on(BreadcrumbBackEvent, this.onBreadcrumbBack);
-        }
+    private onBreadcrumbChanged(event, config) {
+        this.config = config;
+    }
 
-        private onBreadcrumbChanged(event, config) {
-            this.config = config;
-        }
-
-        private onBreadcrumbBack() {
-            let items = this.config.items;
-            // Go to the last breadcrumb item
-            if (_.isArray(items) && items.length > 0) {
-                let backCallback = (<any>items[items.length - 1]).click;
-                if (_.isFunction(backCallback)) 
-                    backCallback();
-                else
-                    this._window.history.back();
-            } else
+    private onBreadcrumbBack() {
+        let items = this.config.items;
+        // Go to the last breadcrumb item
+        if (_.isArray(items) && items.length > 0) {
+            let backCallback = (<any>items[items.length - 1]).click;
+            if (_.isFunction(backCallback)) 
+                backCallback();
+            else
                 this._window.history.back();
-        }
-
-        public onBreadcrumbClick(item) {
-            if (_.isFunction(item.click))
-                item.click(item);
-        }
-
-        public onSearchOpen() {
-            this._rootScope.$broadcast('pipSearchOpen');
-        }
+        } else
+            this._window.history.back();
     }
 
-    function breadcrumbDirective() {
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: false,
-            templateUrl: function (element, attr) {
-                return 'breadcrumb/breadcrumb.html';
-            },
-            controller: BreadcrumbController,
-            controllerAs: 'vm'
-        };
+    public onBreadcrumbClick(item) {
+        if (_.isFunction(item.click))
+            item.click(item);
     }
 
-    angular
-        .module('pipBreadcrumb', [
-            'ngMaterial',
-            'pipNav.Templates',
-            'pipNav.Translate',
-            'pipBreadcrumb.Service'
-        ])
-        .directive('pipBreadcrumb', breadcrumbDirective);
-
+    public onSearchOpen() {
+        this._rootScope.$broadcast('pipSearchOpen');
+    }
 }
+
+function breadcrumbDirective() {
+    return {
+        restrict: 'E',
+        scope: {},
+        replace: false,
+        templateUrl: function (element, attr) {
+            return 'breadcrumb/breadcrumb.html';
+        },
+        controller: BreadcrumbController,
+        controllerAs: 'vm'
+    };
+}
+
+angular
+    .module('pipBreadcrumb', [
+        'ngMaterial',
+        'pipNav.Templates',
+        'pipNav.Translate',
+        'pipBreadcrumb.Service'
+    ])
+    .directive('pipBreadcrumb', breadcrumbDirective);
