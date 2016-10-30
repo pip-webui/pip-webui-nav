@@ -9,8 +9,8 @@
 @sidenav-width-sm: 300px;
 @sidenav-small-width-sm: 56px;
 @sidenav-bg: #e0e0e0;
-@sidenav-selected-item-bg: rgba(0, 0, 0, 0.08);
-@sidenav-border: solid 1px #a0a0a0;
+@sidenav-selected-item-bg: rgba(0, 0, 0, 0.06);
+@sidenav-border: solid 1px rgba(0, 0, 0, 0.12);
 
 .pip-sticky-sidenav.overflow-visible {
   overflow: visible!important;
@@ -18,34 +18,36 @@
 
 .pip-sticky-sidenav {
   md-backdrop.md-opaque.ng-enter {
-	opacity: .48;
+	  opacity: .48;
   }
 }
 
 .pip-sticky-sidenav {
   background: @sidenav-bg;
+  border-right: solid 1px #ffffff;
+
+
   md-sidenav {
-	background: @sidenav-bg;
-	border-right: solid 1px #ffffff;
-	width: @sidenav-width !important;
-	transition: width 0.35s ease;
-	overflow-x: hidden;
+    border-right: @sidenav-border;
+    background: @sidenav-bg;
+    width: @sidenav-width !important;
+    transition: width 0.35s ease;
+    height: calc(100%);
+    overflow-x: hidden;
   }
 }
 
 .pip-sticky-sidenav.pip-sticky-nav-small {
-  border-right: @sidenav-border;
-
   md-sidenav {
-	width: @sidenav-small-width !important;
-	transition: width 0.35s ease;
+    width: @sidenav-small-width !important;
+    transition: width 0.35s ease;
   }
 }
 
 // -------
 .pip-sticky-sidenav.sidenav-desktop,  .pip-sticky-sidenav.sidenav-tablet, .pip-sticky-sidenav.sidenav-xdesktop {
   .pip-sticky-nav-header {
-	display: none;
+	  display: none;
   }
 }
 
