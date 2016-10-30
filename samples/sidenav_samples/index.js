@@ -87,8 +87,11 @@
                 return ;//$state.current.name == state;
             };
 
-            $scope.onResize = function() {
-                $scope.smallSize = !$scope.smallSize;
+            $scope.test = true;
+
+            $scope.onTest = function() {
+                // $scope.smallSize = !$scope.smallSize;
+                $scope.test = !$scope.test;
             }
             
         });

@@ -16,7 +16,7 @@
 }
 
 .pip-sticky-nav-menu {
-    width: 100%; //@sidenav-width;
+    width: 100%; 
 
     .md-subheader {
         line-height: 48px;
@@ -41,6 +41,11 @@
                 padding-left: @nav-menu-padding !important;
                 padding-right: @nav-menu-padding !important;
 
+                    line-height: 48px;
+                    height: 48px;
+                    margin: 0px;
+                    width: 100%;
+
                 -webkit-border-radius: 0px;
                 -moz-border-radius:    0px;
                 border-radius:         0px;
@@ -48,23 +53,16 @@
                 -webkit-background-clip: padding-box;
                 background-clip:         padding-box;
 
-                // .md-list-item-inner {
-                    line-height: 48px;
-                    height: 48px;
-                    margin: 0px;
-                    width: 100%;
 
                     .pip-sticky-nav-menu-title {
                         padding-right: 0px 24px 0px 0px; 
                         width: 200px;
                         .text-overflow();
-                        // text-decoration: none;
                         text-transform: none;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;                        
-                        // opacity: 1;
-                        animation: title-animation 35s ease;
+                        animation: title-animation 0.35s ease;
                         text-align: left;
                     }
 
@@ -90,21 +88,40 @@
                     text-align: center;
                     color: @color-content;
                     background: red;
-                    animation: badge-animation 35s ease;
+                    animation: badge-animation 0.35s ease;
                 }                
-            //  }
             }
         } 
 
+    .section-title.ng-enter, .section-title.ng-leave, 
+    .section-icon.ng-enter, .section-icon.ng-leave {
+        -webkit-transition: 1s linear all;
+        -moz-transition: 1s linear all;
+        -ms-transition: 1s linear all;
+        -o-transition: 1s linear all;
+        transition: 1s linear all;
+    }
 
+    .section-title.ng-enter, .section-icon.ng-enter {
+        opacity: 0;
+    }
+
+    .section-title.ng-enter.ng-enter-active, .section-icon.ng-enter.ng-enter-active {
+        opacity:1;
+    }
+
+    .section-title.ng-leave, .section-icon.ng-leave {
+        opacity:1;
+    }
+
+    .section-title.ng-leave.ng-leave-active, .section-icon.ng-leave.ng-leave-active {
+        opacity:1;
+    }
 
 }
 
 .pip-sticky-nav-small {
     .pip-sticky-nav-menu {   
-     //   width: 100%; //@sidenav-small-width !important;
-
-
 
         .pip-sticky-nav-menu-item {
             .md-button {
@@ -113,12 +130,12 @@
                 .pip-sticky-nav-menu-badge {
                     top: 5px;
                     left: 32px;
-                    animation: badge-animation-back 35s ease;
+                    animation: badge-animation-back 0.35s ease;
                 }    
 
                     .pip-sticky-nav-menu-title {
                         opacity: 0;
-                        animation: title-animation-back 35s ease;
+                        animation: title-animation-back 0.35s ease;
                     }
 
                     .pip-sticky-nav-menu-icon-block {
@@ -131,6 +148,7 @@
         } 
     }
 }
+ 
 
  
 @keyframes title-animation {
@@ -170,10 +188,6 @@
              top: 5px;
             left: 32px;
     }
-    // 30% {
-    //          top: 5px;
-    //         left: 32px;
-    // }    
     100% {
             left: 274px;
             top: 11px;          
@@ -185,10 +199,6 @@
             left: 274px;
             top: 11px;
     }
-    // 30%{
-    //         left: 274px;
-    //         top: 11px;
-    // }
     100% {
             top: 5px;
             left: 32px;

@@ -40,11 +40,11 @@
 
         <div class="layout-row flex" ng-class="{'small-sidenav': smallSize}">
         <pip-sticky-sidenav>
-            <!--<pip-sticky-nav-header 
+            <pip-sticky-nav-header 
                             pip-title="user.fullName" 
                             pip-sub-title="user.details" 
                             pip-image="user.imageUrl">
-            </pip-sticky-nav-header>-->
+            </pip-sticky-nav-header>
             <pip-sticky-nav-menu pip-links="content">
             </pip-sticky-nav-menu>
         </pip-sticky-sidenav>   
@@ -53,9 +53,20 @@
                 hjjhgjhgjhgj
                 <!--<div ui-view></div>-->
 
-                <md-button ng-click="onResize()">
-                    Resize
+                <md-button ng-click="onTest()">
+                    Test
                 </md-button>
+
+
+                <div class="section-title" ng-if="test">
+                    test
+                </div>
+
+                <label>Click me: <input type="checkbox" ng-model="checked" ng-init="checked=true" /></label><br/>
+Show when checked:
+<span ng-if="checked" class="animate-if">
+  This is removed when the checkbox is unchecked.
+</span>
             </md-content>
         </div>
 </body>

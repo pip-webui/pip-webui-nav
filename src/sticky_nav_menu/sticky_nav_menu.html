@@ -8,12 +8,11 @@
 
         <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
         <md-subheader ng-show="section.title" style="height: 48px;">
-             <!--|| !expanded && section.icon-->
-            <span ng-if="expanded" class="pip-sticky-nav-menu-title"> 
+            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title"> 
                 {{::section.title | translate}}
             </span>
-            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon"></md-icon>
-            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon"></md-icon>
+            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>
+            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>
         </md-subheader>
         
         <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" 

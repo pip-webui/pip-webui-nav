@@ -35,7 +35,7 @@
 
             $rootScope.$on('pipIdentityChanged', onIdentityChanged);
             $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-            $rootScope.$on('pipNavExpanded', resizeImage);
+            // $rootScope.$on('pipNavExpanded', resizeImage);
             $scope.onUserClick = onUserClick;
 
             $timeout(function() {
@@ -49,14 +49,14 @@
 
             return;
 
-            function resizeImage() {
-                if (!image) {
-                    image = $element.find('.pip-sticky-nav-header-user-image')
-                } 
-                $timeout(function() {
-                    setImageMarginCSS(imageBlock, image);
-                }, 400);
-            }
+            // function resizeImage() {
+            //     if (!image) {
+            //         image = $element.find('.pip-sticky-nav-header-user-image')
+            //     } 
+            //     $timeout(function() {
+            //         setImageMarginCSS(imageBlock, image);
+            //     }, 400);
+            // }
 
             //------------------------
             function setImageMarginCSS(container, image) {

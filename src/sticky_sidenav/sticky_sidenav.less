@@ -28,7 +28,7 @@
 		background: @sidenav-bg;
 		border-right: solid 1px #ffffff; 		
         width: @sidenav-width !important;
-		transition: width 35s ease;
+		transition: width 0.35s ease;
 		overflow-x: hidden;
     }	
 }
@@ -38,6 +38,17 @@
 
     md-sidenav {
         width: @sidenav-small-width !important;
-		transition: width 35s ease;
+		transition: width 0.35s ease;
     }
 }	
+
+// -------
+.pip-sticky-sidenav.sidenav-desktop,  .pip-sticky-sidenav.sidenav-tablet, .pip-sticky-sidenav.sidenav-xdesktop {
+	.pip-sticky-nav-header {
+		display: none;
+	}
+}
+
+.sidenav-mobile {
+
+}
