@@ -2,7 +2,8 @@ module.exports = {
     module: {
         name: 'pipNav',
         styles: 'nav',
-        export: 'pip'
+        export: 'pip',
+        standalone: 'pip.nav'
     },
 
     build: {

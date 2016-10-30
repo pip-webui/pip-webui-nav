@@ -1,17 +1,15 @@
-/// <reference path="../../typings/tsd.d.ts" />
+'use strict';
 
-(function () {
-    'use strict';
+function translateFilter($injector) {
+    "ngInject";
 
-    var thisModule = angular.module('pipNav.Translate', []);
+    let pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
 
-    thisModule.filter('translate', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate') 
-            ? $injector.get('pipTranslate') : null;
+    return function (key) {
+        return pipTranslate  ? pipTranslate.translate(key) || key : key;
+    }
+}
 
-        return function (key) {
-            return pipTranslate  ? pipTranslate.translate(key) || key : key;
-        }
-    });
-
-})();
+angular
+    .module('pipNav.Translate', [])
+    .filter('translate', translateFilter);

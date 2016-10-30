@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.pip || (g.pip = {})).nav = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 var thisModule = angular.module('pipActions.Service', []);
 thisModule.provider('pipActions', function () {
@@ -601,17 +601,18 @@ angular
     .module('pipBreadcrumb.Service', [])
     .provider('pipBreadcrumb', BreadcrumbProvider);
 },{}],9:[function(require,module,exports){
-(function () {
-    'use strict';
-    var thisModule = angular.module('pipNav.Translate', []);
-    thisModule.filter('translate', ['$injector', function ($injector) {
-        var pipTranslate = $injector.has('pipTranslate')
-            ? $injector.get('pipTranslate') : null;
-        return function (key) {
-            return pipTranslate ? pipTranslate.translate(key) || key : key;
-        };
-    }]);
-})();
+'use strict';
+translateFilter.$inject = ['$injector'];
+function translateFilter($injector) {
+    "ngInject";
+    var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
+    return function (key) {
+        return pipTranslate ? pipTranslate.translate(key) || key : key;
+    };
+}
+angular
+    .module('pipNav.Translate', [])
+    .filter('translate', translateFilter);
 },{}],10:[function(require,module,exports){
 (function () {
     'use strict';
@@ -2280,7 +2281,8 @@ module.run(['$templateCache', function($templateCache) {
 
 
 
-},{}]},{},[1,2,3,5,6,4,8,7,9,10,11,13,15,14,16,17,18,19,20,21,12,22,23,24,25,26,27,28,29])
+},{}]},{},[1,2,3,5,6,4,8,7,9,10,11,13,15,14,16,17,18,19,20,21,12,22,23,24,25,26,27,28,29])(29)
+});
 
 
 //# sourceMappingURL=pip-webui-nav.js.map

@@ -51,7 +51,7 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 
 
 
-
+function translateFilter($injector: any): (key: any) => any;
 
 
 module pip.nav {
