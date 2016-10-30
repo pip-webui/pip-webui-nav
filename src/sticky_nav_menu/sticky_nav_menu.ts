@@ -35,6 +35,7 @@
 
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);
+            $rootScope.$on('pipSideNavStateChange', onStateChanged);
 
             $scope.itemVisible = itemVisible;
             $scope.onLinkClick = onLinkClick;
@@ -84,6 +85,11 @@
             function onConfigChanged(event, config) {
                 $scope.isCollapsed = pipNavMenu.collapsed();
                 $scope.config = config;
+            }
+
+            function onStateChanged(event, state) {
+                $scope.sideNavState = state;
+                console.log('onStateChanged menu', state);
             }
 
             function onLinkClick(event, link) {

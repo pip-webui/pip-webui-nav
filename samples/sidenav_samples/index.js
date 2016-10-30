@@ -5,7 +5,7 @@
         'ngAria', 'wu.masonry', 
         'ngAnimate', 'pipTranslate', 
         'pipLayout', 'ui.utils', 
-        'pipServices',
+        'pipServices', 'LocalStorageModule',
         'ui.router',
         'ngMaterial', 
         'pipNav',
@@ -47,7 +47,7 @@
 
     thisModule.controller('appController',
         function ($scope, $mdDialog, $rootScope, $mdTheming, $timeout,
-            $state, $mdSidenav) { //  pipBreadcrumb,
+            $state, $mdSidenav, pipSideNav) { //  pipBreadcrumb,
 
             $timeout(function() {
                 $('pre code').each(function(i, block) {
@@ -56,6 +56,7 @@
             });
 
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
+            pipSideNav.id('pip-sticky-sidenav');
 
             $scope.content = content;
             $scope.content1 = [
@@ -93,7 +94,11 @@
                 // $scope.smallSize = !$scope.smallSize;
                 $scope.test = !$scope.test;
             }
-            
+
+            $scope.onToggleSideNav = function () {
+                pipSideNav.toggle();
+            };
+
         });
 
 })(window.angular);

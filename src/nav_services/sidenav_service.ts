@@ -12,11 +12,13 @@
             // Parts of the sidenav
             parts: []
         },
-        sideNavId = 'pip-sidenav'; // sidenav identificatior
+        sideNavId = 'pip-sidenav', // sidenav identificatior
+        sideNavState = {};
 
         this.id = id; 
         this.theme = theme;
         this.parts = initParts;
+        this.state = setState;
 
         this.$get = function ($rootScope, $mdSidenav) {
             $rootScope.$on('pipOpenSideNav', open);
@@ -30,7 +32,8 @@
                 id: getOrSetId,
                 open: open,
                 close: close,
-                toggle: toggle
+                toggle: toggle,
+                state: getOrSetState
             };
 
             //---------------------
@@ -53,14 +56,23 @@
                 return config.parts[name];
             }
 
-            function getOrSetId(id) {
-                if (_.isString(id)) {
-                    if (sideNavId !== id) {
-                        sideNavId = id;
+            function getOrSetId(value) {
+                if (_.isString(value)) {
+                    if (sideNavId !== value) {
+                        sideNavId = value;
                     }
                 }
 
                 return sideNavId;
+            }
+
+            function getOrSetState(state) {
+                if (angular.isObject(state)) {
+                    sideNavState = _.cloneDeep(state);
+                }
+                $rootScope.$broadcast('pipSideNavStateChange', sideNavState);
+
+                return sideNavState;
             }
 
             function getOrSetParts(parts) {
@@ -79,24 +91,29 @@
             }
 
             function open(event) {
-                console.log('open pip', sideNavId);
+
                 $mdSidenav(sideNavId).open();
             }
                  
             function close(event) {
-                console.log('close pip', sideNavId);
                 $mdSidenav(sideNavId).close();   
             }                
 
             function toggle() {
-                console.log('toggle pip', sideNavId);
+                console.log('toggle', sideNavId);
                 $mdSidenav(sideNavId).toggle();   
                 $rootScope.$broadcast('pipSideNavToggle', config);
             }
         };
 
-        function id(id) {
-            sideNavId = id || sideNavId;
+        function setState(state) {
+            sideNavState = state || sideNavState;
+
+            return sideNavState;
+        }
+
+        function id(value) {
+            sideNavId = value || sideNavId;
 
             return sideNavId;
         }

@@ -64,7 +64,6 @@
             pipSideNav.id('pip-sticky-sidenav');            
             
             setSideNaveState();
- //           pipSideNav.state($scope.sidenavState);
 
             $scope.$mdMedia = $mdMedia;
 
@@ -111,6 +110,7 @@
                 $scope.sidenavState = state;
                 $element.addClass($scope.sidenavState.addClass);
                 console.log('$scope.sidenavState', $scope.sidenavState, $scope.navState);
+                pipSideNav.state($scope.sidenavState);
             }
 
         }
