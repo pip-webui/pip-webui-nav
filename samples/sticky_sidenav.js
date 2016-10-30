@@ -33,7 +33,6 @@
             }
 
             // set sidenav 
-            console.log('pipSideNav.id');
             pipSideNav.id('pip-sticky-sidenav');
 
             $scope.$mdMedia = $mdMedia;

@@ -61,7 +61,7 @@
 
             // Apply class and call resize
             $element.addClass('pip-sticky-sidenav');
-            pipSideNav.id('pip-sticky-sidenav');            
+            pipSideNav.id('pip-sticky-sidenav');   
             
             setSideNaveState();
 
@@ -69,6 +69,8 @@
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
             $rootScope.$on('pipSideNavToggle', onNavToggle);
+
+            $rootScope.$on('pipWindowResized', onWindowResized);
 
             return;
             
@@ -82,26 +84,45 @@
                 $element.addClass('overflow-visible');
             }
 
+            function onWindowResized() {
+                console.log('$scope.windowSize', $scope.windowSize);
+                if (!$mdMedia($scope.windowSize)) {
+                    setSideNaveState();
+                }
+            }
+
+
             function setSideNaveState() {
-                if ($mdMedia('xs') || $mdMedia('sm')) {
+                if ($mdMedia('xs')) {
                     setState($scope.navState.toggle);
+                    $scope.windowSize = 'xs';
+                    
+                    return
+                }
+
+                if ($mdMedia('sm')) {
+                    setState($scope.navState.toggle);
+                    $scope.windowSize = 'sm';
 
                     return
                 }
                 if ($mdMedia('md') ) {
                     setState($scope.navState.small);
+                    $scope.windowSize = 'md';
 
                     return
                 }
                 if ($mdMedia('lg') ) {
                     setState($scope.navState.large);
+                    $scope.windowSize = 'lg';
 
                     return
                 }
                 if ($mdMedia('xl')) {
                     setState($scope.navState.xlarge);
+                    $scope.windowSize = 'xl';
 
-                    return
+                    return;
                 }                               
             }
 
@@ -109,7 +130,7 @@
                 $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
                 $scope.sidenavState = state;
                 $element.addClass($scope.sidenavState.addClass);
-                console.log('$scope.sidenavState', $scope.sidenavState, $scope.navState);
+                console.log('$scope.sidenavState', $scope.sidenavState);
                 pipSideNav.state($scope.sidenavState);
             }
 

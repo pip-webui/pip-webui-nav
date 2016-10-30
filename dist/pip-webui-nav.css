@@ -413,6 +413,9 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-sidenav md-backdrop.md-opaque.ng-enter {
   opacity: .48;
 }
+.pip-sticky-sidenav {
+  background: #e0e0e0;
+}
 .pip-sticky-sidenav md-sidenav {
   background: #e0e0e0;
   border-right: solid 1px #ffffff;

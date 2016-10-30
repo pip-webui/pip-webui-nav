@@ -50,15 +50,17 @@
         </pip-sticky-sidenav>   
 
             <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-                hjjhgjhgjhgj
-                <!--<div ui-view></div>-->
+                <pip-main>
+                     <pip-main-body style="padding: 20px">
+                        <md-button ng-click="onTest()">
+                            Test
+                        </md-button>
 
-                <md-button ng-click="onTest()">
-                    Test
-                </md-button>
-
- <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">{{ 'TOGGLE' | translate }} Side Nav</md-button>
- 
+                        <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">
+                            {{ 'TOGGLE' | translate }} Side Nav
+                        </md-button>
+                     </pip-main-body>   
+                </pip-main>
             </md-content>
         </div>
 </body>

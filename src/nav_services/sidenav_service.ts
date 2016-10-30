@@ -100,7 +100,6 @@
             }                
 
             function toggle() {
-                console.log('toggle', sideNavId);
                 $mdSidenav(sideNavId).toggle();   
                 $rootScope.$broadcast('pipSideNavToggle', config);
             }

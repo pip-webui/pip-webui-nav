@@ -89,7 +89,6 @@
 
             function onStateChanged(event, state) {
                 $scope.sideNavState = state;
-                console.log('onStateChanged menu', state);
             }
 
             function onLinkClick(event, link) {

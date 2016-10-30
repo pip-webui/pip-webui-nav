@@ -827,11 +827,9 @@ var pip;
             var url, config = pipNavHeader.config();
             url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
             if (url) {
-                console.log('url', url);
                 $image.attr('src', url);
             }
             else {
-                console.log('display none');
                 imageBlock.css('display', 'none');
             }
         }
@@ -1254,7 +1252,6 @@ var pip;
                         sideNavId = value;
                     }
                 }
-                console.log('getOrSetId', value);
                 return sideNavId;
             }
             function getOrSetState(state) {
@@ -1283,7 +1280,6 @@ var pip;
                 $mdSidenav(sideNavId).close();
             }
             function toggle() {
-                console.log('toggle', sideNavId);
                 $mdSidenav(sideNavId).toggle();
                 $rootScope.$broadcast('pipSideNavToggle', config);
             }
@@ -1293,9 +1289,7 @@ var pip;
             return sideNavState;
         }
         function id(value) {
-            console.log('id', value);
             sideNavId = value || sideNavId;
-            console.log('id', sideNavId);
             return sideNavId;
         }
         function theme(theme) {
@@ -1636,7 +1630,6 @@ exports.SearchService = SearchService;
         }
         function onStateChanged(event, state) {
             $scope.sideNavState = state;
-            console.log('onStateChanged menu', state);
         }
         function onLinkClick(event, link) {
             event.stopPropagation();
@@ -1745,6 +1738,7 @@ exports.SearchService = SearchService;
         $scope.$mdMedia = $mdMedia;
         $rootScope.$on('pipNavIconClicked', onNavIconClick);
         $rootScope.$on('pipSideNavToggle', onNavToggle);
+        $rootScope.$on('pipWindowResized', onWindowResized);
         return;
         function onNavIconClick(event) {
             pipSideNav.open();
@@ -1752,21 +1746,36 @@ exports.SearchService = SearchService;
         function onNavToggle(event) {
             $element.addClass('overflow-visible');
         }
+        function onWindowResized() {
+            console.log('$scope.windowSize', $scope.windowSize);
+            if (!$mdMedia($scope.windowSize)) {
+                setSideNaveState();
+            }
+        }
         function setSideNaveState() {
-            if ($mdMedia('xs') || $mdMedia('sm')) {
+            if ($mdMedia('xs')) {
                 setState($scope.navState.toggle);
+                $scope.windowSize = 'xs';
+                return;
+            }
+            if ($mdMedia('sm')) {
+                setState($scope.navState.toggle);
+                $scope.windowSize = 'sm';
                 return;
             }
             if ($mdMedia('md')) {
                 setState($scope.navState.small);
+                $scope.windowSize = 'md';
                 return;
             }
             if ($mdMedia('lg')) {
                 setState($scope.navState.large);
+                $scope.windowSize = 'lg';
                 return;
             }
             if ($mdMedia('xl')) {
                 setState($scope.navState.xlarge);
+                $scope.windowSize = 'xl';
                 return;
             }
         }
@@ -1774,7 +1783,7 @@ exports.SearchService = SearchService;
             $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
             $scope.sidenavState = state;
             $element.addClass($scope.sidenavState.addClass);
-            console.log('$scope.sidenavState', $scope.sidenavState, $scope.navState);
+            console.log('$scope.sidenavState', $scope.sidenavState);
             pipSideNav.state($scope.sidenavState);
         }
     }]);
@@ -2159,36 +2168,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('search/SearchBar.html',
     '<div class="md-toolbar-tools layout-row" ng-if="vm.enabled">\n' +
     '    <md-button class="md-icon-button" \n' +
@@ -2213,6 +2192,36 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:search"></md-icon>\n' +
     '    </md-button>\n' +
     '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();
@@ -2276,27 +2285,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
-    '<!--\n' +
-    '@file Sticky Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="{{sidenavState && sidenavState.isLockedOpen}}" \n' +
-    '    md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
-    '\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('sticky_nav_menu/sticky_nav_menu.html',
     '<md-list>\n' +
     '    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">\n' +
@@ -2339,6 +2327,27 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-list-item>\n' +
     '    </div>\n' +
     '</md-list>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
+    '<!--\n' +
+    '@file Sticky Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" \n' +
+    '    md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
+    '\n' +
     '');
 }]);
 })();
