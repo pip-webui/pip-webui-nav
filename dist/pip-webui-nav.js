@@ -679,8 +679,15 @@ angular
                 select: '=pipDropdownSelect'
             },
             templateUrl: 'dropdown/dropdown.html',
-            controller: ['$scope', '$element', '$attrs', 'localStorageService', function ($scope, $element, $attrs, localStorageService) {
-                $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+            controller: ['$scope', '$element', '$attrs', '$injector', '$rootScope', function ($scope, $element, $attrs, $injector, $rootScope) {
+                var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null, currentTheme = 'blue';
+                if (pipTheme) {
+                    currentTheme = pipTheme.use();
+                }
+                else if ($rootScope.$theme) {
+                    currentTheme = $rootScope.$theme;
+                }
+                $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
                 $scope.$mdMedia = $mdMedia;
                 $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
                 $scope.activeIndex = $scope.activeIndex || 0;
@@ -1588,6 +1595,7 @@ exports.SearchService = SearchService;
         $scope.onLinkClick = onLinkClick;
         $scope.isSectionEmpty = isSectionEmpty;
         $scope.onExpand = onExpand;
+        $scope.isActive = isActive;
         return;
         function setCollapsible() {
             var collapsed;
@@ -1627,6 +1635,25 @@ exports.SearchService = SearchService;
         }
         function onStateChanged(event, state) {
             $scope.sideNavState = state;
+        }
+        function isActive(link) {
+            if (link.href) {
+                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
+                    return true;
+                }
+            }
+            else if (link.url) {
+                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
+                    return true;
+                }
+            }
+            else if (link.state) {
+                var $state = $injector.has('$state') ? $injector.get('$state') : null;
+                if ($state != null && $state.includes(link.state)) {
+                    return true;
+                }
+            }
+            return false;
         }
         function onLinkClick(event, link) {
             event.stopPropagation();
@@ -1744,7 +1771,6 @@ exports.SearchService = SearchService;
             $element.addClass('overflow-visible');
         }
         function onWindowResized() {
-            console.log('$scope.windowSize', $scope.windowSize);
             if (!$mdMedia($scope.windowSize)) {
                 setSideNaveState();
             }
@@ -1780,7 +1806,6 @@ exports.SearchService = SearchService;
             $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
             $scope.sidenavState = state;
             $element.addClass($scope.sidenavState.addClass);
-            console.log('$scope.sidenavState', $scope.sidenavState);
             pipSideNav.state($scope.sidenavState);
         }
     }]);
@@ -1801,8 +1826,23 @@ exports.SearchService = SearchService;
                 select: '=pipTabsSelect'
             },
             templateUrl: 'tabs/tabs.html',
-            controller: ['$scope', '$element', '$attrs', '$mdMedia', 'localStorageService', '$injector', function ($scope, $element, $attrs, $mdMedia, localStorageService, $injector) {
-                $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+            controller: ['$scope', '$element', '$attrs', '$mdMedia', '$injector', '$rootScope', function ($scope, $element, $attrs, $mdMedia, $injector, $rootScope) {
+                var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null, currentTheme = 'blue';
+                if (pipTheme) {
+                    currentTheme = pipTheme.use();
+                }
+                else if ($rootScope.$theme) {
+                    currentTheme = $rootScope.$theme;
+                }
+                $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+                if (pipTranslate) {
+                    if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
+                        pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
+                    }
+                    else {
+                        pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+                    }
+                }
                 $scope.$mdMedia = $mdMedia;
                 $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
                 var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -2053,6 +2093,25 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('dropdown/dropdown.html',
+    '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
+    '    <div class="pip-divider"></div>\n' +
+    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
+    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
+    '                {{ (action.title || action.name) | translate }}\n' +
+    '            </md-option>\n' +
+    '        </md-select>\n' +
+    '</md-toolbar>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('language_picker/language_picker.html',
     '<md-menu md-position-mode="target-right target">\n' +
     '    <span class="pip-language"\n' +
@@ -2068,25 +2127,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </md-menu-content>\n' +
     '</md-menu>\n' +
     '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dropdown/dropdown.html',
-    '<md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{\'md-whiteframe-3dp\': $mdMedia(\'xs\')}">\n' +
-    '    <div class="pip-divider"></div>\n' +
-    '        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">\n' +
-    '            <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">\n' +
-    '                {{ (action.title || action.name) | translate }}\n' +
-    '            </md-option>\n' +
-    '        </md-select>\n' +
-    '</md-toolbar>');
 }]);
 })();
 
@@ -2129,36 +2169,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_menu/nav_menu.html',
-    '<md-list>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '        ng-hide="section.access && !section.access(section)">\n' +
-    '        \n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
-    '        \n' +
-    '        <md-list-item class="pip-focusable no-border" \n' +
-    '            ng-repeat="link in section.links"\n' +
-    '            ng-click="onLinkClick($event, link)"\n' +
-    '            ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
-    '                ng-hide="!link.icon" \n' +
-    '                class="tm0 bm0"></md-icon>\n' +
-    '            <p>{{::link.title | translate}}</p>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_icon/nav_icon.html',
     '<md-button class="md-icon-button pip-nav-icon"\n' +
     '            ng-if="config.type != \'none\'"\n' +
@@ -2184,6 +2194,36 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-icon ng-if="config.type==\'icon\'"\n' +
     '             md-svg-icon="icons:{{config.iconName}}"></md-icon>\n' +
     '</md-button>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_menu/nav_menu.html',
+    '<md-list>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '        ng-hide="section.access && !section.access(section)">\n' +
+    '        \n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title">{{::section.title | translate}}</md-subheader>\n' +
+    '        \n' +
+    '        <md-list-item class="pip-focusable no-border" \n' +
+    '            ng-repeat="link in section.links"\n' +
+    '            ng-click="onLinkClick($event, link)"\n' +
+    '            ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-icon md-svg-icon="{{link.icon}}" \n' +
+    '                ng-hide="!link.icon" \n' +
+    '                class="tm0 bm0"></md-icon>\n' +
+    '            <p>{{::link.title | translate}}</p>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();
@@ -2268,18 +2308,17 @@ module.run(['$templateCache', function($templateCache) {
     '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
     '        </md-subheader>\n' +
     '\n' +
-    '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item"\n' +
+    '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" \n' +
     '                      ng-repeat="link in section.links"\n' +
-    '                      xxxng-click="onLinkClick($event, link)"\n' +
+    '                      ng-class="{\'active\': isActive(link)}"\n' +
     '                      ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-button class="layout-row layout-align-start-center"\n' +
-    '                       ng-click="onLinkClick($event, link)"\n' +
-    '                       xxxstyle="height: 48px; width: 100%; margin: 0px; padding: 0px;">\n' +
+    '            <md-button class="layout-row layout-align-start-center" \n' +
+    '                       ng-click="onLinkClick($event, link)">\n' +
     '                <div class="pip-sticky-nav-menu-icon-block">\n' +
     '                    <md-icon md-svg-icon="{{link.icon}}"\n' +
     '                             ng-hide="!link.icon"\n' +
     '                             class="pip-sticky-nav-menu-icon flex-fixed">\n' +
-    '                        <md-tooltip>jjjjjjjjj</md-tooltip>\n' +
+    '                        <md-tooltip>{{::link.title | translate}}</md-tooltip>\n' +
     '                    </md-icon>\n' +
     '                </div>\n' +
     '                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>\n' +

@@ -19,9 +19,24 @@
                 },
                 templateUrl: 'tabs/tabs.html',
                 controller:
-                    function ($scope, $element, $attrs, $mdMedia, localStorageService, $injector) {
-                        // Todo: Remove dependency on local storage or made it optional
-                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                    function ($scope, $element, $attrs, $mdMedia, $injector, $rootScope) {
+                        var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null, 
+                            currentTheme = 'blue';
+                        if (pipTheme) {
+                            currentTheme = pipTheme.use();
+                        } else if ($rootScope.$theme) {
+                            currentTheme = $rootScope.$theme;
+                        }
+                        $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+
+                        if (pipTranslate) {
+                            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
+                                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
+                            } else {
+                                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+                            }
+                        }
+                        
                         $scope.$mdMedia = $mdMedia;
                         $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
 

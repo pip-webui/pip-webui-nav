@@ -18,9 +18,16 @@
                 },
                 templateUrl: 'dropdown/dropdown.html',
                 controller:
-                    function ($scope, $element, $attrs, localStorageService) {
-                        // Todo: Remove dependency on local storage or make it optional
-                        $scope.class = ($attrs.class || '') + ' md-' + localStorageService.get('theme') + '-theme';
+                    function ($scope, $element, $attrs, $injector, $rootScope) {
+                        var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null, 
+                            currentTheme = 'blue';
+                        if (pipTheme) {
+                            currentTheme = pipTheme.use();
+                        } else if ($rootScope.$theme) {
+                            currentTheme = $rootScope.$theme;
+                        }
+                        $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+
                         //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
                         $scope.$mdMedia = $mdMedia;
                         $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
