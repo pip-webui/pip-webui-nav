@@ -1258,11 +1258,13 @@ var pip;
                 }
                 return sideNavId;
             }
-            function getOrSetState(state) {
-                if (angular.isObject(state)) {
-                    sideNavState = _.cloneDeep(state);
+            function getOrSetState(value) {
+                if (angular.isObject(value)) {
+                    console.log('getOrSetState', value);
+                    sideNavState = _.cloneDeep(value);
                 }
-                $rootScope.$broadcast('pipSideNavStateChange', sideNavState);
+                $rootScope.$broadcast('pipSideNavStateChange', value);
+                console.log('getOrSetState', sideNavState);
                 return sideNavState;
             }
             function getOrSetParts(parts) {
@@ -1288,8 +1290,9 @@ var pip;
                 $rootScope.$broadcast('pipSideNavToggle', config);
             }
         }];
-        function setState(state) {
-            sideNavState = state || sideNavState;
+        function setState(value) {
+            sideNavState = value || sideNavState;
+            console.log('setState', sideNavState);
             return sideNavState;
         }
         function id(value) {
@@ -1585,10 +1588,9 @@ exports.SearchService = SearchService;
         var pipSdeNavElement = $element.parent().parent();
         $element.addClass('pip-sticky-nav-menu');
         $scope.config = $scope.config || pipNavMenu.get();
-        setCollapsible();
-        $scope.expanded = true;
         pipNavMenu.set($scope.config);
         $scope.defaultIicon = 'icons:folder';
+        onStateChanged(null, pipSideNav.state());
         $rootScope.$on('pipNavMenuChanged', onConfigChanged);
         $rootScope.$on('pipSideNavStateChange', onStateChanged);
         $scope.itemVisible = itemVisible;
@@ -1597,18 +1599,10 @@ exports.SearchService = SearchService;
         $scope.onExpand = onExpand;
         $scope.isActive = isActive;
         return;
-        function setCollapsible() {
-            var collapsed;
-            if (angular.isFunction($scope.collapsed)) {
-                collapsed = $scope.collapsed();
-            }
-            else {
-                collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
-            }
-            $scope.collapsibled = collapsed;
-            pipNavMenu.collapsed(collapsed);
-        }
         function onExpand() {
+            if (!$scope.isCollapsed) {
+                return;
+            }
             $scope.expanded = !$scope.expanded;
             if ($scope.expanded) {
                 pipSdeNavElement.removeClass('pip-sticky-nav-small');
@@ -1634,7 +1628,13 @@ exports.SearchService = SearchService;
             $scope.config = config;
         }
         function onStateChanged(event, state) {
+            console.log('onStateChanged', event, state);
+            pipNavMenu.collapsed(state.expand);
+            $scope.isCollapsed = state.expand;
+            $scope.expanded = state.isExpanded;
+            $scope.expandedButton = state.expandedButton;
             $scope.sideNavState = state;
+            console.log('onStateChanged $scope.sideNavState', $scope.sideNavState);
         }
         function isActive(link) {
             if (link.href) {
@@ -1717,7 +1717,9 @@ exports.SearchService = SearchService;
             controller: 'pipStickySideNavController'
         };
     });
-    thisModule.controller('pipStickySideNavController', ['$scope', '$element', '$rootScope', 'pipSideNav', '$mdMedia', function ($scope, $element, $rootScope, pipSideNav, $mdMedia) {
+    thisModule.controller('pipStickySideNavController', ['$scope', '$element', '$rootScope', '$injector', '$mdMedia', 'pipSideNav', function ($scope, $element, $rootScope, $injector, $mdMedia, pipSideNav) {
+        var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
+        $scope.media = pipMedia ? pipMedia : $mdMedia;
         $scope.navState = {
             toggle: {
                 addClass: 'sidenav-mobile',
@@ -1753,50 +1755,51 @@ exports.SearchService = SearchService;
                 expandedButton: true,
                 isExpanded: false,
                 expand: true,
-                showIconTooltype: false
+                showIconTooltype: true
             }
         };
         $element.addClass('pip-sticky-sidenav');
         pipSideNav.id('pip-sticky-sidenav');
         setSideNaveState();
-        $scope.$mdMedia = $mdMedia;
         $rootScope.$on('pipNavIconClicked', onNavIconClick);
-        $rootScope.$on('pipSideNavToggle', onNavToggle);
+        $rootScope.$on('pipSideNavState', onSideNavState);
         $rootScope.$on('pipWindowResized', onWindowResized);
         return;
         function onNavIconClick(event) {
             pipSideNav.open();
-        }
-        function onNavToggle(event) {
-            $element.addClass('overflow-visible');
         }
         function onWindowResized() {
             if (!$mdMedia($scope.windowSize)) {
                 setSideNaveState();
             }
         }
+        function onSideNavState(event, state) {
+            if (angular.isString(state) && $scope.navState[state] !== undefined) {
+                setState($scope.navState[state]);
+            }
+        }
         function setSideNaveState() {
-            if ($mdMedia('xs')) {
+            if ($scope.media('xs')) {
                 setState($scope.navState.toggle);
                 $scope.windowSize = 'xs';
                 return;
             }
-            if ($mdMedia('sm')) {
+            if ($scope.media('sm')) {
                 setState($scope.navState.toggle);
                 $scope.windowSize = 'sm';
                 return;
             }
-            if ($mdMedia('md')) {
+            if ($scope.media('md')) {
                 setState($scope.navState.small);
                 $scope.windowSize = 'md';
                 return;
             }
-            if ($mdMedia('lg')) {
+            if ($scope.media('lg')) {
                 setState($scope.navState.large);
                 $scope.windowSize = 'lg';
                 return;
             }
-            if ($mdMedia('xl')) {
+            if ($scope.media('xl')) {
                 setState($scope.navState.xlarge);
                 $scope.windowSize = 'xl';
                 return;
@@ -1806,6 +1809,7 @@ exports.SearchService = SearchService;
             $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
             $scope.sidenavState = state;
             $element.addClass($scope.sidenavState.addClass);
+            console.log('setState', state);
             pipSideNav.state($scope.sidenavState);
         }
     }]);
@@ -2137,38 +2141,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_header/nav_header.html',
-    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
-    '\n' +
-    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
-    '                ng-click="onUserClick()"\n' +
-    '                aria-label="current user">\n' +
-    '\n' +
-    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
-    '    </md-button>\n' +
-    '    \n' +
-    '    <div class="pip-nav-header-user-text">\n' +
-    '        <a class="pip-nav-header-user-pri"\n' +
-    '            ng-click="onUserClick()">\n' +
-    '            {{ title }}\n' +
-    '        </a>\n' +
-    '        <div class="pip-nav-header-user-sec">\n' +
-    '            {{ subtitle | translate }}\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '</md-toolbar>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_icon/nav_icon.html',
     '<md-button class="md-icon-button pip-nav-icon"\n' +
     '            ng-if="config.type != \'none\'"\n' +
@@ -2194,6 +2166,38 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-icon ng-if="config.type==\'icon\'"\n' +
     '             md-svg-icon="icons:{{config.iconName}}"></md-icon>\n' +
     '</md-button>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_header/nav_header.html',
+    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
+    '\n' +
+    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
+    '                ng-click="onUserClick()"\n' +
+    '                aria-label="current user">\n' +
+    '\n' +
+    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
+    '    </md-button>\n' +
+    '    \n' +
+    '    <div class="pip-nav-header-user-text">\n' +
+    '        <a class="pip-nav-header-user-pri"\n' +
+    '            ng-click="onUserClick()">\n' +
+    '            {{ title }}\n' +
+    '        </a>\n' +
+    '        <div class="pip-nav-header-user-sec">\n' +
+    '            {{ subtitle | translate }}\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -2290,6 +2294,74 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sticky_nav_menu/sticky_nav_menu.html',
+    '<md-list>\n' +
+    '    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" \n' +
+    '        ng-click="onExpand()"\n' +
+    '        ng-disabled="!isCollapsed"\n' +
+    '        ng-if="expandedButton">\n' +
+    '        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon">\n' +
+    '            <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">\n' +
+    '                {{::\'Expand menu\' | translate}}\n' +
+    '            </md-tooltip>\n' +
+    '        </md-icon>\n' +
+    '        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon">\n' +
+    '            {{::\'Shrink menu\' | translate}} \n' +
+    '        </md-icon>\n' +
+    '                    <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">\n' +
+    '                {{::\'Expand menu\' | translate}}\n' +
+    '            </md-tooltip>\n' +
+    '    </md-list-item>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '         ng-hide="section.access && !section.access(section)">\n' +
+    '\n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title" style="height: 48px;">\n' +
+    '            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">\n' +
+    '                {{::section.title | translate}}\n' +
+    '            </span>\n' +
+    '            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">\n' +
+    '                <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">{{::section.title | translate}}</md-tooltip>\n' +
+    '            </md-icon>\n' +
+    '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">\n' +
+    '                <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">{{::section.title | translate}}</md-tooltip>\n' +
+    '            </md-icon>\n' +
+    '        </md-subheader>\n' +
+    '\n' +
+    '        <md-list-item class="no-border pip-sticky-nav-menu-item" \n' +
+    '                      ng-repeat="link in section.links"\n' +
+    '                      ng-class="{\'active\': isActive(link)}"\n' +
+    '                      ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-button class="layout-row layout-align-start-center pip-focusable" \n' +
+    '                       ng-click="onLinkClick($event, link)">\n' +
+    '                <div class="pip-sticky-nav-menu-icon-block">\n' +
+    '                    <md-icon md-svg-icon="{{link.icon}}"\n' +
+    '                             ng-hide="!link.icon"\n' +
+    '                             class="pip-sticky-nav-menu-icon flex-fixed">\n' +
+    '                        <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">{{::link.title | translate}}</md-tooltip>\n' +
+    '                    </md-icon>\n' +
+    '                </div>\n' +
+    '                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>\n' +
+    '\n' +
+    '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
+    '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
+    '                    {{link.count}}\n' +
+    '                </div>\n' +
+    '            </md-button>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('sticky_nav_header/sticky_nav_header.html',
     '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
     '\n' +
@@ -2311,58 +2383,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '</md-toolbar>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sticky_nav_menu/sticky_nav_menu.html',
-    '<md-list>\n' +
-    '    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">\n' +
-    '        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
-    '        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
-    '    </md-list-item>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '         ng-hide="section.access && !section.access(section)">\n' +
-    '\n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title" style="height: 48px;">\n' +
-    '            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">\n' +
-    '                {{::section.title | translate}}\n' +
-    '            </span>\n' +
-    '            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
-    '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
-    '        </md-subheader>\n' +
-    '\n' +
-    '        <md-list-item class="no-border pip-sticky-nav-menu-item" \n' +
-    '                      ng-repeat="link in section.links"\n' +
-    '                      ng-class="{\'active\': isActive(link)}"\n' +
-    '                      ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-button class="layout-row layout-align-start-center pip-focusable" \n' +
-    '                       ng-click="onLinkClick($event, link)">\n' +
-    '                <div class="pip-sticky-nav-menu-icon-block">\n' +
-    '                    <md-icon md-svg-icon="{{link.icon}}"\n' +
-    '                             ng-hide="!link.icon"\n' +
-    '                             class="pip-sticky-nav-menu-icon flex-fixed">\n' +
-    '                        <md-tooltip ng-show="sideNavstate.showIconTooltype && !expanded">{{::link.title | translate}}</md-tooltip>\n' +
-    '                    </md-icon>\n' +
-    '                </div>\n' +
-    '                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>\n' +
-    '\n' +
-    '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
-    '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
-    '                    {{link.count}}\n' +
-    '                </div>\n' +
-    '            </md-button>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
     '');
 }]);
 })();

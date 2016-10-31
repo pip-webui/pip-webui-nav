@@ -66,12 +66,13 @@
                 return sideNavId;
             }
 
-            function getOrSetState(state) {
-                if (angular.isObject(state)) {
-                    sideNavState = _.cloneDeep(state);
+            function getOrSetState(value) {
+                if (angular.isObject(value)) {
+                    console.log('getOrSetState', value);
+                    sideNavState = _.cloneDeep(value);
                 }
-                $rootScope.$broadcast('pipSideNavStateChange', sideNavState);
-
+                $rootScope.$broadcast('pipSideNavStateChange', value);
+console.log('getOrSetState', sideNavState);
                 return sideNavState;
             }
 
@@ -105,9 +106,9 @@
             }
         };
 
-        function setState(state) {
-            sideNavState = state || sideNavState;
-
+        function setState(value) {
+            sideNavState = value || sideNavState;
+console.log('setState', sideNavState)
             return sideNavState;
         }
 

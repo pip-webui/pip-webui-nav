@@ -1,7 +1,16 @@
 <md-list>
-    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">
-        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>
-        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>
+    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" 
+        ng-click="onExpand()"
+        ng-disabled="!isCollapsed"
+        ng-if="expandedButton">
+        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon">
+            <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">
+                {{::'Expand menu' | translate}}
+            </md-tooltip>
+        </md-icon>
+        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon">
+            {{::'Shrink menu' | translate}} 
+        </md-icon>
     </md-list-item>
     <div class="pip-section" ng-repeat="section in config"
          ng-hide="section.access && !section.access(section)">
@@ -11,8 +20,12 @@
             <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">
                 {{::section.title | translate}}
             </span>
-            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>
-            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>
+            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">
+                <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">{{::section.title | translate}}</md-tooltip>
+            </md-icon>
+            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
+                <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">{{::section.title | translate}}</md-tooltip>
+            </md-icon>
         </md-subheader>
 
         <md-list-item class="no-border pip-sticky-nav-menu-item" 
@@ -25,7 +38,7 @@
                     <md-icon md-svg-icon="{{link.icon}}"
                              ng-hide="!link.icon"
                              class="pip-sticky-nav-menu-icon flex-fixed">
-                        <md-tooltip ng-show="sideNavstate.showIconTooltype && !expanded">{{::link.title | translate}}</md-tooltip>
+                        <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">{{::link.title | translate}}</md-tooltip>
                     </md-icon>
                 </div>
                 <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>

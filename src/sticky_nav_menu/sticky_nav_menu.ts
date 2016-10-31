@@ -22,17 +22,16 @@
 
     thisModule.controller('pipStickyNavMenuController',
         function ($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
-
             var pipSdeNavElement = $element.parent().parent();
             // Apply class and call resize
             $element.addClass('pip-sticky-nav-menu');
             $scope.config = $scope.config || pipNavMenu.get();
-            setCollapsible();
-            $scope.expanded = true;
+
             pipNavMenu.set($scope.config);
             // todo set from services
             $scope.defaultIicon = 'icons:folder';
 
+            onStateChanged(null, pipSideNav.state());
 
             $rootScope.$on('pipNavMenuChanged', onConfigChanged);
             $rootScope.$on('pipSideNavStateChange', onStateChanged);
@@ -45,21 +44,9 @@
 
             return;
 
-            //------------------------
-
-            function setCollapsible() {
-                var collapsed;
-                if (angular.isFunction($scope.collapsed)) {
-                    collapsed = $scope.collapsed();
-                } else {
-                    collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
-                }
-
-                $scope.collapsibled = collapsed;
-                pipNavMenu.collapsed(collapsed);
-            }
-
             function onExpand() {
+                if (!$scope.isCollapsed) { return }
+
                 $scope.expanded = !$scope.expanded;
 
                 if ($scope.expanded) {
@@ -89,7 +76,15 @@
             }
 
             function onStateChanged(event, state) {
+console.log('onStateChanged', event, state);                
+                pipNavMenu.collapsed(state.expand);
+                $scope.isCollapsed = state.expand;
+                $scope.expanded = state.isExpanded;
+                $scope.expandedButton = state.expandedButton;
+
+
                 $scope.sideNavState = state;
+console.log('onStateChanged $scope.sideNavState', $scope.sideNavState);                 
             }
 
             function isActive(link) {
