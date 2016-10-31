@@ -30,8 +30,8 @@ export class BreadcrumbController {
 
         this.config = pipBreadcrumb.config;
 
-        $rootScope.$on(BreadcrumbChangedEvent, this.onBreadcrumbChanged);
-        $rootScope.$on(BreadcrumbBackEvent, this.onBreadcrumbBack);
+        $rootScope.$on(BreadcrumbChangedEvent, (event, config) => { this.onBreadcrumbChanged(event, config); });
+        $rootScope.$on(BreadcrumbBackEvent, () => { this.onBreadcrumbBack(); });
     }
 
     private onBreadcrumbChanged(event, config) {

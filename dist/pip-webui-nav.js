@@ -492,12 +492,13 @@ var BreadcrumbController = (function () {
     BreadcrumbController.$inject = ['$element', '$rootScope', '$window', '$state', 'pipBreadcrumb'];
     function BreadcrumbController($element, $rootScope, $window, $state, pipBreadcrumb) {
         "ngInject";
+        var _this = this;
         this._rootScope = $rootScope;
         this._window = $window;
         $element.addClass('pip-breadcrumb');
         this.config = pipBreadcrumb.config;
-        $rootScope.$on(BreadcrumbService_1.BreadcrumbChangedEvent, this.onBreadcrumbChanged);
-        $rootScope.$on(BreadcrumbService_2.BreadcrumbBackEvent, this.onBreadcrumbBack);
+        $rootScope.$on(BreadcrumbService_1.BreadcrumbChangedEvent, function (event, config) { _this.onBreadcrumbChanged(event, config); });
+        $rootScope.$on(BreadcrumbService_2.BreadcrumbBackEvent, function () { _this.onBreadcrumbBack(); });
     }
     BreadcrumbController.prototype.onBreadcrumbChanged = function (event, config) {
         this.config = config;
@@ -1864,6 +1865,26 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('appbar/appbar.html',
+    '<!--\n' +
+    '@file App Bar component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset && config.showAppBar" ng-class="config.ngClasses"\n' +
+    '            class="{{ config.cssClass }}" ng-transclude>\n' +
+    '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('actions/primary_actions.html',
     '<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryLocalActions">\n' +
     '    <md-button class="pip-primary-actions-action md-icon-button"\n' +
@@ -1963,26 +1984,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-menu-divider>                        \n' +
     '    </md-menu-content>\n' +
     '</md-menu>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('appbar/appbar.html',
-    '<!--\n' +
-    '@file App Bar component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-toolbar md-theme-watch="true" ng-if="!$partialReset && config.showAppBar" ng-class="config.ngClasses"\n' +
-    '            class="{{ config.cssClass }}" ng-transclude>\n' +
-    '</md-toolbar>\n' +
     '');
 }]);
 })();

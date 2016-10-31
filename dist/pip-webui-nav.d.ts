@@ -1,4 +1,4 @@
-declare module pip {
+declare module pip.nav {
 
 
 
@@ -24,13 +24,13 @@ export class NavService implements INavService {
     navMenu: any;
 }
 
+
+
+
+
+
+
 var thisModule: ng.IModule;
-
-
-
-
-
-
 
 
 
