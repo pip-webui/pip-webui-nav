@@ -633,23 +633,89 @@ md-select md-select-value .md-text .pip-tabs-badge {
   height: calc(100%);
   overflow-x: hidden;
 }
+.pip-sticky-sidenav md-tooltip {
+  position: absolute;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+}
+@media (min-width: 1200px) {
+  .pip-sticky-sidenav md-tooltip {
+    font-size: 10px;
+  }
+}
+.pip-sticky-sidenav md-tooltip .md-content {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-transform-origin: center top;
+  transform-origin: center top;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  opacity: 0;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width: 1200px) {
+  .pip-sticky-sidenav md-tooltip .md-content {
+    height: 22px;
+    line-height: 22px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+.pip-sticky-sidenav md-tooltip .md-content.md-show-add {
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -webkit-transition-duration: .2s;
+  transition-duration: .2s;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  opacity: 0;
+}
+.pip-sticky-sidenav md-tooltip .md-content.md-show,
+.pip-sticky-sidenav md-tooltip .md-content.md-show-add-active {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  -webkit-transform-origin: center top;
+  transform-origin: center top;
+}
+.pip-sticky-sidenav md-tooltip .md-content.md-show-remove {
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -webkit-transition-duration: .2s;
+  transition-duration: .2s;
+}
+.pip-sticky-sidenav md-tooltip .md-content.md-show-remove.md-show-remove-active {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  opacity: 0;
+}
+.pip-sticky-sidenav md-tooltip.md-hide {
+  -webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+}
+.pip-sticky-sidenav md-tooltip.md-show {
+  -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: auto;
+}
 .pip-sticky-sidenav.pip-sticky-nav-small md-sidenav {
   width: 72px !important;
   transition: width 0.35s ease;
-}
-.pip-sticky-sidenav.sidenav-desktop .pip-sticky-nav-header,
-.pip-sticky-sidenav.sidenav-tablet .pip-sticky-nav-header,
-.pip-sticky-sidenav.sidenav-xdesktop .pip-sticky-nav-header {
-  display: none;
-}
-.pip-sticky-nav-header {
-  height: 112px;
-  width: 100%;
 }
 .pip-sticky-nav-header md-toolbar {
   position: relative;
   padding-top: 16px;
   height: 112px;
+  width: 320px;
   padding-bottom: 16px;
   padding-left: 24px;
   padding-right: 24px;
@@ -659,10 +725,18 @@ md-select md-select-value .md-text .pip-tabs-badge {
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user {
   width: 80px;
-  min-width: initial;
+  min-width: 80px;
   height: 80px;
   margin: 0px;
   padding: 0px;
+  display: block;
+}
+.pip-sticky-nav-header .pip-sticky-nav-header-user .md-button {
+  margin: 0px;
+  padding: 0px;
+  width: 80px;
+  min-width: 80px;
+  height: 80px;
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user .pip-sticky-nav-header-user-image {
   border-radius: 50%;
@@ -672,6 +746,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-header .pip-sticky-nav-header-user-text {
   max-height: 112px;
   padding-left: 16px;
+  display: block;
 }
 .pip-sticky-nav-header .pip-sticky-nav-header-user-text .pip-sticky-nav-header-user-pri {
   max-height: 84px;

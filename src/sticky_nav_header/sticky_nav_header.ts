@@ -35,7 +35,9 @@
 
             $rootScope.$on('pipIdentityChanged', onIdentityChanged);
             $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-             $scope.onUserClick = onUserClick;
+            $rootScope.$on('pipSideNavStateChange', onStateChanged1);
+
+            $scope.onUserClick = onUserClick;
 
             $timeout(function() {
                 $image = $element.find('.pip-sticky-nav-header-user-image');
@@ -48,6 +50,19 @@
 
             return;
 
+            function onStateChanged1(event, state) {
+                if (state  === undefined) return;
+                var def = $scope.showHeader === undefined ? 0 : 450;
+
+                if (state.id == 'toggle') {
+                    $timeout(function() {
+                        $scope.showHeader = true;
+                    }, 450);
+                } else {
+                    $scope.showHeader = false;
+                }
+            }
+            
             function setImageMarginCSS(container, image) {
                 var cssParams = {},
                     containerWidth = container.width ? container.width() : container.clientWidth,

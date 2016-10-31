@@ -25,13 +25,15 @@
 
 
 .pip-sticky-nav-header {
-    height: @nav-header-height;
-    width: 100%;
+    // height: @nav-header-height;
+    // width: @sidenav-width;
+    // animation: header-animation 0.35s ease;
 
-    md-toolbar{
+    md-toolbar {
         position: relative;
         padding-top: @nav-header-padding-sm;
         height: @nav-header-height;
+        width: @sidenav-width;
         padding-bottom: @nav-header-padding-sm;
         padding-left: @nav-header-padding;
         padding-right: @nav-header-padding;
@@ -43,10 +45,19 @@
 
     .pip-sticky-nav-header-user {
         width: @nav-header-image-big-size;
-        min-width: initial;
+        min-width: @nav-header-image-big-size;
         height: @nav-header-image-big-size;
         margin: 0px;
         padding: 0px;
+        display: block;
+
+        .md-button {
+            margin: 0px;
+            padding: 0px;
+            width: @nav-header-image-big-size;
+            min-width: @nav-header-image-big-size;
+            height: @nav-header-image-big-size;
+        }
 
         .pip-sticky-nav-header-user-image {
             border-radius: 50%;
@@ -60,6 +71,7 @@
     .pip-sticky-nav-header-user-text {
         max-height: @nav-header-height;
         padding-left: 16px;
+        display: block;
         .pip-sticky-nav-header-user-pri {
             max-height: 84px; // 3 line
             overflow: hidden;
@@ -80,42 +92,43 @@
 }
 
 
-// .pip-sticky-nav-small {
-//     .pip-sticky-nav-header {
-//         width: 100%;//@sidenav-small-width !important;
-//         height: @nav-header-height;
+// .pip-sticky-sidenav.sidenav-desktop {
+//   .pip-sticky-nav-header {
+//     md-toolbar {
+// 	  height: 0px!important;
+//       width: 0px;
+//       padding: 0px;
+//       min-height: 0px;
+//       animation: header-animation 0.35s ease;
+//     }
+//     .pip-sticky-nav-header-user, .pip-sticky-nav-header-user-text {
+//         display: none;
+//     }
+//   }
+// }
 
-//         md-toolbar {
-//             position: relative;
-//             min-height: 82px !important;
-//             padding-left: 0px;
-//             padding-right: 0px;
+// .sidenav-desktop-not-animation {
+//   .pip-sticky-nav-header {
+//     md-toolbar {
+// 	  height: 0px!important;
+//       width: 0px;
+//       padding: 0px;
+//       min-height: 0px;
+//     }
+//     .pip-sticky-nav-header-user, .pip-sticky-nav-header-user-text {
+//         display: none;
+//     }
+//   }
+// }
 
-//             &.pip-sticky-nav-header-owner {
-//                 min-height: 82px !important;
-//             }
-//         }
+// @keyframes header-animation {
+//     0% {
+//         height: 112px;
+//         width: 320px;
 
-//         .pip-sticky-nav-header-user-text {
-//                 opacity: 0;
-//                 width: 0px;
-//                 padding-left: 0px;
-//                 // transition:  all 0.35 ease;
-//         }
-
-//         .pip-sticky-nav-header-user {
-//             width: @nav-header-image-small-size;
-//             min-width: initial;
-//             height: @nav-header-image-small-size;
-//             margin-left: 16px;
-//             margin-right: 0px;
-//             padding: 0px;
-//             .pip-sticky-nav-header-user-image {
-//                 border-radius: 50%;
-//                 width: @nav-header-image-small-size;
-//                 height: @nav-header-image-small-size;
-
-//             }
-//         }
+//     }
+//     100% {
+//         height: 0px;
+//         width: 0px;
 //     }
 // }

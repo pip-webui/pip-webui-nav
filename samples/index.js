@@ -21,7 +21,6 @@
 
                 { title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
                 { title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
-
                 { title: 'SideNav', state: 'sidenav', icon: 'icons:submenu', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
                 { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
     ];
@@ -58,7 +57,30 @@
             $scope.languages = ['en', 'ru'];
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
 
-            $scope.content = [ { links: content } ];
+            $scope.content = [ 
+                { 
+                    title: 'Appbar',
+                    icon: 'icons:goal',
+                    links: [               
+                        { title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
+                        { title: 'Titles', state: 'titles', icon: 'icons:list', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
+                        { title: 'Actions', state: 'actions', icon: 'icons:action', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
+                        { title: 'Search', state: 'search', icon: 'icons:search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },
+                        { title: 'Shadows', state: 'shadows', icon: 'icons:lamp', url: '/shadows', controller: 'ShadowsController', templateUrl: 'appbar_shadows.html' },
+
+                        { title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
+                        { title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
+                    ]
+                },
+                {
+                    title: 'SideNav',
+                    icon: 'icons:area',
+                    links: [  
+                        { title: 'SideNav', state: 'sidenav', icon: 'icons:submenu', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
+                        { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' }
+                    ]                    
+                }
+            ];
 
             $scope.onSwitchPage = function(state) {
                 pipSideNav.id('pip-sticky-sidenav');

@@ -2,16 +2,16 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.StickySideNav', [ 'pipSideNav', 'ngMaterial',
+    var thisModule = angular.module('appNav.StickySideNav', [ 'pipSideNav', 'ngMaterial', 'pipLayout',
         'pipNavMenu', 'pipNavHeader']);
 
     thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,
                   $injector, pipNavHeader, pipNavMenu) {
 
+            var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
-
                 // Set translation strings for the module
                 pipTranslate.setTranslations('en', {
                     SAMPLE: 'sample',
@@ -32,6 +32,8 @@
                 });
             }
 
+            onWindowResized();
+            $scope.media = pipMedia ? pipMedia : $mdMedia;
             $scope.$mdMedia = $mdMedia;
             pipSideNav.id('pip-sticky-sidenav');
 
@@ -40,6 +42,8 @@
                     Prism.highlightElement(block);
                 });
             });
+
+            $rootScope.$on('pipWindowResized', onWindowResized);
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);
@@ -62,8 +66,18 @@
             };
 
             $scope.onRefreshCounter = function () {
-                pipNavMenu.setCounter('Help', 55);
+                pipNavMenu.setCounter('StickySideNav', Math.floor(Math.random() * (99 - 20) + 20));
             };
+
+            function onWindowResized() {
+                var mainWidth = $('.pip-main').innerWidth(),
+                    elementWidth = $('.pip-sticky-sidenav').innerWidth(),
+                    resultSize;
+
+                
+                $scope.sizeLabel = 'Main region size: ' + mainWidth + '. SideNav size: ' + elementWidth;// + 'Size after change: '
+                
+            }
 
         }
     );

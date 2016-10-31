@@ -1,12 +1,13 @@
-<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">
+<md-toolbar md-theme="{{ $theme }}" ng-hide="!title || !showHeader" class="layout-row layout-align-start-center">
 
-    <md-button class="pip-sticky-nav-header-user md-icon-button flex-fixed"
-               ng-click="onUserClick()"
-               aria-label="current user">
+    <div class="flex-fixed pip-sticky-nav-header-user">
+        <md-button class=""
+                ng-click="onUserClick()"
+                aria-label="current user">
 
-        <img  src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></img>
-    </md-button>
-
+            <img  src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></img>
+        </md-button>
+    </div>
     <div class="pip-sticky-nav-header-user-text">
         <div class="pip-sticky-nav-header-user-pri"
              ng-click="onUserClick()">

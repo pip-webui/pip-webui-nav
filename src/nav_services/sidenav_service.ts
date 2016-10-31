@@ -18,7 +18,6 @@
         this.id = id; 
         this.theme = theme;
         this.parts = initParts;
-        this.state = setState;
 
         this.$get = function ($rootScope, $mdSidenav) {
             $rootScope.$on('pipOpenSideNav', open);
@@ -26,7 +25,6 @@
 
             return {
                 config: getConfig,
-                //theme: setTheme,
                 part: getOrSetPart,
                 parts: getOrSetParts,
                 id: getOrSetId,
@@ -69,8 +67,9 @@
             function getOrSetState(value) {
                 if (angular.isObject(value)) {
                     sideNavState = _.cloneDeep(value);
+                    
                 }
-                $rootScope.$broadcast('pipSideNavStateChange', value);
+                $rootScope.$broadcast('pipSideNavStateChange', sideNavState);
 
                 return sideNavState;
             }
