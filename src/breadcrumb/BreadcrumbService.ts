@@ -11,11 +11,6 @@ export class BreadcrumbItem {
         this.title = title;
         this.click = click;
     }
-
-    public withClick(click: (item: BreadcrumbItem) => void): BreadcrumbItem {
-        this.click = click;
-        return this;
-    }
 }
 
 export class BreadcrumbConfig {
