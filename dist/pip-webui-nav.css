@@ -709,6 +709,9 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-menu .pip-section md-divider {
   margin-bottom: 8px;
 }
+.pip-sticky-nav-menu .pip-sticky-nav-menu-item.active {
+  background-color: rgba(0, 0, 0, 0.08);
+}
 .pip-sticky-nav-menu .pip-sticky-nav-menu-item .md-button {
   padding-left: 24px !important;
   padding-right: 24px !important;

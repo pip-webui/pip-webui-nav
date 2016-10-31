@@ -33,6 +33,7 @@
             }
 
             $scope.$mdMedia = $mdMedia;
+            pipSideNav.id('pip-sticky-sidenav');
 
             $timeout(function() {
                 $('pre code').each(function(i, block) {

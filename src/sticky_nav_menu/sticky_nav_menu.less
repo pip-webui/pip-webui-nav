@@ -6,6 +6,7 @@
 
 @nav-menu-padding: 24px;
 @nav-menu-padding-sm: 16px;
+@nav-menu-selected-color: rgba(0, 0, 0, 0.08);
 
 .pip-sticky-nav-expanded-button {
     .md-button {
@@ -36,7 +37,11 @@
         }
     }
 
+    .pip-sticky-nav-menu-item.active {
+        background-color: @nav-menu-selected-color;
+    }
     .pip-sticky-nav-menu-item {
+
         .md-button {
             padding-left: @nav-menu-padding !important;
             padding-right: @nav-menu-padding !important;

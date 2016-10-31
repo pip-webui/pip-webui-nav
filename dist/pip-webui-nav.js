@@ -2290,58 +2290,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sticky_nav_menu/sticky_nav_menu.html',
-    '<md-list>\n' +
-    '    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">\n' +
-    '        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
-    '        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
-    '    </md-list-item>\n' +
-    '    <div class="pip-section" ng-repeat="section in config"\n' +
-    '         ng-hide="section.access && !section.access(section)">\n' +
-    '\n' +
-    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
-    '        <md-subheader ng-show="section.title" style="height: 48px;">\n' +
-    '            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">\n' +
-    '                {{::section.title | translate}}\n' +
-    '            </span>\n' +
-    '            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
-    '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
-    '        </md-subheader>\n' +
-    '\n' +
-    '        <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item" \n' +
-    '                      ng-repeat="link in section.links"\n' +
-    '                      ng-class="{\'active\': isActive(link)}"\n' +
-    '                      ng-hide="link.access && !link.access(link)">\n' +
-    '            <md-button class="layout-row layout-align-start-center" \n' +
-    '                       ng-click="onLinkClick($event, link)">\n' +
-    '                <div class="pip-sticky-nav-menu-icon-block">\n' +
-    '                    <md-icon md-svg-icon="{{link.icon}}"\n' +
-    '                             ng-hide="!link.icon"\n' +
-    '                             class="pip-sticky-nav-menu-icon flex-fixed">\n' +
-    '                        <md-tooltip>{{::link.title | translate}}</md-tooltip>\n' +
-    '                    </md-icon>\n' +
-    '                </div>\n' +
-    '                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>\n' +
-    '\n' +
-    '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
-    '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
-    '                    {{link.count}}\n' +
-    '                </div>\n' +
-    '            </md-button>\n' +
-    '        </md-list-item>\n' +
-    '    </div>\n' +
-    '</md-list>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('sticky_nav_header/sticky_nav_header.html',
     '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
     '\n' +
@@ -2363,6 +2311,58 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sticky_nav_menu/sticky_nav_menu.html',
+    '<md-list>\n' +
+    '    <md-list-item class="pip-focusable no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()">\n' +
+    '        <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
+    '        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon>\n' +
+    '    </md-list-item>\n' +
+    '    <div class="pip-section" ng-repeat="section in config"\n' +
+    '         ng-hide="section.access && !section.access(section)">\n' +
+    '\n' +
+    '        <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>\n' +
+    '        <md-subheader ng-show="section.title" style="height: 48px;">\n' +
+    '            <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">\n' +
+    '                {{::section.title | translate}}\n' +
+    '            </span>\n' +
+    '            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
+    '            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon>\n' +
+    '        </md-subheader>\n' +
+    '\n' +
+    '        <md-list-item class="no-border pip-sticky-nav-menu-item" \n' +
+    '                      ng-repeat="link in section.links"\n' +
+    '                      ng-class="{\'active\': isActive(link)}"\n' +
+    '                      ng-hide="link.access && !link.access(link)">\n' +
+    '            <md-button class="layout-row layout-align-start-center pip-focusable" \n' +
+    '                       ng-click="onLinkClick($event, link)">\n' +
+    '                <div class="pip-sticky-nav-menu-icon-block">\n' +
+    '                    <md-icon md-svg-icon="{{link.icon}}"\n' +
+    '                             ng-hide="!link.icon"\n' +
+    '                             class="pip-sticky-nav-menu-icon flex-fixed">\n' +
+    '                        <md-tooltip ng-show="sideNavstate.showIconTooltype && !expanded">{{::link.title | translate}}</md-tooltip>\n' +
+    '                    </md-icon>\n' +
+    '                </div>\n' +
+    '                <div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div>\n' +
+    '\n' +
+    '                <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->\n' +
+    '                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">\n' +
+    '                    {{link.count}}\n' +
+    '                </div>\n' +
+    '            </md-button>\n' +
+    '        </md-list-item>\n' +
+    '    </div>\n' +
+    '</md-list>\n' +
     '');
 }]);
 })();

@@ -6,6 +6,9 @@
     <title>Nav Sample</title>
 
     <link rel="stylesheet" href="../lib/pip-webui-lib.css"/>
+    <link rel="stylesheet" href="../lib/pip-webui-layouts.css"/>
+    <link rel="stylesheet" href="../lib/pip-webui-behaviors.css"/>
+    <link rel="stylesheet" href="../lib/pip-webui-themes.css"/>    
     <link rel="stylesheet" href="../dist/pip-webui-nav.css"/>
     <link rel="stylesheet" href="styles.css"/>
 
@@ -13,6 +16,10 @@
 
     <script src="../lib/pip-webui-lib.js"></script>
     <script src="../lib/pip-webui-services.js"></script>
+    <script src="../lib/pip-webui-services.js"></script>
+    <script src="../lib/pip-webui-layouts.js"></script>
+    <script src="../lib/pip-webui-behaviors.js"></script>
+    <script src="../lib/pip-webui-themes.js"></script>    
     <script src="../dist/pip-webui-nav.js"></script>
 
     <script src="appbar_actions.js"></script>
@@ -28,7 +35,7 @@
 </head>
 
 <body ng-app="app" ng-if="!$reset" ng-controller="appController"
-      class="pip-main layout-column {{$theme}}" md-theme="{{$theme}}">
+      class="layout-column {{$theme}}" md-theme="{{$theme}}">
 
 <md-toolbar>
     <div class="md-toolbar-tools">
@@ -61,7 +68,11 @@
         </pip-sticky-nav-menu>
     </pip-sticky-sidenav>    
     <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-        <div ui-view></div>
+        <pip-main>
+            <pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
+                    <div ui-view style="width: 100%;"></div>
+            </pip-main-body>
+        </pip-main>
     </md-content>
 </body>
 </html>

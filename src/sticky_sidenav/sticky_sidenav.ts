@@ -46,7 +46,7 @@
                     expandedButton: true,
                     isExpanded: true,
                     expand: true,
-                    showIconTooltype: true // if !expand
+                    showIconTooltype: true 
                 },
                 xlarge: { // media(xl)
                     addClass: 'sidenav-xdesktop', // change size, color, selected?
@@ -85,7 +85,6 @@
             }
 
             function onWindowResized() {
-                console.log('$scope.windowSize', $scope.windowSize);
                 if (!$mdMedia($scope.windowSize)) {
                     setSideNaveState();
                 }
@@ -130,7 +129,6 @@
                 $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
                 $scope.sidenavState = state;
                 $element.addClass($scope.sidenavState.addClass);
-                console.log('$scope.sidenavState', $scope.sidenavState);
                 pipSideNav.state($scope.sidenavState);
             }
         }

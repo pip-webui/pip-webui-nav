@@ -41,6 +41,7 @@
             $scope.onLinkClick = onLinkClick;
             $scope.isSectionEmpty = isSectionEmpty;
             $scope.onExpand = onExpand;
+            $scope.isActive = isActive;
 
             return;
 
@@ -89,6 +90,26 @@
 
             function onStateChanged(event, state) {
                 $scope.sideNavState = state;
+            }
+
+            function isActive(link) {
+                if (link.href) {
+                    if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
+                        return true;
+                    }
+                } else if (link.url) {
+                    if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
+                        return true;
+                    }
+                } else if (link.state) {
+                    var $state = $injector.has('$state') ? $injector.get('$state') : null;
+
+                    if ($state != null && $state.includes(link.state)) {
+                        return true;
+                    }
+                }
+
+                return false;
             }
 
             function onLinkClick(event, link) {
