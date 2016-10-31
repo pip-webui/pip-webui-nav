@@ -32,9 +32,6 @@
                 });
             }
 
-            // set sidenav
-            pipSideNav.id('pip-sticky-sidenav');
-
             $scope.$mdMedia = $mdMedia;
 
             $timeout(function() {
@@ -42,40 +39,6 @@
                     Prism.highlightElement(block);
                 });
             });
-
-            pipNavHeader.image('http://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png');
-
-            $scope.user = {
-                fullName: 'Kate Negrienko',
-                details: 'details',
-                imageUrl: 'http://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
-            };
-
-            $scope.links = [
-                {
-                    links: [
-                        {title: 'Dashboard', icon: 'icons:list', url: '/dashboard?party_id=:party_id'},
-                        {title: 'About', icon: 'icons:person', url: '/about?party_id=:party_id', count: 4}
-                    ]
-                },
-                {
-                    title: 'Get',
-                    links: [
-                        {title: 'Incoming', icon: 'icons:folder', url: '/ideas?party_id=:party_id'},
-                        {title: 'Big Picture', icon: 'icons:goal', url: '/unfinished?party_id=:party_id', count: 25},
-                        {title: 'Events', icon: 'icons:action', url: '/ultimate_todo?party_id=:party_id'}
-                    ]
-                },
-                {
-                    title: 'Feedback',
-                    icon: 'icons:goal',
-                    links: [
-                        {title: 'Help', icon: 'icons:help', url: '/help'},
-                        {title: 'Support', icon: 'icons:phone', url: '/support?party_id=:user_id'},
-                        {title: 'Settings', icon: 'icons:star', url: '/settings?party_id=:party_id', count: 25}
-                    ]
-                }
-            ];
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);

@@ -41,7 +41,7 @@
 </md-toolbar>
 
 <div class="layout-row flex">
-    <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')"
+    <!--<md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')"
                 class="md-whiteframe-z2 md-sidenav-left layout-column">
         <md-list>
             <md-list-item ng-repeat="contentItem in content"
@@ -50,7 +50,16 @@
                 <p ui-sref="{{contentItem.state}}">{{contentItem.title}}</p>
             </md-list-item>
         </md-list>
-    </md-sidenav>
+    </md-sidenav>-->
+    <pip-sticky-sidenav>
+        <pip-sticky-nav-header
+                pip-title="user.fullName"
+                pip-sub-title="user.details"
+                pip-image="user.imageUrl">
+        </pip-sticky-nav-header>
+        <pip-sticky-nav-menu pip-links="content">
+        </pip-sticky-nav-menu>
+    </pip-sticky-sidenav>    
     <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
         <div ui-view></div>
     </md-content>
