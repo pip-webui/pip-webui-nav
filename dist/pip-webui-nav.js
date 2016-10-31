@@ -1994,7 +1994,7 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('breadcrumb/breadcrumb.html',
+  $templateCache.put('breadcrumb/Breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
     '        <!-- Search criteria -->\n' +
