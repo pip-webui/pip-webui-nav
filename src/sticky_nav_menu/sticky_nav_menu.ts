@@ -76,15 +76,12 @@
             }
 
             function onStateChanged(event, state) {
-console.log('onStateChanged', event, state);                
                 pipNavMenu.collapsed(state.expand);
                 $scope.isCollapsed = state.expand;
                 $scope.expanded = state.isExpanded;
                 $scope.expandedButton = state.expandedButton;
 
-
                 $scope.sideNavState = state;
-console.log('onStateChanged $scope.sideNavState', $scope.sideNavState);                 
             }
 
             function isActive(link) {

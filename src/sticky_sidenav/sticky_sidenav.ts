@@ -20,13 +20,17 @@
     thisModule.controller('pipStickySideNavController',
         function ($scope, $element, $rootScope, $injector, $mdMedia, pipSideNav) {
 
-            var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
+            var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
+                mainContainer = '.pip-main',
+                bigWidth = 322, // expanded sidenav width
+                smallWidth = 74; // shrink sidenav width
 
             $scope.media = pipMedia ? pipMedia : $mdMedia;
             // $scope.$mdMedia = $mdMedia;
 
             $scope.navState = {
                 toggle: { // media(sm, xs)
+                    id: 'toggle',
                     addClass: 'sidenav-mobile', // change size, color, selected?
                     showHeader: true,
                     isLockedOpen: false,
@@ -36,6 +40,7 @@
                     showIconTooltype: false
                 },
                 small: { // media(md)
+                    id: 'small',
                     addClass: 'pip-sticky-nav-small sidenav-tablet', // change size, color, selected?
                     showHeader: false,
                     isLockedOpen: true,
@@ -45,6 +50,7 @@
                     showIconTooltype: true
                 },
                 large: { // media(lg)
+                    id: 'large',
                     addClass: 'sidenav-desktop', // change size, color, selected?
                     showHeader: false,
                     isLockedOpen: true,
@@ -54,6 +60,7 @@
                     showIconTooltype: true 
                 },
                 xlarge: { // media(xl)
+                    id: 'xlarge',
                     addClass: 'sidenav-xdesktop', // change size, color, selected?
                     showHeader: false,
                     isLockedOpen: true,
@@ -90,49 +97,76 @@
 
             function onSideNavState(event, state) {
                 if (angular.isString(state) && $scope.navState[state] !== undefined) {
-                    setState($scope.navState[state]);
+                    setState(state);
                 }
             }
 
             function setSideNaveState() {
                 if ($scope.media('xs')) {
-                    setState($scope.navState.toggle);
+                    setState('toggle');
                     $scope.windowSize = 'xs';
 
                     return
                 }
 
                 if ($scope.media('sm')) {
-                    setState($scope.navState.toggle);
+                    setState('toggle');
                     $scope.windowSize = 'sm';
 
                     return
                 }
                 if ($scope.media('md') ) {
-                    setState($scope.navState.small);
-                    $scope.windowSize = 'md';
+                    if (isChange('small')) {
+                        setState('small');
+                        $scope.windowSize = 'md';
+                    }
 
                     return
                 }
                 if ($scope.media('lg') ) {
-                    setState($scope.navState.large);
-                    $scope.windowSize = 'lg';
-
+                    if (isChange('small')) {
+                        setState('large');
+                        $scope.windowSize = 'lg';
+                    }
                     return
                 }
                 if ($scope.media('xl')) {
-                    setState($scope.navState.xlarge);
+                    setState('xlarge');
                     $scope.windowSize = 'xl';
 
                     return;
                 }
             }
 
-            function setState(state: any) {
+            function isChange(state) {
+                if (!$scope.sidenavState || !$scope.sidenavState.id) return true;
+
+                var mainWidth = $(mainContainer).innerWidth(),
+                    elementWidth = $('pip-sticky-sidenav').innerWidth(),
+                    prevState = $scope.sidenavState.id, boundaries; 
+console.log('width', elementWidth, mainWidth);
+                if (pipMedia) {
+                    if (state == 'large' && prevState == 'small') {
+                        boundaries = pipMedia().getBoundaries('lg');
+                        if (boundaries && boundaries[0] && mainWidth) {
+                            return (mainWidth - bigWidth + elementWidth) > boundaries[0]
+                        } return true;
+                    } else if (state == 'small' && prevState == 'large') {
+                        boundaries = pipMedia().getBoundaries('lg');
+                        if (boundaries && boundaries[0] && mainWidth) {
+                            return (mainWidth - smallWidth + elementWidth < boundaries[0]);
+                        }  return true;
+                    } return true;
+                } else {
+                    return true;
+                }
+            }
+
+            function setState(state: string) {
                 $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
-                $scope.sidenavState = state;
+                $scope.sidenavState = $scope.navState[state];
                 $element.addClass($scope.sidenavState.addClass);
-                console.log('setState', state);
+
                 pipSideNav.state($scope.sidenavState);
             }
         }

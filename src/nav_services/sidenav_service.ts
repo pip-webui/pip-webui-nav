@@ -68,11 +68,10 @@
 
             function getOrSetState(value) {
                 if (angular.isObject(value)) {
-                    console.log('getOrSetState', value);
                     sideNavState = _.cloneDeep(value);
                 }
                 $rootScope.$broadcast('pipSideNavStateChange', value);
-console.log('getOrSetState', sideNavState);
+
                 return sideNavState;
             }
 
@@ -108,7 +107,7 @@ console.log('getOrSetState', sideNavState);
 
         function setState(value) {
             sideNavState = value || sideNavState;
-console.log('setState', sideNavState)
+
             return sideNavState;
         }
 

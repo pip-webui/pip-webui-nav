@@ -1260,11 +1260,9 @@ var pip;
             }
             function getOrSetState(value) {
                 if (angular.isObject(value)) {
-                    console.log('getOrSetState', value);
                     sideNavState = _.cloneDeep(value);
                 }
                 $rootScope.$broadcast('pipSideNavStateChange', value);
-                console.log('getOrSetState', sideNavState);
                 return sideNavState;
             }
             function getOrSetParts(parts) {
@@ -1292,7 +1290,6 @@ var pip;
         }];
         function setState(value) {
             sideNavState = value || sideNavState;
-            console.log('setState', sideNavState);
             return sideNavState;
         }
         function id(value) {
@@ -1628,13 +1625,11 @@ exports.SearchService = SearchService;
             $scope.config = config;
         }
         function onStateChanged(event, state) {
-            console.log('onStateChanged', event, state);
             pipNavMenu.collapsed(state.expand);
             $scope.isCollapsed = state.expand;
             $scope.expanded = state.isExpanded;
             $scope.expandedButton = state.expandedButton;
             $scope.sideNavState = state;
-            console.log('onStateChanged $scope.sideNavState', $scope.sideNavState);
         }
         function isActive(link) {
             if (link.href) {
@@ -1718,10 +1713,11 @@ exports.SearchService = SearchService;
         };
     });
     thisModule.controller('pipStickySideNavController', ['$scope', '$element', '$rootScope', '$injector', '$mdMedia', 'pipSideNav', function ($scope, $element, $rootScope, $injector, $mdMedia, pipSideNav) {
-        var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
+        var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null, mainContainer = '.pip-main', bigWidth = 322, smallWidth = 74;
         $scope.media = pipMedia ? pipMedia : $mdMedia;
         $scope.navState = {
             toggle: {
+                id: 'toggle',
                 addClass: 'sidenav-mobile',
                 showHeader: true,
                 isLockedOpen: false,
@@ -1731,6 +1727,7 @@ exports.SearchService = SearchService;
                 showIconTooltype: false
             },
             small: {
+                id: 'small',
                 addClass: 'pip-sticky-nav-small sidenav-tablet',
                 showHeader: false,
                 isLockedOpen: true,
@@ -1740,6 +1737,7 @@ exports.SearchService = SearchService;
                 showIconTooltype: true
             },
             large: {
+                id: 'large',
                 addClass: 'sidenav-desktop',
                 showHeader: false,
                 isLockedOpen: true,
@@ -1749,6 +1747,7 @@ exports.SearchService = SearchService;
                 showIconTooltype: true
             },
             xlarge: {
+                id: 'xlarge',
                 addClass: 'sidenav-xdesktop',
                 showHeader: false,
                 isLockedOpen: true,
@@ -1775,41 +1774,70 @@ exports.SearchService = SearchService;
         }
         function onSideNavState(event, state) {
             if (angular.isString(state) && $scope.navState[state] !== undefined) {
-                setState($scope.navState[state]);
+                setState(state);
             }
         }
         function setSideNaveState() {
             if ($scope.media('xs')) {
-                setState($scope.navState.toggle);
+                setState('toggle');
                 $scope.windowSize = 'xs';
                 return;
             }
             if ($scope.media('sm')) {
-                setState($scope.navState.toggle);
+                setState('toggle');
                 $scope.windowSize = 'sm';
                 return;
             }
             if ($scope.media('md')) {
-                setState($scope.navState.small);
-                $scope.windowSize = 'md';
+                if (isChange('small')) {
+                    setState('small');
+                    $scope.windowSize = 'md';
+                }
                 return;
             }
             if ($scope.media('lg')) {
-                setState($scope.navState.large);
-                $scope.windowSize = 'lg';
+                if (isChange('small')) {
+                    setState('large');
+                    $scope.windowSize = 'lg';
+                }
                 return;
             }
             if ($scope.media('xl')) {
-                setState($scope.navState.xlarge);
+                setState('xlarge');
                 $scope.windowSize = 'xl';
                 return;
             }
         }
+        function isChange(state) {
+            if (!$scope.sidenavState || !$scope.sidenavState.id)
+                return true;
+            var mainWidth = $(mainContainer).innerWidth(), elementWidth = $('pip-sticky-sidenav').innerWidth(), prevState = $scope.sidenavState.id, boundaries;
+            console.log('width', elementWidth, mainWidth);
+            if (pipMedia) {
+                if (state == 'large' && prevState == 'small') {
+                    boundaries = pipMedia().getBoundaries('lg');
+                    if (boundaries && boundaries[0] && mainWidth) {
+                        return (mainWidth - bigWidth + elementWidth) > boundaries[0];
+                    }
+                    return true;
+                }
+                else if (state == 'small' && prevState == 'large') {
+                    boundaries = pipMedia().getBoundaries('lg');
+                    if (boundaries && boundaries[0] && mainWidth) {
+                        return (mainWidth - smallWidth + elementWidth < boundaries[0]);
+                    }
+                    return true;
+                }
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
         function setState(state) {
             $element.removeClass('sidenav-mobile sidenav-desktop sidenav-tablet sidenav-xdesktop pip-sticky-nav-small');
-            $scope.sidenavState = state;
+            $scope.sidenavState = $scope.navState[state];
             $element.addClass($scope.sidenavState.addClass);
-            console.log('setState', state);
             pipSideNav.state($scope.sidenavState);
         }
     }]);
@@ -2141,6 +2169,38 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('nav_header/nav_header.html',
+    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
+    '\n' +
+    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
+    '                ng-click="onUserClick()"\n' +
+    '                aria-label="current user">\n' +
+    '\n' +
+    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
+    '    </md-button>\n' +
+    '    \n' +
+    '    <div class="pip-nav-header-user-text">\n' +
+    '        <a class="pip-nav-header-user-pri"\n' +
+    '            ng-click="onUserClick()">\n' +
+    '            {{ title }}\n' +
+    '        </a>\n' +
+    '        <div class="pip-nav-header-user-sec">\n' +
+    '            {{ subtitle | translate }}\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('nav_icon/nav_icon.html',
     '<md-button class="md-icon-button pip-nav-icon"\n' +
     '            ng-if="config.type != \'none\'"\n' +
@@ -2166,38 +2226,6 @@ module.run(['$templateCache', function($templateCache) {
     '    <md-icon ng-if="config.type==\'icon\'"\n' +
     '             md-svg-icon="icons:{{config.iconName}}"></md-icon>\n' +
     '</md-button>\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('nav_header/nav_header.html',
-    '<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">\n' +
-    '\n' +
-    '    <md-button class="pip-nav-header-user md-icon-button"\n' +
-    '                ng-click="onUserClick()"\n' +
-    '                aria-label="current user">\n' +
-    '\n' +
-    '        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>\n' +
-    '    </md-button>\n' +
-    '    \n' +
-    '    <div class="pip-nav-header-user-text">\n' +
-    '        <a class="pip-nav-header-user-pri"\n' +
-    '            ng-click="onUserClick()">\n' +
-    '            {{ title }}\n' +
-    '        </a>\n' +
-    '        <div class="pip-nav-header-user-sec">\n' +
-    '            {{ subtitle | translate }}\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '</md-toolbar>\n' +
     '');
 }]);
 })();
@@ -2308,9 +2336,6 @@ module.run(['$templateCache', function($templateCache) {
     '        <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon">\n' +
     '            {{::\'Shrink menu\' | translate}} \n' +
     '        </md-icon>\n' +
-    '                    <md-tooltip ng-show="sideNavState.showIconTooltype && !expanded">\n' +
-    '                {{::\'Expand menu\' | translate}}\n' +
-    '            </md-tooltip>\n' +
     '    </md-list-item>\n' +
     '    <div class="pip-section" ng-repeat="section in config"\n' +
     '         ng-hide="section.access && !section.access(section)">\n' +
