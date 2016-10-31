@@ -59,6 +59,7 @@
                 });
             });
 
+            $scope.languages = ['en', 'ru'];
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
 
             $scope.content = content;

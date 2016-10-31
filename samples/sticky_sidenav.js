@@ -6,7 +6,7 @@
         'pipNavMenu', 'pipNavHeader']);
 
     thisModule.controller('StickySideNavController',
-        function ($scope, $rootScope, pipSideNav, $mdTheming, localStorageService, $timeout, $mdMedia,
+        function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,
                   $injector, pipNavHeader, pipNavMenu) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -76,10 +76,6 @@
                     ]
                 }
             ];
-            $rootScope.$theme = localStorageService.get('theme');
-
-            $scope.languages = ['en', 'ru'];
-            $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);
