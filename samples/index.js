@@ -25,7 +25,7 @@
                 { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
     ];
 
-    thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider,
+    thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider,pipSideNavProvider,
                                 $urlRouterProvider) {
         $mdIconProvider.iconSet('icons', 'images/icons.svg', 512);
 
@@ -33,7 +33,7 @@
             var contentItem = content[i];
             $stateProvider.state(contentItem.state, contentItem);
         }
-
+pipSideNavProvider.id('pip-sticky-sidenav');
         $urlRouterProvider.otherwise('/nav_icons');
     });
 

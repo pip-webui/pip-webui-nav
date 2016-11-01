@@ -159,4 +159,4 @@ function stickySideNavDirective() {
 
 angular
     .module('pipSideNav')
-    .directive('pipStickySidenav', stickyNavHeaderDirective);
+    .directive('pipStickySidenav', stickySideNavDirective);
