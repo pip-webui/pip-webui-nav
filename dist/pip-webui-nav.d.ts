@@ -1,27 +1,5 @@
 declare module pip.nav {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export class ActionItem {
 }
 export class ActionsConfig {
@@ -34,10 +12,6 @@ export interface IActionService {
 }
 export interface IActionProvider extends ng.IServiceProvider {
 }
-
-
-
-
 
 
 function PrimaryActionsController($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, $location: any, $injector: any, pipActions: any): void;
@@ -92,23 +66,6 @@ export interface IAppbarService {
 
 
 
-
-
-
-
-
-export interface INavService {
-    appBar: any;
-    navIcon: any;
-    breadcrumb: IBreadcrumbService;
-    actions: any;
-    search: ISearchService;
-    sideNav: any;
-    navHeader: any;
-    navMenu: any;
-}
-
-
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
 export class BreadcrumbItem {
@@ -132,8 +89,16 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
-
-
+export interface INavService {
+    appBar: any;
+    navIcon: any;
+    breadcrumb: IBreadcrumbService;
+    actions: any;
+    search: ISearchService;
+    sideNav: any;
+    navHeader: any;
+    navMenu: any;
+}
 
 function translateFilter($injector: any): (key: any) => any;
 
@@ -150,10 +115,6 @@ function dropdownDirective(): {
     templateUrl: string;
     controller: ($scope: any, $element: any, $attrs: any, $injector: any, $rootScope: any, $mdMedia: any) => void;
 };
-
-
-
-
 
 
 function NavHeaderDirectiveController($scope: any, $element: any, $rootScope: any, $timeout: any, pipNavHeader: any): void;
@@ -188,9 +149,6 @@ function stickyNavHeaderDirective(): {
     templateUrl: string;
     controller: ($scope: any, $element: any, $rootScope: any, $timeout: any, pipNavHeader: any) => void;
 };
-
-
-
 
 
 function NavIconDirectiveController($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, pipNavIcon: any): void;
@@ -232,7 +190,28 @@ function languagePickerDirective(): {
 
 
 
-
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    set(callback: (criteria: string) => void, criteria?: string, history?: string[]): void;
+    criteria(value: string): void;
+    history(history: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
 
 
 function NavMenuDirectiveController($scope: any, $element: any, $rootScope: any, $window: any, $location: any, $timeout: any, $injector: any, pipSideNav: any, pipNavMenu: any): void;
@@ -264,39 +243,6 @@ function stickyNavMenuDirective(): {
 };
 
 
-
-
-
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    set(callback: (criteria: string) => void, criteria?: string, history?: string[]): void;
-    criteria(value: string): void;
-    history(history: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-
-
-
-
-
-
 function SideNavDirectiveController($scope: any, $element: any, $rootScope: any, pipSideNav: any): void;
 function sidenavDirective(): {
     restrict: string;
@@ -321,7 +267,6 @@ export interface ISideNavService {
 }
 export interface ISideNavProvider extends ng.IServiceProvider {
 }
-
 
 
 function TabsDirectiveController($scope: any, $element: any, $attrs: any, $mdMedia: any, $injector: any, $rootScope: any): void;

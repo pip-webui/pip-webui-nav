@@ -12,7 +12,7 @@
             restrict: 'E',
             transclude: true,
             scope: true,
-            templateUrl: 'sticky_sidenav/sticky_sidenav.html',
+            templateUrl: 'sidenav/StickySideNav.html',
             controller: 'pipStickySideNavController'
         };
     });

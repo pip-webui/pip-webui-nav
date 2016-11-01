@@ -82,7 +82,7 @@ function navHeaderDirective() {
             imageCss: '=pipImageCss'
         },
         replace: false,
-        templateUrl: 'nav_header/NavHeader.html',
+        templateUrl: 'header/NavHeader.html',
         controller: NavHeaderDirectiveController
     };
 }

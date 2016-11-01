@@ -98,6 +98,7 @@ function SideNavProvider(): any {
         }
                 
         function close(event) {
+            console.log('close', sideNavId);
             $mdSidenav(sideNavId).close();   
         }                
 
