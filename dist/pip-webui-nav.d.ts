@@ -36,8 +36,6 @@ var thisModule: ng.IModule;
 
 
 
-function translateFilter($injector: any): (key: any) => any;
-
 
 
 
@@ -101,6 +99,8 @@ export class BreadcrumbService implements IBreadcrumbService {
     criteria: string;
     sendEvent(): void;
 }
+
+function translateFilter($injector: any): (key: any) => any;
 
 
 

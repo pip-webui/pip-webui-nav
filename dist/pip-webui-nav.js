@@ -1,26 +1,5 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.pip || (g.pip = {})).nav = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
-var NavService_1 = require('./NavService');
-angular
-    .module('pipNav', [
-    'pipDropdown',
-    'pipTabs',
-    'pipAppBar',
-    'pipSearchBar',
-    'pipNavIcon',
-    'pipBreadcrumb',
-    'pipPrimaryActions',
-    'pipSecondaryActions',
-    'pipSideNav',
-    'pipNavMenu',
-    'pipNavHeader',
-    'pipStickySideNav',
-    'pipStickyNavMenu',
-    'pipStickyNavHeader'
-])
-    .service('pipNav', NavService_1.NavService);
-},{"./NavService":2}],2:[function(require,module,exports){
-'use strict';
 var NavService = (function () {
     NavService.$inject = ['$injector'];
     function NavService($injector) {
@@ -37,7 +16,7 @@ var NavService = (function () {
     return NavService;
 }());
 exports.NavService = NavService;
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 'use strict';
 var thisModule = angular.module('pipActions.Service', []);
 thisModule.provider('pipActions', function () {
@@ -98,7 +77,7 @@ thisModule.provider('pipActions', function () {
         config.secondaryGlobalActions = secondaryActions || [];
     }
 });
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipPrimaryActions', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
@@ -202,7 +181,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipSecondaryActions', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates', 'pipActions.Service']);
@@ -316,7 +295,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar', ['ngMaterial', 'pipNav.Templates', 'pipAppBar.Service']);
@@ -340,7 +319,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar.Part', ['pipAppBar.Service']);
@@ -380,7 +359,7 @@ thisModule.provider('pipActions', function () {
         }
     }]);
 })();
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipAppBar.Service', []);
@@ -483,7 +462,7 @@ thisModule.provider('pipActions', function () {
         }
     });
 })();
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 var BreadcrumbService_1 = require('./BreadcrumbService');
 var BreadcrumbService_2 = require('./BreadcrumbService');
@@ -526,7 +505,7 @@ var BreadcrumbController = (function () {
     return BreadcrumbController;
 }());
 exports.BreadcrumbController = BreadcrumbController;
-},{"../search/SearchService":29,"./BreadcrumbService":13}],10:[function(require,module,exports){
+},{"../search/SearchService":29,"./BreadcrumbService":12}],9:[function(require,module,exports){
 'use strict';
 var BreadcrumbController_1 = require('./BreadcrumbController');
 function breadcrumbDirective() {
@@ -540,7 +519,7 @@ function breadcrumbDirective() {
     };
 }
 exports.breadcrumbDirective = breadcrumbDirective;
-},{"./BreadcrumbController":9}],11:[function(require,module,exports){
+},{"./BreadcrumbController":8}],10:[function(require,module,exports){
 'use strict';
 var BreadcrumbProvider_1 = require('./BreadcrumbProvider');
 var BreadcrumbDirective_1 = require('./BreadcrumbDirective');
@@ -548,7 +527,7 @@ angular
     .module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate'])
     .provider('pipBreadcrumb', BreadcrumbProvider_1.BreadcrumbProvider)
     .directive('pipBreadcrumb', BreadcrumbDirective_1.breadcrumbDirective);
-},{"./BreadcrumbDirective":10,"./BreadcrumbProvider":12}],12:[function(require,module,exports){
+},{"./BreadcrumbDirective":9,"./BreadcrumbProvider":11}],11:[function(require,module,exports){
 'use strict';
 var BreadcrumbService_1 = require('./BreadcrumbService');
 var BreadcrumbProvider = (function () {
@@ -578,7 +557,7 @@ var BreadcrumbProvider = (function () {
     return BreadcrumbProvider;
 }());
 exports.BreadcrumbProvider = BreadcrumbProvider;
-},{"./BreadcrumbService":13}],13:[function(require,module,exports){
+},{"./BreadcrumbService":12}],12:[function(require,module,exports){
 'use strict';
 exports.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 exports.BreadcrumbBackEvent = "pipBreadcrumbBack";
@@ -651,7 +630,7 @@ var BreadcrumbService = (function () {
     return BreadcrumbService;
 }());
 exports.BreadcrumbService = BreadcrumbService;
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 translateFilter.$inject = ['$injector'];
 function translateFilter($injector) {
@@ -664,7 +643,7 @@ function translateFilter($injector) {
 angular
     .module('pipNav.Translate', [])
     .filter('translate', translateFilter);
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function () {
     'use strict';
     var thisModule = angular.module('pipDropdown', ['pipNav.Templates']);
@@ -717,7 +696,28 @@ angular
         };
     }]);
 })();
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
+'use strict';
+var NavService_1 = require('./NavService');
+angular
+    .module('pipNav', [
+    'pipDropdown',
+    'pipTabs',
+    'pipAppBar',
+    'pipSearchBar',
+    'pipNavIcon',
+    'pipBreadcrumb',
+    'pipPrimaryActions',
+    'pipSecondaryActions',
+    'pipSideNav',
+    'pipNavMenu',
+    'pipNavHeader',
+    'pipStickySideNav',
+    'pipStickyNavMenu',
+    'pipStickyNavHeader'
+])
+    .service('pipNav', NavService_1.NavService);
+},{"./NavService":1}],16:[function(require,module,exports){
 var pip;
 (function (pip) {
     var nav;
@@ -2063,7 +2063,7 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('breadcrumb/breadcrumb.html',
+  $templateCache.put('breadcrumb/Breadcrumb.html',
     '<div>\n' +
     '    <div class="hide-xs text-overflow">\n' +
     '        <!-- Search criteria -->\n' +
@@ -2431,6 +2431,27 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
+    '<!--\n' +
+    '@file Sticky Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen"\n' +
+    '            md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
+    '\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('tabs/tabs.html',
     '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}">\n' +
     '    <md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}"\n' +
@@ -2465,30 +2486,9 @@ module.run(['$templateCache', function($templateCache) {
 }]);
 })();
 
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
-    '<!--\n' +
-    '@file Sticky Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen"\n' +
-    '            md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
-    '\n' +
-    '');
-}]);
-})();
 
 
-
-},{}]},{},[3,4,5,7,8,6,9,10,11,12,13,14,15,16,17,19,18,20,21,22,23,24,1,2,25,26,27,28,29,30,31,32,33,34,35])(35)
+},{}]},{},[2,3,4,6,7,5,8,9,10,11,12,13,14,15,16,17,19,18,20,21,22,23,24,1,25,26,27,28,29,30,31,32,33,34,35])(35)
 });
 
 
