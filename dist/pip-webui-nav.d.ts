@@ -1,7 +1,5 @@
 declare module pip.nav {
 
-
-
 export interface INavService {
     appBar: any;
     navIcon: any;
@@ -31,14 +29,6 @@ var thisModule: ng.IModule;
 
 
 
-
-
-
-
-
-
-
-
 export class BreadcrumbController {
     private _rootScope;
     private _window;
@@ -49,7 +39,6 @@ export class BreadcrumbController {
     onClick(item: BreadcrumbItem): void;
     openSearch(): void;
 }
-
 
 export function breadcrumbDirective(): {
     restrict: string;
@@ -103,20 +92,8 @@ export class BreadcrumbService implements IBreadcrumbService {
 function translateFilter($injector: any): (key: any) => any;
 
 
-
-
 module pip.nav {
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -140,7 +117,6 @@ export class SearchBarController {
     onKeyDown(event: any): void;
 }
 
-
 export function searchBarDirective(): {
     restrict: string;
     scope: {};
@@ -149,7 +125,6 @@ export function searchBarDirective(): {
     controller: typeof SearchBarController;
     controllerAs: string;
 };
-
 
 
 export interface ISearchProvider extends ng.IServiceProvider {
@@ -194,11 +169,6 @@ export class SearchService implements ISearchService {
     history(history: string[]): void;
     private sendConfigEvent();
 }
-
-
-
-
-
 
 
 
