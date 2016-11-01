@@ -4,7 +4,8 @@
     var thisModule = angular.module('app', [
         'ui.router', 'ngMaterial',  'ngAria', 'wu.masonry', 'ngAnimate',
         'pipTranslate', 'pipLayout', 'pipServices', 'pipBehaviors',
-        'pipTheme.Default', 'pipTheme.Bootbarn', 'pipTheme',  
+        // 'pipTheme.Default', 'pipTheme.BootBarn.Cool', 
+        'pipTheme',  
 
         'pipAppBar', 'pipNav',
         'appAppbar.Icons', 'appAppbar.Titles', 'appAppbar.Actions', 'appAppbar.Search',

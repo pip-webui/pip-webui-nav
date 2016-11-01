@@ -36,6 +36,8 @@ var thisModule: ng.IModule;
 
 
 
+function translateFilter($injector: any): (key: any) => any;
+
 
 
 
@@ -100,21 +102,11 @@ export class BreadcrumbService implements IBreadcrumbService {
     sendEvent(): void;
 }
 
-function translateFilter($injector: any): (key: any) => any;
-
 
 
 
 module pip.nav {
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -194,6 +186,14 @@ export class SearchService implements ISearchService {
     history(history: string[]): void;
     private sendConfigEvent();
 }
+
+
+
+
+
+
+
+
 
 
 

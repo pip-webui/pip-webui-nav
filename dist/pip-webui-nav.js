@@ -1726,7 +1726,7 @@ exports.SearchService = SearchService;
         };
     });
     thisModule.controller('pipStickySideNavController', ['$scope', '$element', '$rootScope', '$injector', '$mdMedia', '$timeout', 'pipSideNav', function ($scope, $element, $rootScope, $injector, $mdMedia, $timeout, pipSideNav) {
-        var pipMedia = $mdMedia, mainContainer = '.pip-main', bigWidth = 320, smallWidth = 72, isResizing = false;
+        var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null, mainContainer = '.pip-main', bigWidth = 320, smallWidth = 72, isResizing = false, animationDuration = 400, mediaBreakpoints;
         pipMedia = pipMedia !== undefined ? pipMedia : $mdMedia;
         $scope.navState = {
             toggle: {
@@ -1770,22 +1770,25 @@ exports.SearchService = SearchService;
                 showIconTooltype: false
             }
         };
+        mediaBreakpoints = setBreakpoints();
         $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
         pipSideNav.id('pip-sticky-sidenav');
-        setSideNaveState();
+        $timeout(setSideNaveState, 100);
+        var windowResize = _.debounce(setSideNaveState, 20);
         $rootScope.$on('pipNavIconClicked', onNavIconClick);
         $rootScope.$on('pipSideNavState', onSideNavState);
-        $rootScope.$on('pipWindowResized', onWindowResized);
+        $rootScope.$on('pipMainResized', windowResize);
         return;
+        function setBreakpoints() {
+            if (!pipMedia || !angular.isObject(pipMedia.breakpoints)) {
+                return { xs: 639, sm: 959, md: 1024, lg: 1919 };
+            }
+            else {
+                return pipMedia.breakpoints;
+            }
+        }
         function onNavIconClick(event) {
             pipSideNav.open();
-        }
-        function onWindowResized() {
-            if (!pipMedia)
-                return;
-            if (!pipMedia($scope.windowSize)) {
-                setSideNaveState();
-            }
         }
         function onSideNavState(event, state) {
             if (angular.isString(state) && $scope.navState[state] !== undefined) {
@@ -1793,51 +1796,36 @@ exports.SearchService = SearchService;
             }
         }
         function setSideNaveState() {
-            if (isResizing)
+            if (isResizing) {
+                $timeout(setSideNaveState, animationDuration);
                 return;
-            if (!pipMedia)
+            }
+            var mainWidth = $(mainContainer).innerWidth();
+            if (mainWidth < mediaBreakpoints.sm) {
                 setState('toggle');
-            if (pipMedia('xs')) {
-                if (isChange('small')) {
-                    setState('toggle');
-                    $scope.windowSize = 'xs';
-                }
                 return;
             }
-            if (pipMedia('sm')) {
-                if (isChange('small')) {
-                    setState('toggle');
-                    $scope.windowSize = 'sm';
-                }
+            if (mainWidth < mediaBreakpoints.md + smallWidth && mainWidth >= mediaBreakpoints.sm + smallWidth) {
+                console.log('setSideNaveState md', mediaBreakpoints.md + bigWidth);
+                setState('small');
                 return;
             }
-            if (pipMedia('md')) {
-                if (isChange('small')) {
-                    setState('small');
-                    $scope.windowSize = 'md';
-                }
+            if (mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth <= mediaBreakpoints.lg) {
+                console.log('setSideNaveState lg mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth < mediaBreakpoints.lg + bigWidth', mediaBreakpoints.md + bigWidth, mediaBreakpoints.lg + bigWidth);
+                setState('large');
                 return;
             }
-            if (pipMedia('lg')) {
-                if (isChange('small')) {
-                    setState('large');
-                    $scope.windowSize = 'lg';
-                }
-                return;
-            }
-            if (pipMedia('xl')) {
+            if (mainWidth > mediaBreakpoints.lg) {
+                console.log('setSideNaveState xl', mediaBreakpoints.lg + bigWidth);
                 setState('xlarge');
-                $scope.windowSize = 'xl';
                 return;
             }
-        }
-        function isChange(state) {
-            return true;
+            console.log('setSideNaveState no changed');
         }
         function setState(state) {
             if (isResizing)
                 return;
-            if ($scope.sidenavState && state == $scope.sidenavState.id)
+            if ($scope.sidenavState && $scope.sidenavState.id == state)
                 return;
             if ($scope.sidenavState && $scope.sidenavState.id == 'toggle') {
                 $element.removeClass('sidenav-mobile');
@@ -1854,7 +1842,7 @@ exports.SearchService = SearchService;
             pipSideNav.state($scope.sidenavState);
             $timeout(function () {
                 isResizing = false;
-            }, 450);
+            }, animationDuration);
         }
     }]);
 })();
@@ -2447,27 +2435,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
-    '<!--\n' +
-    '@file Sticky Side Nav component\n' +
-    '@copyright Digital Living Software Corp. 2014-2016\n' +
-    '-->\n' +
-    '\n' +
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen"\n' +
-    '            md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
-    '</md-sidenav>\n' +
-    '\n' +
-    '');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('tabs/tabs.html',
     '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}">\n' +
     '    <md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}"\n' +
@@ -2498,6 +2465,27 @@ module.run(['$templateCache', function($templateCache) {
     '        </md-select>\n' +
     '    </div>\n' +
     '</md-toolbar>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sticky_sidenav/sticky_sidenav.html',
+    '<!--\n' +
+    '@file Sticky Side Nav component\n' +
+    '@copyright Digital Living Software Corp. 2014-2016\n' +
+    '-->\n' +
+    '\n' +
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen"\n' +
+    '            md-component-id="pip-sticky-sidenav" ng-if="!$partialReset" pip-focused ng-transclude>\n' +
+    '</md-sidenav>\n' +
+    '\n' +
     '');
 }]);
 })();

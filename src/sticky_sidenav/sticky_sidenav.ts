@@ -20,12 +20,14 @@
     thisModule.controller('pipStickySideNavController',
         function ($scope, $element, $rootScope, $injector, $mdMedia, $timeout, pipSideNav) {
 
-            var pipMedia = $mdMedia, 
-            // var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
+            // var pipMedia = $mdMedia, 
+            var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
                 mainContainer = '.pip-main',
                 bigWidth = 320, // expanded sidenav width
-                smallWidth = 72,
-                isResizing = false; // shrink sidenav width
+                smallWidth = 72, // shrink sidenav width
+                isResizing = false,
+                animationDuration = 400,
+                mediaBreakpoints; 
 
             pipMedia = pipMedia !== undefined ? pipMedia : $mdMedia;
 
@@ -72,31 +74,33 @@
                 }
             };
 
+            mediaBreakpoints = setBreakpoints();
+
             // Apply class and call resize
             $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
             pipSideNav.id('pip-sticky-sidenav');
 
-            setSideNaveState();
+            $timeout(setSideNaveState, 100);
+
+            var windowResize = _.debounce(setSideNaveState, 20);
 
             $rootScope.$on('pipNavIconClicked', onNavIconClick);
             $rootScope.$on('pipSideNavState', onSideNavState);
-            $rootScope.$on('pipWindowResized', onWindowResized);
-
+            $rootScope.$on('pipMainResized', windowResize);
 
             return;
 
             //------------------------
+            function setBreakpoints() {
+                if (!pipMedia || !angular.isObject(pipMedia.breakpoints)) {
+                    return  {xs: 639, sm: 959, md: 1024, lg: 1919}; 
+                } else {
+                    return pipMedia.breakpoints;
+                }
+            }
 
             function onNavIconClick(event) {
                 pipSideNav.open();
-            }
-
-            function onWindowResized() {
-                if (!pipMedia)  return;
-
-                if (!pipMedia($scope.windowSize)) {
-                    setSideNaveState();
-                }
             }
 
             function onSideNavState(event, state) {
@@ -106,94 +110,39 @@
             }
 
             function setSideNaveState() {
-                if (isResizing) return;
-
-                if (!pipMedia)  setState('toggle');
-
-                if (pipMedia('xs')) {
-                    if (isChange('small')) {
-                        setState('toggle');
-                        $scope.windowSize = 'xs';
-                    }
-
-                    return
-                }
-
-                if (pipMedia('sm')) {
-                    if (isChange('small')) {
-                        setState('toggle');
-                        $scope.windowSize = 'sm';
-                    }
-
-                    return
-                }
-               
-                if (pipMedia('md') ) {
-                    if (isChange('small')) {
-                        setState('small');
-                        $scope.windowSize = 'md';
-                    }
-
-                    return
-                }
-               
-                if (pipMedia('lg') ) {
-                    if (isChange('small')) {
-                        setState('large');
-                        $scope.windowSize = 'lg';
-                    }
-                    return
-                }
-           
-                if (pipMedia('xl')) {
-                    setState('xlarge');
-                    $scope.windowSize = 'xl';
+                if (isResizing) {
+                    $timeout(setSideNaveState, animationDuration); // for 
 
                     return;
                 }
-            }
+                var mainWidth = $(mainContainer).innerWidth();
 
-            function isChange(state) {
-                return true;
-                // if (!$scope.sidenavState || !$scope.sidenavState.id) return true;
+                if (mainWidth < mediaBreakpoints.sm ) {
+                    setState('toggle');
 
-                // var mainWidth = $(mainContainer).innerWidth(),
-                //     elementWidth = $('.pip-sticky-sidenav').innerWidth(),
-                //     prevState = $scope.sidenavState.id, boundaries; 
-
-                // if (pipMedia) {
-                //     if (state == 'large' && prevState == 'small') {
-                //         boundaries = pipMedia().getBoundaries('lg');
-                //         console.log('large -> small', mainWidth + smallWidth - elementWidth < boundaries[0]);
-                //         console.log('(mainWidth + smallWidth - elementWidth) < boundaries[0]', mainWidth + smallWidth - elementWidth, boundaries[0]);                        
-                //         console.log('(mainWidth + smallWidth - elementWidth) < boundaries[0]', mainWidth, bigWidth, elementWidth, boundaries[0]);                        
-                //         if (boundaries && boundaries[0] && mainWidth) {
-                //             return (mainWidth + smallWidth - elementWidth) < boundaries[0]
-                //         } return true;
-                //     } else if (state == 'small' && prevState == 'large') {
-                //         boundaries = pipMedia().getBoundaries('lg');
-                //         console.log('large -> small', mainWidth + smallWidth - elementWidth < boundaries[0]);
-                //         console.log('large -> small', mainWidth + smallWidth - elementWidth, boundaries[0]);
-                //         console.log('mainWidth + smallWidth - elementWidth < boundaries[0]', mainWidth, smallWidth, elementWidth, boundaries[0]);
-                //         if (boundaries && boundaries[0] && mainWidth) {
-                //             return (mainWidth + smallWidth - elementWidth < boundaries[0]);
-                //         }  return true;
-                //     } if (state == 'toggle') {
-                //         boundaries = pipMedia().getBoundaries('md');
-                //         console.log('small -> toggle', mainWidth - smallWidth + elementWidth < boundaries[0]);
-                //         console.log('mainWidth - elementWidth < boundaries[0]', mainWidth, elementWidth, boundaries[0]);                          
-                //         if (boundaries && boundaries[0] && mainWidth) {
-                //             return (mainWidth - elementWidth < boundaries[0]);
-                //         }  return true;                        
-                //     } else return true;
-                // } else {
-                //     return true;
-                // }
+                    return;
+                } 
+                if (mainWidth < mediaBreakpoints.md + smallWidth && mainWidth >= mediaBreakpoints.sm + smallWidth) {
+                    console.log('setSideNaveState md', mediaBreakpoints.md + bigWidth);
+                    setState('small');
+                    return;
+                } 
+                if (mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth <= mediaBreakpoints.lg ) {
+                    console.log('setSideNaveState lg mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth < mediaBreakpoints.lg + bigWidth', mediaBreakpoints.md + bigWidth, mediaBreakpoints.lg + bigWidth);
+                    setState('large');
+                    return;
+                } 
+                if (mainWidth >  mediaBreakpoints.lg ) {
+                    console.log('setSideNaveState xl', mediaBreakpoints.lg + bigWidth);
+                    setState('xlarge');
+                    return;
+                } 
+                    console.log('setSideNaveState no changed');
             }
 
             function setState(state: string) {
                 if (isResizing) return;
-                if ($scope.sidenavState && state == $scope.sidenavState.id) return;
+                if ($scope.sidenavState && $scope.sidenavState.id == state) return;
 
                 if ($scope.sidenavState && $scope.sidenavState.id == 'toggle') {
                     $element.removeClass('sidenav-mobile');
@@ -214,7 +163,7 @@
                 // complete animation
                 $timeout(function () {
                     isResizing = false;
-                }, 450);
+                }, animationDuration);
 
             }
         }

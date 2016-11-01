@@ -43,7 +43,7 @@
                 });
             });
 
-            $rootScope.$on('pipWindowResized', onWindowResized);
+            $rootScope.$on('pipMainResized', onWindowResized);
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);
