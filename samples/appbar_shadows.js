@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Shadows', ['pipAppBar.Service']);
+    var thisModule = angular.module('appAppbar.Shadows', []);
 
     thisModule.controller('ShadowsController',
         function($scope, pipAppBar, $injector) {

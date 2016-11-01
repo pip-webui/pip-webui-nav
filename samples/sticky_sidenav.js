@@ -2,8 +2,7 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.StickySideNav', [ 'pipSideNav', 'ngMaterial', 'pipLayout',
-        'pipNavMenu', 'pipNavHeader']);
+    var thisModule = angular.module('appNav.StickySideNav', []);
 
     thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,

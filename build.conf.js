@@ -1,7 +1,7 @@
 module.exports = {
     module: {
         name: 'pipNav',
-        styles: 'NavStyles',
+        styles: 'index',
         export: 'pip.nav',
         standalone: 'pip.nav'
     },
@@ -18,32 +18,20 @@ module.exports = {
         dist: false
     },
 
-    typescript: {
-        noImplicitAny: false,
-        declaration: true
+    browserify: {
+        entries: [ 
+            './src/index.ts',
+            './temp/pip-webui-nav-html.min.js' 
+        ]
     },
 
     file: {
         lib: [
-            '../pip-webui-test/dist/**/*',
             '../pip-webui-lib/dist/**/*',
             '../pip-webui-services/dist/**/*', 
             '../pip-webui-layouts/dist/**/*', 
-            '../pip-webui-nav/dist/**/*',            
             '../pip-webui-behaviors/dist/**/*',            
-            '../pip-webui-themes/dist/**/*',            
-            //  '../pip-webui-rest/dist/**/*',
-            // '../pip-webui-controls/dist/**',
-            //  '../pip-webui-pictures/dist/**/*'//,
-            // '../pip-webui-locations/dist/**/*',
-            // '../pip-webui-documents/dist/**/*',
-            // '../pip-webui-composite/dist/**/*',
-            // '../pip-webui-errors/dist/**/*',
-            // '../pip-webui-entry/dist/**/*',
-            // '../pip-webui-settings/dist/**/*',
-            // '../pip-webui-guidance/dist/**/*',
-            // '../pip-webui-support/dist/**/*',
-            // '../pip-webui-help/dist/**/*'
+            '../pip-webui-themes/dist/**/*'
         ]
     },
 

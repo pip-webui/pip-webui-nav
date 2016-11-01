@@ -1,8 +1,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Titles', ['pipBreadcrumb',  'pipAppBar',
-        'pipNavIcon', 'pipAppBar.Part']);
+    var thisModule = angular.module('appAppbar.Titles', []);
 
     thisModule.controller('TitlesController',
         function ($scope, pipBreadcrumb, pipAppBar, $injector) {

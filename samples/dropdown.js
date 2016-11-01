@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.Dropdown', ['pipDropdown']);
+    var thisModule = angular.module('appNav.Dropdown', []);
 
     thisModule.controller('DropdownController',
         function ($scope, $injector) {
