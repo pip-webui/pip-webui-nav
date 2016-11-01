@@ -1,25 +1,40 @@
 ﻿'use strict';
 
-import { NavService } from './NavService';
+import './dependencies/TranslateFilter';
+import './language/LanguagePicker';
+import './dropdown/DropdownDirective';
+import './tabs/TabsDirective';
+import './actions';
+import './appbar';
+import './search';
+import './breadcrumb';
+import './sidenav';
+import './header';
+import './menu';
+import './icon';
+import './common/NavService';
 
 angular
     .module('pipNav', [
+        'pipNavService',
         'pipDropdown',
         'pipTabs',
-
         'pipAppBar',
         'pipSearchBar',
         'pipNavIcon',
         'pipBreadcrumb',
-        'pipPrimaryActions', 
-        'pipSecondaryActions',
+        'pipActions', 
         'pipSideNav',
         'pipNavMenu',
-        'pipNavHeader',
-        'pipStickySideNav',
-        'pipStickyNavMenu',
-        'pipStickyNavHeader'
-    ])
-    .service('pipNav', NavService);
+        'pipNavHeader'
+    ]);
 
-
+export * from './actions';
+export * from './appbar';
+export * from './breadcrumb';
+export * from './search';
+export * from './sidenav';
+export * from './icon';
+export * from './menu';
+export * from './header';
+export * from './common/NavService';

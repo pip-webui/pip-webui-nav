@@ -2,8 +2,7 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.SideNav', [ 'pipSideNav', 'ngMaterial',
-        'pipNavMenu', 'pipNavHeader']);
+    var thisModule = angular.module('appNav.SideNav', []);
 
     thisModule.controller('SideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,

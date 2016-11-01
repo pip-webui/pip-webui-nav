@@ -18,9 +18,12 @@ module.exports = {
         dist: false
     },
 
-    // browserify: {
-    //     entries: [ './src/index.ts' ]
-    // },
+    browserify: {
+        entries: [ 
+            './src/index.ts',
+            './temp/pip-webui-nav-html.min.js' 
+        ]
+    },
 
     file: {
         lib: [

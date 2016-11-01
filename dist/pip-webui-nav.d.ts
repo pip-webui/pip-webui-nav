@@ -1,64 +1,70 @@
 declare module pip.nav {
 
-export interface INavService {
-    appBar: any;
-    navIcon: any;
-    breadcrumb: IBreadcrumbService;
-    actions: any;
-    search: ISearchService;
-    sideNav: any;
-    navHeader: any;
-    navMenu: any;
+export class ActionItem {
 }
-export class NavService implements INavService {
-    constructor($injector: any);
-    appBar: any;
-    navIcon: any;
-    breadcrumb: IBreadcrumbService;
-    actions: any;
-    search: ISearchService;
-    sideNav: any;
-    navHeader: any;
-    navMenu: any;
+export class ActionsConfig {
+    primaryGlobalActions: ActionItem[];
+    primaryLocalActions: ActionItem[];
+    secondaryGlobalActions: ActionItem[];
+    secondaryLocalActions: ActionItem[];
+}
+export interface IActionService {
+}
+export interface IActionProvider extends ng.IServiceProvider {
 }
 
-var thisModule: ng.IModule;
 
-
-
-
-
-
-export class BreadcrumbController {
-    private _rootScope;
-    private _window;
-    config: BreadcrumbConfig;
-    constructor($element: any, $rootScope: ng.IRootScopeService, $window: ng.IWindowService, $state: ng.ui.IStateService, pipBreadcrumb: IBreadcrumbService);
-    private onBreadcrumbChanged(event, config);
-    private onBreadcrumbBack();
-    onClick(item: BreadcrumbItem): void;
-    openSearch(): void;
-}
-
-export function breadcrumbDirective(): {
+function PrimaryActionsController($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, $location: any, $injector: any, pipActions: any): void;
+function primaryActionsDirective(): {
     restrict: string;
-    scope: {};
+    scope: {
+        localActions: string;
+        globalActions: string;
+    };
     replace: boolean;
-    templateUrl: string;
-    controller: typeof BreadcrumbController;
-    controllerAs: string;
+    templateUrl: (element: any, attr: any) => string;
+    controller: ($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, $location: any, $injector: any, pipActions: any) => void;
 };
 
+function SecondaryActionsController($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, $location: any, $injector: any, pipActions: any): void;
+function secondaryActionsDirective(): {
+    restrict: string;
+    scope: {
+        title: string;
+        showMenu: string;
+        localActions: string;
+        globalActions: string;
+        partyAvatarUrl: string;
+    };
+    replace: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, $location: any, $injector: any, pipActions: any) => void;
+};
 
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
+function AppBarDirectiveController($scope: any, $element: any, $rootScope: any, pipAppBar: any): void;
+function appbarDirective(): {
+    restrict: string;
+    transclude: boolean;
+    scope: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $rootScope: any, pipAppBar: any) => void;
+};
+
+function AppBarPartDirectiveController($scope: any, $element: any, $attrs: any, $rootScope: any, pipAppBar: any): void;
+function appbarPartDirective(ngIfDirective: any): {
+    transclude: any;
+    priority: any;
+    terminal: any;
+    restrict: any;
+    scope: boolean;
+    link: ($scope: any, $element: any, $attrs: any) => void;
+    controller: ($scope: any, $element: any, $attrs: any, $rootScope: any, pipAppBar: any) => void;
+};
+
+export interface IAppbarService {
 }
-export class BreadcrumbProvider implements IBreadcrumbProvider {
-    private _config;
-    private _service;
-    text: string;
-    $get($rootScope: ng.IRootScopeService): any;
-}
+
+
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -78,62 +84,140 @@ export interface IBreadcrumbService {
     items: BreadcrumbItem[];
     criteria: string;
 }
-export class BreadcrumbService implements IBreadcrumbService {
-    private _config;
-    private _rootScope;
-    constructor(config: BreadcrumbConfig, $rootScope: ng.IRootScopeService);
-    readonly config: BreadcrumbConfig;
+export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    sendEvent(): void;
+}
+
+
+export interface INavService {
+    appBar: any;
+    navIcon: any;
+    breadcrumb: IBreadcrumbService;
+    actions: any;
+    search: ISearchService;
+    sideNav: any;
+    navHeader: any;
+    navMenu: any;
 }
 
 function translateFilter($injector: any): (key: any) => any;
 
-
-module pip.nav {
-}
-
-
-
-
-
-
-
-
-
-export class SearchBarController {
-    private _rootScope;
-    config: SearchConfig;
-    enabled: boolean;
-    search: any;
-    constructor($element: any, $rootScope: ng.IRootScopeService, pipSearch: ISearchService);
-    private onSearchChanged(event, config);
-    private focusText();
-    enable(): void;
-    onClick(): void;
-    clear(): void;
-    onKeyDown(event: any): void;
-}
-
-export function searchBarDirective(): {
+function DropdownDirectiveController($scope: any, $element: any, $attrs: any, $injector: any, $rootScope: any, $mdMedia: any): void;
+function dropdownDirective(): {
     restrict: string;
-    scope: {};
+    scope: {
+        ngDisabled: string;
+        actions: string;
+        showDropdown: string;
+        activeIndex: string;
+        select: string;
+    };
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $attrs: any, $injector: any, $rootScope: any, $mdMedia: any) => void;
+};
+
+
+function NavHeaderDirectiveController($scope: any, $element: any, $rootScope: any, $timeout: any, pipNavHeader: any): void;
+function navHeaderDirective(): {
+    restrict: string;
+    scope: {
+        title: string;
+        subtitle: string;
+        imageUrl: string;
+        imageCss: string;
+    };
     replace: boolean;
     templateUrl: string;
-    controller: typeof SearchBarController;
+    controller: ($scope: any, $element: any, $rootScope: any, $timeout: any, pipNavHeader: any) => void;
+};
+
+export interface INavHeaderService {
+}
+export interface INavHeaderProvider extends ng.IServiceProvider {
+}
+
+function StickyNavHeaderDirectiveController($scope: any, $element: any, $rootScope: any, $timeout: any, pipNavHeader: any): void;
+function stickyNavHeaderDirective(): {
+    restrict: string;
+    scope: {
+        title: string;
+        subtitle: string;
+        imageUrl: string;
+        imageCss: string;
+    };
+    replace: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $rootScope: any, $timeout: any, pipNavHeader: any) => void;
+};
+
+
+function NavIconDirectiveController($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, pipNavIcon: any): void;
+function navIconDirective(): {
+    restrict: string;
+    scope: {
+        type: string;
+        imageUrl: string;
+    };
+    replace: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $attrs: any, $rootScope: any, $window: any, pipNavIcon: any) => void;
+};
+
+export interface INavIconService {
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+}
+
+class LanguagePickerDirectiveController {
+    private _translate;
+    private _timeout;
+    constructor($scope: any, $element: any, $attrs: any, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService, $injector: any);
+    languages: string[];
+    readonly language: any;
+    setLanguages(lang: any): void;
+    onLanguageClick(language: any): void;
+}
+function languagePickerDirective(): {
+    restrict: string;
+    scope: {
+        languages: string;
+    };
+    replace: boolean;
+    templateUrl: (element: any, attr: any) => string;
+    controller: typeof LanguagePickerDirectiveController;
     controllerAs: string;
 };
 
 
-export interface ISearchProvider extends ng.IServiceProvider {
+function NavMenuDirectiveController($scope: any, $element: any, $rootScope: any, $window: any, $location: any, $timeout: any, $injector: any, pipSideNav: any, pipNavMenu: any): void;
+function navMenuDirective(): {
+    restrict: string;
+    scope: {
+        config: string;
+    };
+    replace: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $rootScope: any, $window: any, $location: any, $timeout: any, $injector: any, pipSideNav: any, pipNavMenu: any) => void;
+};
+
+export interface INavMenuService {
 }
-export class SearchProvider implements ISearchProvider {
-    private _config;
-    private _service;
-    $get($rootScope: ng.IRootScopeService): SearchService;
+export interface INavMenuProvider extends ng.IServiceProvider {
 }
+
+function StickyNavMenuDirectiveController($scope: any, $element: any, $rootScope: any, $window: any, $location: any, $timeout: any, $injector: any, pipSideNav: any, pipNavMenu: any): void;
+function stickyNavMenuDirective(): {
+    restrict: string;
+    scope: {
+        config: string;
+        collapsed: string;
+    };
+    replace: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $rootScope: any, $window: any, $location: any, $timeout: any, $injector: any, pipSideNav: any, pipNavMenu: any) => void;
+};
+
+
 
 export let OpenSearchEvent: string;
 export let CloseSearchEvent: string;
@@ -155,25 +239,50 @@ export interface ISearchService {
     close(): void;
     toggle(): void;
 }
-export class SearchService implements ISearchService {
-    private _config;
-    private _rootScope;
-    constructor(config: SearchConfig, $rootScope: ng.IRootScopeService);
-    readonly config: SearchConfig;
-    set(callback: (criteria: string) => void, criteria?: string, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-    criteria(value: string): void;
-    history(history: string[]): void;
-    private sendConfigEvent();
+export interface ISearchProvider extends ng.IServiceProvider {
 }
 
 
+function SideNavDirectiveController($scope: any, $element: any, $rootScope: any, pipSideNav: any): void;
+function sidenavDirective(): {
+    restrict: string;
+    transclude: boolean;
+    scope: boolean;
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $rootScope: any, pipSideNav: any) => void;
+};
+
+function SideNavPartDirectiveController($scope: any, $element: any, $attrs: any, $rootScope: any, pipSideNav: any): void;
+function sidenavPartDirective(ngIfDirective: any): {
+    transclude: any;
+    priority: any;
+    terminal: any;
+    restrict: any;
+    scope: boolean;
+    link: ($scope: any, $element: any, $attrs: any) => void;
+    controller: ($scope: any, $element: any, $attrs: any, $rootScope: any, pipSideNav: any) => void;
+};
+
+export interface ISideNavService {
+}
+export interface ISideNavProvider extends ng.IServiceProvider {
+}
 
 
-
+function TabsDirectiveController($scope: any, $element: any, $attrs: any, $mdMedia: any, $injector: any, $rootScope: any): void;
+function tabsDirective(): {
+    restrict: string;
+    scope: {
+        ngDisabled: string;
+        tabs: string;
+        showTabs: string;
+        showTabsShadow: string;
+        activeIndex: string;
+        select: string;
+    };
+    templateUrl: string;
+    controller: ($scope: any, $element: any, $attrs: any, $mdMedia: any, $injector: any, $rootScope: any) => void;
+};
 
 }
 

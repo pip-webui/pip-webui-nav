@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appNav.Tabs', ['pipTabs']);
+    var thisModule = angular.module('appNav.Tabs', []);
 
     thisModule.controller('TabsController',
         function ($scope, $mdMedia, $injector) {

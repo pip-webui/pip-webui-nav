@@ -1,9 +1,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Search', [
-        'pipAppBar', 'pipAppBar.Part','pipSearchBar'
-    ]);
+    var thisModule = angular.module('appAppbar.Search', []);
 
     thisModule.controller('SearchController',
         function($scope, $rootScope, pipAppBar, pipSearch, $injector) {

@@ -1,11 +1,7 @@
 (function () {
     'use strict';
 
-    var thisModule = angular.module('appAppbar.Actions', [
-        'pipAppBar', 'pipActions.Service', 'pipLanguagePicker',
-        'pipPrimaryActions', 'pipSecondaryActions', 'pipAppBar.Part',
-        'pipTranslate'
-    ]);
+    var thisModule = angular.module('appAppbar.Actions', []);
     thisModule.config(function (pipActionsProvider) {
 
         pipActionsProvider.globalPrimaryActions(
