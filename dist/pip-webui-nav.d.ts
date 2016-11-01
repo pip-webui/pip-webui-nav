@@ -118,6 +118,14 @@ module pip.nav {
 
 
 
+
+
+
+
+
+
+
+
 export class SearchBarController {
     private _rootScope;
     config: SearchConfig;
@@ -186,14 +194,6 @@ export class SearchService implements ISearchService {
     history(history: string[]): void;
     private sendConfigEvent();
 }
-
-
-
-
-
-
-
-
 
 
 

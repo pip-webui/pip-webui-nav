@@ -123,21 +123,17 @@
                     return;
                 } 
                 if (mainWidth < mediaBreakpoints.md + smallWidth && mainWidth >= mediaBreakpoints.sm + smallWidth) {
-                    console.log('setSideNaveState md', mediaBreakpoints.md + bigWidth);
                     setState('small');
                     return;
                 } 
                 if (mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth <= mediaBreakpoints.lg ) {
-                    console.log('setSideNaveState lg mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth < mediaBreakpoints.lg + bigWidth', mediaBreakpoints.md + bigWidth, mediaBreakpoints.lg + bigWidth);
                     setState('large');
                     return;
                 } 
                 if (mainWidth >  mediaBreakpoints.lg ) {
-                    console.log('setSideNaveState xl', mediaBreakpoints.lg + bigWidth);
                     setState('xlarge');
                     return;
                 } 
-                    console.log('setSideNaveState no changed');
             }
 
             function setState(state: string) {
