@@ -2148,12 +2148,10 @@ __export(require('./SearchService'));
             partName = partName.substr(0, pos);
         }
         onSideNavChanged(null, pipSideNav.config);
-        console.log('onSideNavChanged000', pipSideNav.config);
         $rootScope.$on('pipSideNavChanged', onSideNavChanged);
         function onSideNavChanged(event, config) {
             var parts = config.parts || {};
             var currentPartValue = config[partName];
-            console.log('onSideNavChanged1111111111111', config);
             $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
         }
     }
@@ -2237,8 +2235,9 @@ var SideNavService = (function () {
         },
         set: function (value) {
             this._state = value || {};
-            console.log('SideNavStateChangedEvent', value);
+            console.log('SideNavStateChangedEvent send', value);
             this._rootScope.$emit(exports.SideNavStateChangedEvent, value);
+            this._rootScope.$broadcast('pipSideNavStateChanged', value);
         },
         enumerable: true,
         configurable: true
@@ -2473,7 +2472,6 @@ angular
             }
         }
         function setState(state) {
-            console.log('setState', state, isResizing);
             if (isResizing)
                 return;
             if ($scope.sidenavState && $scope.sidenavState.id == state)
@@ -2490,11 +2488,8 @@ angular
             isResizing = true;
             $scope.sidenavState = $scope.navState[state];
             $element.addClass($scope.sidenavState.addClass);
-            console.log('pipSideNav.state set start', $scope.sidenavState);
             pipSideNav.state = $scope.sidenavState;
             console.log('pipSideNav.state set end', $scope.sidenavState);
-            var st = pipSideNav.state;
-            console.log('pipSideNav.state ststststststststststststststst', st);
             $timeout(function () {
                 isResizing = false;
             }, animationDuration);
