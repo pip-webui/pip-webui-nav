@@ -12,7 +12,7 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
 
     $scope.sections = $scope.sections || pipNavMenu.sections;    
     pipNavMenu.sections = $scope.sections;
-    
+    setCollapsible();
     // todo set from services
     $scope.defaultIcon = pipNavMenu.defaultIcon;
 
@@ -28,6 +28,18 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
     $scope.isActive = isActive;
 
     return;
+
+    function setCollapsible() {
+        var collapsed;
+        if (angular.isFunction($scope.collapsed)) {
+            collapsed = $scope.collapsed();
+        } else {
+            collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
+        }
+
+        $scope.isCollapsed = collapsed;
+        console.log('$scope.isCollapsed', $scope.isCollapsed);
+    }
 
     function onExpand() {
         if (!$scope.isCollapsed) { return }
@@ -56,15 +68,17 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
     }
 
     function onConfigChanged(event, config) {
-        $scope.isCollapsed = pipNavMenu.collapsed();
         $scope.sections = config.sections;
     }
 
     function onStateChanged(event, state) {
         // SS> You shall not set it into the menu state. Instead it shall be controlled by the state of Sidenav
         //pipNavMenu.collapsed(state.expand);
-console.log('onStateChanged state', state);
-    if (!state) return;
+        console.log('onStateChanged state', state);
+
+        var st = pipSideNav.state;
+        console.log('pipSideNav.state', pipSideNav.state);
+        if (!state) return;
 
         $scope.isCollapsed = state.expand;
         $scope.expanded = state.isExpanded;

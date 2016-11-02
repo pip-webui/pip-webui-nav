@@ -66,7 +66,13 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
     pipSideNav.id = 'pip-sticky-sidenav';
 
-    $timeout(setSideNaveState, 100);
+    console.log('call setSideNaveState');
+    setSideNaveState();
+
+    $timeout(function () {
+        console.log('call timeout setSideNaveState');
+        setSideNaveState()
+    }, 100);
 
     var windowResize = _.debounce(setSideNaveState, 20);
 
@@ -96,13 +102,14 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     }
 
     function setSideNaveState() {
+        console.log('setSideNaveState1');
         if (isResizing) {
             $timeout(setSideNaveState, animationDuration); // for 
 
             return;
         }
         var mainWidth = $(mainContainer).innerWidth();
-
+     console.log('setSideNaveState2');
         if (mainWidth < mediaBreakpoints.sm ) {
             setState('toggle');
 
@@ -123,6 +130,8 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     }
 
     function setState(state: string) {
+        console.log('setState', state);
+
         if (isResizing) return;
         if ($scope.sidenavState && $scope.sidenavState.id == state) return;
 
@@ -140,6 +149,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         isResizing = true;
         $scope.sidenavState = $scope.navState[state];
         $element.addClass($scope.sidenavState.addClass);
+        console.log('pipSideNav.state', $scope.sidenavState);
         pipSideNav.state = $scope.sidenavState;
 
         // complete animation

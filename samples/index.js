@@ -46,6 +46,7 @@
             });
 
             pipNavHeader.imageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
+
             pipSideNav.id = 'pip-sticky-sidenav';
             $scope.user = {
                 fullName: 'Kate Negrienko',
