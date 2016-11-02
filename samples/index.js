@@ -5,7 +5,7 @@
         'ui.router', 'ngMaterial',  'ngAria', 'wu.masonry', 'ngAnimate',
         'pipTranslate', 'pipLayout', 'pipServices', 'pipBehaviors',
         // 'pipTheme.Default', 'pipTheme.BootBarn.Cool', 
-        'pipTheme', 'pipNav',
+        'pipTheme', 'pipNav','pipNav.Templates',
         
         'appAppbar.Icons', 'appAppbar.Titles', 'appAppbar.Actions', 'appAppbar.Search',
         'appAppbar.Shadows', 'appNav.Dropdown', 'appNav.Tabs', 'appNav.SideNav', 'appNav.StickySideNav'
