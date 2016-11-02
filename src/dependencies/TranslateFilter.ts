@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function translateFilter($injector) {
     "ngInject";
 
@@ -13,3 +16,5 @@ function translateFilter($injector) {
 angular
     .module('pipNav.Translate', [])
     .filter('translate', translateFilter);
+
+})();

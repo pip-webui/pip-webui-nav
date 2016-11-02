@@ -5,12 +5,7 @@ export let BreadcrumbBackEvent = "pipBreadcrumbBack";
 
 export class BreadcrumbItem {
     title: string;
-    click: (item: BreadcrumbItem) => void;
-
-    public constructor(title: string = null, click: (item: BreadcrumbItem) => void = null) {
-        this.title = title;
-        this.click = click;
-    }
+    click?: (item: BreadcrumbItem) => void;    
 }
 
 export class BreadcrumbConfig {

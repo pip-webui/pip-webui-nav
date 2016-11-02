@@ -1,12 +1,15 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function NavIconDirectiveController($scope, $element, $attrs, $rootScope, $window, pipNavIcon) {
     "ngInject";
 
     // Apply class and call resize
     $element.addClass('pip-nav-icon');
 
-    $scope.config = pipNavIcon.config();
+    $scope.config = pipNavIcon.config;
 
     $rootScope.$on('pipNavIconChanged', onNavIconChanged);
 
@@ -40,7 +43,8 @@ function navIconDirective() {
         restrict: 'E',
         scope: {
             type: '=pipType',
-            imageUrl: '=pipImageUrl'
+            imageUrl: '=pipImageUrl',
+            icon: '=pipIcon'
         },
         replace: false,
         templateUrl: 'icon/NavIcon.html',
@@ -52,3 +56,5 @@ function navIconDirective() {
 angular
     .module('pipNavIcon')
     .directive('pipNavIcon', navIconDirective);
+
+})();

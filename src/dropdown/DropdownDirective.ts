@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootScope, $mdMedia) {
     "ngInject";
 
@@ -61,3 +64,5 @@ function dropdownDirective() {
 angular
     .module('pipDropdown', ['pipNav.Templates'])
     .directive('pipDropdown', dropdownDirective);
+
+})();

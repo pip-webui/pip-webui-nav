@@ -34,17 +34,17 @@
             };
 
             $scope.onShowMenuNavIcon = function () {
-                pipNavIcon.menu();
+                pipNavIcon.showMenu();
                 pipAppBar.part('icon', true);
             };
 
             $scope.onShowIcon = function () {
-                pipNavIcon.icon('bug');
+                pipNavIcon.showIcon('icons:bug');
                 pipAppBar.part('icon', true);
             };
 
             $scope.onShowBackNavIcon = function () {
-                pipNavIcon.back();
+                pipNavIcon.showBack();
                 pipAppBar.part('icon', true);
             };
 

@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function StickySideNavDirectiveController($scope, $element, $rootScope, $injector, $mdMedia, $timeout, pipSideNav) {
     "ngInject";
 
@@ -61,7 +64,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
 
     // Apply class and call resize
     $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
-    pipSideNav.id('pip-sticky-sidenav');
+    pipSideNav.id = 'pip-sticky-sidenav';
 
     $timeout(setSideNaveState, 100);
 
@@ -137,7 +140,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         isResizing = true;
         $scope.sidenavState = $scope.navState[state];
         $element.addClass($scope.sidenavState.addClass);
-        pipSideNav.state($scope.sidenavState);
+        pipSideNav.state = $scope.sidenavState;
 
         // complete animation
         $timeout(function () {
@@ -160,3 +163,5 @@ function stickySideNavDirective() {
 angular
     .module('pipSideNav')
     .directive('pipStickySidenav', stickySideNavDirective);
+
+})();

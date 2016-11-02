@@ -1,35 +1,37 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function PrimaryActionsController(
     $scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
 
     // Apply class and call resize
     $element.addClass('pip-primary-actions');
 
-    $scope.config = pipActions.config();
+    if ($scope.localActions) 
+        pipActions.primaryLocalActions = $scope.localActions;
 
-    if ($scope.localActions) {
-        pipActions.showLocalActions();
-        $scope.config.primaryLocalActions = $scope.localActions[0];
-    }
+    if ($scope.globalActions)
+        pipActions.primaryGlobalActions = $scope.globalActions;
 
-    if ($scope.globalActions) {
-        pipActions.showLocalActions();
-        $scope.config.primaryGlobalActions = $scope.globalActions[0];
-    }
+    $scope.config = pipActions.config;
 
     $rootScope.$on('pipActionsChanged', onActionsChanged);
 
-    $scope.actionHidden = actionHidden;
+    $scope.isHidden = isHidden;
     $scope.actionCount = actionCount;
+    $scope.clickAction = clickAction;
 
-    $scope.onActionClick = onActionClick;
+    return;
+    ///////////////////////
 
     function onActionsChanged(event, config) {
         $scope.config = config;
     }
 
-    function actionHidden(action) {
+    function isHidden(action) {
+        // Todo: Check breakpoints here
         return action.access && !action.access(action);
     }
 
@@ -48,7 +50,7 @@ function PrimaryActionsController(
         var count = 0;
 
         _.each(actions, function (action) {
-            if (!actionHidden(action)) {
+            if (!isHidden(action)) {
                 count++;
             }
         });
@@ -66,7 +68,7 @@ function PrimaryActionsController(
             calcActions($scope.config.secondaryLocalActions) > 0;
     }
 
-    function onActionClick(action, $mdOpenMenu) {
+    function clickAction(action, $mdOpenMenu) {
         if (!action || action.divider) {
             return;
         }
@@ -80,8 +82,8 @@ function PrimaryActionsController(
             return;
         }
 
-        if (action.callback) {
-            action.callback();
+        if (action.click) {
+            action.click();
             return;
         }
 
@@ -122,9 +124,7 @@ function primaryActionsDirective() {
             globalActions: '=pipGlobalActions'
         },
         replace: false,
-        templateUrl: function (element, attr) {
-            return 'actions/PrimaryActions.html';
-        },
+        templateUrl: 'actions/PrimaryActions.html',
         controller: PrimaryActionsController
     };
 }
@@ -134,3 +134,4 @@ angular
     .module('pipActions')
     .directive('pipPrimaryActions', primaryActionsDirective);
 
+})();

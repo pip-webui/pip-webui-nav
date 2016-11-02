@@ -26,7 +26,7 @@
             $scope.$on('pipSearchActivated', function (event, search) {
                 console.log('Search Clicked: ' + search);// eslint-disable-line
                 $scope.searchCriteria = search;
-                pipSearch.criteria($scope.searchCriteria);
+                pipSearch.criteria = $scope.searchCriteria;
             });
             
             $scope.onHideSearch = function () {
@@ -48,7 +48,7 @@
             
 
             $scope.onUpdateSearch = function () {
-                pipSearch.criteria($scope.searchCriteria);
+                pipSearch.criteria = $scope.searchCriteria;
             };
             
             $scope.searchEnabled = true;

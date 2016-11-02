@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function TabsDirectiveController($scope, $element, $attrs, $mdMedia, $injector, $rootScope) {
     "ngInject";
 
@@ -93,3 +96,5 @@ function tabsDirective() {
 angular
     .module("pipTabs", ['pipNav.Templates'])
     .directive('pipTabs', tabsDirective);
+
+})();

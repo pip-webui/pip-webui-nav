@@ -1,5 +1,8 @@
 ﻿'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function AppBarDirectiveController($scope, $element, $rootScope, pipAppBar) {
     "ngInject";
 
@@ -9,7 +12,7 @@ function AppBarDirectiveController($scope, $element, $rootScope, pipAppBar) {
     
     //$scope.$emit('pipResizeWindow');
 
-    $scope.config = pipAppBar.config();
+    $scope.config = pipAppBar.config;
 
     $rootScope.$on('pipAppBarChanged', onAppBarChanged);
 
@@ -31,3 +34,5 @@ function appbarDirective() {
 angular
     .module('pipAppBar')
     .directive('pipAppbar', appbarDirective);
+
+})();

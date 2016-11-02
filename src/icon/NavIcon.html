@@ -8,17 +8,10 @@
         md-svg-icon="icons:menu"></md-icon>
     <!-- Image -->
     <img ng-src="{{config.imageUrl}}" ng-if="config.type=='image'" height="24" width="24">
-    <!--<pip-avatar ng-if="config.navIconType=='menu' && (getParty() && !getUser('owner'))"
-                pip-rebind-avatar="true"
-                pip-rebind="true"
-                pip-image-url="partyAvatarUrl"
-                pip-party-id="getParty('id')" class="pip-face"
-                pip-party-name="getParty('name')">
-    </pip-avatar>-->
     <!-- Back icon -->
     <md-icon ng-if="config.type=='back'"
         md-svg-icon="icons:arrow-left"></md-icon>
     <!--Icon -->
     <md-icon ng-if="config.type=='icon'"
-             md-svg-icon="icons:{{config.iconName}}"></md-icon>
+             md-svg-icon="{{config.icon}}"></md-icon>
 </md-button>

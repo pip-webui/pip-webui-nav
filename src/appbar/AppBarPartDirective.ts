@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function AppBarPartDirectiveController($scope, $element, $attrs, $rootScope, pipAppBar) {
     "ngInject";
 
@@ -55,3 +58,5 @@ function appbarPartDirective(ngIfDirective) {
 
 angular.module('pipAppBar')
     .directive('pipAppbarPart', appbarPartDirective);
+
+})();

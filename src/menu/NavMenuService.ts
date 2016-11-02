@@ -1,86 +1,151 @@
 'use strict';
 
-export interface INavMenuService {
+export let NavMenuChangedEvent = 'pipNavMenuChanged';
 
+export class NavMenuLink {
+    // Name to refer to the item
+    public name: string;
+    // Link visible title
+    public title: string;
+    // Icon name from $iconProvider
+    public icon?: string;
+    // Counter badge
+    public count?: number;
+    // Access function
+    public access?: (link: NavMenuLink) => boolean;
+    // window.location.href
+    public href?: string;
+    // $location.url
+    public url?: string;
+    // $state.go(state, stateParams)
+    public state?: string;
+    // Parameters for $state.go(state, stateParams)
+    public stateParams?: any;
+    // $rootScope.broadcast(event)
+    public event?: string;
+    // Click callback
+    public click?: (link: NavMenuLink) => void;
+}
+
+export class NavMenuSection {
+    // Name to refer to the section
+    public name: string;
+    // Section visible title
+    public title?: string;
+    // Icon name from $iconProvider
+    public icon?: string;
+    // Links shown in the section
+    public links: NavMenuLink[];
+    // Access function
+    public access?: (section: NavMenuSection) => boolean;
+}
+
+export class NavMenuConfig {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+}
+
+export interface INavMenuService {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+    updateCount(link: string, count: number): void; 
+    clearCounts(): void;
 }
 
 export interface INavMenuProvider extends ng.IServiceProvider {
-
+    sections: NavMenuSection[];
+    defaultIcon: string;
 }
 
-function NavMenuProvider(): any {
-    var config = [],
-        collapsed = true,
-        sectionIcon: string;
+class NavMenuService implements INavMenuService {
+    private _config: NavMenuConfig;
+    private _rootScope: ng.IRootScopeService;
 
-    this.sections = init;
-    this.sectionIcon = setOrGetIcon;
-    this.collapsed = setOrGetCollapsed;
+    public constructor(
+        config: NavMenuConfig,
+        $rootScope: ng.IRootScopeService
+    ) {
+        this._config = config;
+        this._rootScope = $rootScope;
+    }
 
-    this.$get = function ($rootScope, $mdSidenav) {
-        return {
-            get: getConfig,
-            set: setConfig,
-            setCounter: setCounter,
-            collapsed: setOrGetCollapsed,
-            icon: setOrGetIcon
-        };
-        
-        //---------------------
+    public get sections(): NavMenuSection[] {
+        return this._config.sections;
+    }
 
-        function getConfig() {
+    public set sections(value: NavMenuSection[]) {
+        this._config.sections = value || [];
+        this.sendChangeEvent();
+    }
 
-            return config;  
-        }
+    public get defaultIcon(): string {
+        return this._config.defaultIcon;
+    }
 
-        function setConfig(newConfig) {
-            init(newConfig);
-            $rootScope.$broadcast('pipNavMenuChanged', config);
+    public set defaultIcon(value: string) {
+        this._config.defaultIcon = value;
+        this.sendChangeEvent();
+    }
 
-            return config;  
-        }
+    public updateCount(link: string, count: number) {
+        if (link == null || !_.isNumber(count)) return;
 
-        function setCounter(linkTitle: string, counter: number) {
-            if (!linkTitle || !angular.isNumber(counter)) { return; }
-
-            let section: any, menuItem: any;
-
-            section = _.find(config, function(s) {
-                let item = _.find(s.links, {title: linkTitle});
-                if (item) {
-                    return item;
-                } else { return false };
+        _.each(this._config.sections, (s) => {
+            _.each(s.links, (l) => {
+                if (l.name == link)
+                    l.count = count;
             });
+        });
 
-            menuItem = _.find(section.links, {title: linkTitle});
-            menuItem.count = counter;
-            setConfig(config);
-        }
-    };
-
-    function setOrGetIcon(value: string) {
-        if (_.isString(value)) {
-            sectionIcon = value;
-        }
-
-        return sectionIcon;
+        this.sendChangeEvent();
     }
 
-    function setOrGetCollapsed(value: boolean) {
-        if (value !== undefined) {
-            collapsed = value;
-        }
+    public clearCounts(): void {
+        _.each(this._config.sections, (s) => {
+            _.each(s.links, (l) => {
+                l.count = null;
+            });
+        });
 
-        return collapsed;
+        this.sendChangeEvent();
     }
 
-    function init(newConfig) {
-        if (_.isArray(newConfig)) {
-            config = newConfig;
-        }
+    private sendChangeEvent() {
+        this._rootScope.$emit(NavMenuChangedEvent, this._config);
+    }
+}
 
-        return config;
+class NavMenuProvider implements INavMenuProvider {
+    private _config: NavMenuConfig = {
+        sections: [],
+        defaultIcon: 'icons:folder'
     };
+    private _service: NavMenuService;
+
+    public get sections(): NavMenuSection[] {
+        return this._config.sections;
+    }
+
+    public set sections(value: NavMenuSection[]) {
+        this._config.sections = value || [];
+    }
+
+    public get defaultIcon(): string {
+        return this._config.defaultIcon;
+    }
+
+    public set defaultIcon(value: string) {
+        this._config.defaultIcon = value;
+    }
+
+    public $get($rootScope) {
+        "ngInject";
+
+        if (this._service == null)
+            this._service = new NavMenuService(this._config, $rootScope);
+        
+        return this._service;
+    }
 }
 
 angular

@@ -1,4 +1,4 @@
-<md-toolbar md-theme="{{ $theme }}" ng-hide="!title || !showHeader" class="layout-row layout-align-start-center">
+<md-toolbar ng-hide="!title || !showHeader" class="layout-row layout-align-start-center">
 
     <div class="flex-fixed pip-sticky-nav-header-user">
         <md-button class=""
@@ -11,7 +11,7 @@
     <div class="pip-sticky-nav-header-user-text">
         <div class="pip-sticky-nav-header-user-pri"
              ng-click="onUserClick()">
-            {{ title }}
+            {{ title | translate }}
         </div>
         <div class="pip-sticky-nav-header-user-sec">
             {{ subtitle | translate }}

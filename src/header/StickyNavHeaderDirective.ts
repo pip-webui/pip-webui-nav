@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeout, pipNavHeader) {
     "ngInject";
 
@@ -68,7 +71,7 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
 
     function onIdentityChanged() {
         var url: string,
-            config = pipNavHeader.config();
+            config = pipNavHeader.config;
 
         url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
         if (url) {
@@ -102,3 +105,5 @@ function stickyNavHeaderDirective() {
 angular
     .module('pipNavHeader')
     .directive('pipStickyNavHeader', stickyNavHeaderDirective);
+
+})();

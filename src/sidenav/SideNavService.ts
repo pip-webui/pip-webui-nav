@@ -1,141 +1,201 @@
 'use strict';
 
-export interface ISideNavService {
+export let SideNavChangedEvent = 'pipSideNavChanged';
+export let SideNavStateChangedEvent = 'pipSideNavStateChanged';
+export let OpenSideNavEvent = 'pipOpenSideNav';
+export let CloseSideNavEvent = 'pipCloseSideNav';
 
+export class SideNavConfig {
+    id: string;
+    parts: any;
+    classes: string[];
+    state: any;
+} 
+
+export interface ISideNavService {
+    readonly config: SideNavConfig;
+    readonly classes: string[];
+    id: string;
+    parts: any;
+    state: any;    
+
+    open(): void;
+    close(): void;
+    toggle(): void;
+  
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+ 
+    part(part: string, value: any): void;
 }
 
 export interface ISideNavProvider extends ng.IServiceProvider {
-    
+    config: SideNavConfig;
+    id: string;
+    parts: any;
+    classes: string[];
+
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+
+    part(part: string, value: any): void;
 }
 
-function SideNavProvider(): any {
-    var config = {
-        // Theme to be applied to the header
-        theme: 'default',
-        // Parts of the sidenav
-        parts: []
-    },
-    sideNavId = 'pip-sidenav', // sidenav identificatior
-    sideNavState = {};
+class SideNavService implements ISideNavService {
+    private _config: SideNavConfig;
+    private _state: any;
+    private _rootScope: ng.IRootScopeService;
+    private _sidenav: ng.material.ISidenavService;
 
-    this.id = id; 
-    this.theme = theme;
-    this.parts = initParts;
+    public constructor(config: SideNavConfig, $rootScope: ng.IRootScopeService, $mdSidenav: ng.material.ISidenavService) {
+        this._config = config;
+        this._rootScope = $rootScope;
+        this._sidenav = $mdSidenav;
+    }
 
-    this.$get = function ($rootScope, $mdSidenav) {
-        $rootScope.$on('pipOpenSideNav', open);
-        $rootScope.$on('pipCloseSideNav', close);
+    public get config(): SideNavConfig {
+        return this._config;
+    }
 
-        return {
-            config: getConfig,
-            part: getOrSetPart,
-            parts: getOrSetParts,
-            id: getOrSetId,
-            open: open,
-            close: close,
-            toggle: toggle,
-            state: getOrSetState
-        };
+    public get classes(): string[] {
+        return this._config.classes;
+    }
 
-        //---------------------
+    public get id(): string {
+        return this._config.id;
+    }
 
-        function getConfig() {
-            return config;  
-        }
-                        
-        function getOrSetPart(name, value) {
-            if (!_.isString(name))
-                throw new Error("Part name has to be a string");
+    public set id(value: string) {
+        this._config.id = value;
+    }
 
-            if (value != undefined) {
-                if (config.parts[name] != value) {
-                    config.parts[name] = value;
-                    sendConfigEvent();
-                }
-            }
+    public get parts(): any {
+        return this._config.parts;
+    }
 
-            return config.parts[name];
-        }
+    public set parts(value: any) {
+        this._config.parts = value || {};
+        this.sendConfigEvent();
+    }
 
-        function getOrSetId(value) {
-            if (_.isString(value)) {
-                if (sideNavId !== value) {
-                    sideNavId = value;
-                }
-            }
+    public get state(): any {
+        return this._state;
+    }
 
-            return sideNavId;
-        }
+    public set state(value: any) {
+        this._state = value || {};
+        this._rootScope.$emit(SideNavStateChangedEvent, value);
+    }
 
-        function getOrSetState(value) {
-            if (angular.isObject(value)) {
-                sideNavState = _.cloneDeep(value);
-                
-            }
-            $rootScope.$broadcast('pipSideNavStateChange', sideNavState);
+    public open() {
+        this._sidenav(this._config.id).open();
+    }
+            
+    public close() {
+        this._sidenav(this._config.id).close();
+    }
 
-            return sideNavState;
-        }
+    public toggle() {
+        this._sidenav(this._config.id).toggle();
+    }
+  
+    public addClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes.push(c);
+        });
+        this.sendConfigEvent();
+    }
 
-        function getOrSetParts(parts) {
-            if (_.isObject(parts)) {
-                if (!_.isEqual(config.parts, parts)) {
-                    config.parts = parts;
-                    sendConfigEvent();
-                }
-            }
+    public removeClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes = _.remove(this._config.classes, (cc) => cc == c);
+        });
+        this.sendConfigEvent();
+    }
+ 
+    public part(part: string, value: any): void {
+        this._config.parts[part] = value;
+        this.sendConfigEvent();
+    }
 
-            return config.parts;
-        }
-                        
-        function sendConfigEvent() {
-            $rootScope.$broadcast('pipSideNavChanged', config);
-        }
+    private sendConfigEvent() {
+        this._rootScope.$emit(SideNavChangedEvent, this._config);
+    }
+}
 
-        function open(event) {
-
-            $mdSidenav(sideNavId).open();
-        }
-                
-        function close(event) {
-            console.log('close', sideNavId);
-            $mdSidenav(sideNavId).close();   
-        }                
-
-        function toggle() {
-            $mdSidenav(sideNavId).toggle();   
-            $rootScope.$broadcast('pipSideNavToggle', config);
-        }
+class SideNavProvider implements ISideNavProvider {
+    private _config: SideNavConfig = {
+        id: "pip-sidenav",
+        parts: {},
+        classes: [],
+        state: null
     };
+    private _service: SideNavService;
 
-    function setState(value) {
-        sideNavState = value || sideNavState;
-
-        return sideNavState;
+    public get config(): SideNavConfig {
+        return this._config;
     }
 
-    function id(value) {
-        sideNavId = value || sideNavId;
-
-        return sideNavId;
+    public set config(value: SideNavConfig) {
+        this._config = value || new SideNavConfig();
     }
 
-    function theme(theme) {
-        config.theme = theme || config.theme;
-
-        return config.theme;
+    public get id(): string {
+        return this._config.id;
     }
 
-    function initParts(parts) {
-        if (_.isObject(parts)) {
-            config.parts = parts;
-        }
-
-        return config.parts;
+    public set id(value: string) {
+        this._config.id = value;
     }
+
+    public get parts(): any {
+        return this._config.parts;
+    }
+
+    public set parts(value: any) {
+        this._config.parts = value || {};
+    }
+
+    public get classes(): string[] {
+        return this._config.classes;
+    }
+
+    public set classes(value: string[]) {
+        this._config.classes = value || [];
+    }
+
+    public addClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes.push(c);
+        });
+    }
+
+    public removeClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes = _.remove(this._config.classes, (cc) => cc == c);
+        });
+    }
+ 
+    public part(part: string, value: any): void {
+        this._config.parts[part] = value;
+    }
+
+    public $get($rootScope: ng.IRootScopeService, $mdSidenav: ng.material.ISidenavService) {
+        "ngInject";
+
+        if (this._service == null)
+            this._service = new SideNavService(this._config, $rootScope, $mdSidenav);
+
+        return this._service;
+    }     
 }
 
+function hookSideNavEvents($rootScope: ng.IRootScopeService, pipSideNav: ISideNavService) {
+    $rootScope.$on(OpenSideNavEvent, pipSideNav.open);
+    $rootScope.$on(CloseSideNavEvent, pipSideNav.close);
+}
 
 angular
     .module('pipSideNav')
-    .provider('pipSideNav', SideNavProvider);
+    .provider('pipSideNav', SideNavProvider)
+    .run(hookSideNavEvents);

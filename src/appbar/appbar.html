@@ -1,3 +1,2 @@
-<md-toolbar md-theme-watch="true" ng-if="config.showAppBar" ng-class="config.ngClasses"
-            class="{{ config.cssClass }}" ng-transclude>
+<md-toolbar ng-if="config.visible" class="{{ config.classes.join(' ') }}" ng-transclude>
 </md-toolbar>

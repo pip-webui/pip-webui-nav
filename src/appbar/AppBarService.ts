@@ -1,141 +1,174 @@
 'use strict';
 
-export interface IAppbarService {
-    
+export let AppBarChangedEvent = 'pipAppBarChanged';
+
+export class AppBarConfig {
+    visible: boolean;
+    parts: any;
+    classes: string[];
+} 
+
+export interface IAppBarService {
+    readonly config: AppBarConfig;
+    readonly classes: string[];
+    parts: any;
+
+    show(): void;
+    hide(): void;
+ 
+    addShadow(breakpoints?: string[]): void;
+    removeShadow(): void;
+ 
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+ 
+    part(part: string, value: any): void;
 }
 
-function AppBarProvider(): any {
-    var config = {
-        // Theme to be applied to the header
-        theme: 'default',
-        cssClass: '',
-        ngClasses: {},
-        // Parts of the appbar
+export interface IAppBarProvider extends ng.IServiceProvider {
+    config: AppBarConfig;
+    parts: any;
+    classes: string[];
+
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+
+    part(part: string, value: any): void;
+}
+
+class AppBarService implements IAppBarService {
+    private _config: AppBarConfig;
+    private _rootScope: ng.IRootScopeService;
+
+    public constructor(config: AppBarConfig, $rootScope: ng.IRootScopeService) {
+        this._config = config;
+        this._rootScope = $rootScope;
+    }
+
+    public get config(): AppBarConfig {
+        return this._config;
+    }
+
+    public get classes(): string[] {
+        return this._config.classes;
+    }
+
+    public get parts(): any {
+        return this._config.parts;
+    }
+
+    public set parts(value: any) {
+        this._config.parts = value || {};
+        this.sendConfigEvent();
+    }
+
+    public show(): void {
+        this._config.visible = true;
+        this.sendConfigEvent();
+    }
+
+    public hide(): void {
+        this._config.visible = false;
+        this.sendConfigEvent();
+    }
+ 
+    public addShadow(breakpoints?: string[]): void {
+        this._config.classes = _.remove(this._config.classes, (c) => c.startsWith('pip-shadow'));
+
+        this._config.classes.push('pip-shadow');
+        _.each(breakpoints, (bp) => {
+            this._config.classes.push('pip-shadow-' + bp);
+        });
+
+        this.sendConfigEvent();
+    }
+
+    public removeShadow(): void {
+        this._config.classes = _.remove(this._config.classes, (c) => c.startsWith('pip-shadow'));
+        this.sendConfigEvent();
+    }
+ 
+    public addClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes.push(c);
+        });
+        this.sendConfigEvent();
+    }
+
+    public removeClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes = _.remove(this._config.classes, (cc) => cc == c);
+        });
+        this.sendConfigEvent();
+    }
+ 
+    public part(part: string, value: any): void {
+        this._config.parts[part] = value;
+        this.sendConfigEvent();
+    }
+
+    private sendConfigEvent() {
+        this._rootScope.$broadcast(AppBarChangedEvent, this._config);
+    }
+}
+
+class AppBarProvider implements IAppBarProvider {
+    private _config: AppBarConfig = {
+        visible: true,
         parts: {},
-        showAppBar: true
+        classes: []
     };
+    private _service: AppBarService;
 
-    // Configure global parameters
-    this.theme = theme;
-    this.parts = initParts;
-
-    // Get the service instance
-    this.$get = function ($rootScope) {
-        return {
-            config: getConfig,
-            cssClass: cssClass,
-
-            part: getOrSetPart,
-            parts: getOrSetParts,
-            
-            show: showAppBar,
-            hide: hideAppBar,
-            showShadow: showShadow,
-            showShadowSm: showShadowSm,
-            showShadowSmXs: showShadowSmXs,
-            hideShadow: hideShadow
-        };
-
-        // ----------------------
-
-        function getConfig() {
-            return config;
-        }
-
-        // Todo: Do we need that "hack"?
-        function cssClass(newCssClass) {
-            if (newCssClass != undefined) {
-                config.cssClass = newCssClass;
-                sendConfigEvent();
-            }
-
-            return config.cssClass;
-        }
-
-        // Show, show appbar 
-        function showAppBar() {
-            config.showAppBar = true;
-            sendConfigEvent();
-        }
-
-        // Show, hide appbar 
-        function hideAppBar() {
-            config.showAppBar = false;
-            sendConfigEvent();
-        }
-
-        // Show, hide appbar shadow
-        function showShadowSm() {
-            config.ngClasses['pip-shadow'] = false;
-            config.ngClasses['pip-shadow-sm'] = true;
-            config.ngClasses['pip-shadow-xs'] = false;
-            sendConfigEvent();
-        }
-
-        function showShadowSmXs() {
-            config.ngClasses['pip-shadow'] = false;
-            config.ngClasses['pip-shadow-sm'] = true;
-            config.ngClasses['pip-shadow-xs'] = true;
-            sendConfigEvent();
-        }
-
-        function showShadow() {
-            config.ngClasses['pip-shadow'] = true;
-            sendConfigEvent();
-        }
-
-        function hideShadow() {
-            config.ngClasses['pip-shadow'] = false;
-            config.ngClasses['pip-shadow-sm'] = false;
-            config.ngClasses['pip-shadow-xs'] = false;
-            sendConfigEvent();
-        }
-
-        function getOrSetPart(name, value) {
-            if (!_.isString(name))
-                throw new Error("Part name has to be a string");
-
-            if (value != undefined) {
-                if (config.parts[name] != value) {
-                    config.parts[name] = value;
-                    sendConfigEvent();
-                }
-            }
-
-            return config.parts[name];
-        }
-
-        function getOrSetParts(parts) {
-            if (_.isObject(parts)) {
-                if (!_.isEqual(config.parts, parts)) {
-                    config.parts = parts;
-                    sendConfigEvent();
-                }
-            }
-
-            return config.parts;
-        }
-
-        function sendConfigEvent() {
-            $rootScope.$broadcast('pipAppBarChanged', config);
-        }
-    };
-
-    function theme(theme) {
-        config.theme = theme || config.theme;
-
-        return config.theme;
+    public get config(): AppBarConfig {
+        return this._config;
     }
 
-    function initParts(parts) {
-        if (_.isObject(parts)) {
-            config.parts = parts;
-        }
-        return config.parts;
+    public set config(value: AppBarConfig) {
+        this._config = value || new AppBarConfig();
     }
 
+    public get parts(): any {
+        return this._config.parts;
+    }
+
+    public set parts(value: any) {
+        this._config.parts = value || {};
+    }
+
+    public get classes(): string[] {
+        return this._config.classes;
+    }
+
+    public set classes(value: string[]) {
+        this._config.classes = value || [];
+    }
+
+    public addClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes.push(c);
+        });
+    }
+
+    public removeClass(...classes: string[]): void {
+        _.each(classes, (c) => {
+            this._config.classes = _.remove(this._config.classes, (cc) => cc == c);
+        });
+    }
+ 
+    public part(part: string, value: any): void {
+        this._config.parts[part] = value;
+    }
+
+    public $get($rootScope: ng.IRootScopeService) {
+        "ngInject";
+
+        if (this._service == null)
+            this._service = new AppBarService(this._config, $rootScope);
+
+        return this._service;
+    }     
 }
-
 
 angular
     .module('pipAppBar')

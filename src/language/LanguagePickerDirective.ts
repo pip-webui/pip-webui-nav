@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 class LanguagePickerDirectiveController {
     private _translate: any;
     private _timeout: ng.ITimeoutService;
@@ -66,3 +69,5 @@ angular
         'ngMaterial', 'pipNav.Translate', 'pipNav.Templates'
     ])
     .directive('pipLanguagePicker', languagePickerDirective);
+
+})();

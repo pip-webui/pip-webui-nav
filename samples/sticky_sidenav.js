@@ -65,7 +65,7 @@
             };
 
             $scope.onRefreshCounter = function () {
-                pipNavMenu.setCounter('StickySideNav', Math.floor(Math.random() * (99 - 20) + 20));
+                pipNavMenu.updateCount('StickySideNav', Math.floor(Math.random() * (99 - 20) + 20));
             };
 
             function onWindowResized() {

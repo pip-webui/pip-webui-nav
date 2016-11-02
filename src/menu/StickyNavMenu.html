@@ -15,7 +15,7 @@
         </md-icon>
     </md-list-item>
     <md-divider ng-show="expandedButton"></md-divider>
-    <div class="pip-section" ng-repeat="section in config"
+    <div class="pip-section" ng-repeat="section in sections"
          ng-hide="section.access && !section.access(section)">
 
         <md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider>
@@ -28,7 +28,7 @@
                     {{::section.title | translate}}
                 </md-tooltip>
             </md-icon>
-            <md-icon md-svg-icon="{{defaultIicon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
+            <md-icon md-svg-icon="{{defaultIcon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
                 <md-tooltip md-visible="showTooltip" ng-show="sideNavState.showIconTooltype && !expanded" md-direction="right">
                     {{::section.title | translate}}
                 </md-tooltip>
@@ -40,7 +40,7 @@
                       ng-class="{'active': isActive(link)}"
                       ng-hide="link.access && !link.access(link)">
             <md-button class="layout-row layout-align-start-center pip-focusable" 
-                       ng-click="onLinkClick($event, link)">
+                       ng-click="clickLink($event, link)">
                 <div class="pip-sticky-nav-menu-icon-block">
                     <md-icon md-svg-icon="{{link.icon}}"
                              ng-hide="!link.icon"

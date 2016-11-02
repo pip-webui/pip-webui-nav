@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function NavHeaderDirectiveController($scope, $element, $rootScope, $timeout, pipNavHeader) {
     "ngInject";
 
@@ -55,7 +58,7 @@ function NavHeaderDirectiveController($scope, $element, $rootScope, $timeout, pi
                 
     function onIdentityChanged() {
         var url: string,
-            config = pipNavHeader.config();
+            config = pipNavHeader.config;
 
         url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
         if (url) {
@@ -90,3 +93,4 @@ function navHeaderDirective() {
 angular.module('pipNavHeader')
     .directive('pipNavHeader', navHeaderDirective);
 
+})();

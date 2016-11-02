@@ -1,5 +1,8 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function SideNavPartDirectiveController($scope, $element, $attrs, $rootScope, pipSideNav) {
     "ngInject";
 
@@ -50,3 +53,4 @@ angular
     .module('pipSideNav')
     .directive('pipSidenavPart', sidenavPartDirective);
 
+})();

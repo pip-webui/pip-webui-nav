@@ -1,24 +1,28 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
     "ngInject";
 
-    var pipSdeNavElement = $element.parent().parent();
+    var pipSideNavElement = $element.parent().parent();
     // Apply class and call resize
     $element.addClass('pip-sticky-nav-menu');
-    $scope.config = $scope.config || pipNavMenu.get();
 
-    pipNavMenu.set($scope.config);
+    $scope.sections = $scope.sections || pipNavMenu.sections;    
+    pipNavMenu.sections = $scope.sections;
+    
     // todo set from services
-    $scope.defaultIcon = 'icons:folder';
+    $scope.defaultIcon = pipNavMenu.defaultIcon;
 
-    onStateChanged(null, pipSideNav.state());
+    onStateChanged(null, pipSideNav.state);
 
     $rootScope.$on('pipNavMenuChanged', onConfigChanged);
     $rootScope.$on('pipSideNavStateChange', onStateChanged);
 
-    $scope.itemVisible = itemVisible;
-    $scope.onLinkClick = onLinkClick;
+    $scope.itemVisible = isHidden;
+    $scope.clickLink = clickLink;
     $scope.isSectionEmpty = isSectionEmpty;
     $scope.onExpand = onExpand;
     $scope.isActive = isActive;
@@ -31,21 +35,21 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
         $scope.expanded = !$scope.expanded;
 
         if ($scope.expanded) {
-            pipSdeNavElement.removeClass('pip-sticky-nav-small');
+            pipSideNavElement.removeClass('pip-sticky-nav-small');
         } else {
-            pipSdeNavElement.addClass('pip-sticky-nav-small');
+            pipSideNavElement.addClass('pip-sticky-nav-small');
         }
-        $rootScope.$broadcast('pipNavExpanded', $scope.expanded);
+        $rootScope.$emit('pipNavExpanded', $scope.expanded);
     }
 
-    function itemVisible(item) {
+    function isHidden(item) {
         return item && item.access && !item.access(item);
     }
 
     function isSectionEmpty(linkCollection) {
         var result = true;
         _.each(linkCollection, function(link){
-            if (!itemVisible(link))
+            if (!isHidden(link))
                 result = false;
         });
         return result;
@@ -53,11 +57,13 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
 
     function onConfigChanged(event, config) {
         $scope.isCollapsed = pipNavMenu.collapsed();
-        $scope.config = config;
+        $scope.sections = config.sections;
     }
 
     function onStateChanged(event, state) {
-        pipNavMenu.collapsed(state.expand);
+        // SS> You shall not set it into the menu state. Instead it shall be controlled by the state of Sidenav
+        //pipNavMenu.collapsed(state.expand);
+
         $scope.isCollapsed = state.expand;
         $scope.expanded = state.isExpanded;
         $scope.expandedButton = state.expandedButton;
@@ -85,7 +91,7 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
         return false;
     }
 
-    function onLinkClick(event, link) {
+    function clickLink(event, link) {
         event.stopPropagation();
 
         if (!link) {
@@ -148,7 +154,7 @@ function stickyNavMenuDirective() {
     return {
         restrict: 'EA',
         scope: {
-            config: '=pipLinks',
+            sections: '=pipSections',
             collapsed: '=pipCollapsed'
         },
         replace: false,
@@ -161,3 +167,4 @@ angular
     .module('pipNavMenu')
     .directive('pipStickyNavMenu', stickyNavMenuDirective);
 
+})();

@@ -9,10 +9,10 @@
         <!-- Local secondary actions -->
         <md-menu-item ng-repeat-start="action in config.secondaryLocalActions"
             ng-if="!action.divider"
-            ng-hide="actionHidden(action)">
+            ng-hide="isHidden(action)">
             <md-button ng-hide="action.divider"
-                ng-click="onActionClick(action)">
-                {{action.title | translate}}
+                ng-click="clickAction(action)">
+                {{::action.title | translate}}
             </md-button>
         </md-menu-item>
         <md-menu-divider ng-if="action.divider" ng-repeat-end></md-menu-divider>
@@ -23,10 +23,10 @@
         <!-- Global secondary actions -->
         <md-menu-item ng-repeat-start="action in config.secondaryGlobalActions"
             ng-if="!action.divider"
-            ng-hide="actionHidden(action)">
+            ng-hide="isHidden(action)">
             <md-button ng-hide="action.divider"
-                ng-click="onActionClick(action)">
-                {{action.title | translate}}
+                ng-click="clickAction(action)">
+                {{::action.title | translate}}
             </md-button>                    
         </md-menu-item>
         <md-menu-divider ng-if="action.divider" ng-repeat-end>

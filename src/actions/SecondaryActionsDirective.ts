@@ -1,33 +1,35 @@
 'use strict';
 
+// Prevent junk from going into typescript definitions
+(() => {
+
 function SecondaryActionsController(
     $scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
 
     // Apply class and call resize
     $element.addClass('pip-secondary-actions');
 
-    $scope.config = pipActions.config();
+    if ($scope.localActions) 
+        pipActions.secondaryLocalActions = $scope.localActions;
 
-    if ($scope.localActions) {
-        pipActions.showLocalActions();
-        $scope.config.secondaryLocalActions = $scope.localActions[1];
-    }
+    if ($scope.globalActions) 
+        pipActions.secondaryGlobalActions = $scope.globalActions;
 
-    if ($scope.globalActions) {
-        pipActions.showLocalActions();
-        $scope.config.secondaryGlobalActions = $scope.globalActions[0];
-    }
+    $scope.config = pipActions.config;
 
     $rootScope.$on('pipActionsChanged', onActionsChanged);
 
-    $scope.actionHidden = actionHidden;
+    $scope.isHidden = isHidden;
     $scope.actionCount = actionCount;
     $scope.secondaryActionsVisible = secondaryActionsVisible;
     $scope.secondaryDividerVisible = secondaryDividerVisible;
 
-    $scope.onActionClick = onActionClick;
+    $scope.clickAction = clickAction;
 
     $scope.openMenu = openMenu;
+
+    return;
+    /////////////////////
 
     function openMenu($mdOpenMenu, ev) {
         $scope.originatorEv = ev;
@@ -38,7 +40,7 @@ function SecondaryActionsController(
         $scope.config = config;
     }
 
-    function actionHidden(action) {
+    function isHidden(action) {
         return action.access && !action.access(action);
     }
 
@@ -57,7 +59,7 @@ function SecondaryActionsController(
         var count = 0;
 
         _.each(actions, function (action) {
-            if (!actionHidden(action)) {
+            if (!isHidden(action)) {
                 count++;
             }
         });
@@ -75,7 +77,7 @@ function SecondaryActionsController(
             calcActions($scope.config.secondaryLocalActions) > 0;
     }
 
-    function onActionClick(action, $mdOpenMenu) {
+    function clickAction(action, $mdOpenMenu) {
         if (!action || action.divider) {
             return;
         }
@@ -126,11 +128,8 @@ function secondaryActionsDirective() {
     return {
         restrict: 'E',
         scope: {
-            title: '=pipTitle',
-            showMenu: '=pipShowMenu',
             localActions: '=pipLocalActions',
-            globalActions: '=pipGlobalActions',
-            partyAvatarUrl: '=pipPartyAvatarUrl'
+            globalActions: '=pipGlobalActions'
         },
         replace: false,
         templateUrl: 'actions/SecondaryActions.html',
@@ -142,3 +141,4 @@ angular
     .module('pipActions')
     .directive('pipSecondaryActions', secondaryActionsDirective);
 
+})();

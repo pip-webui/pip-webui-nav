@@ -4,20 +4,18 @@
     var thisModule = angular.module('appAppbar.Actions', []);
     thisModule.config(function (pipActionsProvider) {
 
-        pipActionsProvider.globalPrimaryActions(
-            [
-                {
-                    name: 'sample.notifications', tooltip: 'Notifications',
-                    event: 'pipNotificationsClicked', count: 0,
-                    icon: 'icons:bell'
-                }
-            ]);
-        pipActionsProvider.globalSecondaryActions(
-            [
-                {name: 'sample.settings', title: 'Settings'},
-                {name: 'sample.signout', title: 'Signout'}
-            ]
-        );
+        pipActionsProvider.globalPrimaryActions = [
+            {
+                name: 'sample.notifications', tooltip: 'Notifications',
+                event: 'pipNotificationsClicked', count: 0,
+                icon: 'icons:bell'
+            }
+        ];
+
+        pipActionsProvider.globalSecondaryActions = [
+            {name: 'sample.settings', title: 'Settings'},
+            {name: 'sample.signout', title: 'Signout'}
+        ];
     });
 
     thisModule.controller('ActionsController',
@@ -54,24 +52,24 @@
                 $state.reload();
             });
             $scope.languages = ['en', 'ru'];
-            $scope.localActions = [
-                [
-                    {
-                        name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,
-                        subActions: [{name: 'sample.sendSomeone', title: 'Send someone'}, {
-                            name: 'sample.sendToAll',
-                            title: 'Send to All'
-                        }]
-                    },
-                    {name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true}
-                ],
-                [
-                    {name: 'sample.send', title: 'Send Message', close: true, event: 'pipGuidesClicked'},
-                    {name: 'sample.discard', title: 'Discard Message'},
-                    {divider: true},
-                    {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}
-                ]
+            $scope.localPrimaryActions = [
+                {
+                    name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,
+                    subActions: [{name: 'sample.sendSomeone', title: 'Send someone'}, {
+                        name: 'sample.sendToAll',
+                        title: 'Send to All'
+                    }]
+                },
+                {name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true}
             ];
+
+            $scope.localSecondaryActions = [
+                {name: 'sample.send', title: 'Send Message', close: true, event: 'pipGuidesClicked'},
+                {name: 'sample.discard', title: 'Discard Message'},
+                {divider: true},
+                {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}
+            ];
+
             pipAppBar.part('menu', true);
             pipAppBar.part('actions', 'primary');
             $scope.notificationCount = 2;
@@ -94,12 +92,12 @@
             };
 
             $scope.onChangeNotificationCount = function () {
-                pipActions.updateActionCount('sample.notifications', $scope.notificationCount);
+                pipActions.updateCount('sample.notifications', $scope.notificationCount);
             };
 
             $scope.onShowActions = function () {
-                pipActions.show($scope.localActions[0], $scope.localActions[1]);
-                pipActions.count('sample.notifications', $scope.notificationCount);
+                pipActions.show($scope.localPrimaryActions, $scope.localSecondaryActions);
+                pipActions.updateCount('sample.notifications', $scope.notificationCount);
                 pipAppBar.part('actions', 'primary');
             };
 

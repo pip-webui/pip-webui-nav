@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 import './dependencies/TranslateFilter';
-import './language/LanguagePicker';
+import './language/LanguagePickerDirective';
 import './dropdown/DropdownDirective';
 import './tabs/TabsDirective';
 import './actions';

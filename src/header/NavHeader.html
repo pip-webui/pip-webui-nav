@@ -1,16 +1,16 @@
-<md-toolbar md-theme="{{ $theme }}" ng-hide="!title" class="layout-row layout-align-start-center">
+<md-toolbar ng-hide="!title" class="layout-row layout-align-start-center">
 
     <md-button class="pip-nav-header-user md-icon-button"
                 ng-click="onUserClick()"
                 aria-label="current user">
 
-        <img  src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>
+        <img src="" class="pip-nav-header-user-image" ng-class="imageCss"></img>
     </md-button>
     
     <div class="pip-nav-header-user-text">
         <a class="pip-nav-header-user-pri"
             ng-click="onUserClick()">
-            {{ title }}
+            {{ title | translate }}
         </a>
         <div class="pip-nav-header-user-sec">
             {{ subtitle | translate }}
