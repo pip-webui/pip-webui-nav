@@ -111,7 +111,21 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
+<<<<<<< HEAD
+=======
 
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+}
+
+>>>>>>> ce61fcb765e60ac073279db06e05997335f51ce9
 
 
 
