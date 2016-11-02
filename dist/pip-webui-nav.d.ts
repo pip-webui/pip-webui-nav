@@ -114,6 +114,7 @@ export interface INavService {
 
 
 
+
 export let NavHeaderChangedEvent: 'pipNavHeaderChanged';
 export class NavHeaderConfig {
     imageUrl: string;
@@ -172,7 +173,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
     setImage(imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
 }
-
 
 
 
