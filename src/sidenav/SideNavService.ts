@@ -191,8 +191,8 @@ class SideNavProvider implements ISideNavProvider {
 }
 
 function hookSideNavEvents($rootScope: ng.IRootScopeService, pipSideNav: ISideNavService) {
-    $rootScope.$on(OpenSideNavEvent, pipSideNav.open);
-    $rootScope.$on(CloseSideNavEvent, pipSideNav.close);
+    $rootScope.$on(OpenSideNavEvent, () => { pipSideNav.open(); });
+    $rootScope.$on(CloseSideNavEvent, () => { pipSideNav.close(); });
 }
 
 angular
