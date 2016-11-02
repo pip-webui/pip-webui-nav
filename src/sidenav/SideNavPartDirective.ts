@@ -16,14 +16,14 @@ function SideNavPartDirectiveController($scope, $element, $attrs, $rootScope, pi
         partName = partName.substr(0, pos);
     }
 
-    onSideNavChanged(null, pipSideNav.config())
-
+    onSideNavChanged(null, pipSideNav.config)
     $rootScope.$on('pipSideNavChanged', onSideNavChanged);
 
     function onSideNavChanged(event, config) {
         var parts = config.parts || {};
         var currentPartValue = config[partName];
         // Set visible variable to switch ngIf
+
         $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
     }
 

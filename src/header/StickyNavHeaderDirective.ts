@@ -16,7 +16,7 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
 
     $rootScope.$on('pipIdentityChanged', onIdentityChanged);
     $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-    $rootScope.$on('pipSideNavStateChange', onStateChanged1);
+    $rootScope.$on('pipSideNavStateChange', onStateChanged);
 
     $scope.onUserClick = onUserClick;
 
@@ -31,7 +31,8 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
 
     return;
 
-    function onStateChanged1(event, state) {
+    function onStateChanged(event, state) {
+        console.log('onStateChanged header', state);
         if (state  === undefined) return;
         var def = $scope.showHeader === undefined ? 0 : 450;
 

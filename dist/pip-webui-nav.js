@@ -450,7 +450,7 @@ __export(require('./ActionsService'));
             partValue = partName.substr(pos + 1);
             partName = partName.substr(0, pos);
         }
-        onAppBarChanged(null, pipAppBar.config());
+        onAppBarChanged(null, pipAppBar.config);
         $rootScope.$on('pipAppBarChanged', onAppBarChanged);
         function onAppBarChanged(event, config) {
             var parts = config.parts || {};
@@ -1196,7 +1196,7 @@ angular
         $element.addClass('pip-sticky-nav-header');
         $rootScope.$on('pipIdentityChanged', onIdentityChanged);
         $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
-        $rootScope.$on('pipSideNavStateChange', onStateChanged1);
+        $rootScope.$on('pipSideNavStateChange', onStateChanged);
         $scope.onUserClick = onUserClick;
         $timeout(function () {
             $image = $element.find('.pip-sticky-nav-header-user-image');
@@ -1207,7 +1207,8 @@ angular
             });
         }, 10);
         return;
-        function onStateChanged1(event, state) {
+        function onStateChanged(event, state) {
+            console.log('onStateChanged header', state);
             if (state === undefined)
                 return;
             var def = $scope.showHeader === undefined ? 0 : 450;
@@ -1774,7 +1775,6 @@ angular
                 collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
             }
             $scope.isCollapsed = collapsed;
-            console.log('$scope.isCollapsed', $scope.isCollapsed);
         }
         function onExpand() {
             if (!$scope.isCollapsed) {
@@ -1804,9 +1804,7 @@ angular
             $scope.sections = config.sections;
         }
         function onStateChanged(event, state) {
-            console.log('onStateChanged state', state);
-            var st = pipSideNav.state;
-            console.log('pipSideNav.state', pipSideNav.state);
+            console.log('pipNavMenu onStateChanged state', state);
             if (!state)
                 return;
             $scope.isCollapsed = state.expand;
@@ -2149,11 +2147,13 @@ __export(require('./SearchService'));
             partValue = partName.substr(pos + 1);
             partName = partName.substr(0, pos);
         }
-        onSideNavChanged(null, pipSideNav.config());
+        onSideNavChanged(null, pipSideNav.config);
+        console.log('onSideNavChanged000', pipSideNav.config);
         $rootScope.$on('pipSideNavChanged', onSideNavChanged);
         function onSideNavChanged(event, config) {
             var parts = config.parts || {};
             var currentPartValue = config[partName];
+            console.log('onSideNavChanged1111111111111', config);
             $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
         }
     }
@@ -2424,10 +2424,8 @@ angular
         mediaBreakpoints = setBreakpoints();
         $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
         pipSideNav.id = 'pip-sticky-sidenav';
-        console.log('call setSideNaveState');
         setSideNaveState();
         $timeout(function () {
-            console.log('call timeout setSideNaveState');
             setSideNaveState();
         }, 100);
         var windowResize = _.debounce(setSideNaveState, 20);
@@ -2452,13 +2450,11 @@ angular
             }
         }
         function setSideNaveState() {
-            console.log('setSideNaveState1');
             if (isResizing) {
                 $timeout(setSideNaveState, animationDuration);
                 return;
             }
             var mainWidth = $(mainContainer).innerWidth();
-            console.log('setSideNaveState2');
             if (mainWidth < mediaBreakpoints.sm) {
                 setState('toggle');
                 return;
@@ -2477,7 +2473,7 @@ angular
             }
         }
         function setState(state) {
-            console.log('setState', state);
+            console.log('setState', state, isResizing);
             if (isResizing)
                 return;
             if ($scope.sidenavState && $scope.sidenavState.id == state)
@@ -2494,8 +2490,11 @@ angular
             isResizing = true;
             $scope.sidenavState = $scope.navState[state];
             $element.addClass($scope.sidenavState.addClass);
-            console.log('pipSideNav.state', $scope.sidenavState);
+            console.log('pipSideNav.state set start', $scope.sidenavState);
             pipSideNav.state = $scope.sidenavState;
+            console.log('pipSideNav.state set end', $scope.sidenavState);
+            var st = pipSideNav.state;
+            console.log('pipSideNav.state ststststststststststststststst', st);
             $timeout(function () {
                 isResizing = false;
             }, animationDuration);

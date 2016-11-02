@@ -45,19 +45,19 @@
             };
 
             $scope.onShowTitleText = function () {
-                pipAppBar.parts({
+                pipAppBar.parts = {
                     logo: false,
                     icon: false,
                     title: 'text'
-                });
+                };
             };
 
             $scope.onShowTitleBreadcrumb = function () {
-                pipAppBar.parts({
+                pipAppBar.parts = {
                     logo: false,
                     icon: false,
                     title: 'breadcrumb',
-                });
+                };
                 pipBreadcrumb.items=[
                     {title: 'Header'},
                     {title: 'SubHeader'},

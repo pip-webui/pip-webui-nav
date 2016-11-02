@@ -37,7 +37,7 @@
             });
 
             // set sidenav
-            pipSideNav.id ='pip-sidenav';
+            // pipSideNav.id ='pip-sidenav';
             $scope.$mdMedia = $mdMedia;
 
             $timeout(function() {

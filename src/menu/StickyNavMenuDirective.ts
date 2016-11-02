@@ -38,7 +38,6 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
         }
 
         $scope.isCollapsed = collapsed;
-        console.log('$scope.isCollapsed', $scope.isCollapsed);
     }
 
     function onExpand() {
@@ -74,10 +73,8 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
     function onStateChanged(event, state) {
         // SS> You shall not set it into the menu state. Instead it shall be controlled by the state of Sidenav
         //pipNavMenu.collapsed(state.expand);
-        console.log('onStateChanged state', state);
+        console.log('pipNavMenu onStateChanged state', state);
 
-        var st = pipSideNav.state;
-        console.log('pipSideNav.state', pipSideNav.state);
         if (!state) return;
 
         $scope.isCollapsed = state.expand;

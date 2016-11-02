@@ -22,15 +22,15 @@
             }
             
             $scope.onShowShadow = function () {
-                pipAppBar.showShadow();
+                pipAppBar.addShadow();
             };
 
             $scope.onShowShadowSm = function () {
-                pipAppBar.showShadowSm();
+                pipAppBar.addShadow(['sm']);
             };
 
             $scope.onHideShadow = function () {
-                pipAppBar.hideShadow();
+                pipAppBar.removeShadow();
             };
         }
     );

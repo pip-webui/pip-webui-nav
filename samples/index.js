@@ -76,7 +76,7 @@
                     title: 'SideNav',
                     icon: 'icons:area',
                     links: [  
-                        { title: 'SideNav', state: 'sidenav', icon: 'icons:submenu', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
+                        // { title: 'SideNav', state: 'sidenav', icon: 'icons:submenu', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
                         { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' }
                     ]                    
                 }

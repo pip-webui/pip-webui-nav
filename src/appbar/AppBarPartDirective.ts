@@ -16,7 +16,7 @@ function AppBarPartDirectiveController($scope, $element, $attrs, $rootScope, pip
         partName = partName.substr(0, pos);
     }
 
-    onAppBarChanged(null, pipAppBar.config());
+    onAppBarChanged(null, pipAppBar.config);
 
     $rootScope.$on('pipAppBarChanged', onAppBarChanged);
 

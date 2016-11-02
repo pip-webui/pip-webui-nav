@@ -77,6 +77,12 @@
                 $scope.sizeLabel = 'Main region size: ' + mainWidth + '. SideNav size: ' + elementWidth;// + 'Size after change: '
                 
             }
+    $rootScope.$on('pipSideNavStateChange', onStateChanged);
+
+    function onStateChanged(event, state) {
+        console.log('sample sample onStateChanged state', state);
+
+    }
 
         }
     );
