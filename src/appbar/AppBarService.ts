@@ -16,7 +16,7 @@ export interface IAppBarService {
     show(): void;
     hide(): void;
  
-    addShadow(breakpoints?: string[]): void;
+    addShadow(...breakpoints: string[]): void;
     removeShadow(): void;
  
     addClass(...classes: string[]): void;
@@ -72,7 +72,7 @@ class AppBarService implements IAppBarService {
         this.sendConfigEvent();
     }
  
-    public addShadow(breakpoints?: string[]): void {
+    public addShadow(...breakpoints: string[]): void {
         this._config.classes = _.remove(this._config.classes, (c) => c.startsWith('pip-shadow'));
 
         this._config.classes.push('pip-shadow');
