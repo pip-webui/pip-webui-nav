@@ -100,7 +100,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
-
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -111,6 +110,7 @@ export interface INavService {
     header: INavHeaderService;
     menu: INavMenuService;
 }
+
 
 
 
