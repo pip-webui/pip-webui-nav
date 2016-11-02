@@ -146,7 +146,6 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         $element.addClass($scope.sidenavState.addClass);
         
         pipSideNav.state = $scope.sidenavState;
-        console.log('pipSideNav.state set end', $scope.sidenavState);
 
         // complete animation
         $timeout(function () {

@@ -84,7 +84,6 @@ class SideNavService implements ISideNavService {
 
     public set state(value: any) {
         this._state = value || {};
-        console.log('SideNavStateChangedEvent send', value);
         this._rootScope.$emit(SideNavStateChangedEvent, value);
     }
 
