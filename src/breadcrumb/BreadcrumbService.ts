@@ -19,6 +19,9 @@ export interface IBreadcrumbService {
     text: string;
     items: BreadcrumbItem[];
     criteria: string;
+
+    showText(text: string, criteria?: string);
+    showItems(items: BreadcrumbItem[], criteria?: string);
 }
 
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
@@ -50,7 +53,7 @@ class BreadcrumbService implements IBreadcrumbService {
         this._config.text = value;
         this._config.items = null;
 
-        this.sendEvent();
+        this.sendConfigEvent();
     }
 
     public get items(): BreadcrumbItem[] {
@@ -61,7 +64,7 @@ class BreadcrumbService implements IBreadcrumbService {
         this._config.text = null;
         this._config.items = value;
 
-        this.sendEvent();
+        this.sendConfigEvent();
     }
 
     public get criteria(): string {
@@ -70,10 +73,24 @@ class BreadcrumbService implements IBreadcrumbService {
 
     public set criteria(value: string) {
         this._config.criteria = value;
-        this.sendEvent();
+        this.sendConfigEvent();
     }
 
-    public sendEvent() {
+    public showText(text: string, criteria?: string) {
+        this._config.text = text;
+        this._config.items = null;
+        this._config.criteria = criteria;
+        this.sendConfigEvent();
+    }
+
+    public showItems(items: BreadcrumbItem[], criteria?: string) {
+        this._config.items = items || [];
+        this._config.text = null;
+        this._config.criteria = criteria;
+        this.sendConfigEvent();
+    }
+
+    public sendConfigEvent() {
         this._rootScope.$broadcast(BreadcrumbChangedEvent, this._config);
     }
 }

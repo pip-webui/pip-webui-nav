@@ -18,6 +18,8 @@ export interface INavService {
     sidenav: ISideNavService;
     header: INavHeaderService;
     menu: INavMenuService;   
+
+    reset(): void;
 }
 
 class NavService implements INavService {
@@ -43,6 +45,28 @@ class NavService implements INavService {
     public sidenav: ISideNavService;        
     public header: INavHeaderService;
     public menu: INavMenuService;    
+
+    public reset() {
+        // Reset appbar
+        if (this.appbar) 
+            this.appbar.show();
+
+        // Reset icon
+        if (this.icon)
+            this.icon.showMenu();
+
+        // Reset breadcrumb
+        if (this.breadcrumb)
+            this.breadcrumb.showText(null);
+
+        // Reset actions
+        if (this.actions)
+            this.actions.show();
+
+        // Reset search
+        if (this.search)
+            this.search.set(null);
+    }
 }
 
 angular
