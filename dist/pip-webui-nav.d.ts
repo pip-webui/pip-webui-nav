@@ -216,7 +216,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 
 
 
-
 export let OpenSearchEvent: string;
 export let CloseSearchEvent: string;
 export let SearchChangedEvent: string;
@@ -278,6 +277,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
 }
+
 
 
 }
