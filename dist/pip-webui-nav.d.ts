@@ -59,9 +59,9 @@ export interface IAppBarService {
     readonly config: AppBarConfig;
     readonly classes: string[];
     parts: any;
-    show(): void;
+    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
     hide(): void;
-    addShadow(breakpoints?: string[]): void;
+    addShadow(...breakpoints: string[]): void;
     removeShadow(): void;
     addClass(...classes: string[]): void;
     removeClass(...classes: string[]): void;
@@ -105,12 +105,29 @@ export interface IBreadcrumbService {
     text: string;
     items: BreadcrumbItem[];
     criteria: string;
+    showText(text: string, criteria?: string): any;
+    showItems(items: BreadcrumbItem[], criteria?: string): any;
 }
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
 }
 
 
+<<<<<<< HEAD
+=======
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
+>>>>>>> 6c1f7d860bc535bcdc5a171a1ac73e009a94565b
 
 
 

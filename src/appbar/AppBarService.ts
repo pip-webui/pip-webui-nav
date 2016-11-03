@@ -13,10 +13,10 @@ export interface IAppBarService {
     readonly classes: string[];
     parts: any;
 
-    show(): void;
+    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
     hide(): void;
  
-    addShadow(breakpoints?: string[]): void;
+    addShadow(...breakpoints: string[]): void;
     removeShadow(): void;
  
     addClass(...classes: string[]): void;
@@ -62,8 +62,11 @@ class AppBarService implements IAppBarService {
         this.sendConfigEvent();
     }
 
-    public show(): void {
+    public show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void {
         this._config.visible = true;
+        this._config.parts = parts || {};
+        this._config.classes = classes || [];
+        this.setShadow(shadowBreakpoints);
         this.sendConfigEvent();
     }
 
@@ -71,20 +74,25 @@ class AppBarService implements IAppBarService {
         this._config.visible = false;
         this.sendConfigEvent();
     }
- 
-    public addShadow(breakpoints?: string[]): void {
+
+    private setShadow(breakpoints: string[]): void {
         this._config.classes = _.remove(this._config.classes, (c) => c.startsWith('pip-shadow'));
 
-        this._config.classes.push('pip-shadow');
-        _.each(breakpoints, (bp) => {
-            this._config.classes.push('pip-shadow-' + bp);
-        });
+        if (breakpoints != null) {
+            this._config.classes.push('pip-shadow');
+            _.each(breakpoints, (bp) => {
+                this._config.classes.push('pip-shadow-' + bp);
+            });
+        }
+    }
 
+    public addShadow(...breakpoints: string[]): void {
+        this.setShadow(breakpoints);
         this.sendConfigEvent();
     }
 
     public removeShadow(): void {
-        this._config.classes = _.remove(this._config.classes, (c) => c.startsWith('pip-shadow'));
+        this.setShadow(null);
         this.sendConfigEvent();
     }
  

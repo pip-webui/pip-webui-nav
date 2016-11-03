@@ -20,7 +20,11 @@ module.exports = {
 
     browserify: {
         entries: [ 
+<<<<<<< HEAD
             './temp/pip-webui-nav-html.min.js',
+=======
+            './temp/pip-webui-nav-html.min.js', 
+>>>>>>> 6c1f7d860bc535bcdc5a171a1ac73e009a94565b
             './src/index.ts'
         ]
     },
