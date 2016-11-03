@@ -134,6 +134,7 @@ class AppBarProvider implements IAppBarProvider {
 
     public set parts(value: any) {
         this._config.parts = value || {};
+
     }
 
     public get classes(): string[] {

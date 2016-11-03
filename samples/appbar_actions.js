@@ -2,9 +2,9 @@
     'use strict';
 
     var thisModule = angular.module('appAppbar.Actions', []);
-    thisModule.config(function (pipActionsProvider) {
+    thisModule.config(function (pipActionsProvider, pipAppBarProvider) {
 
-        pipActionsProvider.globalPrimaryActions = [
+        pipActionsProvider.primaryGlobalActions = [
             {
                 name: 'sample.notifications', tooltip: 'Notifications',
                 event: 'pipNotificationsClicked', count: 0,
@@ -12,10 +12,12 @@
             }
         ];
 
-        pipActionsProvider.globalSecondaryActions = [
+        pipActionsProvider.secondaryGlobalActions = [
             {name: 'sample.settings', title: 'Settings'},
             {name: 'sample.signout', title: 'Signout'}
         ];
+
+        pipAppBarProvider.parts = {icon: true, title: 'breadcrumb', actions: 'primary', menu: true };
     });
 
     thisModule.controller('ActionsController',
@@ -70,8 +72,6 @@
                 {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}
             ];
 
-            pipAppBar.part('menu', true);
-            pipAppBar.part('actions', 'primary');
             $scope.notificationCount = 2;
 
             $scope.$on('pipAppBarActionClicked', function (event, action) {

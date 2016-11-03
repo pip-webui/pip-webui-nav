@@ -38,6 +38,7 @@ function SecondaryActionsController(
 
     function onActionsChanged(event, config) {
         $scope.config = config;
+
     }
 
     function isHidden(action) {
