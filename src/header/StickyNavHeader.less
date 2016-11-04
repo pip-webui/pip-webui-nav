@@ -24,6 +24,12 @@
 @nav-header-height-sm: 96px;
 
 
+md-sidenav.md-closed {
+   .pip-sticky-nav-header {
+       display: none;
+   }
+}
+
 .pip-sticky-nav-header {
     md-toolbar {
         position: relative;
@@ -50,6 +56,7 @@
         .md-button {
             margin: 0px;
             padding: 0px;
+            border-radius: 50%;
             width: @nav-header-image-big-size;
             min-width: @nav-header-image-big-size;
             height: @nav-header-image-big-size;

@@ -64,7 +64,6 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
 
     // Apply class and call resize
     $element.addClass('pip-sticky-sidenav');
-    pipSideNav.id = 'pip-sticky-sidenav';
 
     if (pipSideNav.config && pipSideNav.config.type != 'popup') {
         $timeout(function () {
@@ -107,7 +106,6 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     }
 
     function setSideNaveState() {
-
         if (isResizing) {
             $timeout(setSideNaveState, animationDuration); // for 
 
@@ -115,7 +113,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         }
         var mainWidth = $(mainContainer).innerWidth();
 
-        if (mainWidth < mediaBreakpoints.sm ) {
+        if (mainWidth < mediaBreakpoints.sm) {
             setState('toggle');
 
             return;
@@ -132,6 +130,19 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
             setState('xlarge');
             return;
         } 
+
+        if (!$scope.sidenavState || !$scope.sidenavState.id) {
+            if (mainWidth < mediaBreakpoints.sm + smallWidth) {
+                setState('toggle');
+
+                return;
+            }
+            if (mainWidth > mediaBreakpoints.md + bigWidth) {
+                setState('large');
+                return;
+            } 
+            setState('small');
+        }
     }
 
     function setState(state: string) {
@@ -166,7 +177,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         // complete animation
         $timeout(function () {
             isResizing = false;
-        }, 0); //animationDuration
+        }, animationDuration); //animationDuration
 
     }
 }

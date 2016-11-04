@@ -10,6 +10,7 @@
             image = null,
             imageBlock = $element.find('.pip-sticky-nav-header-user'),
             $image,
+            currentState,
             loadedDefaultImage = false;
 
         // Apply class and call resize
@@ -31,7 +32,7 @@
             }
 
             onNavHeaderChanged(null, pipNavHeader.config);
-        }, 10);
+        }, 20);
 
         $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
         $rootScope.$on('pipSideNavStateChanged', onStateChanged);
@@ -60,13 +61,17 @@
 
         function onStateChanged(event, state) {
             if (state === undefined) return;
-            var def = $scope.showHeader === undefined ? 0 : 450;
+            currentState = state;
 
             if (state.id == 'toggle') {
-                $scope.showHeader = true;
+                $timeout(function(){
+                    $scope.showHeader = currentState && currentState.id == 'toggle';
+                }, 400);
             } else {
                 $scope.showHeader = false;
             }
+
+             console.log('onStateChanged showHeader', $scope.showHeader);
         }
 
         function setImageMarginCSS(container, image) {
@@ -129,7 +134,9 @@
     function stickyNavHeaderDirective() {
         return {
             restrict: 'EA',
-            scope: {},
+            scope: {
+
+            },
             replace: false,
             templateUrl: 'header/StickyNavHeader.html',
             controller: StickyNavHeaderDirectiveController

@@ -509,6 +509,9 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .sidenav-mobile.pip-sticky-sidenav md-sidenav {
   border-right: none;
 }
+md-sidenav.md-closed .pip-sticky-nav-header {
+  display: none;
+}
 .pip-sticky-nav-header md-toolbar {
   position: relative;
   padding-top: 16px;
@@ -532,6 +535,7 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-nav-header .pip-sticky-nav-header-user .md-button {
   margin: 0px;
   padding: 0px;
+  border-radius: 50%;
   width: 80px;
   min-width: 80px;
   height: 80px;
