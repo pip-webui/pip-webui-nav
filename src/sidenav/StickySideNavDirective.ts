@@ -63,20 +63,27 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     mediaBreakpoints = setBreakpoints();
 
     // Apply class and call resize
-    $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
+    $element.addClass('pip-sticky-sidenav');
     pipSideNav.id = 'pip-sticky-sidenav';
 
-    // setSideNaveState();
+    if (pipSideNav.config && pipSideNav.config.type != 'popup') {
+        $timeout(function () {
+            setSideNaveState()
+        }, 100);
 
-    $timeout(function () {
-        setSideNaveState()
-    }, 100);
-
-    var windowResize = _.debounce(setSideNaveState, 20);
+        var windowResize = _.debounce(setSideNaveState, 20);
+        $rootScope.$on('pipMainResized', windowResize);
+        $rootScope.$on('pipSideNavState', onSideNavState);        
+    } else {
+        isResizing = false;
+        $scope.sidenavState = null;
+        $timeout(function () {
+            setState('toggle');
+        }, 100);        
+        
+    }
 
     $rootScope.$on('pipNavIconClicked', onNavIconClick);
-    $rootScope.$on('pipSideNavState', onSideNavState);
-    $rootScope.$on('pipMainResized', windowResize);
 
     return;
 
@@ -154,7 +161,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         // complete animation
         $timeout(function () {
             isResizing = false;
-        }, animationDuration);
+        }, 0); //animationDuration
 
     }
 }

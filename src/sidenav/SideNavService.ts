@@ -10,6 +10,7 @@ export class SideNavConfig {
     parts: any;
     classes: string[];
     state: any;
+    type: string;
 } 
 
 export interface ISideNavService {
@@ -33,6 +34,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     config: SideNavConfig;
     id: string;
     parts: any;
+    type: string;
     classes: string[];
 
     addClass(...classes: string[]): void;
@@ -128,8 +130,10 @@ class SideNavProvider implements ISideNavProvider {
         id: "pip-sidenav",
         parts: {},
         classes: [],
+        type: 'sticky',
         state: null
     };
+
     private _service: SideNavService;
 
     public get config(): SideNavConfig {
@@ -154,6 +158,14 @@ class SideNavProvider implements ISideNavProvider {
 
     public set parts(value: any) {
         this._config.parts = value || {};
+    }
+
+    public get type(): string {
+        return this._config.type;
+    }
+
+    public set type(value: string) {
+        this._config.type = value;
     }
 
     public get classes(): string[] {

@@ -12,8 +12,6 @@
             $image,
             loadedDefaultImage = false;
 
-        // initHeader();
-
         // Apply class and call resize
         $element.addClass('pip-sticky-nav-header');
 
@@ -120,7 +118,6 @@
             $scope.subtitle = config.subtitle;
             $scope.imageUrl = config.imageUrl;
             $scope.imageCss = config.imageCss;
-
         }
 
         function onUserClick() {
