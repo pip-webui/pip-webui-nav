@@ -96,18 +96,6 @@ import './AppBarService';
 import './AppBarDirective';
 import './AppBarPartDirective';
 
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
-
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -135,11 +123,22 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 import './BreadcrumbDirective';
 import './BreadcrumbService';
 
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
+
 
 import './NavHeaderService';
-import './NavHeaderDirective';
 import './StickyNavHeaderDirective';
-
 
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
@@ -173,7 +172,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 }
 
 
-
 import './NavIconService';
 import './NavIconDirective';
 
@@ -205,9 +203,7 @@ export interface INavIconProvider extends ng.IServiceProvider {
 
 
 import './NavMenuService';
-import './NavMenuDirective';
 import './StickyNavMenuDirective';
-
 
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
@@ -277,10 +273,8 @@ export interface ISearchProvider extends ng.IServiceProvider {
 }
 
 import './SideNavService';
-import './SideNavDirective';
 import './SideNavPartDirective';
 import './StickySideNavDirective';
-
 
 
 export let SideNavChangedEvent: string;

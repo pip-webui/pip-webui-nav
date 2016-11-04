@@ -8,7 +8,7 @@
         'pipTheme', 'pipNav','pipNav.Templates',
         
         'appAppbar.Icons', 'appAppbar.Titles', 'appAppbar.Actions', 'appAppbar.Search',
-        'appAppbar.Shadows', 'appNav.Dropdown', 'appNav.Tabs', 'appNav.SideNav', 'appNav.StickySideNav'
+        'appAppbar.Shadows', 'appNav.Dropdown', 'appNav.Tabs', 'appNav.StickySideNav'
     ]);
 
     var content = [
@@ -20,7 +20,6 @@
 
         { title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
         { title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
-        { title: 'SideNav', state: 'sidenav', icon: 'icons:submenu', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
         { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
     ];
 
@@ -77,7 +76,6 @@
                     title: 'SideNav',
                     icon: 'icons:area',
                     links: [  
-                        // { title: 'SideNav', state: 'sidenav', icon: 'icons:submenu', url: '/sidenav', controller: 'SideNavController', templateUrl: 'sidenav.html' },
                         { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' }
                     ]                    
                 }

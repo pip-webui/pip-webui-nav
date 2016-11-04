@@ -6,7 +6,8 @@
 function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
     "ngInject";
 
-    var pipSideNavElement = $element.parent().parent();
+    var animationDuration = 450,
+        pipSideNavElement = $element.parent().parent();
     // Apply class and call resize
     $element.addClass('pip-sticky-nav-menu');
 
@@ -119,7 +120,7 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
             pipSideNav.close();
             $timeout(function() {
                 $window.location.href = link.href;
-            }, 300);
+            }, animationDuration);
 
             return;
         }
@@ -132,7 +133,7 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
             pipSideNav.close();
             $timeout(function() {
                 $location.url(link.url);
-            }, 300);
+            }, animationDuration);
 
             return;
         }
@@ -150,7 +151,7 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
                     var $state = $injector.get('$state');
                     $state.go(link.state, link.stateParams);
                 }
-            }, 300);
+            }, animationDuration);
 
             return;
         }
