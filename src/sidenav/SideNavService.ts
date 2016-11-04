@@ -108,7 +108,7 @@ class SideNavService implements ISideNavService {
 
     public removeClass(...classes: string[]): void {
         _.each(classes, (c) => {
-            this._config.classes = _.remove(this._config.classes, (cc) => cc == c);
+            this._config.classes = _.reject(this._config.classes, (cc) => cc == c);
         });
         this.sendConfigEvent();
     }
@@ -172,7 +172,7 @@ class SideNavProvider implements ISideNavProvider {
 
     public removeClass(...classes: string[]): void {
         _.each(classes, (c) => {
-            this._config.classes = _.remove(this._config.classes, (cc) => cc == c);
+            this._config.classes = _.reject(this._config.classes, (cc) => cc == c);
         });
     }
  

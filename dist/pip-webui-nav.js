@@ -533,7 +533,7 @@ var AppBarService = (function () {
     };
     AppBarService.prototype.setShadow = function (breakpoints) {
         var _this = this;
-        this._config.classes = _.remove(this._config.classes, function (c) { return c.startsWith('pip-shadow'); });
+        this._config.classes = _.reject(this._config.classes, function (c) { return c.startsWith('pip-shadow'); });
         if (breakpoints != null) {
             this._config.classes.push('pip-shadow');
             _.each(breakpoints, function (bp) {
@@ -571,7 +571,7 @@ var AppBarService = (function () {
             classes[_i - 0] = arguments[_i];
         }
         _.each(classes, function (c) {
-            _this._config.classes = _.remove(_this._config.classes, function (cc) { return cc == c; });
+            _this._config.classes = _.reject(_this._config.classes, function (cc) { return cc == c; });
         });
         this.sendConfigEvent();
     };
@@ -639,7 +639,7 @@ var AppBarProvider = (function () {
             classes[_i - 0] = arguments[_i];
         }
         _.each(classes, function (c) {
-            _this._config.classes = _.remove(_this._config.classes, function (cc) { return cc == c; });
+            _this._config.classes = _.reject(_this._config.classes, function (cc) { return cc == c; });
         });
     };
     AppBarProvider.prototype.part = function (part, value) {
@@ -2301,7 +2301,7 @@ var SideNavService = (function () {
             classes[_i - 0] = arguments[_i];
         }
         _.each(classes, function (c) {
-            _this._config.classes = _.remove(_this._config.classes, function (cc) { return cc == c; });
+            _this._config.classes = _.reject(_this._config.classes, function (cc) { return cc == c; });
         });
         this.sendConfigEvent();
     };
@@ -2380,7 +2380,7 @@ var SideNavProvider = (function () {
             classes[_i - 0] = arguments[_i];
         }
         _.each(classes, function (c) {
-            _this._config.classes = _.remove(_this._config.classes, function (cc) { return cc == c; });
+            _this._config.classes = _.reject(_this._config.classes, function (cc) { return cc == c; });
         });
     };
     SideNavProvider.prototype.part = function (part, value) {
@@ -2791,8 +2791,13 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+<<<<<<< HEAD
   $templateCache.put('tabs/Tabs.html',
     '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{::tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="$mdMedia(\'xs\')"><div class="pip-divider position-top m0"></div><md-select ng-model="activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(activeIndex)"><md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
+=======
+  $templateCache.put('sidenav/SideNav.html',
+    '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg" md-component-id="pip-sidenav" pip-focused="" ng-transclude=""></md-sidenav>');
+>>>>>>> 504426c9701f83b0e5abc0c492dd06632c3be763
 }]);
 })();
 
@@ -2803,8 +2808,13 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+<<<<<<< HEAD
   $templateCache.put('sidenav/SideNav.html',
     '<md-sidenav class="md-sidenav-left md-whiteframe-z2 pip-sidenav color-content-bg" md-component-id="pip-sidenav" pip-focused="" ng-transclude=""></md-sidenav>');
+=======
+  $templateCache.put('sidenav/StickySideNav.html',
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" pip-focused="" ng-transclude=""></md-sidenav>');
+>>>>>>> 504426c9701f83b0e5abc0c492dd06632c3be763
 }]);
 })();
 
