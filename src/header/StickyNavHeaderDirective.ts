@@ -29,7 +29,7 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
 
     $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
     $rootScope.$on('pipSideNavStateChanged', onStateChanged);
-
+    console.log('pipSideNav $rootScope', _.cloneDeep($rootScope));
     return;
 
     function initHeader() {
@@ -111,13 +111,13 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
     function onNavHeaderChanged($event, config) {
         console.log('on onNavHeaderChanged', config);
         setImage(config)
-        $scope.$apply(function () {
+
             console.log('apply onNavHeaderChanged', config);
             $scope.title = config.title;
             $scope.subtitle = config.subtitle;
             $scope.imageUrl = config.imageUrl;
             $scope.imageCss = config.imageCss;
-        });
+
     }
 
     function onUserClick() {

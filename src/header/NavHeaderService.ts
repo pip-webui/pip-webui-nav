@@ -49,6 +49,7 @@ class NavHeaderService {
     public constructor(config: NavHeaderConfig, $rootScope: ng.IRootScopeService) {
         this._config = config;
         this._rootScope = $rootScope;
+        console.log('header public constructor');
     }
 
     public get config(): NavHeaderConfig {
@@ -127,8 +128,7 @@ class NavHeaderService {
     }
 
     private sendConfigEvent() {
-        console.log('send pipNavHeaderChanged');
-       this._rootScope.$broadcast(NavHeaderChangedEvent, this._config);
+       this._rootScope.$emit(NavHeaderChangedEvent, this._config);
     }
 }
 

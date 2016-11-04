@@ -117,9 +117,26 @@
             $scope.onPopupSideNav = function () {
                 // pipSideNav.type = 'popup';
             };
-      
-            $rootScope.$on('pipMainResized', onWindowResized);
 
+            
+            $scope.onBroadcast = function () {
+                console.log('broadcast pipNavHeaderChanged');
+                $rootScope.$broadcast('pipNavHeaderChanged', {tttt: 'bbbbbbbbbbbbbbbbbbbbb'});
+                console.log('broadcast end pipNavHeaderChanged');
+            };
+            $scope.onEmit = function () {
+                console.log('emit pipNavHeaderChanged');
+                $rootScope.$emit('pipNavHeaderChanged', {tttt: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeee'});
+                console.log('emit end pipNavHeaderChanged');
+            };
+
+
+
+            $rootScope.$on('pipMainResized', onWindowResized);
+    $rootScope.$on('pipNavHeaderChanged', function() {
+        console.log('samples pipNavHeaderChanged');
+    });
+    console.log('sample $rootScope', _.cloneDeep($rootScope));
         }
     );
 

@@ -27,6 +27,9 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
     $scope.onExpand = onExpand;
     $scope.isActive = isActive;
 
+ $rootScope.$on('pipNavHeaderChanged', function () {
+     console.log('menu on pipNavHeaderChanged');
+ });
     return;
 
     function setCollapsible() {
