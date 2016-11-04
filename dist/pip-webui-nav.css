@@ -593,6 +593,12 @@ md-select md-select-value .md-text .pip-tabs-badge {
   width: 70px !important;
   transition: width 0.35s ease;
 }
+.sidenav-mobile.pip-sticky-sidenav {
+  border-right: none;
+}
+.sidenav-mobile.pip-sticky-sidenav md-sidenav {
+  border-right: none;
+}
 .pip-nav-header md-toolbar {
   position: relative;
   padding-top: 16px;
