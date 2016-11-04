@@ -29,7 +29,7 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
 
     $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
     $rootScope.$on('pipSideNavStateChanged', onStateChanged);
-    console.log('pipSideNav $rootScope', _.cloneDeep($rootScope));
+
     return;
 
     function initHeader() {
@@ -58,9 +58,9 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
         var def = $scope.showHeader === undefined ? 0 : 450;
 
         if (state.id == 'toggle') {
-            $timeout(function() {
+            // $timeout(function() {
                 $scope.showHeader = true;
-            }, 450);
+            // }, 10);
         } else {
             $scope.showHeader = false;
         }
@@ -109,10 +109,9 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
     }
 
     function onNavHeaderChanged($event, config) {
-        console.log('on onNavHeaderChanged', config);
+
         setImage(config)
 
-            console.log('apply onNavHeaderChanged', config);
             $scope.title = config.title;
             $scope.subtitle = config.subtitle;
             $scope.imageUrl = config.imageUrl;

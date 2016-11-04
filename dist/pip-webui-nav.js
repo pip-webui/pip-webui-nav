@@ -1052,7 +1052,6 @@ var NavHeaderService = (function () {
         },
         set: function (value) {
             this._config.subtitle = value;
-            console.log('set subtitle', value);
             this.sendConfigEvent();
         },
         enumerable: true,
@@ -1114,9 +1113,7 @@ var NavHeaderService = (function () {
         this.sendConfigEvent();
     };
     NavHeaderService.prototype.sendConfigEvent = function () {
-        console.log('send pipNavHeaderChanged');
         this._rootScope.$emit(exports.NavHeaderChangedEvent, this._config);
-        console.log('emit $rootScope', _.cloneDeep(this._rootScope));
     };
     return NavHeaderService;
 }());
@@ -1242,7 +1239,6 @@ angular
         }, 10);
         $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
         $rootScope.$on('pipSideNavStateChanged', onStateChanged);
-        console.log('pipSideNav $rootScope', _.cloneDeep($rootScope));
         return;
         function initHeader() {
             $scope.title = pipNavHeader.config.title;
@@ -1268,9 +1264,7 @@ angular
                 return;
             var def = $scope.showHeader === undefined ? 0 : 450;
             if (state.id == 'toggle') {
-                $timeout(function () {
-                    $scope.showHeader = true;
-                }, 450);
+                $scope.showHeader = true;
             }
             else {
                 $scope.showHeader = false;
@@ -1312,9 +1306,7 @@ angular
             }
         }
         function onNavHeaderChanged($event, config) {
-            console.log('on onNavHeaderChanged', config);
             setImage(config);
-            console.log('apply onNavHeaderChanged', config);
             $scope.title = config.title;
             $scope.subtitle = config.subtitle;
             $scope.imageUrl = config.imageUrl;
@@ -1830,9 +1822,6 @@ angular
         $scope.isSectionEmpty = isSectionEmpty;
         $scope.onExpand = onExpand;
         $scope.isActive = isActive;
-        $rootScope.$on('pipNavHeaderChanged', function () {
-            console.log('menu on pipNavHeaderChanged');
-        });
         return;
         function setCollapsible() {
             var collapsed;
@@ -2739,18 +2728,6 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('icon/NavIcon.html',
-    '<md-button class="md-icon-button pip-nav-icon" ng-if="config.type != \'none\'" ng-class="config.class" ng-click="onNavIconClick()" aria-label="menu"><md-icon ng-if="config.type==\'menu\'" md-svg-icon="icons:menu"></md-icon><img ng-src="{{config.imageUrl}}" ng-if="config.type==\'image\'" height="24" width="24"><md-icon ng-if="config.type==\'back\'" md-svg-icon="icons:arrow-left"></md-icon><md-icon ng-if="config.type==\'icon\'" md-svg-icon="{{config.icon}}"></md-icon></md-button>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('header/NavHeader.html',
     '<md-toolbar ng-hide="!title" class="layout-row layout-align-start-center"><md-button class="pip-nav-header-user md-icon-button" ng-click="onUserClick()" aria-label="current user"><img src="" class="pip-nav-header-user-image" ng-class="imageCss"></md-button><div class="pip-nav-header-user-text"><a class="pip-nav-header-user-pri" ng-click="onUserClick()">{{ title | translate }}</a><div class="pip-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
 }]);
@@ -2765,6 +2742,18 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('header/StickyNavHeader.html',
     '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="" ng-click="onUserClick()" aria-label="current user"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss" ui-event="{ error: \'onImageError($event)\', load: \'onImageLoad($event)\' }"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('icon/NavIcon.html',
+    '<md-button class="md-icon-button pip-nav-icon" ng-if="config.type != \'none\'" ng-class="config.class" ng-click="onNavIconClick()" aria-label="menu"><md-icon ng-if="config.type==\'menu\'" md-svg-icon="icons:menu"></md-icon><img ng-src="{{config.imageUrl}}" ng-if="config.type==\'image\'" height="24" width="24"><md-icon ng-if="config.type==\'back\'" md-svg-icon="icons:arrow-left"></md-icon><md-icon ng-if="config.type==\'icon\'" md-svg-icon="{{config.icon}}"></md-icon></md-button>');
 }]);
 })();
 

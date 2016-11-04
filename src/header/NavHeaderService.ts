@@ -49,7 +49,6 @@ class NavHeaderService {
     public constructor(config: NavHeaderConfig, $rootScope: ng.IRootScopeService) {
         this._config = config;
         this._rootScope = $rootScope;
-        console.log('header public constructor');
     }
 
     public get config(): NavHeaderConfig {
@@ -71,7 +70,6 @@ class NavHeaderService {
 
     public set subtitle(value: string) {
         this._config.subtitle = value;
-        console.log('set subtitle', value)
         this.sendConfigEvent();
     }
 

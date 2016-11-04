@@ -111,6 +111,15 @@
                 pipNavHeader.click = null;
             };
 
+            $scope.onShowNewHeader = function () {
+                var newUser = {
+                    fullName: 'Fedor Fedotov',
+                    details: 'details Fedor',
+                    imageUrl: 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png'
+                };
+               pipNavHeader.show(newUser.fullName, newUser.details, newUser.imageUrl);
+            };
+
             $scope.onStickySideNav = function () {
                 // pipSideNav.type = 'sticky';
             };
