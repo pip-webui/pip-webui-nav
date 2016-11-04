@@ -9,41 +9,66 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
     var
         image = null,
         imageBlock = $element.find('.pip-sticky-nav-header-user'),
-        $image;
+        $image,
+        loadedDefaultImage = false;
+
+    // initHeader();
 
     // Apply class and call resize
     $element.addClass('pip-sticky-nav-header');
 
-    $rootScope.$on('pipIdentityChanged', onIdentityChanged);
-    $rootScope.$on('pipNavHeaderImageChanged', onIdentityChanged);
+    $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
     $rootScope.$on('pipSideNavStateChanged', onStateChanged);
 
     $scope.onUserClick = onUserClick;
+    $scope.onImageError = onImageError;
+    $scope.onImageLoad = onImageLoad;
 
     $timeout(function() {
         $image = $element.find('.pip-sticky-nav-header-user-image');
-        onIdentityChanged();
-        $image.load(function ($event) {
-            image = $($event.target);
-            setImageMarginCSS(imageBlock, image);
-        });
+        console.log('init data');
+        onNavHeaderChanged(null, pipNavHeader.config);
     }, 10);
 
     return;
 
+    // function initHeader() {
+    //     $scope.sections = $scope.title || pipNavHeader.title;    
+    //     pipNavHeader.show = $scope.title; 
+    // }
+
+    // When image is loaded resize/reposition it
+    function onImageLoad($event) {
+        var image = $($event.target);
+        setImageMarginCSS(imageBlock, image);
+    };
+
+    function onImageError($event) {
+        $scope.$apply(function () {
+            var image = $($event.target);
+            loadedDefaultImage = true;
+            setImage(pipNavHeader.config);
+        });
+    };
+
     function onStateChanged(event, state) {
+                console.log('on SideNavStateChangedEvent', state);
         if (state  === undefined) return;
         var def = $scope.showHeader === undefined ? 0 : 450;
 
         if (state.id == 'toggle') {
             $timeout(function() {
+            console.log('on SideNavStateChangedEvent showHeader');
                 $scope.showHeader = true;
             }, 450);
         } else {
+            console.log('on SideNavStateChangedEvent hideHeader');
             $scope.showHeader = false;
         }
+
+        console.log('onStateChanged', $scope.showHeader, state);
     }
-    
+
     function setImageMarginCSS(container, image) {
         var cssParams = {},
             containerWidth = container.width ? container.width() : container.clientWidth,
@@ -69,16 +94,33 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
         image.css(cssParams);
     };
 
-    function onIdentityChanged() {
-        var url: string,
-            config = pipNavHeader.config;
+    function setImage(config) {
+        var url: string;
 
-        url = $scope.imageUrl ? $scope.imageUrl : config.defaultImageUrl;
+        if (!!config.imageUrl && !loadedDefaultImage) {
+            url = config.imageUrl;
+        } else {
+            loadedDefaultImage = true;
+            url = config.defaultImageUrl;
+        }
+
         if (url) {
             $image.attr('src', url);
         } else {
             imageBlock.css('display', 'none');
-        }
+        }        
+    }
+
+    function onNavHeaderChanged($event, config) {
+        console.log('on pipNavHeaderChanged', pipNavHeader.config, config);
+
+        setImage(config)
+        $scope.$apply(function () {
+            $scope.title = config.title;
+            $scope.subtitle = config.subtitle;
+            $scope.imageUrl = config.imageUrl;
+            $scope.imageCss = config.imageCss;
+        });
     }
 
     function onUserClick() {
@@ -91,10 +133,10 @@ function stickyNavHeaderDirective() {
     return {
         restrict: 'EA',
         scope: {
-            title: '=pipTitle',
-            subtitle: '=pipSubTitle',
-            imageUrl: '=pipImage',
-            imageCss: '=pipImageCss'
+            // title: '=pipTitle',
+            // subtitle: '=pipSubTitle',
+            // imageUrl: '=pipImage',
+            // imageCss: '=pipImageCss'
         },
         replace: false,
         templateUrl: 'header/StickyNavHeader.html',

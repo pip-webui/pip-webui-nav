@@ -1,11 +1,14 @@
-<md-toolbar ng-hide="!title || !showHeader" class="layout-row layout-align-start-center">
+<md-toolbar xxxng-hide="!title || !showHeader" class="layout-row layout-align-start-center">
 
     <div class="flex-fixed pip-sticky-nav-header-user">
         <md-button class=""
                 ng-click="onUserClick()"
                 aria-label="current user">
 
-            <img  src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></img>
+            <img  src="" class="pip-sticky-nav-header-user-image" 
+                        ng-class="imageCss"
+                        ui-event="{ error: 'onImageError($event)', load: 'onImageLoad($event)' }">
+            </img>
         </md-button>
     </div>
     <div class="pip-sticky-nav-header-user-text">

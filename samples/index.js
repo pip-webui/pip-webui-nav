@@ -45,14 +45,15 @@
                 });
             });
 
-            pipNavHeader.imageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
-
-            pipSideNav.id = 'pip-sticky-sidenav';
+            
             $scope.user = {
                 fullName: 'Kate Negrienko',
                 details: 'details',
                 imageUrl: 'https://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
+
+            pipNavHeader.show($scope.user.fullName, $scope.user.details, $scope.user.imageUrl);
+            pipNavHeader.defaultImageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
 
             $scope.languages = ['en', 'ru'];
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
@@ -83,13 +84,13 @@
             ];
 
             $scope.onSwitchPage = function(state) {
-                pipSideNav.id = 'pip-sticky-sidenav';
+                
                 pipSideNav.close();
                 $state.go(state);
             };
 
             $scope.onToggleMenu = function() {
-                pipSideNav.id = 'pip-sticky-sidenav';
+                
                 pipSideNav.toggle();
             };
 

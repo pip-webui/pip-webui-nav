@@ -126,6 +126,7 @@ class NavHeaderService {
     }
 
     private sendConfigEvent() {
+        console.log('broadcast pipNavHeaderChanged');
         this._rootScope.$broadcast(NavHeaderChangedEvent, this._config);
     }
 }

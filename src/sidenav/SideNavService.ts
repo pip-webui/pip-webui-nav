@@ -84,18 +84,22 @@ class SideNavService implements ISideNavService {
 
     public set state(value: any) {
         this._state = value || {};
+        console.log('emit SideNavStateChangedEvent', value);
         this._rootScope.$emit(SideNavStateChangedEvent, value);
     }
 
     public open() {
+        console.log('open');
         this._sidenav(this._config.id).open();
     }
             
     public close() {
+        console.log('close', this._config.id);
         this._sidenav(this._config.id).close();
     }
 
     public toggle() {
+        console.log('toggle');
         this._sidenav(this._config.id).toggle();
     }
   

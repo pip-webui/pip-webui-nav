@@ -33,11 +33,9 @@
 
             // revert sticky sidenav
             $scope.$on('$destroy', function() {
-                pipSideNav.id = 'pip-sticky-sidenav';
+                
             });
 
-            // set sidenav
-            // pipSideNav.id ='pip-sidenav';
             $scope.$mdMedia = $mdMedia;
 
             $timeout(function() {

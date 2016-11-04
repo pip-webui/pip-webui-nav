@@ -145,7 +145,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         $scope.sidenavState = $scope.navState[state];
         $element.addClass($scope.sidenavState.addClass);
         
-        if (state == 'toggle') {
+        if (state == 'toggle' && $scope.sidenavState.id) {
             pipSideNav.close();
         }
         pipSideNav.state = $scope.sidenavState;

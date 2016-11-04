@@ -6,7 +6,7 @@
 
     thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,
-                  $injector, pipNavHeader, pipNavMenu) {
+            $injector, pipNavHeader, pipNavMenu) {
 
             var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -31,13 +31,19 @@
                 });
             }
 
+            $scope.user = {
+                fullName: 'Kate Negrienko',
+                details: 'details',
+                imageUrl: 'https://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
+            };
+
             onWindowResized();
             $scope.media = pipMedia ? pipMedia : $mdMedia;
             $scope.$mdMedia = $mdMedia;
-            pipSideNav.id = 'pip-sticky-sidenav';
+            
 
-            $timeout(function() {
-                $('pre code').each(function(i, block) {
+            $timeout(function () {
+                $('pre code').each(function (i, block) {
                     Prism.highlightElement(block);
                 });
             });
@@ -73,17 +79,52 @@
                     elementWidth = $('.pip-sticky-sidenav').innerWidth(),
                     resultSize;
 
-                
+
                 $scope.sizeLabel = 'Main region size: ' + mainWidth + '. SideNav size: ' + elementWidth;// + 'Size after change: '
-                
+
             }
-    $rootScope.$on('pipSideNavStateChange', onStateChanged);
 
-    function onStateChanged(event, state) {
-        console.log('sample sample onStateChanged state', state);
+            $rootScope.$on('pipSideNavStateChange', onStateChanged);
 
-    }
+            function onStateChanged(event, state) {
+                console.log('sample sample onStateChanged state', state);
 
+            }
+
+            $scope.onSetTitleSideNav = function () {
+                pipNavHeader.title = $scope.user.fullName;
+            };
+            $scope.onSetSubtitleSideNav = function () {
+                pipNavHeader.subtitle = $scope.user.details;
+            };
+            $scope.onSetImageSideNav = function () {
+                pipNavHeader.imageUrl = $scope.user.imageUrl;
+            };
+            $scope.onResetTitleSideNav = function () {
+                pipNavHeader.title = null;
+            };
+            $scope.onResetSubtitleSideNav = function () {
+                pipNavHeader.subtitle = null;
+            };
+            $scope.onResetImageSideNav = function () {
+                pipNavHeader.imageUrl = null;
+            };
+            $scope.onSetClickSideNav = function () {
+                pipNavHeader.click = function() {
+                    console.log('onClick sidenav image');
+                };
+            };
+            $scope.onResetClickSideNav = function () {
+                pipNavHeader.click = null;
+            };
+
+            $scope.onStickySideNav = function () {
+                // pipSideNav.type = 'sticky';
+            };
+            $scope.onPopupSideNav = function () {
+                // pipSideNav.type = 'popup';
+            };
+      
         }
     );
 
