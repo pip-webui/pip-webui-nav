@@ -17,25 +17,27 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
     // Apply class and call resize
     $element.addClass('pip-sticky-nav-header');
 
-    $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
-    $rootScope.$on('pipSideNavStateChanged', onStateChanged);
-
     $scope.onUserClick = onUserClick;
     $scope.onImageError = onImageError;
     $scope.onImageLoad = onImageLoad;
 
     $timeout(function() {
         $image = $element.find('.pip-sticky-nav-header-user-image');
-        console.log('init data');
+
         onNavHeaderChanged(null, pipNavHeader.config);
     }, 10);
 
+    $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
+    $rootScope.$on('pipSideNavStateChanged', onStateChanged);
+
     return;
 
-    // function initHeader() {
-    //     $scope.sections = $scope.title || pipNavHeader.title;    
-    //     pipNavHeader.show = $scope.title; 
-    // }
+    function initHeader() {
+        $scope.title = pipNavHeader.config.title;
+        $scope.subtitle = pipNavHeader.config.subtitle;
+        $scope.imageUrl = pipNavHeader.config.imageUrl;
+        $scope.imageCss = pipNavHeader.config.imageCss;
+    }
 
     // When image is loaded resize/reposition it
     function onImageLoad($event) {
@@ -52,21 +54,16 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
     };
 
     function onStateChanged(event, state) {
-                console.log('on SideNavStateChangedEvent', state);
         if (state  === undefined) return;
         var def = $scope.showHeader === undefined ? 0 : 450;
 
         if (state.id == 'toggle') {
             $timeout(function() {
-            console.log('on SideNavStateChangedEvent showHeader');
                 $scope.showHeader = true;
             }, 450);
         } else {
-            console.log('on SideNavStateChangedEvent hideHeader');
             $scope.showHeader = false;
         }
-
-        console.log('onStateChanged', $scope.showHeader, state);
     }
 
     function setImageMarginCSS(container, image) {
@@ -112,10 +109,10 @@ function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeo
     }
 
     function onNavHeaderChanged($event, config) {
-        console.log('on pipNavHeaderChanged', pipNavHeader.config, config);
-
+        console.log('on onNavHeaderChanged', config);
         setImage(config)
         $scope.$apply(function () {
+            console.log('apply onNavHeaderChanged', config);
             $scope.title = config.title;
             $scope.subtitle = config.subtitle;
             $scope.imageUrl = config.imageUrl;

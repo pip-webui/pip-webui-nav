@@ -70,6 +70,7 @@ class NavHeaderService {
 
     public set subtitle(value: string) {
         this._config.subtitle = value;
+        console.log('set subtitle', value)
         this.sendConfigEvent();
     }
 
@@ -126,8 +127,8 @@ class NavHeaderService {
     }
 
     private sendConfigEvent() {
-        console.log('broadcast pipNavHeaderChanged');
-        this._rootScope.$broadcast(NavHeaderChangedEvent, this._config);
+        console.log('send pipNavHeaderChanged');
+       this._rootScope.$broadcast(NavHeaderChangedEvent, this._config);
     }
 }
 

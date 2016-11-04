@@ -66,7 +66,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
     pipSideNav.id = 'pip-sticky-sidenav';
 
-    setSideNaveState();
+    // setSideNaveState();
 
     $timeout(function () {
         setSideNaveState()
@@ -148,6 +148,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         if (state == 'toggle' && $scope.sidenavState.id) {
             pipSideNav.close();
         }
+
         pipSideNav.state = $scope.sidenavState;
 
         // complete animation

@@ -48,7 +48,7 @@
                 });
             });
 
-            $rootScope.$on('pipMainResized', onWindowResized);
+
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);
@@ -81,13 +81,6 @@
 
 
                 $scope.sizeLabel = 'Main region size: ' + mainWidth + '. SideNav size: ' + elementWidth;// + 'Size after change: '
-
-            }
-
-            $rootScope.$on('pipSideNavStateChange', onStateChanged);
-
-            function onStateChanged(event, state) {
-                console.log('sample sample onStateChanged state', state);
 
             }
 
@@ -125,6 +118,8 @@
                 // pipSideNav.type = 'popup';
             };
       
+            $rootScope.$on('pipMainResized', onWindowResized);
+
         }
     );
 

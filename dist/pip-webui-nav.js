@@ -1052,6 +1052,7 @@ var NavHeaderService = (function () {
         },
         set: function (value) {
             this._config.subtitle = value;
+            console.log('set subtitle', value);
             this.sendConfigEvent();
         },
         enumerable: true,
@@ -1113,7 +1114,7 @@ var NavHeaderService = (function () {
         this.sendConfigEvent();
     };
     NavHeaderService.prototype.sendConfigEvent = function () {
-        console.log('broadcast pipNavHeaderChanged');
+        console.log('send pipNavHeaderChanged');
         this._rootScope.$broadcast(exports.NavHeaderChangedEvent, this._config);
     };
     return NavHeaderService;
@@ -1231,17 +1232,22 @@ angular
         "ngInject";
         var image = null, imageBlock = $element.find('.pip-sticky-nav-header-user'), $image, loadedDefaultImage = false;
         $element.addClass('pip-sticky-nav-header');
-        $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
-        $rootScope.$on('pipSideNavStateChanged', onStateChanged);
         $scope.onUserClick = onUserClick;
         $scope.onImageError = onImageError;
         $scope.onImageLoad = onImageLoad;
         $timeout(function () {
             $image = $element.find('.pip-sticky-nav-header-user-image');
-            console.log('init data');
             onNavHeaderChanged(null, pipNavHeader.config);
         }, 10);
+        $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
+        $rootScope.$on('pipSideNavStateChanged', onStateChanged);
         return;
+        function initHeader() {
+            $scope.title = pipNavHeader.config.title;
+            $scope.subtitle = pipNavHeader.config.subtitle;
+            $scope.imageUrl = pipNavHeader.config.imageUrl;
+            $scope.imageCss = pipNavHeader.config.imageCss;
+        }
         function onImageLoad($event) {
             var image = $($event.target);
             setImageMarginCSS(imageBlock, image);
@@ -1256,21 +1262,17 @@ angular
         }
         ;
         function onStateChanged(event, state) {
-            console.log('on SideNavStateChangedEvent', state);
             if (state === undefined)
                 return;
             var def = $scope.showHeader === undefined ? 0 : 450;
             if (state.id == 'toggle') {
                 $timeout(function () {
-                    console.log('on SideNavStateChangedEvent showHeader');
                     $scope.showHeader = true;
                 }, 450);
             }
             else {
-                console.log('on SideNavStateChangedEvent hideHeader');
                 $scope.showHeader = false;
             }
-            console.log('onStateChanged', $scope.showHeader, state);
         }
         function setImageMarginCSS(container, image) {
             var cssParams = {}, containerWidth = container.width ? container.width() : container.clientWidth, containerHeight = container.height ? container.height() : container.clientHeight, imageWidth = image[0].naturalWidth || image.width, imageHeight = image[0].naturalHeight || image.height, margin = 0;
@@ -1308,9 +1310,10 @@ angular
             }
         }
         function onNavHeaderChanged($event, config) {
-            console.log('on pipNavHeaderChanged', pipNavHeader.config, config);
+            console.log('on onNavHeaderChanged', config);
             setImage(config);
             $scope.$apply(function () {
+                console.log('apply onNavHeaderChanged', config);
                 $scope.title = config.title;
                 $scope.subtitle = config.subtitle;
                 $scope.imageUrl = config.imageUrl;
@@ -2296,22 +2299,18 @@ var SideNavService = (function () {
         },
         set: function (value) {
             this._state = value || {};
-            console.log('emit SideNavStateChangedEvent', value);
-            this._rootScope.$emit(exports.SideNavStateChangedEvent, value);
+            this._rootScope.$broadcast(exports.SideNavStateChangedEvent, value);
         },
         enumerable: true,
         configurable: true
     });
     SideNavService.prototype.open = function () {
-        console.log('open');
         this._sidenav(this._config.id).open();
     };
     SideNavService.prototype.close = function () {
-        console.log('close', this._config.id);
         this._sidenav(this._config.id).close();
     };
     SideNavService.prototype.toggle = function () {
-        console.log('toggle');
         this._sidenav(this._config.id).toggle();
     };
     SideNavService.prototype.addClass = function () {
@@ -2486,7 +2485,6 @@ angular
         mediaBreakpoints = setBreakpoints();
         $element.addClass('pip-sticky-sidenav .sidenav-desktop-not-animation');
         pipSideNav.id = 'pip-sticky-sidenav';
-        setSideNaveState();
         $timeout(function () {
             setSideNaveState();
         }, 100);
@@ -2751,7 +2749,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('header/StickyNavHeader.html',
-    '<md-toolbar xxxng-hide="!title || !showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="" ng-click="onUserClick()" aria-label="current user"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss" ui-event="{ error: \'onImageError($event)\', load: \'onImageLoad($event)\' }"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
+    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="" ng-click="onUserClick()" aria-label="current user"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss" ui-event="{ error: \'onImageError($event)\', load: \'onImageLoad($event)\' }"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
 }]);
 })();
 
@@ -2810,8 +2808,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('search/SearchBar.html',
-    '<div class="md-toolbar-tools layout-row" ng-if="vm.enabled"><md-button class="md-icon-button" aria-label="start search" ng-click="vm.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" ng-model="vm.search.text" ng-keydown="vm.onKeyDown($event)"><md-button class="md-icon-button" aria-label="clear search" ng-click="vm.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div><div class="md-toolbar-tools layout-row layout-align-end-center" ng-if="!vm.enabled"><md-button class="md-icon-button" aria-label="start search" ng-click="vm.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
+  $templateCache.put('tabs/Tabs.html',
+    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{::tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="$mdMedia(\'xs\')"><div class="pip-divider position-top m0"></div><md-select ng-model="activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(activeIndex)"><md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
 }]);
 })();
 
@@ -2822,8 +2820,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('tabs/Tabs.html',
-    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="$mdMedia(\'gt-xs\')" md-selected="activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{::tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="$mdMedia(\'xs\')"><div class="pip-divider position-top m0"></div><md-select ng-model="activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(activeIndex)"><md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ ::tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
+  $templateCache.put('search/SearchBar.html',
+    '<div class="md-toolbar-tools layout-row" ng-if="vm.enabled"><md-button class="md-icon-button" aria-label="start search" ng-click="vm.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" ng-model="vm.search.text" ng-keydown="vm.onKeyDown($event)"><md-button class="md-icon-button" aria-label="clear search" ng-click="vm.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div><div class="md-toolbar-tools layout-row layout-align-end-center" ng-if="!vm.enabled"><md-button class="md-icon-button" aria-label="start search" ng-click="vm.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
 }]);
 })();
 
