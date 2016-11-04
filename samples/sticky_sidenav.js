@@ -18,7 +18,17 @@
                     OPEN: 'Open',
                     CODE: 'Code',
                     CLOSE: 'Close',
-                    TOGGLE: 'Toggle'
+                    TOGGLE: 'Toggle',
+                    SET_TITLE : 'Set Title',
+                    SET_SUBTITLE : 'Set Subtitle',
+                    SET_IMAGE : 'Set Image',
+                    RESET_TITLE : 'Reset Title',
+                    RESET_SUBTITLE : 'Reset Subtitle',
+                    RESET_IMAGE : 'Reset Image',
+                    SET_CLICK: 'Set Click by Image',
+                    RESET_CLICK: 'Reset Click by Image',
+                    REFRESH_COUNTER: 'Refresh Counter',
+                    SIDENAV_NEW_HEADER: 'Refresh Sidenav Header'
                 });
 
                 pipTranslate.setTranslations('ru', {
@@ -27,10 +37,21 @@
                     OPEN: 'Открыть',
                     CODE: 'Код',
                     CLOSE: 'Закрыть',
-                    TOGGLE: 'Переключить'
+                    TOGGLE: 'Переключить',
+                    SET_TITLE : 'Задать заголовок',
+                    SET_SUBTITLE : 'Задать подзаголовок',
+                    SET_IMAGE : 'Задать изображение',
+                    RESET_TITLE : 'Удалить заголовок',
+                    RESET_SUBTITLE : 'Удалить подзаголовок',
+                    RESET_IMAGE : 'Удалить картинку',
+                    SET_CLICK: 'Дбавить обработчик клика',
+                    RESET_CLICK: 'Удалить обработчик клика',
+                    REFRESH_COUNTER: 'Обновить счетчики',
+                    SIDENAV_NEW_HEADER: 'Обновить Заголовок'                    
                 });
             }
 
+        
             $scope.user = {
                 fullName: 'Kate Negrienko',
                 details: 'details',
@@ -47,8 +68,6 @@
                     Prism.highlightElement(block);
                 });
             });
-
-
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);
