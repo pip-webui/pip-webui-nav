@@ -64,6 +64,33 @@ import './SecondaryActionsDirective';
 
 
 
+export let BreadcrumbChangedEvent: string;
+export let BreadcrumbBackEvent: string;
+export class BreadcrumbItem {
+    title: string;
+    click?: (item: BreadcrumbItem) => void;
+}
+export class BreadcrumbConfig {
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+}
+export interface IBreadcrumbService {
+    config: BreadcrumbConfig;
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+    showText(text: string, criteria?: string): any;
+    showItems(items: BreadcrumbItem[], criteria?: string): any;
+}
+export interface IBreadcrumbProvider extends ng.IServiceProvider {
+    text: string;
+}
+
+import './BreadcrumbDirective';
+import './BreadcrumbService';
+
+
 
 export let AppBarChangedEvent: string;
 export class AppBarConfig {
@@ -96,33 +123,6 @@ import './AppBarService';
 import './AppBarDirective';
 import './AppBarPartDirective';
 
-
-export let BreadcrumbChangedEvent: string;
-export let BreadcrumbBackEvent: string;
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;
-}
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-}
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    showText(text: string, criteria?: string): any;
-    showItems(items: BreadcrumbItem[], criteria?: string): any;
-}
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
-
-import './BreadcrumbDirective';
-import './BreadcrumbService';
-
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -134,7 +134,6 @@ export interface INavService {
     menu: INavMenuService;
     reset(): void;
 }
-
 
 
 import './NavHeaderService';
@@ -170,6 +169,7 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
 }
+
 
 
 import './NavIconService';
@@ -242,6 +242,44 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 }
 
 
+import './SideNavService';
+import './SideNavPartDirective';
+import './StickySideNavDirective';
+
+
+export let SideNavChangedEvent: string;
+export let SideNavStateChangedEvent: string;
+export let OpenSideNavEvent: string;
+export let CloseSideNavEvent: string;
+export class SideNavConfig {
+    parts: any;
+    classes: string[];
+    state: any;
+    type: string;
+}
+export interface ISideNavService {
+    readonly config: SideNavConfig;
+    readonly classes: string[];
+    parts: any;
+    state: any;
+    open(): void;
+    close(): void;
+    toggle(): void;
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+export interface ISideNavProvider extends ng.IServiceProvider {
+    config: SideNavConfig;
+    parts: any;
+    type: string;
+    classes: string[];
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+
+
 import './SearchService';
 import './SearchBarDirective';
 
@@ -271,47 +309,6 @@ export interface ISearchService {
 }
 export interface ISearchProvider extends ng.IServiceProvider {
 }
-
-import './SideNavService';
-import './SideNavPartDirective';
-import './StickySideNavDirective';
-
-
-export let SideNavChangedEvent: string;
-export let SideNavStateChangedEvent: string;
-export let OpenSideNavEvent: string;
-export let CloseSideNavEvent: string;
-export class SideNavConfig {
-    id: string;
-    parts: any;
-    classes: string[];
-    state: any;
-    type: string;
-}
-export interface ISideNavService {
-    readonly config: SideNavConfig;
-    readonly classes: string[];
-    id: string;
-    parts: any;
-    state: any;
-    open(): void;
-    close(): void;
-    toggle(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface ISideNavProvider extends ng.IServiceProvider {
-    config: SideNavConfig;
-    id: string;
-    parts: any;
-    type: string;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-
 
 
 }

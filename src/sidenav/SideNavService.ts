@@ -6,7 +6,6 @@ export let OpenSideNavEvent = 'pipOpenSideNav';
 export let CloseSideNavEvent = 'pipCloseSideNav';
 
 export class SideNavConfig {
-    id: string;
     parts: any;
     classes: string[];
     state: any;
@@ -16,7 +15,6 @@ export class SideNavConfig {
 export interface ISideNavService {
     readonly config: SideNavConfig;
     readonly classes: string[];
-    id: string;
     parts: any;
     state: any;    
 
@@ -32,7 +30,6 @@ export interface ISideNavService {
 
 export interface ISideNavProvider extends ng.IServiceProvider {
     config: SideNavConfig;
-    id: string;
     parts: any;
     type: string;
     classes: string[];
@@ -48,6 +45,7 @@ class SideNavService implements ISideNavService {
     private _state: any;
     private _rootScope: ng.IRootScopeService;
     private _sidenav: ng.material.ISidenavService;
+    private id = 'pip-sticky-sidenav';
 
     public constructor(config: SideNavConfig, $rootScope: ng.IRootScopeService, $mdSidenav: ng.material.ISidenavService) {
         this._config = config;
@@ -61,14 +59,6 @@ class SideNavService implements ISideNavService {
 
     public get classes(): string[] {
         return this._config.classes;
-    }
-
-    public get id(): string {
-        return this._config.id;
-    }
-
-    public set id(value: string) {
-        this._config.id = value;
     }
 
     public get parts(): any {
@@ -90,15 +80,15 @@ class SideNavService implements ISideNavService {
     }
 
     public open() {
-        this._sidenav(this._config.id).open();
+        this._sidenav(this.id).open();
     }
             
     public close() {
-        this._sidenav(this._config.id).close();
+        this._sidenav(this.id).close();
     }
 
     public toggle() {
-        this._sidenav(this._config.id).toggle();
+        this._sidenav(this.id).toggle();
     }
   
     public addClass(...classes: string[]): void {
@@ -127,7 +117,6 @@ class SideNavService implements ISideNavService {
 
 class SideNavProvider implements ISideNavProvider {
     private _config: SideNavConfig = {
-        id: "pip-sidenav",
         parts: {},
         classes: [],
         type: 'sticky',
@@ -142,14 +131,6 @@ class SideNavProvider implements ISideNavProvider {
 
     public set config(value: SideNavConfig) {
         this._config = value || new SideNavConfig();
-    }
-
-    public get id(): string {
-        return this._config.id;
-    }
-
-    public set id(value: string) {
-        this._config.id = value;
     }
 
     public get parts(): any {

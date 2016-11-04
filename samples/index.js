@@ -31,7 +31,6 @@
             $stateProvider.state(contentItem.state, contentItem);
         }
 
-        pipSideNavProvider.id = 'pip-sticky-sidenav';
         pipSideNavProvider.type = 'sticky';
         pipNavHeaderProvider.defaultImageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
         $urlRouterProvider.otherwise('/nav_icons');
