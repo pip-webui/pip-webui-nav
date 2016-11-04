@@ -71,7 +71,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
             setSideNaveState()
         }, 100);
 
-        var windowResize = _.debounce(setSideNaveState, 20);
+        var windowResize = _.debounce(setSideNaveState, 10);
         $rootScope.$on('pipMainResized', windowResize);
         $rootScope.$on('pipSideNavState', onSideNavState);        
     } else {
@@ -107,6 +107,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     }
 
     function setSideNaveState() {
+
         if (isResizing) {
             $timeout(setSideNaveState, animationDuration); // for 
 
@@ -157,6 +158,10 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         }
 
         pipSideNav.state = $scope.sidenavState;
+        // check sideNav State
+        $timeout(function () {
+            setSideNaveState()
+        }, 15);
 
         // complete animation
         $timeout(function () {
