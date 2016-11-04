@@ -1,4 +1,17 @@
 declare module pip.nav {
+import './dependencies/TranslateFilter';
+import './language/LanguagePickerDirective';
+import './dropdown/DropdownDirective';
+import './tabs/TabsDirective';
+import './actions';
+import './appbar';
+import './search';
+import './breadcrumb';
+import './sidenav';
+import './header';
+import './menu';
+import './icon';
+import './common/NavService';
 
 export let ActionsChangedEvent: string;
 export class SimpleActionItem {
@@ -44,6 +57,9 @@ export interface IActionsProvider extends ng.IServiceProvider {
     secondaryLocalActions: ActionItem[];
 }
 
+import './ActionsService';
+import './PrimaryActionsDirective';
+import './SecondaryActionsDirective';
 
 
 
@@ -76,6 +92,21 @@ export interface IAppBarProvider extends ng.IServiceProvider {
     part(part: string, value: any): void;
 }
 
+import './AppBarService';
+import './AppBarDirective';
+import './AppBarPartDirective';
+
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
 
 
 export let BreadcrumbChangedEvent: string;
@@ -101,51 +132,16 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
 }
 
-
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
+import './BreadcrumbDirective';
+import './BreadcrumbService';
 
 
+import './NavHeaderService';
+import './NavHeaderDirective';
+import './StickyNavHeaderDirective';
 
 
-
-export let NavIconChangedEvent: 'pipNavIconChanged';
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
-
-
-
-export let NavHeaderChangedEvent: 'pipNavHeaderChanged';
+export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
     imageUrl: string;
     defaultImageUrl: string;
@@ -178,6 +174,69 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 
 
 
+import './NavIconService';
+import './NavIconDirective';
+
+
+export let NavIconChangedEvent: 'pipNavIconChanged';
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
+}
+export interface INavIconService {
+    readonly config: NavIconConfig;
+    showMenu(callbackOrEvent?: any): void;
+    showIcon(icon: string, callbackOrEvent?: any): void;
+    showBack(callbackOrEvent?: any): void;
+    showImage(imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+    config: NavIconConfig;
+    setMenu(callbackOrEvent?: any): void;
+    setIcon(icon: string, callbackOrEvent?: any): void;
+    setBack(callbackOrEvent?: any): void;
+    setImage(imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
+
+
+import './SearchService';
+import './SearchBarDirective';
+
+
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
+
+import './NavMenuService';
+import './NavMenuDirective';
+import './StickyNavMenuDirective';
 
 
 export let NavMenuChangedEvent: string;
@@ -218,34 +277,10 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 
 
 
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-
+import './SideNavService';
+import './SideNavDirective';
+import './SideNavPartDirective';
+import './StickySideNavDirective';
 
 
 

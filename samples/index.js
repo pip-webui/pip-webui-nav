@@ -24,7 +24,7 @@
         { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
     ];
 
-    thisModule.config(function($mdIconProvider, pipAppBarProvider, $stateProvider, pipSideNavProvider, $urlRouterProvider) {
+    thisModule.config(function($mdIconProvider, pipAppBarProvider, $stateProvider, $urlRouterProvider, pipSideNavProvider, pipNavHeaderProvider) {
         $mdIconProvider.iconSet('icons', 'images/icons.svg', 512);
 
         for (var i = 0; i < content.length; i++) {
@@ -33,6 +33,7 @@
         }
 
         pipSideNavProvider.id = 'pip-sticky-sidenav';
+        pipNavHeaderProvider.defaultImageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
         $urlRouterProvider.otherwise('/nav_icons');
     });
 
@@ -49,12 +50,10 @@
             $scope.user = {
                 fullName: 'Kate Negrienko',
                 details: 'details',
-                imageUrl: 'https://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
+                imageUrl: 'https://www.american.edu1/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
 
             pipNavHeader.show($scope.user.fullName, $scope.user.details, $scope.user.imageUrl);
-            pipNavHeader.defaultImageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
-
             $scope.languages = ['en', 'ru'];
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
 

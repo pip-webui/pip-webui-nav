@@ -1,6 +1,6 @@
 'use strict';
 
-export let NavHeaderChangedEvent: 'pipNavHeaderChanged';
+export let NavHeaderChangedEvent = 'pipNavHeaderChanged';
 
 export class NavHeaderConfig {
     // Image url
