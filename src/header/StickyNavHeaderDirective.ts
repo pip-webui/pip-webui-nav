@@ -70,8 +70,6 @@
             } else {
                 $scope.showHeader = false;
             }
-
-             console.log('onStateChanged showHeader', $scope.showHeader);
         }
 
         function setImageMarginCSS(container, image) {

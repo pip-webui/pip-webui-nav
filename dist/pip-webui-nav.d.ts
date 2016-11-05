@@ -177,6 +177,7 @@ export interface INavIconProvider extends ng.IServiceProvider {
 }
 
 
+
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
     name: string;
@@ -212,7 +213,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
 }
-
 
 
 

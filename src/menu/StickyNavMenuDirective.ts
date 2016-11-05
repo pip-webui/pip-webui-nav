@@ -84,7 +84,17 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
     }
 
     function isActive(link) {
-        if (link.href) {
+        if (link.parentstate) {
+            var $state = $injector.has('$state') ? $injector.get('$state') : null;
+            if ($state != null && $state.includes(link.parentstate)) {
+                return true;
+            }
+        } else if (link.state) {
+            var $state = $injector.has('$state') ? $injector.get('$state') : null;
+            if ($state != null && $state.includes(link.state)) {
+                return true;
+            }
+        } else if (link.href) {
             if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
                 return true;
             }
@@ -92,13 +102,8 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
             if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
                 return true;
             }
-        } else if (link.state) {
-            var $state = $injector.has('$state') ? $injector.get('$state') : null;
+        }  
 
-            if ($state != null && $state.includes(link.state)) {
-                return true;
-            }
-        }
 
         return false;
     }

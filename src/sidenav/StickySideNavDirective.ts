@@ -149,24 +149,23 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
         if (isResizing) return;
         if ($scope.sidenavState && $scope.sidenavState.id == state) return;
 
-        if ($scope.sidenavState && $scope.sidenavState.id == 'toggle') {
+        if (state != 'toggle') {
             $element.removeClass('sidenav-mobile');
         }
 
-        if ($scope.sidenavState && $scope.sidenavState.id == 'small') {
+        if (state != 'small') {
             $element.removeClass('pip-sticky-nav-small');
         }
 
         if (state == 'toggle') {
-            $element.removeClass('sidenav-desktop pip-sticky-nav-small'); 
+            $element.removeClass('sidenav-desktop'); 
         }
         isResizing = true;
+        if (state == 'toggle') {
+            pipSideNav.close();
+        }        
         $scope.sidenavState = $scope.navState[state];
         $element.addClass($scope.sidenavState.addClass);
-        
-        if (state == 'toggle' && $scope.sidenavState.id) {
-            pipSideNav.close();
-        }
 
         pipSideNav.state = $scope.sidenavState;
         // check sideNav State
