@@ -115,6 +115,7 @@
         }
 
         function onNavHeaderChanged($event, config) {
+            if (!config) return;
             setImage(config, false)
 
             $scope.title = config.title;
