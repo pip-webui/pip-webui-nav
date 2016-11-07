@@ -40,6 +40,8 @@
         return;
 
         function initHeader() {
+            if (!pipNavHeader.config) return;
+
             $scope.title = pipNavHeader.config.title;
             $scope.subtitle = pipNavHeader.config.subtitle;
             $scope.imageUrl = pipNavHeader.config.imageUrl;
@@ -98,6 +100,8 @@
         };
 
         function setImage(config, loadError: boolean) {
+            if (!config) return;
+
             var url: string;
 
             if (!loadError && !!config.imageUrl && !loadedDefaultImage) {

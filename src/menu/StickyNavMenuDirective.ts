@@ -68,6 +68,8 @@ function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window,
     }
 
     function onConfigChanged(event, config) {
+        if (!config) return;
+        
         $scope.sections = config.sections;
     }
 
