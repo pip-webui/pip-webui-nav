@@ -111,7 +111,7 @@
                 url = config.defaultImageUrl;
             }
 
-            if (url) {
+            if (url && $image) {
                 $image.attr('src', url);
             } else {
                 imageBlock.css('display', 'none');
