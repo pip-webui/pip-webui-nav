@@ -22,9 +22,9 @@ function NavIconDirectiveController($scope, $element, $attrs, $rootScope, $windo
     function onNavIconClick() {
         var breadcrumb, backCallback;
 
-        if (_.isFunction($scope.config.callback)) {
+        if (_.isFunction($scope.config.click)) {
             // Execute nav icon callback
-            $scope.config.callback();
+            $scope.config.click();
         } else if ($scope.config.event) {
             $rootScope.$broadcast($scope.config.event);
         } else if ($scope.config.type == 'menu') {

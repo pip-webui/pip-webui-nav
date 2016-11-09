@@ -1,6 +1,6 @@
 'use strict';
 
-export let NavIconChangedEvent: 'pipNavIconChanged';
+export let NavIconChangedEvent = 'pipNavIconChanged';
 
 export class NavIconConfig {
     // Type of nav icon: 'back', 'menu', 'image' or 'none'
@@ -51,9 +51,7 @@ class NavIconService implements INavIconService {
     private setCallbackOrEvent(callbackOrEvent?: any): void {
         if (_.isFunction(callbackOrEvent))
             this._config.click = callbackOrEvent;
-        else this._config.click = null;
-
-        if (_.isString(callbackOrEvent))
+        else if (_.isString(callbackOrEvent))
             this._config.event = callbackOrEvent;
         else this._config.event = null;
     }
