@@ -16,16 +16,18 @@
                     SHOW_LOGO: 'Show logo',
                     SHOW_TEXT: 'Show title text',
                     SHOW_BREADCRUMB: 'Show breadcrumbs',
+                    SHOW_BREADCRUMB_WITH_ACTION: 'Show breadcrumbs with actions',
                     SHOW_APPBAR: 'Show appBar',
                     HIDE_APPBAR: 'Hide appBar'
                 });
-                    pipTranslate.setTranslations('ru', {
-                        SHOW_LOGO: 'Отобразить логотип',
-                        SHOW_TEXT: 'Отобразить текст заголовка',
-                        SHOW_BREADCRUMB: 'Отобразить breadcrumbs',
-                        SHOW_APPBAR: 'Показать appBar',
-                        HIDE_APPBAR: 'Скрыть appBar'                        
-                    });
+                pipTranslate.setTranslations('ru', {
+                    SHOW_LOGO: 'Отобразить логотип',
+                    SHOW_TEXT: 'Отобразить текст заголовка',
+                    SHOW_BREADCRUMB: 'Отобразить breadcrumbs',
+                    SHOW_BREADCRUMB_WITH_ACTION: 'Отобразить breadcrumbs c подменю',
+                    SHOW_APPBAR: 'Показать appBar',
+                    HIDE_APPBAR: 'Скрыть appBar'
+                });
 
             }
             $scope.title = 'Title';
@@ -58,13 +60,40 @@
                     icon: false,
                     title: 'breadcrumb',
                 };
-                pipBreadcrumb.items=[
-                    {title: 'Header'},
-                    {title: 'SubHeader'},
-                    {title: $scope.title}
+                pipBreadcrumb.items = [
+                    { title: 'Header' },
+                    { title: 'SubHeader' },
+                    { title: $scope.title }
                 ];
-
             };
+
+            $scope.onShowTitleBreadcrumbActions = function () {
+                pipAppBar.parts = {
+                    logo: false,
+                    icon: false,
+                    title: 'breadcrumb',
+                };
+                pipBreadcrumb.items = [
+                    { title: 'Header' },
+                    { title: 'SubHeader', 
+                      subActions: [
+                        {name: 'sample.send', title: 'Send Message', event: 'pipGuidesClicked'},
+                        {name: 'sample.discard', title: 'Discard Message'},
+                        {divider: true},
+                        {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}                          
+                      ]
+                    },
+                    { title: $scope.title,
+                      subActions: [
+                        {name: 'sample.send', title: 'Send Message', event: 'pipGuidesClicked'},
+                        {name: 'sample.discard', title: 'Discard Message'},
+                        {divider: true},
+                        {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}                          
+                      ]
+                    }
+                ];
+            };
+
         }
     );
 
