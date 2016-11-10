@@ -28,6 +28,14 @@
                 console.log('Nav Icon Clicked'); // eslint-disable-line
             });
 
+            $scope.onHideAppBar = function () {
+                pipAppBar.hide();
+            }
+
+            $scope.onShowAppBar = function () {
+                pipAppBar.show();
+            }
+
             $scope.onHideNavIcon = function () {
                 pipNavIcon.hide();
                 pipAppBar.part('icon', false);

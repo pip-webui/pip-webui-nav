@@ -95,6 +95,14 @@
                 pipActions.updateCount('sample.notifications', $scope.notificationCount);
             };
 
+            $scope.onHideAppBar = function () {
+                pipAppBar.hide();
+            }
+
+            $scope.onShowAppBar = function () {
+                pipAppBar.show();
+            }
+
             $scope.onShowActions = function () {
                 pipActions.show($scope.localPrimaryActions, $scope.localSecondaryActions);
                 pipActions.updateCount('sample.notifications', $scope.notificationCount);

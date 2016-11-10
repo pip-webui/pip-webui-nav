@@ -67,6 +67,14 @@
                 ];
             };
 
+            $scope.onHideAppBar = function () {
+                pipAppBar.hide();
+            }
+
+            $scope.onShowAppBar = function () {
+                pipAppBar.show();
+            }
+
             $scope.onShowTitleBreadcrumbActions = function () {
                 pipAppBar.parts = {
                     logo: false,

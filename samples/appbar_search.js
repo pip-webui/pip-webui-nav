@@ -38,7 +38,15 @@
             function searchClicked (search) {
                 alert('Search'+ search);
             };
-            
+
+            $scope.onHideAppBar = function () {
+                pipAppBar.hide();
+            }
+
+            $scope.onShowAppBar = function () {
+                pipAppBar.show();
+            }
+
             $scope.onShowSearch = function () {
                 pipAppBar.part('search', true);
                 pipAppBar.part('title', false);

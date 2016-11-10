@@ -20,7 +20,15 @@
                     HIDE_SHADOW: 'Скрыть тень'
                 });
             }
-            
+
+            $scope.onHideAppBar = function () {
+                pipAppBar.hide();
+            }
+
+            $scope.onShowAppBar = function () {
+                pipAppBar.show();
+            }
+
             $scope.onShowShadow = function () {
                 pipAppBar.addShadow();
             };
