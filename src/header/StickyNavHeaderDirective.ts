@@ -66,7 +66,7 @@
             currentState = state;
 
             if (state.id == 'toggle') {
-                $timeout(function(){
+                $timeout(function () {
                     $scope.showHeader = currentState && currentState.id == 'toggle';
                 }, 400);
             } else {

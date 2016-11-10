@@ -11,23 +11,23 @@ export class SideNavConfig {
     state: any;
     type: string;
     visible: boolean;
-} 
+}
 
 export interface ISideNavService {
     readonly config: SideNavConfig;
     readonly classes: string[];
     parts: any;
-    state: any;    
+    state: any;
 
     open(): void;
     close(): void;
     toggle(): void;
     show(): void;
     hide(): void;
-  
+
     addClass(...classes: string[]): void;
     removeClass(...classes: string[]): void;
- 
+
     part(part: string, value: any): void;
 }
 
@@ -86,7 +86,7 @@ class SideNavService implements ISideNavService {
     public open() {
         this._sidenav(this.id).open();
     }
-            
+
     public close() {
         this._sidenav(this.id).close();
     }
@@ -122,7 +122,7 @@ class SideNavService implements ISideNavService {
         });
         this.sendConfigEvent();
     }
- 
+
     public part(part: string, value: any): void {
         this._config.parts[part] = value;
         this.sendConfigEvent();
@@ -195,7 +195,7 @@ class SideNavProvider implements ISideNavProvider {
             this._config.classes = _.reject(this._config.classes, (cc) => cc == c);
         });
     }
- 
+
     public part(part: string, value: any): void {
         this._config.parts[part] = value;
     }
@@ -207,7 +207,7 @@ class SideNavProvider implements ISideNavProvider {
             this._service = new SideNavService(this._config, $rootScope, $mdSidenav);
 
         return this._service;
-    }     
+    }
 }
 
 function hookSideNavEvents($rootScope: ng.IRootScopeService, pipSideNav: ISideNavService) {

@@ -1,18 +1,14 @@
 <md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center">
 
     <div class="flex-fixed pip-sticky-nav-header-user">
-        <md-button class="md-icon-button"
-                ng-click="onUserClick()"
-                aria-label="current user">
+        <md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user">
 
-            <img  src="" class="pip-sticky-nav-header-user-image" 
-                        ng-class="imageCss">
+            <img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss">
             </img>
         </md-button>
     </div>
     <div class="pip-sticky-nav-header-user-text">
-        <div class="pip-sticky-nav-header-user-pri"
-             ng-click="onUserClick()">
+        <div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()">
             {{ title | translate }}
         </div>
         <div class="pip-sticky-nav-header-user-sec">
