@@ -66,6 +66,9 @@ class NavService implements INavService {
         // Reset search
         if (this.search)
             this.search.set(null);
+
+        if (this.sidenav)
+            this.sidenav.show();
     }
 }
 
