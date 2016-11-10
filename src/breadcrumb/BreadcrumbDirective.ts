@@ -1,5 +1,6 @@
 'use strict';
 
+import { SimpleActionItem } from '../actions/ActionsService';
 import { BreadcrumbItem } from './BreadcrumbService';
 import { BreadcrumbConfig } from './BreadcrumbService';
 import { IBreadcrumbService } from './BreadcrumbService';
@@ -13,6 +14,9 @@ import { OpenSearchEvent } from '../search/SearchService'
 class BreadcrumbController {
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;
+    private _location: ng.ILocationService;
+    private _injector: ng.auto.IInjectorService;
+    private originatorEv: Event;
     
     public config: BreadcrumbConfig;
 
@@ -21,12 +25,16 @@ class BreadcrumbController {
         $rootScope: ng.IRootScopeService,
         $window: ng.IWindowService,
         $state: ng.ui.IStateService,
+        $location: ng.ILocationService,
+        $injector: ng.auto.IInjectorService,
         pipBreadcrumb: IBreadcrumbService
     ) {
         "ngInject";
 
         this._rootScope = $rootScope;
         this._window = $window;
+        this._location = $location;
+        this._injector = $injector;
 
         // Apply class and call resize
         $element.addClass('pip-breadcrumb');
@@ -62,6 +70,55 @@ class BreadcrumbController {
 
     public openSearch() {
         this._rootScope.$broadcast(OpenSearchEvent);
+    }
+    
+    public actionsVisible(item: BreadcrumbItem): boolean {
+
+        return angular.isArray(item.subActions) && item.subActions.length > 1;
+    }
+
+    public onOpenMenu($mdOpenMenu, event: Event) {
+        console.log('onOpenMenu');
+        this.originatorEv = event;
+        $mdOpenMenu(this.originatorEv);
+    }
+
+    public onSubActionClick(action: SimpleActionItem): void { 
+        if (!action || action.divider) {
+            return;
+        }
+
+        if (action.click) {
+            action.click(action);
+            return;
+        }
+
+        if (action.href) {
+            this._window.location.href = action.href;
+            return;
+        }
+
+        if (action.url) {
+            this._location.url(action.url);
+            return;
+        }
+
+        if (action.state) {
+            if (this._injector.has('$state')) {
+                let $state = this._injector.get('$state') as ng.ui.IStateService
+                $state.go(action.state, action.stateParams);
+            }
+            return;
+        }
+
+        if (action.event) {
+            this._rootScope.$broadcast(action.event);
+            this.originatorEv = null;
+        } else {
+            // Otherwise raise notification
+            this._rootScope.$broadcast('pipActionClicked', action.name);
+            this.originatorEv = null;
+        }
     }
 }
 
