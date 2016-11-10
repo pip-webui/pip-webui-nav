@@ -78,7 +78,6 @@ class BreadcrumbController {
     }
 
     public onOpenMenu($mdOpenMenu, event: Event) {
-        console.log('onOpenMenu');
         this.originatorEv = event;
         $mdOpenMenu(this.originatorEv);
     }

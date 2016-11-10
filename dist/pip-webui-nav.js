@@ -714,7 +714,6 @@ var SearchService_1 = require('../search/SearchService');
             return angular.isArray(item.subActions) && item.subActions.length > 1;
         };
         BreadcrumbController.prototype.onOpenMenu = function ($mdOpenMenu, event) {
-            console.log('onOpenMenu');
             this.originatorEv = event;
             $mdOpenMenu(this.originatorEv);
         };
