@@ -10,6 +10,7 @@ export class SideNavConfig {
     classes: string[];
     state: any;
     type: string;
+    show: boolean;
 } 
 
 export interface ISideNavService {
@@ -21,6 +22,8 @@ export interface ISideNavService {
     open(): void;
     close(): void;
     toggle(): void;
+    show(): void;
+    hide(): void;
   
     addClass(...classes: string[]): void;
     removeClass(...classes: string[]): void;
@@ -32,6 +35,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     config: SideNavConfig;
     parts: any;
     type: string;
+    show: boolean;
     classes: string[];
 
     addClass(...classes: string[]): void;
@@ -90,7 +94,21 @@ class SideNavService implements ISideNavService {
     public toggle() {
         this._sidenav(this.id).toggle();
     }
-  
+
+    public show() {
+        if (!this._config.show) {
+            this._config.show = true;
+            this.sendConfigEvent();
+        }
+    }
+
+    public hide() {
+        if (this._config.show) {
+            this._config.show = false;
+            this.sendConfigEvent();
+        }
+    }
+
     public addClass(...classes: string[]): void {
         _.each(classes, (c) => {
             this._config.classes.push(c);
@@ -120,7 +138,8 @@ class SideNavProvider implements ISideNavProvider {
         parts: {},
         classes: [],
         type: 'sticky',
-        state: null
+        state: null,
+        show: true
     };
 
     private _service: SideNavService;
@@ -147,6 +166,14 @@ class SideNavProvider implements ISideNavProvider {
 
     public set type(value: string) {
         this._config.type = value;
+    }
+
+    public get show(): boolean {
+        return this._config.show;
+    }
+
+    public set show(value: boolean) {
+        this._config.show = value;
     }
 
     public get classes(): string[] {

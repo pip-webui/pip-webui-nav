@@ -81,6 +81,14 @@
                 pipSideNav.open();
             };
 
+            $scope.onSideNavShow = function () {
+                pipSideNav.show();
+            };
+
+            $scope.onSideNavHide = function () {
+                pipSideNav.hide();
+            };
+
             $scope.onCloseSideNav = function () {
                 pipSideNav.close();
             };

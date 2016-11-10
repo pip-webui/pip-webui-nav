@@ -83,6 +83,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     }
 
     $rootScope.$on('pipNavIconClicked', onNavIconClick);
+    $rootScope.$on('pipSideNavChanged', onSideNavChanged);
 
     return;
 
@@ -92,6 +93,16 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
             return  {xs: 639, sm: 959, md: 1024, lg: 1919}; 
         } else {
             return pipMedia.breakpoints;
+        }
+    }
+
+    function onSideNavChanged(event, config) {
+        var config = config || {};
+
+        if (config.show) {
+            $element.css('display', 'block');
+        } else {
+            $element.css('display', 'none');
         }
     }
 
