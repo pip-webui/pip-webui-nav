@@ -99,7 +99,7 @@ function StickySideNavDirectiveController($scope, $element, $rootScope, $injecto
     function onSideNavChanged(event, config) {
         var config = config || {};
 
-        if (config.show) {
+        if (config.visible) {
             $element.css('display', 'block');
         } else {
             $element.css('display', 'none');
