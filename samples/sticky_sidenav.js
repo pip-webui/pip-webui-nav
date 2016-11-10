@@ -6,7 +6,7 @@
 
     thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,
-            $injector, pipNavHeader, pipNavMenu) {
+            $injector, pipNavHeader, pipNavMenu, pipNavService) {
 
             var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -95,6 +95,10 @@
 
             $scope.onToggleSideNav = function () {
                 pipSideNav.toggle();
+            };
+
+            $scope.onReset = function () {
+                pipNavService.reset();
             };
 
             $scope.onRefreshCounter = function () {
