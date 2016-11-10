@@ -12,7 +12,7 @@
         $element.addClass('pip-sticky-nav-menu');
 
         $scope.sections = $scope.sections || pipNavMenu.sections;
-        pipNavMenu.sections = $scope.sections;
+        // pipNavMenu.sections = $scope.sections;
         setCollapsible();
         // todo set from services
         $scope.defaultIcon = pipNavMenu.defaultIcon;
@@ -173,8 +173,8 @@
         return {
             restrict: 'EA',
             scope: {
-                sections: '=pipSections',
-                collapsed: '=pipCollapsed'
+                // sections: '?=pipSections',
+                // collapsed: '=pipCollapsed'
             },
             replace: false,
             templateUrl: 'menu/StickyNavMenu.html',
