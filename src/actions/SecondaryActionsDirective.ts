@@ -92,8 +92,8 @@ function SecondaryActionsController(
             return;
         }
 
-        if (action.callback) {
-            action.callback();
+        if (action.click) {
+            action.click();
             return;
         }
 
