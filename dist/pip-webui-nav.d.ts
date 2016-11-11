@@ -179,6 +179,37 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 
 
 
+<<<<<<< HEAD
+=======
+
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
+
+
+>>>>>>> 07206e0abe31b3d9d0ce2a5abbb118d4e82135c7
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
     name: string;
