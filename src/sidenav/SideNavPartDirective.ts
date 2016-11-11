@@ -21,8 +21,11 @@
 
         function onSideNavChanged(event, config) {
             var parts = config.parts || {};
-            var currentPartValue = config[partName];
-            $scope.visible = partValue ? currentPartValue == partValue : currentPartValue;
+            var currentPartValue = parts[partName];
+            var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
+
+            if (visible != $scope.visible)
+                $scope.visible = visible;
         }
 
     }
@@ -38,9 +41,9 @@
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
             scope: true,
-            link: function ($scope: any, $element, $attrs) {
+            link: function linkFunction($scope: any, $element, $attrs) {
                 $attrs.ngIf = function () { return $scope.visible };
-                ngIf.link.apply(ngIf);
+                ngIf.link.apply(ngIf, arguments);
             },
             controller: SideNavPartDirectiveController
         };
