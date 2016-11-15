@@ -2,6 +2,7 @@
 //-----------
 
 @sidenav-width: 318px;
+@sidenav-middle-width: 238px;
 @sidenav-small-width: 70px;
 @sidenav-width-sm: 298px;
 @sidenav-small-width-sm: 56px;
@@ -38,7 +39,7 @@
     overflow-x: hidden;
   }
 
-  md-tooltip {
+  /*md-tooltip {
     position: absolute;
     z-index: 100;
     overflow: hidden;
@@ -103,23 +104,24 @@
       -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       pointer-events: auto; 
-    }  
+    }  */
 }
 
-.pip-sticky-sidenav.pip-sticky-nav-small {
+.pip-sticky-sidenav.sidenav-smalldesktop {
+  md-sidenav {
+    width: @sidenav-middle-width !important;
+    transition: width 0.35s ease;
+  }
+}
+.pip-sticky-sidenav.pip-sticky-nav-small, .pip-sticky-sidenav.pip-sticky-nav-small.sidenav-smalldesktop {
   md-sidenav {
     width: @sidenav-small-width !important;
     transition: width 0.35s ease;
   }
 }
-
 .sidenav-mobile.pip-sticky-sidenav {
-
     border-right: none;
-
-
   md-sidenav {
     border-right: none;
   }
-
 }

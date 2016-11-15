@@ -10,6 +10,7 @@
         var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
             mainContainer = '.pip-main',
             bigWidth = 320, // expanded sidenav width
+            middleWidth = 240,
             smallWidth = 72, // shrink sidenav width
             isResizing = false,
             animationDuration = 600,
@@ -30,7 +31,7 @@
             },
             small: { // media(md)
                 id: 'small',
-                addClass: 'pip-sticky-nav-small sidenav-desktop', // change size, color, selected?
+                addClass: 'pip-sticky-nav-small sidenav-smalldesktop', // change size, color, selected?
                 showHeader: false,
                 isLockedOpen: true,
                 expandedButton: false,
@@ -40,7 +41,7 @@
             },
             large: { // media(lg)
                 id: 'large',
-                addClass: 'sidenav-desktop', // change size, color, selected?
+                addClass: 'sidenav-smalldesktop', // change size, color, selected?
                 showHeader: false,
                 isLockedOpen: true,
                 expandedButton: true,
@@ -122,19 +123,20 @@
 
                 return;
             }
+
             let mainWidth = $(mainContainer).innerWidth();
             let sideNavWidth = $('.pip-sticky-sidenav').innerWidth();
             let currentWidth = sideNavWidth ? sideNavWidth + 2 : 0; // add border width
 
-            if (mainWidth + currentWidth < mediaBreakpoints.sm - smallWidth) {
+            if (mainWidth + currentWidth < mediaBreakpoints.sm ) {
                 setState('toggle', );
                 return;
             }            
-            if (mainWidth + currentWidth < mediaBreakpoints.md - smallWidth) {
+            if (mainWidth + currentWidth < mediaBreakpoints.md ) {
                 setState('small');
                 return;
             }   
-            if (mainWidth + currentWidth < mediaBreakpoints.lg - bigWidth) {
+            if (mainWidth + currentWidth < mediaBreakpoints.lg ) {
                 setState('large');
                 return;
             }        
@@ -183,9 +185,18 @@
                 $element.removeClass('pip-sticky-nav-small');
             }
 
-            if (state == 'toggle') {
+            if (state != 'xlarge') {
                 $element.removeClass('sidenav-desktop');
             }
+
+            if (state != 'large') {
+                $element.removeClass('sidenav-smalldesktop');
+            }
+
+            // if (state == 'toggle') {
+            //     $element.removeClass('sidenav-desktop');
+            //     $element.removeClass('sidenav-desktop');
+            // }
             isResizing = true;
             if (state == 'toggle') {
                 pipSideNav.close();

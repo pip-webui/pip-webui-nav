@@ -15,7 +15,6 @@
 
 .pip-sticky-nav-menu {
     width: 100%;
-
     .md-subheader {
         line-height: 48px;
         background: @sidenav-bg;
@@ -23,7 +22,6 @@
             padding: 0px 23px;
         }
     }
-
     .pip-section {
         padding-bottom: 8px;
 
@@ -36,7 +34,6 @@
         background-color: @nav-menu-selected-color;
     }
     .pip-sticky-nav-menu-item {
-
         .md-button {
             padding-left: @nav-menu-padding !important;
             padding-right: @nav-menu-padding !important;
@@ -52,7 +49,6 @@
             -moz-background-clip:    padding;
             -webkit-background-clip: padding-box;
             background-clip:         padding-box;
-
 
             .pip-sticky-nav-menu-title {
                 padding-right: 0px 24px 0px 0px;
@@ -92,8 +88,24 @@
             }
         }
     }
-
 }
+
+.sidenav-smalldesktop {
+    .pip-sticky-nav-menu {
+        .pip-sticky-nav-menu-item {
+            .md-button {
+                .pip-sticky-nav-menu-title {
+                    width: 140px;
+                    animation: title-animation-sm 0.35s ease;
+                }
+                .pip-sticky-nav-menu-badge {
+                    left: 194px;
+                    animation: badge-animation-sm 0.35s ease;
+                }
+            }
+        }
+    }    
+} 
 
 .pip-sticky-nav-small.sidenav-desktop {
     .pip-sticky-nav-menu {
@@ -124,6 +136,34 @@
     }
 }
 
+.pip-sticky-nav-small.sidenav-smalldesktop {
+    .pip-sticky-nav-menu {
+        overflow: hidden;
+        .pip-sticky-nav-menu-item {
+            .md-button {
+                margin-right: 0px;
+
+                .pip-sticky-nav-menu-badge {
+                    top: 5px;
+                    left: 32px;
+                    animation: badge-animation-sm-back 0.35s ease;
+                }
+
+                .pip-sticky-nav-menu-title {
+                    opacity: 0;
+                    animation: title-animation-sm-back 0.35s ease;
+                }
+
+                .pip-sticky-nav-menu-icon-block {
+                    .pip-sticky-nav-menu-icon {
+                        margin-left: 0px;
+                    }
+                }
+
+            }
+        }
+    }
+}
 
 
 @keyframes title-animation {
@@ -172,6 +212,61 @@
 @keyframes badge-animation-back {
     0% {
         left: 274px;
+        top: 11px;
+    }
+    100% {
+        top: 5px;
+        left: 32px;
+    }
+}
+
+
+@keyframes title-animation-sm {
+    0% {
+        opacity: 0;
+        width: 0px;
+    }
+    50%{
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+        width: 140px;
+    }
+}
+
+@keyframes title-animation-sm-back {
+    0% {
+        opacity: 1;
+        width: 140px;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    80% {
+        opacity: 0;
+        width: 0px;
+    }
+    100% {
+        opacity: 0;
+        width: 0px;
+    }
+}
+
+@keyframes badge-animation-sm {
+    0% {
+        top: 5px;
+        left: 32px;
+    }
+    100% {
+        left: 194px;
+        top: 11px;
+    }
+}
+
+@keyframes badge-animation-sm-back {
+    0% {
+        left: 194px;
         top: 11px;
     }
     100% {
