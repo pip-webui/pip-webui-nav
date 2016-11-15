@@ -49,7 +49,7 @@
         <md-icon class="pip-triangle-down" md-svg-icon="icons:triangle-down"></md-icon>
         </span>
         <md-menu-content width="3">
-            <md-menu-item ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 0">
+            <md-menu-item ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 1">
                 <md-button ng-click="vm.onClick(item)"><span>{{item.title | translate}}</span></md-button>
             </md-menu-item>
             <md-menu-item ng-if="vm.config.text">
