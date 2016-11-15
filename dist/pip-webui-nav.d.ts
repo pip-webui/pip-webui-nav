@@ -117,6 +117,34 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 
 
 
+
+
+export let NavIconChangedEvent: string;
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
+}
+export interface INavIconService {
+    readonly config: NavIconConfig;
+    showMenu(callbackOrEvent?: any): void;
+    showIcon(icon: string, callbackOrEvent?: any): void;
+    showBack(callbackOrEvent?: any): void;
+    showImage(imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+    config: NavIconConfig;
+    setMenu(callbackOrEvent?: any): void;
+    setIcon(icon: string, callbackOrEvent?: any): void;
+    setBack(callbackOrEvent?: any): void;
+    setImage(imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
+
+
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
     imageUrl: string;
@@ -146,73 +174,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     event: string;
     set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
-}
-
-
-
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
-
-
-
-
-export let NavMenuChangedEvent: string;
-export class NavMenuLink {
-    name: string;
-    title: string;
-    icon?: string;
-    count?: number;
-    access?: (link: NavMenuLink) => boolean;
-    href?: string;
-    url?: string;
-    state?: string;
-    stateParams?: any;
-    event?: string;
-    click?: (link: NavMenuLink) => void;
-}
-export class NavMenuSection {
-    name: string;
-    title?: string;
-    icon?: string;
-    links: NavMenuLink[];
-    access?: (section: NavMenuSection) => boolean;
-}
-export class NavMenuConfig {
-    sections: NavMenuSection[];
-    defaultIcon: string;
-}
-export interface INavMenuService {
-    sections: NavMenuSection[];
-    defaultIcon: string;
-    updateCount(link: string, count: number): void;
-    clearCounts(): void;
-}
-export interface INavMenuProvider extends ng.IServiceProvider {
-    sections: NavMenuSection[];
-    defaultIcon: string;
 }
 
 
@@ -283,6 +244,45 @@ export interface ISearchService {
 }
 export interface ISearchProvider extends ng.IServiceProvider {
 }
+
+
+export let NavMenuChangedEvent: string;
+export class NavMenuLink {
+    name: string;
+    title: string;
+    icon?: string;
+    count?: number;
+    access?: (link: NavMenuLink) => boolean;
+    href?: string;
+    url?: string;
+    state?: string;
+    stateParams?: any;
+    event?: string;
+    click?: (link: NavMenuLink) => void;
+}
+export class NavMenuSection {
+    name: string;
+    title?: string;
+    icon?: string;
+    links: NavMenuLink[];
+    access?: (section: NavMenuSection) => boolean;
+}
+export class NavMenuConfig {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+}
+export interface INavMenuService {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+    updateCount(link: string, count: number): void;
+    clearCounts(): void;
+}
+export interface INavMenuProvider extends ng.IServiceProvider {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+}
+
+
 
 }
 
