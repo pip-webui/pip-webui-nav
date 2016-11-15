@@ -48,32 +48,6 @@ export interface IActionsProvider extends ng.IServiceProvider {
 
 
 
-export let BreadcrumbChangedEvent: string;
-export let BreadcrumbBackEvent: string;
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;
-    subActions?: SimpleActionItem[];
-}
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-}
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    showText(text: string, criteria?: string): any;
-    showItems(items: BreadcrumbItem[], criteria?: string): any;
-}
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
-
-
-
 
 export let AppBarChangedEvent: string;
 export class AppBarConfig {
@@ -104,7 +78,6 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 
 
 
-<<<<<<< HEAD
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
 export class BreadcrumbItem {
@@ -143,8 +116,6 @@ export interface INavService {
 }
 
 
-=======
->>>>>>> 10e45ea7dcaa157848bef90ef18a674df3f04b02
 
 
 export let NavHeaderChangedEvent: string;
@@ -247,8 +218,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 
 
 
-<<<<<<< HEAD
-=======
 export let OpenSearchEvent: string;
 export let CloseSearchEvent: string;
 export let SearchChangedEvent: string;
@@ -277,7 +246,7 @@ export interface ISearchProvider extends ng.IServiceProvider {
 
 
 
->>>>>>> 10e45ea7dcaa157848bef90ef18a674df3f04b02
+
 export let SideNavChangedEvent: string;
 export let SideNavStateChangedEvent: string;
 export let OpenSideNavEvent: string;
@@ -315,37 +284,5 @@ export interface ISideNavProvider extends ng.IServiceProvider {
 }
 
 
-
-<<<<<<< HEAD
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-
-=======
->>>>>>> 10e45ea7dcaa157848bef90ef18a674df3f04b02
 }
 
