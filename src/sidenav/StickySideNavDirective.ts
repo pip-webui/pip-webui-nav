@@ -12,7 +12,7 @@
             bigWidth = 320, // expanded sidenav width
             smallWidth = 72, // shrink sidenav width
             isResizing = false,
-            animationDuration = 400,
+            animationDuration = 600,
             mediaBreakpoints;
 
         pipMedia = pipMedia !== undefined ? pipMedia : $mdMedia;
@@ -122,38 +122,53 @@
 
                 return;
             }
-            var mainWidth = $(mainContainer).innerWidth();
+            let mainWidth = $(mainContainer).innerWidth();
+            let sideNavWidth = $('.pip-sticky-sidenav').innerWidth();
+            let currentWidth = sideNavWidth ? sideNavWidth + 2 : 0; // add border width
 
-            if (mainWidth < mediaBreakpoints.sm) {
-                setState('toggle');
-
+            if (mainWidth + currentWidth < mediaBreakpoints.sm - smallWidth) {
+                setState('toggle', );
                 return;
-            }
-            if (mainWidth < mediaBreakpoints.md + smallWidth && mainWidth >= mediaBreakpoints.sm + smallWidth) {
+            }            
+            if (mainWidth + currentWidth < mediaBreakpoints.md - smallWidth) {
                 setState('small');
                 return;
-            }
-            if (mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth <= mediaBreakpoints.lg) {
+            }   
+            if (mainWidth + currentWidth < mediaBreakpoints.lg - bigWidth) {
                 setState('large');
                 return;
-            }
-            if (mainWidth > mediaBreakpoints.lg) {
-                setState('xlarge');
-                return;
-            }
+            }        
+            setState('xlarge');     
+            // if (mainWidth < mediaBreakpoints.sm) {
+            //     setState('toggle');
 
-            if (!$scope.sidenavState || !$scope.sidenavState.id) {
-                if (mainWidth < mediaBreakpoints.sm + smallWidth) {
-                    setState('toggle');
+            //     return;
+            // }
+            // if (mainWidth < mediaBreakpoints.md + smallWidth && mainWidth >= mediaBreakpoints.sm + smallWidth) {
+            //     setState('small');
+            //     return;
+            // }
+            // if (mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth <= mediaBreakpoints.lg) {
+            //     setState('large');
+            //     return;
+            // }
+            // if (mainWidth > mediaBreakpoints.lg) {
+            //     setState('xlarge');
+            //     return;
+            // }
 
-                    return;
-                }
-                if (mainWidth > mediaBreakpoints.md + bigWidth) {
-                    setState('large');
-                    return;
-                }
-                setState('small');
-            }
+            // if (!$scope.sidenavState || !$scope.sidenavState.id) {
+            //     if (mainWidth < mediaBreakpoints.sm + smallWidth) {
+            //         setState('toggle');
+
+            //         return;
+            //     }
+            //     if (mainWidth > mediaBreakpoints.md + bigWidth) {
+            //         setState('large');
+            //         return;
+            //     }
+            //     setState('small');
+            // }
         }
 
         function setState(state: string) {
