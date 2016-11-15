@@ -103,6 +103,7 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
+
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -114,6 +115,7 @@ export interface INavService {
     menu: INavMenuService;
     reset(): void;
 }
+
 
 
 export let NavHeaderChangedEvent: string;
@@ -150,7 +152,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 
 
 
-
 export let NavIconChangedEvent: string;
 export class NavIconConfig {
     type: string;
@@ -174,36 +175,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
     setBack(callbackOrEvent?: any): void;
     setImage(imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
-}
-
-
-
-
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
 }
 
 
@@ -243,6 +214,35 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     defaultIcon: string;
 }
 
+
+
+
+
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
 
 
 
