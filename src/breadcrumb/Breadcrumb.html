@@ -35,7 +35,9 @@
 
     <!-- Mobile breadcrumb dropdown -->
     <md-menu xmd-offset="0 48" class="hide-gt-xs">
-        <span class="pip-mobile-breadcrumb layout-row" ng-click="vm.config.items && vm.config.items.length > 1 ? $mdOpenMenu() : return" md-ink-ripple aria-label="open breadcrumb">
+        <span class="pip-mobile-breadcrumb layout-row" 
+                ng-click="vm.config.items && vm.config.items.length > 1 ? $mdOpenMenu() : return" 
+                md-ink-ripple aria-label="open breadcrumb">
             <span class="text-overflow">
                 <!-- Search criteria -->
                 <span ng-if="vm.config.criteria"
@@ -44,11 +46,12 @@
                 <span ng-if="vm.config.text">    
                     {{vm.config.text | translate}}
                 </span>
-                <span ng-if="vm.config.items && vm.config.items.length > 0">    
+                <span ng-if="vm.config.items && vm.config.items.length > 0" class="{{(vm.config.items && vm.config.items.length > 1) ? 'cursor-pointer' : '' }}">    
                     {{vm.config.items[vm.config.items.length - 1].title | translate}}
                 </span>
         </span>
-        <md-icon class="pip-triangle-down" md-svg-icon="icons:triangle-down" ng-if="vm.config.items && vm.config.items.length > 1"></md-icon>
+        <md-icon class="pip-triangle-down cursor-pointer" md-svg-icon="icons:triangle-down" 
+                ng-if="vm.config.items && vm.config.items.length > 1"></md-icon>
         </span>
         <md-menu-content width="3">
             <md-menu-item ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 0">
