@@ -7,7 +7,9 @@ function TabsDirectiveController($scope, $element, $attrs, $mdMedia, $injector, 
     "ngInject";
 
     var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null, 
+        pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
         currentTheme = 'default';
+        
     if (pipTheme)
         currentTheme = pipTheme.use();
     else if ($rootScope.$theme)
@@ -23,7 +25,7 @@ function TabsDirectiveController($scope, $element, $attrs, $mdMedia, $injector, 
         }
     }
     
-    $scope.$mdMedia = $mdMedia;
+    $scope.media = pipMedia !== undefined ? pipMedia : $mdMedia;
     $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
 
     var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;

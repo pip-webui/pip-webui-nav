@@ -7,6 +7,7 @@ function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootS
     "ngInject";
 
     let pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null; 
+    let pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
     let currentTheme = 'default';
 
     if (pipTheme)
@@ -17,7 +18,7 @@ function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootS
     $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
 
     //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
-    $scope.$mdMedia = $mdMedia;
+    $scope.media = pipMedia !== undefined ? pipMedia : $mdMedia;
     $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
     $scope.activeIndex = $scope.activeIndex || 0;
 
