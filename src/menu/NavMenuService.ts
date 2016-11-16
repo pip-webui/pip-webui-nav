@@ -21,6 +21,8 @@ export class NavMenuLink {
     public state?: string;
     // Parameters for $state.go(state, stateParams)
     public stateParams?: any;
+    // parent state or parent state for selection item 
+    public parentState?: string;
     // $rootScope.broadcast(event)
     public event?: string;
     // Click callback
