@@ -9,8 +9,8 @@
 
             <span class="hide-xs" ng-if="!$last || !vm.actionsVisible(item)">{{item.title | translate}}</span>
 
-
-            <md-menu class="hide-xs" ng-if="$last && vm.actionsVisible(item)"  md-offset="0 44">
+            <div ng-if="$last && vm.actionsVisible(item)" style="display: inline-block; position: relative;">
+            <md-menu class="hide-xs" md-offset="0 44">
                 <span class="layout-row pip-breadcrumb-item-menu cursor-pointer {{$last ? 'breadcrumb-accent' : ''}}" 
                     ng-click="vm.onOpenMenu($mdOpenMenu, $event)" md-ink-ripple aria-label="open breadcrumb actions">
                     {{item.title | translate}}
@@ -27,7 +27,7 @@
                     <md-menu-divider ng-if="subItem.divider" ng-repeat-end></md-menu-divider>                    
                 </md-menu-content>
             </md-menu>
-
+            </div>
         </span>
         <md-icon ng-repeat-end md-svg-icon="icons:chevron-right" ng-hide="$last"></md-icon>
         <!-- Text title -->
