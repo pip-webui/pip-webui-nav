@@ -85,18 +85,18 @@
                     { title: 'Header' },
                     { title: 'SubHeader', 
                       subActions: [
-                        {name: 'sample.send', title: 'Send Message', event: 'pipGuidesClicked'},
-                        {name: 'sample.discard', title: 'Discard Message'},
+                        {name: 'sample.send', icon: 'icons:list', title: 'Send Message', event: 'pipGuidesClicked'},
+                        {name: 'sample.discard', icon: 'icons:action', title: 'Discard Message'},
                         {divider: true},
-                        {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}                          
+                        {name: 'configure',  icon: 'icons:area', title: 'Configure...', href: 'http://www.google.com'}                          
                       ]
                     },
                     { title: $scope.title,
                       subActions: [
-                        {name: 'sample.send', title: 'Send Message', event: 'pipGuidesClicked'},
-                        {name: 'sample.discard', title: 'Discard Message'},
+                        {name: 'sample.send', icon: 'icons:list', title: 'Send Message', event: 'pipGuidesClicked'},
+                        {name: 'sample.discard', icon: 'icons:action', title: 'Discard Message'},
                         {divider: true},
-                        {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}                          
+                        {name: 'configure', icon: 'icons:area', title: 'Configure...', href: 'http://www.google.com'}                          
                       ]
                     }
                 ];
