@@ -1,90 +1,4 @@
 declare module pip.nav {
-import './dependencies/TranslateFilter';
-import './language/LanguagePickerDirective';
-import './dropdown/DropdownDirective';
-import './tabs/TabsDirective';
-import './actions';
-import './appbar';
-import './search';
-import './breadcrumb';
-import './sidenav';
-import './header';
-import './menu';
-import './icon';
-import './common/NavService';
-
-
-export let BreadcrumbChangedEvent: string;
-export let BreadcrumbBackEvent: string;
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;
-    subActions?: SimpleActionItem[];
-}
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-}
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    showText(text: string, criteria?: string): any;
-    showItems(items: BreadcrumbItem[], criteria?: string): any;
-}
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
-
-import './BreadcrumbDirective';
-import './BreadcrumbService';
-
-
-
-export let AppBarChangedEvent: string;
-export class AppBarConfig {
-    visible: boolean;
-    parts: any;
-    classes: string[];
-}
-export interface IAppBarService {
-    readonly config: AppBarConfig;
-    readonly classes: string[];
-    parts: any;
-    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
-    hide(): void;
-    addShadow(...breakpoints: string[]): void;
-    removeShadow(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface IAppBarProvider extends ng.IServiceProvider {
-    config: AppBarConfig;
-    parts: any;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-
-import './AppBarService';
-import './AppBarDirective';
-import './AppBarPartDirective';
-
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
 
 export let ActionsChangedEvent: string;
 export class SimpleActionItem {
@@ -130,17 +44,140 @@ export interface IActionsProvider extends ng.IServiceProvider {
     secondaryLocalActions: ActionItem[];
 }
 
-import './ActionsService';
-import './PrimaryActionsDirective';
-import './SecondaryActionsDirective';
 
 
 
 
 
+export let AppBarChangedEvent: string;
+export class AppBarConfig {
+    visible: boolean;
+    parts: any;
+    classes: string[];
+}
+export interface IAppBarService {
+    readonly config: AppBarConfig;
+    readonly classes: string[];
+    parts: any;
+    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
+    hide(): void;
+    addShadow(...breakpoints: string[]): void;
+    removeShadow(): void;
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+export interface IAppBarProvider extends ng.IServiceProvider {
+    config: AppBarConfig;
+    parts: any;
+    classes: string[];
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
 
-import './NavMenuService';
-import './StickyNavMenuDirective';
+
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
+
+export let BreadcrumbChangedEvent: string;
+export let BreadcrumbBackEvent: string;
+export class BreadcrumbItem {
+    title: string;
+    click?: (item: BreadcrumbItem) => void;
+    subActions?: SimpleActionItem[];
+}
+export class BreadcrumbConfig {
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+}
+export interface IBreadcrumbService {
+    config: BreadcrumbConfig;
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+    showText(text: string, criteria?: string): any;
+    showItems(items: BreadcrumbItem[], criteria?: string): any;
+}
+export interface IBreadcrumbProvider extends ng.IServiceProvider {
+    text: string;
+}
+
+
+
+
+
+export let NavHeaderChangedEvent: string;
+export class NavHeaderConfig {
+    imageUrl: string;
+    defaultImageUrl: string;
+    title: string;
+    subtitle: string;
+    click: () => void;
+    event: string;
+}
+export interface INavHeaderService {
+    readonly config: NavHeaderConfig;
+    imageUrl: string;
+    title: string;
+    subtitle: string;
+    click: () => void;
+    event: string;
+    show(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavHeaderProvider extends ng.IServiceProvider {
+    config: NavHeaderConfig;
+    defaultImageUrl: string;
+    imageUrl: string;
+    title: string;
+    subtitle: string;
+    click: () => void;
+    event: string;
+    set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
+
+
+
+
+export let NavIconChangedEvent: string;
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
+}
+export interface INavIconService {
+    readonly config: NavIconConfig;
+    showMenu(callbackOrEvent?: any): void;
+    showIcon(icon: string, callbackOrEvent?: any): void;
+    showBack(callbackOrEvent?: any): void;
+    showImage(imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+    config: NavIconConfig;
+    setMenu(callbackOrEvent?: any): void;
+    setIcon(icon: string, callbackOrEvent?: any): void;
+    setBack(callbackOrEvent?: any): void;
+    setImage(imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
+
+
 
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
@@ -180,37 +217,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 }
 
 
-import './NavIconService';
-import './NavIconDirective';
-
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
-
-import './SearchService';
-import './SearchBarDirective';
 
 
 export let OpenSearchEvent: string;
@@ -239,9 +245,6 @@ export interface ISearchService {
 export interface ISearchProvider extends ng.IServiceProvider {
 }
 
-import './SideNavService';
-import './SideNavPartDirective';
-import './StickySideNavDirective';
 
 
 export let SideNavChangedEvent: string;
@@ -280,41 +283,6 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     part(part: string, value: any): void;
 }
 
-
-
-import './NavHeaderService';
-import './StickyNavHeaderDirective';
-
-export let NavHeaderChangedEvent: string;
-export class NavHeaderConfig {
-    imageUrl: string;
-    defaultImageUrl: string;
-    title: string;
-    subtitle: string;
-    click: () => void;
-    event: string;
-}
-export interface INavHeaderService {
-    readonly config: NavHeaderConfig;
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    click: () => void;
-    event: string;
-    show(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavHeaderProvider extends ng.IServiceProvider {
-    config: NavHeaderConfig;
-    defaultImageUrl: string;
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    click: () => void;
-    event: string;
-    set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
 
 
 }
