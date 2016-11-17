@@ -41,6 +41,10 @@
             $scope.onSelect = function (tab, index) {
                 $scope.activeValue = tab.id;
             };
+
+            $scope.onChange = function () {
+                console.log('activeIndex', $scope.activeIndex);
+            }
         }
     );
 

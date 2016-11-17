@@ -3,7 +3,7 @@
 // Prevent junk from going into typescript definitions
 (() => {
 
-function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootScope, $mdMedia) {
+function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootScope, $mdMedia, $timeout) {
     "ngInject";
 
     let pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null; 
@@ -35,6 +35,12 @@ function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootS
         if ($scope.select) {
             $scope.select($scope.actions[index], $scope.activeIndex);
         }
+
+        if ($scope.pipChange) {
+            $timeout(function() {
+                $scope.pipChange();
+            });
+        }
     };
 
     $scope.show = function () {
@@ -55,7 +61,8 @@ function dropdownDirective() {
             actions: '=pipActions',
             showDropdown: '&pipShow',
             activeIndex: '=pipActiveIndex',
-            select: '=pipDropdownSelect'
+            select: '=pipDropdownSelect',
+            pipChange: '&'
         },
         templateUrl: 'dropdown/Dropdown.html',
         controller: DropdownDirectiveController
