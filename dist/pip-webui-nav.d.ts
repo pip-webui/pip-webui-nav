@@ -77,6 +77,18 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 }
 
 
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -102,18 +114,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
 }
 
-
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
 
 
 
@@ -258,7 +258,6 @@ export interface ISideNavProvider extends ng.IServiceProvider {
 
 
 
-
 export let OpenSearchEvent: string;
 export let CloseSearchEvent: string;
 export let SearchChangedEvent: string;
@@ -284,6 +283,7 @@ export interface ISearchService {
 }
 export interface ISearchProvider extends ng.IServiceProvider {
 }
+
 
 }
 
