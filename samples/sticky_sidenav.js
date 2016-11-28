@@ -102,7 +102,9 @@
             };
 
             $scope.onRefreshCounter = function () {
+                console.log('onRefreshCounter');
                 pipNavMenu.updateCount('StickySideNav', Math.floor(Math.random() * (99 - 20) + 20));
+                pipNavMenu.updateBadgeStyle('StickySideNav', 'color-warm-bg');
             };
 
             function onWindowResized() {

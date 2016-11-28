@@ -55,7 +55,7 @@
                 </div>
 
                 <!--<div class="flex pip-sticky-nav-menu-expander"></div>-->
-                <div class="pip-sticky-nav-menu-badge color-badge-bg flex-fixed" ng-if="link.count">
+                <div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : 'color-badge-bg' }} flex-fixed" ng-if="link.count">
                     {{link.count}}
                 </div>
             </md-button>
