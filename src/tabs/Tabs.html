@@ -6,7 +6,7 @@
             <md-tab-label>
                 {{::tab.nameLocal }}
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
-                    {{::tab.newCounts }}
+                    {{ tab.newCounts }}
                 </div>
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>
             </md-tab-label>
@@ -20,7 +20,7 @@
             <md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}">
                 {{ ::tab.nameLocal }}
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
-                    {{ ::tab.newCounts }}
+                    {{ tab.newCounts }}
                 </div>
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div>
             </md-option>
