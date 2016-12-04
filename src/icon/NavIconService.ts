@@ -49,11 +49,16 @@ class NavIconService implements INavIconService {
     }
 
     private setCallbackOrEvent(callbackOrEvent?: any): void {
-        if (_.isFunction(callbackOrEvent))
+        if (_.isFunction(callbackOrEvent)) {
             this._config.click = callbackOrEvent;
-        else if (_.isString(callbackOrEvent))
+            this._config.event = null;
+        } else if (_.isString(callbackOrEvent)) {
+            this._config.click = null;
             this._config.event = callbackOrEvent;
-        else this._config.event = null;
+        } else {
+            this._config.click = null;
+            this._config.event = null;
+        }
     }
 
     public showMenu(callbackOrEvent?: any): void {
