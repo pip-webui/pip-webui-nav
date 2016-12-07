@@ -30,17 +30,19 @@ class SearchBarController {
         $element.addClass('pip-search-bar');
 
         this.config = pipSearch.config;
-
+        this.stateChange();
         $rootScope.$on(SearchChangedEvent, (event, config) => { 
             this.onSearchChanged(event, config); 
         });
     }
 
     private stateChange() {
-        if (this.enable) {
+        if (this.enabled) {
             this._element.addClass('w-stretch');
+            console.log('width 100%');
         } else {
             this._element.removeClass('w-stretch');
+            console.log('remove width');
         }
     }
 

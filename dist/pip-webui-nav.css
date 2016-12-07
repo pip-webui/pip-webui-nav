@@ -428,6 +428,16 @@ md-select md-select-value .md-text .pip-tabs-badge {
   -webkit-appearance: none;
   /* без сброса оформление не применится */
 }
+.pip-search-bar .md-toolbar-tools {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.pip-search-bar .md-toolbar-tools .md-button:last-child {
+  margin-right: 0px;
+}
+.pip-search-bar .md-toolbar-tools .md-button:first-child {
+  margin-left: 0px;
+}
 .pip-sticky-sidenav.overflow-visible {
   overflow: visible!important;
 }
