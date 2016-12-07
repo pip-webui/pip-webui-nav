@@ -39,10 +39,8 @@ class SearchBarController {
     private stateChange() {
         if (this.enabled) {
             this._element.addClass('w-stretch');
-            console.log('width 100%');
         } else {
             this._element.removeClass('w-stretch');
-            console.log('remove width');
         }
     }
 
