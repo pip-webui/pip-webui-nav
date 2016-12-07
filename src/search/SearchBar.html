@@ -1,4 +1,4 @@
-<div class="md-toolbar-tools layout-row" ng-if="vm.enabled">
+<div class="md-toolbar-tools layout-row pip-search-container" ng-if="vm.enabled">
     <md-button class="md-icon-button" 
         aria-label="start search" 
         ng-click="vm.onClick()">
@@ -14,7 +14,7 @@
         <md-icon md-svg-icon="icons:cross-circle"></md-icon>
     </md-button>
 </div>
-<div class="md-toolbar-tools layout-row layout-align-end-center"  ng-if="!vm.enabled">
+<div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed"  ng-if="!vm.enabled">
     <md-button class="md-icon-button"
                aria-label="start search"
                ng-click="vm.enable()">
