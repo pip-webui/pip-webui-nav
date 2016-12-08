@@ -85,7 +85,7 @@ pip-tabs {
   padding-right: 25px !important;
 }
 
-md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
+md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value, .pip-full-width-dropdown md-option {
   .md-text {
     position: relative;
     height: 40px;
@@ -95,7 +95,7 @@ md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
   .pip-tabs-badge {
     position: absolute;
     right: 0px;
-    top: 14px;
+    top: 12px;
     font-size: 10px !important;
     min-width: 20px !important;
     height: 20px !important;
@@ -106,6 +106,12 @@ md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
     color: @color-content;
     background-color: @color-error;
   }
+}
+
+.pip-full-width-dropdown md-option {
+  .pip-tabs-badge {
+      top: 10px;
+  }  
 }
 
 md-select md-select-value {

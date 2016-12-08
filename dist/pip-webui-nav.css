@@ -229,7 +229,8 @@ pip-tabs .pip-tabs-content md-select[disabled] md-select-value {
 }
 md-tabs md-tab-item .md-text,
 .pip-tabs-content md-option .md-text,
-md-select md-select-value .md-text {
+md-select md-select-value .md-text,
+.pip-full-width-dropdown md-option .md-text {
   position: relative;
   height: 40px;
   line-height: 40px;
@@ -237,10 +238,11 @@ md-select md-select-value .md-text {
 }
 md-tabs md-tab-item .pip-tabs-badge,
 .pip-tabs-content md-option .pip-tabs-badge,
-md-select md-select-value .pip-tabs-badge {
+md-select md-select-value .pip-tabs-badge,
+.pip-full-width-dropdown md-option .pip-tabs-badge {
   position: absolute;
   right: 0px;
-  top: 14px;
+  top: 12px;
   font-size: 10px !important;
   min-width: 20px !important;
   height: 20px !important;
@@ -250,6 +252,9 @@ md-select md-select-value .pip-tabs-badge {
   text-align: center;
   color: #fafafa;
   background-color: #f44336;
+}
+.pip-full-width-dropdown md-option .pip-tabs-badge {
+  top: 10px;
 }
 md-select md-select-value .md-text .pip-tabs-badge {
   top: -4px !important;

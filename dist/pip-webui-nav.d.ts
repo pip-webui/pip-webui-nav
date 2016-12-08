@@ -221,7 +221,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 
 
 
-
 export let SideNavChangedEvent: string;
 export let SideNavStateChangedEvent: string;
 export let OpenSideNavEvent: string;
@@ -286,6 +285,7 @@ export interface ISearchService {
 }
 export interface ISearchProvider extends ng.IServiceProvider {
 }
+
 
 }
 
