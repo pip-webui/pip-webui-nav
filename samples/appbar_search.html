@@ -1,8 +1,12 @@
 <h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_SEARCH' | translate }}</h3>
 
 <pip-appbar>
-    <div class="flex text-overflow">Breadcrumb text</div>
-    <pip-search-bar pip-appbar-part="search"></pip-search-bar>
+                <pip-nav-icon></pip-nav-icon>
+                <div class="flex"></div>
+                <pip-breadcrumb class="flex" pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
+                <pip-search-bar pip-appbar-part="search"></pip-search-bar>
+                <pip-primary-actions class="flex-fixed" pip-appbar-part="actions:primary"></pip-primary-actions>
+                <pip-secondary-actions class="flex-fixed" pip-appbar-part="menu"></pip-secondary-actions>
 </pip-appbar>
 
 
@@ -27,4 +31,13 @@
     <md-button class="md-raised md-accent flat" ng-click="onHideAppBar()">
         {{ 'HIDE_APPBAR' | translate }}
     </md-button>     
+    <md-button class="md-raised md-accent flat" ng-click="onShowActions()">
+        {{ 'SHOW_ACTIONS' | translate }}
+    </md-button>   
+    <md-button class="md-raised md-accent flat" ng-click="onShowMenu()">
+        {{ 'SHOW_MENU' | translate }}
+    </md-button>   
+    <md-button class="md-raised md-accent flat" ng-click="onHideOther()">
+        {{ 'HIDE_OTHER' | translate }}
+    </md-button>       
 </div>

@@ -38,9 +38,16 @@ class SearchBarController {
 
     private stateChange() {
         if (this.enabled) {
+                        console.log('element', this._element.parent());
+            // this._element.addClass('w-stretch');
             this._element.addClass('w-stretch');
+            this._element.parent().addClass('pip-search-active');
+
         } else {
+                        console.log('element', this._element.parent());
+            // this._element.removeClass('w-stretch');
             this._element.removeClass('w-stretch');
+            this._element.parent().removeClass('pip-search-active');
         }
     }
 

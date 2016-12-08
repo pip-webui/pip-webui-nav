@@ -2,7 +2,9 @@
 // @copyright Digital Living Software Corp. 2014-2016
 
 .pip-search-bar {
+
   .pip-search-container {
+
     width: 100%;
     .pip-search-text {
       color: #fff !important;
@@ -35,3 +37,46 @@
   
 }
 
+.pip-search-active {
+  padding: 0px!important;
+
+  .pip-search-bar {
+    width: 100%;
+    position: absolute;
+
+
+    .pip-search-selected {
+      width: ~"calc(100% - 16px)";
+      background-color: rgba(0, 0, 0, 0.12);
+      margin: 0 auto;
+      // opacity: 0.9;
+      border-radius: 4px;
+      animation: search-animation 0.35s ease;
+    }
+
+    .md-toolbar-tools {
+       .md-button:last-child {
+         margin-right: 16px;
+       }
+    }
+  }
+
+
+  .pip-secondary-actions, .pip-primary-actions,
+  .pip-language-picker, .pip-breadcrumb, .pip-nav-icon {
+    display: none;
+  }
+}
+
+
+@keyframes search-animation {
+    0% {
+        width: 0px;
+    }
+    10% {
+      width: 70%;
+    }
+    100% {
+        width: ~"calc(100% - 16px)";
+    }
+}

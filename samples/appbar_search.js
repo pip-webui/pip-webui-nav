@@ -4,7 +4,7 @@
     var thisModule = angular.module('appAppbar.Search', []);
 
     thisModule.controller('SearchController',
-        function($scope, $rootScope, pipAppBar, pipSearch, $injector) {
+        function($scope, $rootScope, pipAppBar, pipSearch, pipActions, pipNavIcon, pipBreadcrumb, $injector) {
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
                 pipTranslate.setTranslations('en', {
@@ -22,7 +22,25 @@
                 });
             }
             $scope.searchCriteria = 'Find this';
-            
+
+            $scope.localPrimaryActions = [
+                {
+                    name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,
+                    subActions: [{ name: 'sample.sendSomeone', title: 'Send someone' }, {
+                        name: 'sample.sendToAll',
+                        title: 'Send to All'
+                    }]
+                },
+                { name: 'sample.discard', tooltip: 'Discard Message', icon: 'icons:trash', hideSmall: true }
+            ];
+
+            $scope.localSecondaryActions = [
+                { name: 'sample.send', title: 'Send Message', close: true, event: 'pipGuidesClicked' },
+                { name: 'sample.discard', title: 'Discard Message' },
+                { divider: true },
+                { name: 'configure', title: 'Configure...', href: 'http://www.google.com' }
+            ];
+
             $scope.$on('pipSearchActivated', function (event, search) {
                 console.log('Search Clicked: ' + search);// eslint-disable-line
                 $scope.searchCriteria = search;
@@ -61,6 +79,46 @@
             
             $scope.searchEnabled = true;
 
+            $scope.onShowActions = function () {
+                pipActions.show($scope.localPrimaryActions, $scope.localSecondaryActions);
+                pipAppBar.part('actions', 'primary');                
+            }
+
+            $scope.onShowMenu = function () {
+                pipNavIcon.showMenu();
+                pipAppBar.part('icon', true);
+                pipBreadcrumb.items = [
+                    { title: 'Header' },
+                    { title: 'SubHeader', 
+                      subActions: [
+                        {name: 'sample.send', icon: 'icons:list', title: 'Send Message', event: 'pipGuidesClicked'},
+                        {name: 'sample.discard', icon: 'icons:action', title: 'Discard Message'},
+                        {divider: true},
+                        {name: 'configure',  icon: 'icons:area', title: 'Configure...', href: 'http://www.google.com'}                          
+                      ]
+                    },
+                    { title: $scope.title,
+                      subActions: [
+                        {name: 'sample.send', icon: 'icons:list', title: 'Send Message', event: 'pipGuidesClicked'},
+                        {name: 'sample.discard', icon: 'icons:action', title: 'Discard Message'},
+                        {divider: true},
+                        {name: 'configure', icon: 'icons:area', title: 'Configure...', href: 'http://www.google.com'}                          
+                      ]
+                    }
+                ];     
+                pipAppBar.part('breadcrumb', true);           
+            }
+
+            $scope.onHideOther = function () {
+                pipActions.hide();
+                pipAppBar.part('actions', false);
+                pipNavIcon.hide();
+                pipAppBar.part('icon', false);  
+                pipNavIcon.hide(); 
+                pipAppBar.part('breadcrumb', false);             
+            }
+
+            $scope.onHideOther();
         }
     );
 
