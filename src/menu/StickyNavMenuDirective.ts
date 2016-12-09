@@ -87,9 +87,9 @@
         }
 
         function isActive(link) {
-            if (link.parentstate) {
+            if (link.parentState) {
                 var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.includes(link.parentstate)) {
+                if ($state != null && $state.includes(link.parentState)) {
                     return true;
                 }
             } else if (link.state) {
