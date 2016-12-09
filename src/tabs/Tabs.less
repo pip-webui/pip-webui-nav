@@ -108,10 +108,14 @@ md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value, .pi
   }
 }
 
-.pip-full-width-dropdown md-option {
-  .pip-tabs-badge {
-      top: 10px;
-  }  
+.pip-full-width-dropdown .pip-tab-option {
+   .md-text {
+      width: 100%;
+      .pip-tabs-badge {
+          position: absolute;
+          top: 10px;
+      }  
+   }
 }
 
 md-select md-select-value {
@@ -123,13 +127,7 @@ md-select md-select-value {
   }
 }
 
-.pip-tabs-content md-option {
-  .md-text {
-    .pip-tabs-badge {
-      top: 9px !important;
-    }
-  }
-}
+
 
 @media (min-width: @layout-breakpoint-sm) and (max-width: @layout-breakpoint-md) {
   // Style to hide elements on smaller screens

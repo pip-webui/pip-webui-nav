@@ -17,7 +17,7 @@
         <md-select ng-model="activeIndex" ng-disabled="disabled()"
                    md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple
                    md-on-close="onSelect(activeIndex)">
-            <md-option ng-repeat="tab in tabs track by $index" value="{{ ::$index }}">
+            <md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">
                 {{ ::tab.nameLocal }}
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
                     {{ tab.newCounts }}
