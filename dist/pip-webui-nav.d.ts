@@ -1,17 +1,4 @@
 declare module pip.nav {
-import './dependencies/TranslateFilter';
-import './language/LanguagePickerDirective';
-import './dropdown/DropdownDirective';
-import './tabs/TabsDirective';
-import './actions';
-import './appbar';
-import './search';
-import './breadcrumb';
-import './sidenav';
-import './header';
-import './menu';
-import './icon';
-import './common/NavService';
 
 export let ActionsChangedEvent: string;
 export class SimpleActionItem {
@@ -57,10 +44,33 @@ export interface IActionsProvider extends ng.IServiceProvider {
     secondaryLocalActions: ActionItem[];
 }
 
-import './ActionsService';
-import './PrimaryActionsDirective';
-import './SecondaryActionsDirective';
 
+
+
+
+export let BreadcrumbChangedEvent: string;
+export let BreadcrumbBackEvent: string;
+export class BreadcrumbItem {
+    title: string;
+    click?: (item: BreadcrumbItem) => void;
+    subActions?: SimpleActionItem[];
+}
+export class BreadcrumbConfig {
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+}
+export interface IBreadcrumbService {
+    config: BreadcrumbConfig;
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+    showText(text: string, criteria?: string): any;
+    showItems(items: BreadcrumbItem[], criteria?: string): any;
+}
+export interface IBreadcrumbProvider extends ng.IServiceProvider {
+    text: string;
+}
 
 
 
@@ -92,9 +102,6 @@ export interface IAppBarProvider extends ng.IServiceProvider {
     part(part: string, value: any): void;
 }
 
-import './AppBarService';
-import './AppBarDirective';
-import './AppBarPartDirective';
 
 export interface INavService {
     appbar: IAppBarService;
@@ -109,37 +116,7 @@ export interface INavService {
 }
 
 
-export let BreadcrumbChangedEvent: string;
-export let BreadcrumbBackEvent: string;
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;
-    subActions?: SimpleActionItem[];
-}
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-}
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    showText(text: string, criteria?: string): any;
-    showItems(items: BreadcrumbItem[], criteria?: string): any;
-}
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
 
-import './BreadcrumbDirective';
-import './BreadcrumbService';
-
-
-
-import './NavHeaderService';
-import './StickyNavHeaderDirective';
 
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
@@ -173,8 +150,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 }
 
 
-import './NavIconService';
-import './NavIconDirective';
 
 
 export let NavIconChangedEvent: string;
@@ -203,8 +178,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
 }
 
 
-import './NavMenuService';
-import './StickyNavMenuDirective';
 
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
@@ -246,8 +219,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 }
 
 
-import './SearchService';
-import './SearchBarDirective';
 
 
 export let OpenSearchEvent: string;
@@ -276,9 +247,6 @@ export interface ISearchService {
 export interface ISearchProvider extends ng.IServiceProvider {
 }
 
-import './SideNavService';
-import './SideNavPartDirective';
-import './StickySideNavDirective';
 
 
 export let SideNavChangedEvent: string;
