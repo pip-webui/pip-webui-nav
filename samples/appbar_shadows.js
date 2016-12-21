@@ -34,7 +34,7 @@
             };
 
             $scope.onShowShadowSm = function () {
-                pipAppBar.addShadow(['sm']);
+                pipAppBar.addShadow('sm', 'xs');
             };
 
             $scope.onHideShadow = function () {
