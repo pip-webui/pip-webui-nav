@@ -6,7 +6,7 @@
 
     thisModule.controller('StickySideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,
-            $injector, pipNavHeader, pipNavMenu, pipNavService) {
+            $injector, pipNavHeader, pipNavMenu, pipNavService, pipNavIcon) {
 
             var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
@@ -51,17 +51,16 @@
                 });
             }
 
-        
             $scope.user = {
                 fullName: 'Kate Negrienko',
                 details: 'details',
                 imageUrl: 'https://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
 
-            onWindowResized();
+
             $scope.media = pipMedia ? pipMedia : $mdMedia;
             $scope.$mdMedia = $mdMedia;
-            
+            onWindowResized();
 
             $timeout(function () {
                 $('pre code').each(function (i, block) {
@@ -107,14 +106,20 @@
                 pipNavMenu.updateBadgeStyle('StickySideNav', 'color-warm-bg');
             };
 
+            function showIcon() {
+                if ($scope.media('gt-sm')) {
+                    pipNavIcon.showIcon('icons:bags');
+                } else {
+                    pipNavIcon.showMenu();
+                }
+            }
+
             function onWindowResized() {
                 var mainWidth = $('.pip-main').innerWidth(),
                     elementWidth = $('.pip-sticky-sidenav').innerWidth(),
                     resultSize;
-
-
                 $scope.sizeLabel = 'Main region size: ' + mainWidth + '. SideNav size: ' + elementWidth;// + 'Size after change: '
-
+                showIcon();
             }
 
             $scope.onSetTitleSideNav = function () {

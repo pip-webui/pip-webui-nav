@@ -3,16 +3,19 @@
         ng-click="onExpand()"
         ng-disabled="!isCollapsed"
         ng-if="expandedButton">
+
+
         <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon">
-            <md-tooltip md-visible="showTooltip" ng-show="sideNavState.showIconTooltype && !expanded" md-direction="right">
+            <!--<md-tooltip md-visible="showTooltip" ng-if="sideNavState.showIconTooltype && !expanded" md-direction="right">
                 {{::'Expand menu' | translate}}
-            </md-tooltip>
+            </md-tooltip>-->
         </md-icon>
         <md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon">
-            <md-tooltip md-visible="showTooltip" ng-show="sideNavState.showIconTooltype && !expanded" md-direction="right">
+            <!--<md-tooltip md-visible="showTooltip" ng-if="sideNavState.showIconTooltype && !expanded" md-direction="right">
                 {{::'Shrink menu' | translate}} 
-            </md-tooltip>
+            </md-tooltip>-->
         </md-icon>
+
     </md-list-item>
     <md-divider ng-show="expandedButton"></md-divider>
     <div class="pip-section" ng-repeat="section in sections"
@@ -23,16 +26,23 @@
             <span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">
                 {{::section.title | translate}}
             </span>
-            <md-icon md-svg-icon="{{section.icon}}" ng-if="!expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">
-                <md-tooltip md-visible="showTooltip" ng-show="sideNavState.showIconTooltype && !expanded" md-direction="right">
+
+            <md-icon md-svg-icon="{{section.icon}}" ng-if="!sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">
+            </md-icon>
+            <md-icon md-svg-icon="{{section.icon}}" ng-if="sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">
+                <md-tooltip md-visible="showTooltip" md-direction="right">
                     {{::section.title | translate}}
                 </md-tooltip>
             </md-icon>
-            <md-icon md-svg-icon="{{defaultIcon}}" ng-if="!expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
-                <md-tooltip md-visible="showTooltip" ng-show="sideNavState.showIconTooltype && !expanded" md-direction="right" class="md-secondary">
+
+            <md-icon md-svg-icon="{{defaultIcon}}" ng-if="!sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
+            </md-icon>            
+            <md-icon md-svg-icon="{{defaultIcon}}" ng-if="sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
+                <md-tooltip md-visible="showTooltip" class="md-secondary">
                     {{::section.title | translate}}
                 </md-tooltip>
             </md-icon>
+
         </md-subheader>
 
         <md-list-item class="no-border pip-sticky-nav-menu-item" 
@@ -42,10 +52,17 @@
             <md-button class="layout-row layout-align-start-center pip-focusable" 
                        ng-click="clickLink($event, link)">
                 <div class="pip-sticky-nav-menu-icon-block">
+
                     <md-icon md-svg-icon="{{link.icon}}"
+                             ng-if="!(sideNavState.showIconTooltype && !expanded)"
                              ng-hide="!link.icon"
                              class="pip-sticky-nav-menu-icon flex-fixed">
-                        <md-tooltip md-visible="showTooltip" ng-show="sideNavState.showIconTooltype && !expanded" md-direction="right">
+                    </md-icon>                    
+                    <md-icon md-svg-icon="{{link.icon}}"
+                             ng-hide="!link.icon"
+                             ng-if="sideNavState.showIconTooltype && !expanded"
+                             class="pip-sticky-nav-menu-icon flex-fixed">
+                        <md-tooltip md-visible="showTooltip" md-direction="right">
                             {{::link.title | translate}}
                         </md-tooltip>
                     </md-icon>

@@ -12,7 +12,7 @@
         $element.addClass('pip-sticky-nav-menu');
 
         $scope.sections = $scope.sections || pipNavMenu.sections;
-        $scope.showTooltip = true;
+        // $scope.showTooltip = true;
         // pipNavMenu.sections = $scope.sections;
         setCollapsible();
         // todo set from services
