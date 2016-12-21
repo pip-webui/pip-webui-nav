@@ -37,6 +37,7 @@
             $scope.selected.showTabs = true;
             $scope.selected.showShadow = false;
             $scope.selected.disabled = false;
+            $scope.tabIndex = 0;
 
             $scope.tabs = [{
                 title: 'TABS_CONFIG_AND_INFO',
@@ -48,10 +49,16 @@
             }];
 
             $scope.onSelect = function (tab, tabIndex) {
+                console.log('onSelect', tab, tabIndex);
                 $scope.messages.push({text: 'Tab object: [title:' + tab.title +
                                                         '], tabIndex: ' + tabIndex});
                 $scope.tabs[2].newCounts ++;
             };
+
+            $scope.onClick = function() {
+                console.log('onClick');
+                $scope.tabIndex = 0;
+            }
         }
     );
 

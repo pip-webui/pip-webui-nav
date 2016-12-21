@@ -1,9 +1,9 @@
-<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex"
-          pip-show-tabs="selected.showTabs" pip-tabs-shadow="selected.showShadow" pip-tabs-select="onSelect"
-          ng-disabled="selected.disabled">
+<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="selected.showTabs" 
+        pip-tabs-shadow="selected.showShadow" pip-rebind="true"
+    pip-tabs-select="onSelect" ng-disabled="selected.disabled">
 </pip-tabs>
 
-<div >
+<div>
     <h2 class="text-title tm0 bm24">Tabs {{:: 'SAMPLE' | translate }}:</h2>
 
     <div ng-if="tabIndex === 0">
@@ -12,7 +12,7 @@
 
         <md-input-container class="w-stretch bm0">
             <label for="">{{ 'ADDING' | translate }}</label>
-            <input type="number" ng-model="tabs[0].newCounts"/>
+            <input type="number" ng-model="tabs[0].newCounts" />
         </md-input-container>
 
         <md-switch ng-model="selected.showTabs">{{ 'VISIBLE' | translate }}</md-switch>
@@ -22,7 +22,7 @@
 
     <div ng-if="tabIndex === 1">
         <h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
-<pre class="text-body1 color-window-bg p16">
+        <pre class="text-body1 color-window-bg p16">
         <strong>HTML: </strong>
 
             &lt;<strong>pip-tabs</strong>  pip-tabs="tabs" pip-active-index="tabIndex"
@@ -40,11 +40,13 @@
                     }, {title: '{{ 'LIST_CHANGES' | translate}}',
                         newCounts: 0
                     }];
-</pre>
+        </pre>
     </div>
 
     <div ng-if="tabIndex === 2">
         Tab 2
+
+        <md-button ng-click="onClick()">Go to tab #1</md-button>
     </div>
 
 </div>
