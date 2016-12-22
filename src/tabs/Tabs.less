@@ -85,7 +85,7 @@ pip-tabs {
   padding-right: 25px !important;
 }
 
-md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
+md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value, .pip-full-width-dropdown md-option {
   .md-text {
     position: relative;
     height: 40px;
@@ -95,7 +95,7 @@ md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
   .pip-tabs-badge {
     position: absolute;
     right: 0px;
-    top: 14px;
+    top: 12px;
     font-size: 10px !important;
     min-width: 20px !important;
     height: 20px !important;
@@ -108,6 +108,16 @@ md-tabs md-tab-item, .pip-tabs-content md-option, md-select md-select-value {
   }
 }
 
+.pip-full-width-dropdown .pip-tab-option {
+   .md-text {
+      width: 100%;
+      .pip-tabs-badge {
+          position: absolute;
+          top: 10px;
+      }  
+   }
+}
+
 md-select md-select-value {
   .md-text {
     .pip-tabs-badge {
@@ -117,13 +127,7 @@ md-select md-select-value {
   }
 }
 
-.pip-tabs-content md-option {
-  .md-text {
-    .pip-tabs-badge {
-      top: 9px !important;
-    }
-  }
-}
+
 
 @media (min-width: @layout-breakpoint-sm) and (max-width: @layout-breakpoint-md) {
   // Style to hide elements on smaller screens

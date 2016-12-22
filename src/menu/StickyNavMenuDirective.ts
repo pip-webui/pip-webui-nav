@@ -12,7 +12,7 @@
         $element.addClass('pip-sticky-nav-menu');
 
         $scope.sections = $scope.sections || pipNavMenu.sections;
-        $scope.showTooltip = true;
+        // $scope.showTooltip = true;
         // pipNavMenu.sections = $scope.sections;
         setCollapsible();
         // todo set from services
@@ -87,9 +87,9 @@
         }
 
         function isActive(link) {
-            if (link.parentstate) {
+            if (link.parentState) {
                 var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.includes(link.parentstate)) {
+                if ($state != null && $state.includes(link.parentState)) {
                     return true;
                 }
             } else if (link.state) {

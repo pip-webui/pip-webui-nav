@@ -11,6 +11,8 @@ export class NavMenuLink {
     public icon?: string;
     // Counter badge
     public count?: number;
+    // class for badge style
+    public badgeStyle?: string;
     // Access function
     public access?: (link: NavMenuLink) => boolean;
     // window.location.href
@@ -51,6 +53,7 @@ export interface INavMenuService {
     sections: NavMenuSection[];
     defaultIcon: string;
     updateCount(link: string, count: number): void; 
+    updateBadgeStyle(link: string, style: string): void;
     clearCounts(): void;
 }
 
@@ -84,12 +87,25 @@ class NavMenuService implements INavMenuService {
         return this._config.defaultIcon;
     }
 
+    public updateBadgeStyle(link: string, style: string): void {
+        if (link == null || !_.isString(style)) return;
+
+        _.each(this._config.sections, (s) => {
+            _.each(s.links, (l) => {
+                if (l.name == link)
+                    l.badgeStyle = style;
+            });
+        });
+
+        this.sendChangeEvent();
+    }
+
     public set defaultIcon(value: string) {
         this._config.defaultIcon = value;
         this.sendChangeEvent();
     }
 
-    public updateCount(link: string, count: number) {
+    public updateCount(link: string, count: number): void {
         if (link == null || !_.isNumber(count)) return;
 
         _.each(this._config.sections, (s) => {

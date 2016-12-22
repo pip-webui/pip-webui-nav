@@ -15,6 +15,7 @@
 
 .pip-sticky-nav-menu {
     width: 100%;
+    position: relative;
 
     .sidenav-list {
         padding-top: 0px!important;
@@ -82,7 +83,7 @@
             .pip-sticky-nav-menu-badge {
                 position: absolute;
                 left: 274px;
-                top: 11px;
+                top: 13px;
                 font-size: 12px !important;
                 min-width: 22px !important;
                 height: 22px !important;
@@ -92,10 +93,28 @@
                 text-align: center;
                 color: @color-content;
                 background-color:  @color-error;
-                animation: badge-animation 0.35s ease;
+                // animation: badge-animation 0.35s ease;
             }
         }
     }
+}
+
+.pip-sticky-sidenav.sidenav-mobile {
+    .pip-sticky-nav-menu {    
+        .pip-sticky-nav-menu-item {
+            .md-button {
+                .pip-sticky-nav-menu-title {
+                    width: 100%;
+                }                
+                .pip-sticky-nav-menu-badge {
+                    position: relative;
+                    left: 0px;
+                    top: 0px;
+                    animation: none;
+                }
+            }
+        }
+    }    
 }
 
 .sidenav-smalldesktop {
@@ -108,7 +127,7 @@
                 }
                 .pip-sticky-nav-menu-badge {
                     left: 194px;
-                    animation: badge-animation-sm 0.35s ease;
+                    // animation: badge-animation-sm 0.35s ease;
                 }
             }
         }
@@ -125,7 +144,7 @@
                 .pip-sticky-nav-menu-badge {
                     top: 5px;
                     left: 32px;
-                    animation: badge-animation-back 0.35s ease;
+                    // animation: badge-animation-back 0.35s ease;
                 }
 
                 .pip-sticky-nav-menu-title {
@@ -154,7 +173,7 @@
                 .pip-sticky-nav-menu-badge {
                     top: 5px;
                     left: 32px;
-                    animation: badge-animation-sm-back 0.35s ease;
+                    // animation: badge-animation-sm-back 0.35s ease;
                 }
 
                 .pip-sticky-nav-menu-title {
@@ -213,14 +232,14 @@
     }
     100% {
         left: 274px;
-        top: 11px;
+        top: 13px;
     }
 }
 
 @keyframes badge-animation-back {
     0% {
         left: 274px;
-        top: 11px;
+        top: 13px;
     }
     100% {
         top: 5px;
@@ -268,14 +287,14 @@
     }
     100% {
         left: 194px;
-        top: 11px;
+        top: 13px;
     }
 }
 
 @keyframes badge-animation-sm-back {
     0% {
         left: 194px;
-        top: 11px;
+        top: 13px;
     }
     100% {
         top: 5px;

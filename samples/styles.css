@@ -51,3 +51,6 @@ md-card {
     width: 40px;
     border-radius: 50%;
 }
+.w-stretch {
+    width: 100% !important;
+}

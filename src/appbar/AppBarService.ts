@@ -75,14 +75,19 @@ class AppBarService implements IAppBarService {
         this.sendConfigEvent();
     }
 
-    private setShadow(breakpoints: string[]): void {
+    private hideShadow(): void {
         this._config.classes = _.reject(this._config.classes, (c) => c.startsWith('pip-shadow'));
+    }
 
-        if (breakpoints != null) {
-            this._config.classes.push('pip-shadow');
+    private setShadow(breakpoints: string[]): void {
+        this.hideShadow();
+
+        if (breakpoints != null && breakpoints.length > 0) {
             _.each(breakpoints, (bp) => {
                 this._config.classes.push('pip-shadow-' + bp);
             });
+        } else {
+            this._config.classes.push('pip-shadow');
         }
     }
 
@@ -92,7 +97,7 @@ class AppBarService implements IAppBarService {
     }
 
     public removeShadow(): void {
-        this.setShadow(null);
+        this.hideShadow();
         this.sendConfigEvent();
     }
  
