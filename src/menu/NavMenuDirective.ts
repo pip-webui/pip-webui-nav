@@ -3,7 +3,7 @@
 // Prevent junk from going into typescript definitions
 (() => {
 
-    function StickyNavMenuDirectiveController($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
+    function NavMenuDirectiveController($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
         "ngInject";
 
         var animationDuration = 450,
@@ -170,7 +170,7 @@
         }
     }
 
-    function stickyNavMenuDirective() {
+    function navMenuDirective() {
         return {
             restrict: 'EA',
             scope: {
@@ -178,13 +178,13 @@
                 // collapsed: '=pipCollapsed'
             },
             replace: false,
-            templateUrl: 'menu/StickyNavMenu.html',
-            controller: StickyNavMenuDirectiveController
+            templateUrl: 'menu/NavMenu.html',
+            controller: NavMenuDirectiveController
         };
     }
 
     angular
         .module('pipNavMenu')
-        .directive('pipStickyNavMenu', stickyNavMenuDirective);
+        .directive('pipNavMenu', navMenuDirective);
 
 })();

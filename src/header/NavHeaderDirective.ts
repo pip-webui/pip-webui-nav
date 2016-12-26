@@ -3,7 +3,7 @@
 // Prevent junk from going into typescript definitions
 (() => {
 
-    function StickyNavHeaderDirectiveController($scope, $element, $rootScope, $timeout, pipNavHeader) {
+    function NavHeaderDirectiveController($scope, $element, $rootScope, $timeout, pipNavHeader) {
         "ngInject";
 
         var
@@ -134,20 +134,20 @@
 
     }
 
-    function stickyNavHeaderDirective() {
+    function navHeaderDirective() {
         return {
             restrict: 'EA',
             scope: {
 
             },
             replace: false,
-            templateUrl: 'header/StickyNavHeader.html',
-            controller: StickyNavHeaderDirectiveController
+            templateUrl: 'header/NavHeader.html',
+            controller: NavHeaderDirectiveController
         };
     }
 
     angular
         .module('pipNavHeader')
-        .directive('pipStickyNavHeader', stickyNavHeaderDirective);
+        .directive('pipNavHeader', navHeaderDirective);
 
 })();

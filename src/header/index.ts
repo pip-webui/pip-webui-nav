@@ -3,6 +3,6 @@
 angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates']);
 
 import './NavHeaderService';
-import './StickyNavHeaderDirective';
+import './NavHeaderDirective';
 
 export * from './NavHeaderService';

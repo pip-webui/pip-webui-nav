@@ -3,7 +3,7 @@
 // Prevent junk from going into typescript definitions
 (() => {
 
-    function StickySideNavDirectiveController($scope, $element, $rootScope, $injector, $mdMedia, $timeout, pipSideNav) {
+    function SideNavDirectiveController($scope, $element, $rootScope, $injector, $mdMedia, $timeout, pipSideNav) {
         "ngInject";
 
         // var pipMedia = $mdMedia, 
@@ -143,36 +143,6 @@
                 return;
             }        
             setState('xlarge');     
-            // if (mainWidth < mediaBreakpoints.sm) {
-            //     setState('toggle');
-
-            //     return;
-            // }
-            // if (mainWidth < mediaBreakpoints.md + smallWidth && mainWidth >= mediaBreakpoints.sm + smallWidth) {
-            //     setState('small');
-            //     return;
-            // }
-            // if (mainWidth >= mediaBreakpoints.md + bigWidth && mainWidth <= mediaBreakpoints.lg) {
-            //     setState('large');
-            //     return;
-            // }
-            // if (mainWidth > mediaBreakpoints.lg) {
-            //     setState('xlarge');
-            //     return;
-            // }
-
-            // if (!$scope.sidenavState || !$scope.sidenavState.id) {
-            //     if (mainWidth < mediaBreakpoints.sm + smallWidth) {
-            //         setState('toggle');
-
-            //         return;
-            //     }
-            //     if (mainWidth > mediaBreakpoints.md + bigWidth) {
-            //         setState('large');
-            //         return;
-            //     }
-            //     setState('small');
-            // }
         }
 
         function setState(state: string) {
@@ -195,10 +165,6 @@
                 $element.removeClass('sidenav-smalldesktop');
             }
 
-            // if (state == 'toggle') {
-            //     $element.removeClass('sidenav-desktop');
-            //     $element.removeClass('sidenav-desktop');
-            // }
             isResizing = true;
             if (state == 'toggle') {
                 pipSideNav.close();
@@ -220,18 +186,18 @@
         }
     }
 
-    function stickySideNavDirective() {
+    function sideNavDirective() {
         return {
             restrict: 'E',
             transclude: true,
             scope: true,
-            templateUrl: 'sidenav/StickySideNav.html',
-            controller: StickySideNavDirectiveController
+            templateUrl: 'sidenav/SideNav.html',
+            controller: SideNavDirectiveController
         };
     }
 
     angular
         .module('pipSideNav')
-        .directive('pipStickySidenav', stickySideNavDirective);
+        .directive('pipSidenav', sideNavDirective);
 
 })();
