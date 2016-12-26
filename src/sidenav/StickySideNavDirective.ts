@@ -118,6 +118,8 @@
         }
 
         function setSideNaveState() {
+            if (pipSideNav.config && pipSideNav.config.type == 'popup') { return }
+
             if (isResizing) {
                 $timeout(setSideNaveState, animationDuration); // for 
 
