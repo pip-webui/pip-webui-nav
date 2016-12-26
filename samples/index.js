@@ -31,29 +31,29 @@
             $stateProvider.state(contentItem.state, contentItem);
         }
 
-        pipNavMenuProvider.sections = [
-            {
-                title: 'Appbar',
-                icon: 'icons:goal',
-                links: [
-                    { name: 'Nav icons', title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
-                    { name: 'Titles', title: 'Titles', state: 'titles', icon: 'icons:list', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
-                    { name: 'Actions', title: 'Actions', state: 'actions', icon: 'icons:action', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
-                    { name: 'Search', title: 'Search', state: 'search', icon: 'icons:search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },
-                    { name: 'Shadows', title: 'Shadows', state: 'shadows', icon: 'icons:lamp', url: '/shadows', controller: 'ShadowsController', templateUrl: 'appbar_shadows.html' },
+        // pipNavMenuProvider.sections = [
+        //     {
+        //         title: 'Appbar',
+        //         icon: 'icons:goal',
+        //         links: [
+        //             { name: 'Nav icons', title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
+        //             { name: 'Titles', title: 'Titles', state: 'titles', icon: 'icons:list', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
+        //             { name: 'Actions', title: 'Actions', state: 'actions', icon: 'icons:action', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
+        //             { name: 'Search', title: 'Search', state: 'search', icon: 'icons:search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },
+        //             { name: 'Shadows', title: 'Shadows', state: 'shadows', icon: 'icons:lamp', url: '/shadows', controller: 'ShadowsController', templateUrl: 'appbar_shadows.html' },
 
-                    { name: 'Tabs', title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
-                    { name: 'Dropdown', title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
-                ]
-            },
-            {
-                title: 'SideNav',
-                icon: 'icons:area',
-                links: [
-                    { name: 'StickySideNav', title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' }
-                ]
-            }
-        ];
+        //             { name: 'Tabs', title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
+        //             { name: 'Dropdown', title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
+        //         ]
+        //     },
+        //     {
+        //         title: 'SideNav',
+        //         icon: 'icons:area',
+        //         links: [
+        //             { name: 'StickySideNav', title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' }
+        //         ]
+        //     }
+        // ];
         pipSideNavProvider.part('user', true);
         pipSideNavProvider.part('links', true);
         pipSideNavProvider.type = 'sticky';
