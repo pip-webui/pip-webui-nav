@@ -49,7 +49,7 @@ class SideNavService implements ISideNavService {
     private _state: any;
     private _rootScope: ng.IRootScopeService;
     private _sidenav: ng.material.ISidenavService;
-    private id = 'pip-sticky-sidenav';
+
 
     public constructor(config: SideNavConfig, $rootScope: ng.IRootScopeService, $mdSidenav: ng.material.ISidenavService) {
         this._config = config;
@@ -84,15 +84,15 @@ class SideNavService implements ISideNavService {
     }
 
     public open() {
-        this._sidenav(this.id).open();
+        this._sidenav('pip-sticky-sidenav').open();
     }
 
     public close() {
-        this._sidenav(this.id).close();
+        this._sidenav('pip-sticky-sidenav').close();
     }
 
     public toggle() {
-        this._sidenav(this.id).toggle();
+        this._sidenav('pip-sticky-sidenav').toggle();
     }
 
     public show() {
