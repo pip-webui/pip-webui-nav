@@ -4,6 +4,6 @@ angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates']);
 
 import './SideNavService';
 import './SideNavPartDirective';
-import './StickySideNavDirective';
+import './SideNavDirective';
 
 export * from './SideNavService';

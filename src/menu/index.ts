@@ -3,6 +3,6 @@
 angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 
 import './NavMenuService';
-import './StickyNavMenuDirective';
+import './NavMenuDirective';
 
 export * from './NavMenuService';

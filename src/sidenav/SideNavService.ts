@@ -137,7 +137,7 @@ class SideNavProvider implements ISideNavProvider {
     private _config: SideNavConfig = {
         parts: {},
         classes: [],
-        type: 'sticky',
+        type: 'popup',
         state: null,
         visible: true
     };
