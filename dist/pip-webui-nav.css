@@ -376,6 +376,10 @@ md-select md-select-value .md-text .pip-tabs-badge {
   white-space: nowrap;
   color: rgba(0, 0, 0, 0.87) !important;
 }
+.pip-secondary-actions .md-icon-button {
+  margin-left: 0px;
+  margin-right: 8px;
+}
 .pip-language-picker .pip-language-action {
   margin-right: -7px;
 }
