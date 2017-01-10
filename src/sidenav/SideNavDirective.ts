@@ -8,6 +8,7 @@
 
         // var pipMedia = $mdMedia, 
         var pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
+            pipSystemInfo = $injector.has('pipSystemInfo') ? $injector.get('pipSystemInfo') : null,
             mainContainer = '.pip-main',
             bigWidth = 320, // expanded sidenav width
             middleWidth = 240,
@@ -66,6 +67,9 @@
         // Apply class and call resize
         $element.addClass('pip-sticky-sidenav');
 
+        // check Safari
+        checkSafari();
+
         if (pipSideNav.config && pipSideNav.config.type != 'popup') {
             $timeout(function () {
                 setSideNaveState()
@@ -87,6 +91,12 @@
         $rootScope.$on('pipSideNavChanged', onSideNavChanged);
 
         return;
+
+        function checkSafari() {
+            if (!pipSystemInfo || pipSystemInfo.browserName != 'safari') {
+                // $element.addClass('sidenav-animate');
+            }
+        }
 
         //------------------------
         function setBreakpoints() {

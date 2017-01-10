@@ -38,7 +38,7 @@
     border-right: @sidenav-border;
     background: @sidenav-bg;
     width: @sidenav-width !important;
-    transition: width 0.35s ease;
+    // transition: width 0.35s ease;
     height: calc(100%);
     overflow-x: hidden;
   }
@@ -47,18 +47,34 @@
 .pip-sticky-sidenav.sidenav-smalldesktop {
   md-sidenav {
     width: @sidenav-middle-width !important;
-    transition: width 0.35s ease;
+    // transition: width 0.35s ease;
   }
 }
 .pip-sticky-sidenav.pip-sticky-nav-small, .pip-sticky-sidenav.pip-sticky-nav-small.sidenav-smalldesktop {
   md-sidenav {
     width: @sidenav-small-width !important;
-    transition: width 0.35s ease;
+    // transition: width 0.35s ease;
   }
 }
+
 .sidenav-mobile.pip-sticky-sidenav {
     border-right: none;
   md-sidenav {
     border-right: none;
+  }
+}
+
+.sidenav-animate.pip-sticky-sidenav {
+  transition: width 0.35s ease;
+}
+
+.pip-sticky-sidenav.sidenav-smalldesktop {
+  md-sidenav {
+    transition: width 0.35s ease;
+  }
+}
+.pip-sticky-sidenav.pip-sticky-nav-small, .pip-sticky-sidenav.pip-sticky-nav-small.sidenav-smalldesktop {
+  md-sidenav {
+    transition: width 0.35s ease;
   }
 }
