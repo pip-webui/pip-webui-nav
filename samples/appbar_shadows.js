@@ -10,13 +10,13 @@
                 pipTranslate.setTranslations('en', {
                     DISPLAY_AND_HIDE_SHADOWS: 'Display and hide shadows',
                     SHOW_SHADOW: 'Show shadow',
-                    SHOW_SMALL_SHADOW: 'Show shadow for small resolution only (width < 1200px)',
+                    SHOW_SMALL_SHADOW: 'Show shadow for resolution (md, lg)',
                     HIDE_SHADOW: 'Hide shadow'
                 });
                 pipTranslate.setTranslations('ru', {
                     DISPLAY_AND_HIDE_SHADOWS: 'Отображение и скрытие теней',
                     SHOW_SHADOW: 'Отобразить тень',
-                    SHOW_SMALL_SHADOW: 'Отобразить тень для маленького разрешения (ширина < 1200px)',
+                    SHOW_SMALL_SHADOW: 'Отобразить тень дляразрешения (md, lg)',
                     HIDE_SHADOW: 'Скрыть тень'
                 });
             }
@@ -34,7 +34,7 @@
             };
 
             $scope.onShowShadowSm = function () {
-                pipAppBar.addShadow('sm', 'xs');
+                pipAppBar.addShadow('md', 'lg');
             };
 
             $scope.onHideShadow = function () {
