@@ -81,9 +81,10 @@
             }
 
             .pip-sticky-nav-menu-badge {
-                position: absolute;
-                left: 274px;
-                top: 13px;
+                position: relative;
+                // left: 274px;
+                // top: 13px;
+                margin: 12px 0px;
                 font-size: 12px !important;
                 min-width: 22px !important;
                 height: 22px !important;
@@ -93,7 +94,6 @@
                 text-align: center;
                 color: @color-content;
                 background-color:  @color-error;
-                // animation: badge-animation 0.35s ease;
             }
         }
     }
@@ -106,12 +106,9 @@
                 .pip-sticky-nav-menu-title {
                     width: 100%;
                 }                
-                .pip-sticky-nav-menu-badge {
-                    position: relative;
-                    left: 0px;
-                    top: 0px;
-                    animation: none;
-                }
+                // .pip-sticky-nav-menu-badge {
+                //     margin: 12px 0px;
+                // }
             }
         }
     }    
@@ -125,10 +122,10 @@
                     width: 140px;
                     animation: title-animation-sm 0.35s ease;
                 }
-                .pip-sticky-nav-menu-badge {
-                    left: 194px;
-                    // animation: badge-animation-sm 0.35s ease;
-                }
+                // .pip-sticky-nav-menu-badge {
+                //     left: 194px;
+                //     animation: badge-animation-sm 0.35s ease;
+                // }
             }
         }
     }    
@@ -142,9 +139,10 @@
                 margin-right: 0px;
 
                 .pip-sticky-nav-menu-badge {
+                    position: absolute;
                     top: 5px;
                     left: 32px;
-                    // animation: badge-animation-back 0.35s ease;
+                    margin: 0px;
                 }
 
                 .pip-sticky-nav-menu-title {
@@ -171,9 +169,10 @@
                 margin-right: 0px;
 
                 .pip-sticky-nav-menu-badge {
+                    position: absolute;
                     top: 5px;
                     left: 32px;
-                    // animation: badge-animation-sm-back 0.35s ease;
+                    margin: 0px;
                 }
 
                 .pip-sticky-nav-menu-title {
@@ -225,27 +224,27 @@
     }
 }
 
-@keyframes badge-animation {
-    0% {
-        top: 5px;
-        left: 32px;
-    }
-    100% {
-        left: 274px;
-        top: 13px;
-    }
-}
+// @keyframes badge-animation {
+//     0% {
+//         top: 5px;
+//         left: 32px;
+//     }
+//     100% {
+//         left: 274px;
+//         top: 13px;
+//     }
+// }
 
-@keyframes badge-animation-back {
-    0% {
-        left: 274px;
-        top: 13px;
-    }
-    100% {
-        top: 5px;
-        left: 32px;
-    }
-}
+// @keyframes badge-animation-back {
+//     0% {
+//         left: 274px;
+//         top: 13px;
+//     }
+//     100% {
+//         top: 5px;
+//         left: 32px;
+//     }
+// }
 
 
 @keyframes title-animation-sm {
@@ -280,24 +279,24 @@
     }
 }
 
-@keyframes badge-animation-sm {
-    0% {
-        top: 5px;
-        left: 32px;
-    }
-    100% {
-        left: 194px;
-        top: 13px;
-    }
-}
+// @keyframes badge-animation-sm {
+//     0% {
+//         top: 5px;
+//         left: 32px;
+//     }
+//     100% {
+//         left: 194px;
+//         top: 13px;
+//     }
+// }
 
-@keyframes badge-animation-sm-back {
-    0% {
-        left: 194px;
-        top: 13px;
-    }
-    100% {
-        top: 5px;
-        left: 32px;
-    }
-}
+// @keyframes badge-animation-sm-back {
+//     0% {
+//         left: 194px;
+//         top: 13px;
+//     }
+//     100% {
+//         top: 5px;
+//         left: 32px;
+//     }
+// }
