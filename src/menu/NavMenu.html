@@ -1,7 +1,8 @@
-<md-list class="sidenav-list" xxxng-if="sections.length > 0">
-    <md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" 
+<md-list class="sidenav-list" pip-focused>
+    <md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button pip-focusable" 
         ng-click="onExpand()"
         ng-disabled="!isCollapsed"
+        tabindex="-1"
         ng-if="expandedButton">
 
         <md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon">
@@ -35,8 +36,9 @@
             </md-icon>
         </md-subheader>
 
-        <md-list-item class="no-border pip-sticky-nav-menu-item" 
+        <md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable" 
                       ng-repeat="link in section.links"
+                      tabindex="0"
                       ng-class="{'active': isActive(link)}"
                       ng-hide="link.access && !link.access(link)">
             <md-button class="layout-row layout-align-start-center" tabindex="-1"
