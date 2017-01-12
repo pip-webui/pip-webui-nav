@@ -1,6 +1,12 @@
 <md-toolbar class="md-subhead color-primary-bg {{class}}" ng-if="show()" ng-class="{'md-whiteframe-3dp': media('xs')}">
     <div class="pip-divider"></div>
-        <md-select ng-model="selectedIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple md-on-close="onSelect(selectedIndex)">
+        <md-select ng-model="selectedIndex" 
+                    tabindex="15"
+                    ng-disabled="disabled()" 
+                    md-container-class="pip-full-width-dropdown" 
+                    aria-label="DROPDOWN" 
+                    md-ink-ripple 
+                    md-on-close="onSelect(selectedIndex)">
             <md-option ng-repeat="action in actions" value="{{ ::$index }}" ng-selected="activeIndex == $index ? true : false">
                 {{ (action.title || action.name || action) | translate }}
             </md-option>

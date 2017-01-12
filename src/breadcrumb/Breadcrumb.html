@@ -19,7 +19,7 @@
                 <md-menu-content width="4">
                     <md-menu-item ng-if="!subItem.divider"
                             ng-repeat-start="subItem in item.subActions" ng-if="item.subActions && item.subActions.length > 0">
-                        <md-button ng-click="vm.onSubActionClick(subItem)" ng-hide="action.divider">
+                        <md-button ng-click="vm.onSubActionClick(subItem)" ng-hide="action.divider" tabindex="4">
                             <md-icon md-menu-align-target="" ng-if="subItem.icon" md-svg-icon="{{subItem.icon}}"></md-icon>
                             <span>{{subItem.title | translate}}</span>
                         </md-button>
@@ -58,14 +58,14 @@
         </span>
         <md-menu-content width="4">
             <md-menu-item ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 0">
-                <md-button ng-click="vm.onClick(item)">
+                <md-button ng-click="vm.onClick(item)" tabindex="5">
                     <md-icon md-menu-align-target="" ng-if="item.icon" md-svg-icon="{{item.icon}}"></md-icon>
                     <span>
                         {{item.title | translate}}</span>
                     </md-button>
             </md-menu-item>
             <md-menu-item ng-if="vm.config.text">
-                <md-button><span class="text-grey">{{vm.config.text | translate}}</span></md-button>
+                <md-button tabindex="5"><span class="text-grey">{{vm.config.text | translate}}</span></md-button>
             </md-menu-item>
         </md-menu-content>
     </md-menu>

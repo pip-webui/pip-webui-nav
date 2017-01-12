@@ -8,7 +8,8 @@
         'pipTheme', 'pipNav', 'pipNav.Templates',
 
         'appAppbar.Icons', 'appAppbar.Titles', 'appAppbar.Actions', 'appAppbar.Search',
-        'appAppbar.Shadows', 'appNav.Dropdown', 'appNav.Tabs', 'appNav.StickySideNav'
+        'appAppbar.Shadows', 'appNav.Dropdown', 'appNav.Tabs', 'appNav.StickySideNav',
+        'appNav.Navigations'
     ]);
 
     var content = [
@@ -21,6 +22,7 @@
         { title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
         { title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
         { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
+        { title: 'Navigations', state: 'navigations', icon: 'icons:preview', url: '/navigations', controller: 'NavigationsController', templateUrl: 'navigations.html' },
     ];
 
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider, $urlRouterProvider, pipSideNavProvider, pipNavHeaderProvider, pipNavMenuProvider) {
@@ -50,7 +52,8 @@
                 title: 'SideNav',
                 icon: 'icons:area',
                 links: [
-                    { name: 'StickySideNav', title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' }
+                    { name: 'StickySideNav', title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
+                    { name: 'Navigations', title: 'Navigations', state: 'navigations', icon: 'icons:preview', url: '/navigations', controller: 'NavigationsController', templateUrl: 'navigations.html' }
                 ]
             }
         ];

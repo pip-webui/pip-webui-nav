@@ -2,6 +2,7 @@
             ng-if="config.type != 'none'"
             ng-class="config.class"
             ng-click="onNavIconClick()"
+            tabindex="{{config.type=='menu' || config.type=='back' ? 4 : -1 }}"
             aria-label="menu">
     <!-- Menu icon -->
     <md-icon ng-if="config.type=='menu'"

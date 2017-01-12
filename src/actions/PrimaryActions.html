@@ -1,6 +1,8 @@
+<div pip-focused pip-focused-tabindex="2">
 <md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryLocalActions">
-    <md-button class="pip-primary-actions-action md-icon-button"
+    <md-button class="pip-primary-actions-action md-icon-button pip-focusable"
                 ng-click="clickAction(action, $mdOpenMenu);"
+                tabindex="-1"
                 ng-hide="isHidden(action)"
                 aria-label="{{action.title | translate}}">
         <!--<md-tooltip ng-if="!!action.title">{{action.title | translate}}</md-tooltip>-->
@@ -13,7 +15,8 @@
         <md-menu-item ng-repeat-start="subAction in action.subActions"
                         ng-if="!subAction.divider"
                         ng-hide="isHidden(subAction)">
-            <md-button ng-hide="subAction.divider"
+            <md-button class="pip-focusable" ng-hide="subAction.divider"
+                        tabindex="-1"
                         ng-click="clickAction(subAction)">
                 {{::subAction.title | translate}}
             </md-button>
@@ -23,9 +26,10 @@
 </md-menu>
 
 <md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in config.primaryGlobalActions">
-    <md-button class="pip-primary-actions-action md-icon-button"
+    <md-button class="pip-primary-actions-action md-icon-button pip-focusable"
                ng-click="clickAction(action, $mdOpenMenu);"
                ng-hide="isHidden(action)"
+               tabindex="-1"
                aria-label="{{action.title | translate}}">
         <!--<md-tooltip ng-if="!!action.title">{{action.title | translate}}</md-tooltip>-->
         <div class="pip-primary-actions-badge color-badge-bg" ng-show="action.count > 0">
@@ -37,7 +41,8 @@
         <md-menu-item ng-repeat-start="subAction in action.subActions"
                       ng-if="!subAction.divider"
                       ng-hide="isHidden(subAction)">
-            <md-button ng-hide="subAction.divider"
+            <md-button class="pip-focusable" ng-hide="subAction.divider"
+                        tabindex="-1"
                        ng-click="clickAction(subAction)">
                 {{subAction.title | translate}}
             </md-button>
@@ -45,3 +50,4 @@
         <md-menu-divider ng-if="subAction.divider" ng-repeat-end></md-menu-divider>
     </md-menu-content>
 </md-menu>
+</div>

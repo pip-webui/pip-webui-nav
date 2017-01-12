@@ -3,11 +3,12 @@
 // Prevent junk from going into typescript definitions
 (() => {
 
-    function TabsDirectiveController($scope, $element, $attrs, $mdMedia, $injector, $rootScope, $parse) {
+    function TabsDirectiveController($scope, $element, $attrs, $mdMedia, $injector, $rootScope, $parse, $timeout) {
         "ngInject";
 
         var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null,
             pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null,
+            pipTabIndex = $attrs.pipTabIndex ? parseInt($attrs.pipTabIndex) : 0,
             currentTheme = 'default';
 
         $scope.selected = {};
@@ -27,6 +28,21 @@
             }
         }
 
+        if (pipTabIndex) {
+            $timeout(function () {
+                let a = $element.find('md-tabs-canvas');
+                if (a && a[0]) {
+                    angular.element(a[0]).attr('tabindex', pipTabIndex);
+                }
+                a.on('focusout', function () {
+                    angular.element(a[0]).attr('tabindex', pipTabIndex);
+                    $timeout(function () {
+                        angular.element(a[0]).attr('tabindex', pipTabIndex);
+                    }, 50);
+                });
+            }, 1000);
+        }
+        
         $scope.media = pipMedia !== undefined ? pipMedia : $mdMedia;
         $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
 
@@ -54,7 +70,7 @@
                 $scope.selected.activeTab = $scope.selected.activeIndex;
             });
         }
-        
+
         return;
 
         function disabled() {

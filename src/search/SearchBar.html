@@ -1,15 +1,18 @@
 <div class="md-toolbar-tools pip-search-container" ng-if="vm.enabled">
     <div class="layout-row pip-search-selected">
         <md-button class="md-icon-button" 
+            tabindex="6"
             aria-label="start search" 
             ng-click="vm.onClick()">
             <md-icon md-svg-icon="icons:search"></md-icon>
         </md-button>
         <input class="pip-search-text flex"
             type="search"
+            tabindex="6"
             ng-model="vm.search.text" 
             ng-keydown="vm.onKeyDown($event)" />
         <md-button class="md-icon-button" 
+            tabindex="6"
             aria-label="clear search" 
             ng-click="vm.clear()">
             <md-icon md-svg-icon="icons:cross-circle"></md-icon>
@@ -18,6 +21,7 @@
 </div>
 <div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed lp0 rp0"  ng-if="!vm.enabled">
     <md-button class="md-icon-button"
+                tabindex="5"
                aria-label="start search"
                ng-click="vm.enable()">
         <md-icon md-svg-icon="icons:search"></md-icon>
