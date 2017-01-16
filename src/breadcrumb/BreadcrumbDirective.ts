@@ -17,6 +17,7 @@ class BreadcrumbController {
     private _location: ng.ILocationService;
     private _injector: ng.auto.IInjectorService;
     private originatorEv: Event;
+    private _media: any;
     
     public config: BreadcrumbConfig;
 
@@ -27,7 +28,8 @@ class BreadcrumbController {
         $state: ng.ui.IStateService,
         $location: ng.ILocationService,
         $injector: ng.auto.IInjectorService,
-        pipBreadcrumb: IBreadcrumbService
+        pipBreadcrumb: IBreadcrumbService,
+        $mdMedia: any
     ) {
         "ngInject";
 
@@ -43,6 +45,9 @@ class BreadcrumbController {
 
         $rootScope.$on(BreadcrumbChangedEvent, (event, config) => { this.onBreadcrumbChanged(event, config); });
         $rootScope.$on(BreadcrumbBackEvent, () => { this.onBreadcrumbBack(); });
+
+        let pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
+        this._media = pipMedia !== undefined ? pipMedia : $mdMedia;
     }
 
     private onBreadcrumbChanged(event, config) {

@@ -1,5 +1,6 @@
 <div style="height: 23px;">
-    <div class="hide-xs text-overflow">
+    <!--<div class="hide-xs text-overflow">-->
+    <div class="text-overflow" ng-if="!vm._media('xs')">
         <!-- Search criteria -->
         <span ng-if="vm.config.criteria" ng-click="vm.openSearch()">{{vm.config.criteria}} -</span>
         <!-- Breadcrumb navigation -->
@@ -7,10 +8,12 @@
             ng-click="vm.onClick(item)" ng-init="stepWidth = 100/(vm.config.items.length + 1)" ng-class="{'cursor-pointer': !$last}"
             ng-style="{'max-width': stepWidth + '%'}">
 
-            <span class="hide-xs" ng-if="!$last || !vm.actionsVisible(item)">{{item.title | translate}}</span>
+            <!--<span class="hide-xs" ng-if="!$last || !vm.actionsVisible(item)">{{item.title | translate}}</span>-->
+            <span ng-if="!$last || !vm.actionsVisible(item)">{{item.title | translate}}</span>
 
             <div ng-if="$last && vm.actionsVisible(item)" style="display: inline-block; position: relative;">
-            <md-menu class="hide-xs" md-offset="0 44">
+            <!--<md-menu class="hide-xs" md-offset="0 44" >-->
+            <md-menu  md-offset="0 44">
                 <span class="layout-row pip-breadcrumb-item-menu cursor-pointer {{$last ? 'breadcrumb-accent' : ''}}" 
                     ng-click="vm.onOpenMenu($mdOpenMenu, $event)" md-ink-ripple aria-label="open breadcrumb actions">
                     {{item.title | translate}}
@@ -19,7 +22,7 @@
                 <md-menu-content width="4">
                     <md-menu-item ng-if="!subItem.divider"
                             ng-repeat-start="subItem in item.subActions" ng-if="item.subActions && item.subActions.length > 0">
-                        <md-button ng-click="vm.onSubActionClick(subItem)" ng-hide="action.divider" tabindex="4">
+                        <md-button ng-click="vm.onSubActionClick(subItem)" ng-if="!action.divider" tabindex="4">
                             <md-icon md-menu-align-target="" ng-if="subItem.icon" md-svg-icon="{{subItem.icon}}"></md-icon>
                             <span>{{subItem.title | translate}}</span>
                         </md-button>
@@ -35,40 +38,39 @@
     </div>
 
     <!-- Mobile breadcrumb dropdown -->
-    <div style="position: relative;" class="hide-gt-xs">
-    <md-menu  md-offset="0 44" >
-        <span class="pip-mobile-breadcrumb layout-row" 
-                ng-click="vm.config.items && vm.config.items.length > 1 ? $mdOpenMenu() : return" 
-                aria-label="open breadcrumb">
-            <span class="text-overflow">
-                <!-- Search criteria -->
-                <span ng-if="vm.config.criteria"
-                    ng-click="vm.openSearch()">{{vm.config.criteria}} -
-                </span>
-                <span class="breadcrumb-accent" ng-if="vm.config.text">    
-                    {{vm.config.text | translate}}
-                </span>
-                <span ng-if="vm.config.items && vm.config.items.length > 0" 
-                    class="breadcrumb-accent {{(vm.config.items && vm.config.items.length > 1) ? 'cursor-pointer' : '' }}">    
-                    {{vm.config.items[vm.config.items.length - 1].title | translate}}
-                </span>
-        </span>
-        <md-icon class="pip-triangle-down cursor-pointer breadcrumb-accent" md-svg-icon="icons:triangle-down" 
-                ng-if="vm.config.items && vm.config.items.length > 1"></md-icon>
-        </span>
-        <md-menu-content width="4">
-            <md-menu-item ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 0">
-                <md-button ng-click="vm.onClick(item)" tabindex="5">
-                    <md-icon md-menu-align-target="" ng-if="item.icon" md-svg-icon="{{item.icon}}"></md-icon>
-                    <span>
-                        {{item.title | translate}}</span>
-                    </md-button>
-            </md-menu-item>
-            <md-menu-item ng-if="vm.config.text">
-                <md-button tabindex="5"><span class="text-grey">{{vm.config.text | translate}}</span></md-button>
-            </md-menu-item>
-        </md-menu-content>
-    </md-menu>
+    <div style="position: relative;" ng-if="vm._media('xs')">
+        <md-menu  md-offset="0 44" >
+            <span class="pip-mobile-breadcrumb layout-row" 
+                    ng-click="vm.config.items && vm.config.items.length > 1 ? $mdOpenMenu() : return">
+                <span class="text-overflow">
+                    <!-- Search criteria -->
+                    <span ng-if="vm.config.criteria"
+                        ng-click="vm.openSearch()">{{vm.config.criteria}} -
+                    </span>
+                    <span class="breadcrumb-accent" ng-if="vm.config.text">    
+                        {{vm.config.text | translate}}
+                    </span>
+                    <span ng-if="vm.config.items && vm.config.items.length > 0" 
+                        class="breadcrumb-accent {{(vm.config.items && vm.config.items.length > 1) ? 'cursor-pointer' : '' }}">    
+                        {{vm.config.items[vm.config.items.length - 1].title | translate}}
+                    </span>
+            </span>
+            <md-icon class="pip-triangle-down cursor-pointer breadcrumb-accent" md-svg-icon="icons:triangle-down" 
+                    ng-if="vm.config.items && vm.config.items.length > 1"></md-icon>
+            </span>
+            <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in vm.config.items" ng-if="vm.config.items && vm.config.items.length > 0">
+                    <md-button ng-click="vm.onClick(item)" tabindex="5">
+                        <md-icon md-menu-align-target="" ng-if="item.icon" md-svg-icon="{{item.icon}}"></md-icon>
+                        <span>
+                            {{item.title | translate}}</span>
+                        </md-button>
+                </md-menu-item>
+                <md-menu-item ng-if="vm.config.text">
+                    <md-button tabindex="5"><span class="text-grey">{{vm.config.text | translate}}</span></md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
 
 </div>
