@@ -13,7 +13,7 @@
     ]);
 
     var content = [
-        { title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
+        { title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html', tooltipText: 'Nav icons' },
         { title: 'Titles', state: 'titles', icon: 'icons:list', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
         { title: 'Actions', state: 'actions', icon: 'icons:action', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
         { title: 'Search', state: 'search', icon: 'icons:search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },
@@ -38,7 +38,7 @@
                 title: 'Appbar',
                 icon: 'icons:goal',
                 links: [
-                    { name: 'Nav icons', title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html' },
+                    { name: 'Nav icons', title: 'Nav icons', state: 'nav_icons', icon: 'icons:archive', url: '/nav_icons', controller: 'IconsController', templateUrl: 'appbar_icons.html', tooltipText: 'Nav icons' },
                     { name: 'Titles', title: 'Titles', state: 'titles', icon: 'icons:list', url: '/titles', controller: 'TitlesController', templateUrl: 'appbar_titles.html' },
                     { name: 'Actions', title: 'Actions', state: 'actions', icon: 'icons:action', url: '/actions', controller: 'ActionsController', templateUrl: 'appbar_actions.html' },
                     { name: 'Search', title: 'Search', state: 'search', icon: 'icons:search', url: '/search', controller: 'SearchController', templateUrl: 'appbar_search.html' },

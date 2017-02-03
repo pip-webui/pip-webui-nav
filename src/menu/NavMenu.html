@@ -24,15 +24,15 @@
                 <md-icon md-svg-icon="{{section.icon}}" ng-if="!sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">
                 </md-icon>
                 <md-icon md-svg-icon="{{section.icon}}" ng-if="sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon">
-                    <md-tooltip md-visible="showTooltip" md-direction="right">
-                        {{::section.title | translate}}
+                    <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
+                        {{::section.tooltipText || section.title | translate}}
                     </md-tooltip>
                 </md-icon>
                 <md-icon md-svg-icon="{{defaultIcon}}" ng-if="!sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
                 </md-icon>            
                 <md-icon md-svg-icon="{{defaultIcon}}" ng-if="sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon">
-                    <md-tooltip md-visible="showTooltip" class="md-secondary">
-                        {{::section.title | translate}}
+                    <md-tooltip md-visible="showTooltip" class="md-secondary" class="sidenav-icon-tooltip">
+                        {{::section.tooltipText || section.title | translate}}
                     </md-tooltip>
                 </md-icon>
             </md-subheader>
@@ -44,18 +44,21 @@
                         ng-hide="link.access && !link.access(link)">
                 <md-button class="layout-row layout-align-start-center" tabindex="-1"
                         ng-click="clickLink($event, link)">
+                        <md-tooltip md-visible="showTooltip" md-direction="right">
+                                {{::link.tooltipText | translate}}
+                        </md-tooltip>
                     <div class="pip-sticky-nav-menu-icon-block">
                         <md-icon md-svg-icon="{{link.icon}}"
-                                ng-if="!(sideNavState.showIconTooltype && !expanded)"
+                                ng-if="!(sideNavState.showIconTooltype && !link.tooltipText && !expanded)"
                                 ng-hide="!link.icon"
                                 class="pip-sticky-nav-menu-icon flex-fixed">
                         </md-icon>                    
                         <md-icon md-svg-icon="{{link.icon}}"
                                 ng-hide="!link.icon"
-                                ng-if="sideNavState.showIconTooltype && !expanded"
+                                ng-if="sideNavState.showIconTooltype && !link.tooltipText && !expanded"
                                 class="pip-sticky-nav-menu-icon flex-fixed">
-                            <md-tooltip md-visible="showTooltip" md-direction="right">
-                                {{::link.title | translate}}
+                            <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
+                                {{::link.tooltipText || link.title | translate}}
                             </md-tooltip>
                         </md-icon>
                     </div>

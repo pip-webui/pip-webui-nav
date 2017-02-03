@@ -5,7 +5,6 @@
                 tabindex="-1"
                 ng-hide="isHidden(action)"
                 aria-label="{{action.title | translate}}">
-        <!--<md-tooltip ng-if="!!action.title">{{action.title | translate}}</md-tooltip>-->
         <div class="pip-primary-actions-badge" ng-show="action.count > 0">
             {{actionCount(action)}}
         </div>
@@ -31,7 +30,6 @@
                ng-hide="isHidden(action)"
                tabindex="-1"
                aria-label="{{action.title | translate}}">
-        <!--<md-tooltip ng-if="!!action.title">{{action.title | translate}}</md-tooltip>-->
         <div class="pip-primary-actions-badge color-badge-bg" ng-show="action.count > 0">
             {{actionCount(action)}}
         </div>

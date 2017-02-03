@@ -7,6 +7,8 @@ export class NavMenuLink {
     public name: string;
     // Link visible title
     public title: string;
+    // Tooltip text
+    public tooltipText?: string;    
     // Icon name from $iconProvider
     public icon?: string;
     // Counter badge
@@ -36,6 +38,8 @@ export class NavMenuSection {
     public name: string;
     // Section visible title
     public title?: string;
+    // Tooltip text
+    public tooltipText?: string;      
     // Icon name from $iconProvider
     public icon?: string;
     // Links shown in the section
