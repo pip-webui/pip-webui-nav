@@ -36,7 +36,7 @@
                     HIDE_ACTIONS: 'Hide actions',
                     HIDE_LOCAL_ACTIONS: 'Hide local primary actions',
                     SHOW_LANGUAGES: 'Show languages',
-                    
+                    OPEN_SECONDARY_MENU: 'Open menu'
                 });
                 pipTranslate.setTranslations('ru', {
                     TITLE_LOCAL_ACTION: 'Заголовок первого основного действия',
@@ -109,6 +109,9 @@
                 pipAppBar.part('actions', 'primary');
             };
 
+            $scope.openSecondaryMenu = function() {
+                pipActions.openMenuEvent();
+            }
 
         }
     );

@@ -1,6 +1,7 @@
 'use strict';
 
 export let ActionsChangedEvent = 'pipActionsChanged';
+export let SecondaryActionsOpenEvent = 'pipSecondaryActionsOpen';
 
 export class SimpleActionItem {
     // Name to refer to the item
@@ -59,6 +60,7 @@ export interface IActionsService {
     hide(): void;
     updateCount(link: string, count: number): void; 
     clearCounts(): void;
+    openMenuEvent(): void;
 }
 
 export interface IActionsProvider extends ng.IServiceProvider {
@@ -162,6 +164,10 @@ class ActionsService implements IActionsService {
 
     private sendChangeEvent() {
         this._rootScope.$emit(ActionsChangedEvent, this._config);
+    }
+
+    public openMenuEvent(): void {
+        this._rootScope.$emit(SecondaryActionsOpenEvent);
     }
 }
 

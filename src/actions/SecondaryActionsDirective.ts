@@ -4,7 +4,7 @@
 (() => {
 
 function SecondaryActionsController(
-    $scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
+    $scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions, $timeout) {
 
     // Apply class and call resize
     $element.addClass('pip-secondary-actions');
@@ -18,6 +18,7 @@ function SecondaryActionsController(
     $scope.config = pipActions.config;
 
     $rootScope.$on('pipActionsChanged', onActionsChanged);
+    $rootScope.$on('pipSecondaryActionsOpen', onActionsMenuOpen);
 
     $scope.isHidden = isHidden;
     $scope.actionCount = actionCount;
@@ -25,11 +26,18 @@ function SecondaryActionsController(
     $scope.secondaryDividerVisible = secondaryDividerVisible;
 
     $scope.clickAction = clickAction;
+    $scope.getMenu = function(menuFn) {
+        $scope.menuFn = menuFn;
+    }
 
     $scope.openMenu = openMenu;
 
     return;
     /////////////////////
+
+    function onActionsMenuOpen() {
+        $scope.menuFn();
+    }
 
     function openMenu($mdOpenMenu, ev) {
         $scope.originatorEv = ev;
