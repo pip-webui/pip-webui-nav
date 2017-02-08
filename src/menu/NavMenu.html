@@ -42,7 +42,7 @@
                         tabindex="-1"
                         ng-class="{'active': isActive(link)}"
                         ng-hide="link.access && !link.access(link)">
-                <md-button class="layout-row layout-align-start-center" tabindex="-1"
+                <md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1"
                         ng-click="clickLink($event, link)">
                         <md-tooltip md-visible="showTooltip" md-direction="right">
                                 {{::link.tooltipText | translate}}
