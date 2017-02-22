@@ -120,34 +120,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 
 
 
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
-
-
-
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
     imageUrl: string;
@@ -178,6 +150,35 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
 }
+
+
+
+
+export let NavIconChangedEvent: string;
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
+}
+export interface INavIconService {
+    readonly config: NavIconConfig;
+    showMenu(callbackOrEvent?: any): void;
+    showIcon(icon: string, callbackOrEvent?: any): void;
+    showBack(callbackOrEvent?: any): void;
+    showImage(imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+    config: NavIconConfig;
+    setMenu(callbackOrEvent?: any): void;
+    setIcon(icon: string, callbackOrEvent?: any): void;
+    setBack(callbackOrEvent?: any): void;
+    setImage(imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
+
 
 
 
@@ -224,7 +225,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 
 
 
-
 export let OpenSearchEvent: string;
 export let CloseSearchEvent: string;
 export let SearchChangedEvent: string;
@@ -250,7 +250,6 @@ export interface ISearchService {
 }
 export interface ISearchProvider extends ng.IServiceProvider {
 }
-
 
 
 
@@ -290,6 +289,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
 }
+
 
 }
 
