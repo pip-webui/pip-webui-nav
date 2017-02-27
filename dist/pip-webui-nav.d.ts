@@ -1,54 +1,5 @@
 declare module pip.nav {
 
-export let ActionsChangedEvent: string;
-export let SecondaryActionsOpenEvent: string;
-export class SimpleActionItem {
-    name: string;
-    title?: string;
-    divider?: boolean;
-    icon?: string;
-    count?: number;
-    access?: (action: SimpleActionItem) => boolean;
-    breakpoints?: string[];
-    href?: string;
-    url?: string;
-    state?: string;
-    stateParams?: any;
-    event?: string;
-    click?: (action: SimpleActionItem) => void;
-}
-export class ActionItem extends SimpleActionItem {
-    subActions: SimpleActionItem[];
-}
-export class ActionsConfig {
-    primaryGlobalActions: ActionItem[];
-    primaryLocalActions: ActionItem[];
-    secondaryGlobalActions: ActionItem[];
-    secondaryLocalActions: ActionItem[];
-}
-export interface IActionsService {
-    readonly config: ActionsConfig;
-    primaryGlobalActions: ActionItem[];
-    primaryLocalActions: ActionItem[];
-    secondaryGlobalActions: ActionItem[];
-    secondaryLocalActions: ActionItem[];
-    show(primaryActions?: ActionItem[], secondaryActions?: ActionItem[]): void;
-    hide(): void;
-    updateCount(link: string, count: number): void;
-    clearCounts(): void;
-    openMenuEvent(): void;
-}
-export interface IActionsProvider extends ng.IServiceProvider {
-    config: ActionsConfig;
-    primaryGlobalActions: ActionItem[];
-    primaryLocalActions: ActionItem[];
-    secondaryGlobalActions: ActionItem[];
-    secondaryLocalActions: ActionItem[];
-}
-
-
-
-
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -117,6 +68,54 @@ export interface INavService {
     reset(): void;
 }
 
+export let ActionsChangedEvent: string;
+export let SecondaryActionsOpenEvent: string;
+export class SimpleActionItem {
+    name: string;
+    title?: string;
+    divider?: boolean;
+    icon?: string;
+    count?: number;
+    access?: (action: SimpleActionItem) => boolean;
+    breakpoints?: string[];
+    href?: string;
+    url?: string;
+    state?: string;
+    stateParams?: any;
+    event?: string;
+    click?: (action: SimpleActionItem) => void;
+}
+export class ActionItem extends SimpleActionItem {
+    subActions: SimpleActionItem[];
+}
+export class ActionsConfig {
+    primaryGlobalActions: ActionItem[];
+    primaryLocalActions: ActionItem[];
+    secondaryGlobalActions: ActionItem[];
+    secondaryLocalActions: ActionItem[];
+}
+export interface IActionsService {
+    readonly config: ActionsConfig;
+    primaryGlobalActions: ActionItem[];
+    primaryLocalActions: ActionItem[];
+    secondaryGlobalActions: ActionItem[];
+    secondaryLocalActions: ActionItem[];
+    show(primaryActions?: ActionItem[], secondaryActions?: ActionItem[]): void;
+    hide(): void;
+    updateCount(link: string, count: number): void;
+    clearCounts(): void;
+    openMenuEvent(): void;
+}
+export interface IActionsProvider extends ng.IServiceProvider {
+    config: ActionsConfig;
+    primaryGlobalActions: ActionItem[];
+    primaryLocalActions: ActionItem[];
+    secondaryGlobalActions: ActionItem[];
+    secondaryLocalActions: ActionItem[];
+}
+
+
+
 
 
 
@@ -154,6 +153,7 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 
 
 
+
 export let NavIconChangedEvent: string;
 export class NavIconConfig {
     type: string;
@@ -178,6 +178,7 @@ export interface INavIconProvider extends ng.IServiceProvider {
     setImage(imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
 }
+
 
 
 
@@ -221,7 +222,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
 }
-
 
 
 
