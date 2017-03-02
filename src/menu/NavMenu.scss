@@ -1,9 +1,9 @@
 // Sizes
 //-----------
 
-@nav-menu-padding: 23px;
-@nav-menu-padding-sm: 16px;
-@nav-menu-selected-color: rgba(0, 0, 0, 0.08);
+$nav-menu-padding: 23px;
+$nav-menu-padding-sm: 16px;
+$nav-menu-selected-color: rgba(0, 0, 0, 0.08);
 
 .sidenav-icon-tooltip {
     margin-left: 24px;
@@ -36,7 +36,7 @@
     }
     .md-subheader {
         line-height: 48px;
-        background: @sidenav-bg;
+        background: $sidenav-bg;
         .md-subheader-inner {
             padding: 0px 23px;
         }
@@ -50,12 +50,12 @@
     }
 
     .pip-sticky-nav-menu-item.active {
-        background-color: @nav-menu-selected-color;
+        background-color: $nav-menu-selected-color;
     }
     .pip-sticky-nav-menu-item {
         .md-button {
-            padding-left: @nav-menu-padding !important;
-            padding-right: @nav-menu-padding !important;
+            padding-left: $nav-menu-padding !important;
+            padding-right: $nav-menu-padding !important;
 
             line-height: 48px;
             height: 48px;
@@ -73,7 +73,7 @@
                 padding-right: 0px 24px 0px 0px;
                 margin-left: 2px;
                 width: 200px;
-                .text-overflow();
+                @include text-overflow();
                 text-transform: none;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -87,7 +87,7 @@
             }
             .pip-sticky-nav-menu-icon-block {
                 width: 47px;
-                padding-right: @nav-menu-padding !important;
+                padding-right: $nav-menu-padding !important;
                 .pip-sticky-nav-menu-icon {
                     margin-top: 12px;
                     margin-bottom: 12px;
@@ -104,8 +104,8 @@
                 line-height: 22px;
                 vertical-align: middle;
                 text-align: center;
-                color: @color-content;
-                background-color:  @color-error;
+                color: $color-content;
+                background-color:  $color-error;
             }
         }
     }
@@ -276,7 +276,7 @@
     }
 }
 
-// @keyframes badge-animation {
+// $keyframes badge-animation {
 //     0% {
 //         top: 5px;
 //         left: 32px;
@@ -287,7 +287,7 @@
 //     }
 // }
 
-// @keyframes badge-animation-back {
+// $keyframes badge-animation-back {
 //     0% {
 //         left: 274px;
 //         top: 13px;
@@ -331,7 +331,7 @@
     }
 }
 
-// @keyframes badge-animation-sm {
+// $keyframes badge-animation-sm {
 //     0% {
 //         top: 5px;
 //         left: 32px;
@@ -342,7 +342,7 @@
 //     }
 // }
 
-// @keyframes badge-animation-sm-back {
+// $keyframes badge-animation-sm-back {
 //     0% {
 //         left: 194px;
 //         top: 13px;

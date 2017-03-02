@@ -13,7 +13,7 @@
     line-height: 24px;
   }
 
-  .text-overflow();
+  @include text-overflow();
 
   .pip-triangle-down {
     margin: 0;

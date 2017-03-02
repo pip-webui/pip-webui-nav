@@ -1,5 +1,5 @@
-// @file CSS styles for dropdown control
-// @copyright Digital Living Software Corp. 2014-2016
+// $file CSS styles for dropdown control
+// $copyright Digital Living Software Corp. 2014-2016
 
 pip-dropdown {
 
@@ -43,21 +43,21 @@ pip-dropdown {
 }
 
 .pip-full-width-dropdown {
-  @media (max-width: (@layout-breakpoint-md - 1)) {
+  @media (max-width: ($layout-breakpoint-md - 1)) {
     top: 48px !important;
     left: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
     min-width: 100% !important;
 
-    > md-select-menu > md-content {
+    & > md-select-menu > md-content {
       max-width: 100% !important;
       width: 100% !important;
       min-width: 100% !important;
     }
   }
 
-  @media only screen and (max-width: (@layout-breakpoint-md - 1)) and (min-width: 0) and (orientation: portrait) {
+  @media only screen and (max-width: ($layout-breakpoint-md - 1)) and (min-width: 0) and (orientation: portrait) {
     top: 56px !important;
   }
 }

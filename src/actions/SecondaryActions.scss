@@ -2,7 +2,7 @@
 // @copyright Digital Living Software Corp. 2014-2016
 
 .md-open-menu-container {
-  max-width: ~"calc(100% - 20px)";
+  max-width: calc(100% - 20px);
 
   .md-icon-button {
     margin: 0;
@@ -11,8 +11,8 @@
   md-menu-content {
     md-menu-item {
       .md-button {
-        .text-overflow();
-        color: @color-primary !important;
+        @include text-overflow();
+        color: $color-primary !important;
       }
     }
   }

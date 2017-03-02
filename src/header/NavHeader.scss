@@ -1,0 +1,95 @@
+// $file CSS styles for application Sticky Nav Header component
+// $copyright Digital Living Software Corp. 2014-2016
+
+
+$nav-header-party-font-size:            22px;
+$nav-header-party-color:                rgb(255, 255, 255);
+$nav-header-party-font-letter-spacing:  0.005em;
+
+// Relationship and Privacy
+//-------------------------------------------
+
+$nav-header-party-info-font-size:           14px;
+$nav-header-party-info-color:               rgb(255, 255, 255);
+$nav-header-party-info-font-letter-spacing: 0.01em;
+
+// Sizes
+//-----------
+
+$nav-header-padding: 23px;
+$nav-header-image-big-size: 80px;
+$nav-header-image-small-size: 40px;
+$nav-header-padding-sm: 16px;
+$nav-header-height: 112px;
+$nav-header-height-sm: 96px;
+
+
+md-sidenav.md-closed {
+   .pip-sticky-nav-header {
+       display: none;
+   }
+}
+
+.pip-sticky-nav-header {
+    md-toolbar {
+        position: relative;
+        padding-top: $nav-header-padding-sm;
+        height: $nav-header-height;
+        width: 100%;
+        padding-bottom: $nav-header-padding-sm;
+        padding-left: $nav-header-padding;
+        padding-right: $nav-header-padding;
+
+        &.pip-sticky-nav-header-owner {
+            min-height: 82px !important;
+        }
+    }
+
+    .pip-sticky-nav-header-user {
+        width: $nav-header-image-big-size;
+        min-width: $nav-header-image-big-size;
+        height: $nav-header-image-big-size;
+        margin: 0px;
+        padding: 0px;
+        display: block;
+
+        .md-button {
+            margin: 0px;
+            padding: 0px;
+            border-radius: 50%;
+            width: $nav-header-image-big-size;
+            min-width: $nav-header-image-big-size;
+            height: $nav-header-image-big-size;
+        }
+
+        .pip-sticky-nav-header-user-image {
+            border-radius: 50%;
+            width: $nav-header-image-big-size;
+            height: $nav-header-image-big-size;
+
+
+        }
+    }
+
+    .pip-sticky-nav-header-user-text {
+        max-height: $nav-header-height;
+        padding-left: 16px;
+        display: block;
+        .pip-sticky-nav-header-user-pri {
+            max-height: 84px; // 3 line
+            overflow: hidden;
+            cursor: pointer !important;
+            font-size: $nav-header-party-font-size;
+            letter-spacing: $nav-header-party-font-letter-spacing;
+            word-wrap: break-word;
+        }
+        .pip-sticky-nav-header-user-sec {
+            margin-top: 4px;
+            font-size: $nav-header-party-info-font-size;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+}
