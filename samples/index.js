@@ -60,7 +60,7 @@
         pipSideNavProvider.part('user', true);
         pipSideNavProvider.part('links', true);
         pipSideNavProvider.type = 'sticky';
-        pipNavHeaderProvider.defaultImageUrl = 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png';
+        pipNavHeaderProvider.defaultImageUrl = 'images/girl_user.png';
         $urlRouterProvider.otherwise('/nav_icons');
     });
 
@@ -77,7 +77,7 @@
             $scope.user = {
                 fullName: 'Kate Negrienko',
                 details: 'details',
-                imageUrl: 'https://www.american.edu1/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
+                imageUrl: 'images/girl_user.png'
             };
 
             pipNavHeader.show($scope.user.fullName, $scope.user.details, $scope.user.imageUrl);
