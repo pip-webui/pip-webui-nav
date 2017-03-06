@@ -451,25 +451,32 @@ require("./SecondaryActionsDirective");
 __export(require("./ActionsService"));
 },{"./ActionsService":1,"./PrimaryActionsDirective":2,"./SecondaryActionsDirective":3}],5:[function(require,module,exports){
 'use strict';
-(function () {
-    AppBarDirectiveController.$inject = ['$scope', '$element', '$rootScope', 'pipAppBar'];
-    function AppBarDirectiveController($scope, $element, $rootScope, pipAppBar) {
+var AppBarDirectiveController = (function () {
+    AppBarDirectiveController.$inject = ['$element', '$scope', '$log', '$rootScope', 'pipAppBar'];
+    function AppBarDirectiveController($element, $scope, $log, $rootScope, pipAppBar) {
         "ngInject";
+        var _this = this;
         $element.addClass('pip-appbar');
         $element.addClass('color-primary-bg');
         $scope.config = pipAppBar.config;
-        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-        function onAppBarChanged(event, config) {
-            $scope.config = config;
-        }
+        $rootScope.$on('pipAppBarChanged', function (event, config) {
+            _this.onAppBarChanged(event, config);
+        });
     }
+    AppBarDirectiveController.prototype.onAppBarChanged = function (event, config) {
+        this.config = config;
+    };
+    return AppBarDirectiveController;
+}());
+(function () {
     function appbarDirective() {
         return {
             restrict: 'E',
             transclude: true,
             scope: true,
             templateUrl: 'appbar/AppBar.html',
-            controller: AppBarDirectiveController
+            controller: AppBarDirectiveController,
+            controllerAs: 'vm'
         };
     }
     angular
@@ -478,28 +485,34 @@ __export(require("./ActionsService"));
 })();
 },{}],6:[function(require,module,exports){
 'use strict';
-(function () {
-    AppBarPartDirectiveController.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipAppBar'];
-    appbarPartDirective.$inject = ['ngIfDirective'];
-    function AppBarPartDirectiveController($scope, $element, $attrs, $rootScope, pipAppBar) {
+var AppBarPartDirectiveController = (function () {
+    AppBarPartDirectiveController.$inject = ['$element', '$attrs', '$scope', '$log', '$rootScope', 'pipAppBar'];
+    function AppBarPartDirectiveController($element, $attrs, $scope, $log, $rootScope, pipAppBar) {
         "ngInject";
-        var partName = '' + $attrs.pipAppbarPart;
-        var partValue = null;
-        var pos = partName.indexOf(':');
+        var _this = this;
+        this._scope = $scope;
+        this._partName = String($attrs.pipAppbarPart);
+        this._partValue = null;
+        var pos = this._partName.indexOf(':');
         if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
+            this._partValue = this._partName.substr(pos + 1);
+            this._partName = this._partName.substr(0, pos);
         }
-        onAppBarChanged(null, pipAppBar.config);
-        $rootScope.$on('pipAppBarChanged', onAppBarChanged);
-        function onAppBarChanged(event, config) {
-            var parts = config.parts || {};
-            var currentPartValue = parts[partName];
-            var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
-            if (visible != $scope.visible)
-                $scope.visible = visible;
-        }
+        $rootScope.$on('pipAppBarChanged', function (event, config) {
+            _this.onAppBarChanged(null, config);
+        });
     }
+    AppBarPartDirectiveController.prototype.onAppBarChanged = function (event, config) {
+        var parts = config.parts || {};
+        var currentPartValue = parts[this._partName];
+        var visible = !!(this._partValue ? currentPartValue == this._partValue : currentPartValue);
+        if (visible != this._scope['visible'])
+            this._scope['visible'] = visible;
+    };
+    return AppBarPartDirectiveController;
+}());
+(function () {
+    appbarPartDirective.$inject = ['ngIfDirective'];
     function appbarPartDirective(ngIfDirective) {
         "ngInject";
         var ngIf = ngIfDirective[0];
@@ -2770,7 +2783,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('appbar/AppBar.html',
-    '<md-toolbar class="{{ config.classes.join(\' \') }}" ng-if="config.visible" ng-transclude=""></md-toolbar>');
+    '<md-toolbar class="{{ vm.config.classes.join(\' \') }}" ng-if="vm.config.visible" ng-transclude=""></md-toolbar>');
 }]);
 })();
 
@@ -2853,6 +2866,18 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('sidenav/SideNav.html',
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('pipNav.Templates');
+} catch (e) {
+  module = angular.module('pipNav.Templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('search/SearchBar.html',
     '<div class="md-toolbar-tools pip-search-container" ng-if="vm.enabled"><div class="layout-row pip-search-selected"><md-button class="md-icon-button" tabindex="6" aria-label="start search" ng-click="vm.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" tabindex="6" ng-model="vm.search.text" ng-keydown="vm.onKeyDown($event)"><md-button class="md-icon-button" tabindex="6" aria-label="clear search" ng-click="vm.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div></div><div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed lp0 rp0" ng-if="!vm.enabled"><md-button class="md-icon-button" tabindex="5" aria-label="start search" ng-click="vm.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
 }]);
@@ -2867,18 +2892,6 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('tabs/Tabs.html',
     '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="media(\'gt-sm\')" md-selected="selected.activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="selected.activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(selected.activeIndex)"><md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('pipNav.Templates');
-} catch (e) {
-  module = angular.module('pipNav.Templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/SideNav.html',
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
 }]);
 })();
 

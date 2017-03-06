@@ -66,7 +66,9 @@ class AppBarService implements IAppBarService {
         this._config.visible = true;
         this._config.parts = parts || this._config.parts || {};
         this._config.classes = classes || this._config.classes || [];
-        if (shadowBreakpoints) this.setShadow(shadowBreakpoints);
+        if (shadowBreakpoints) {
+            this.setShadow(shadowBreakpoints); 
+        }
         this.sendConfigEvent();
     }
 
