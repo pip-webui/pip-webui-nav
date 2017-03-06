@@ -9,8 +9,6 @@ import { BreadcrumbBackEvent } from './BreadcrumbService';
 import { OpenSearchEvent } from '../search/SearchService'
 
 // Prevent junk from going into typescript definitions
-(() => {
-
 class BreadcrumbController {
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;
@@ -18,18 +16,18 @@ class BreadcrumbController {
     private _injector: ng.auto.IInjectorService;
     private originatorEv: Event;
     private _media: any;
-    
+
     public config: BreadcrumbConfig;
 
     public constructor(
-        $element: any, 
+        $element: ng.IAugmentedJQuery,
         $rootScope: ng.IRootScopeService,
         $window: ng.IWindowService,
         $state: ng.ui.IStateService,
         $location: ng.ILocationService,
         $injector: ng.auto.IInjectorService,
         pipBreadcrumb: IBreadcrumbService,
-        $mdMedia: any
+        $mdMedia: angular.material.IMedia
     ) {
         "ngInject";
 
@@ -43,56 +41,60 @@ class BreadcrumbController {
 
         this.config = pipBreadcrumb.config;
 
-        $rootScope.$on(BreadcrumbChangedEvent, (event, config) => { this.onBreadcrumbChanged(event, config); });
+        $rootScope.$on(BreadcrumbChangedEvent, (event: ng.IAngularEvent, config: BreadcrumbConfig) => {
+            this.onBreadcrumbChanged(event, config);
+        });
         $rootScope.$on(BreadcrumbBackEvent, () => { this.onBreadcrumbBack(); });
 
         let pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
         this._media = pipMedia !== undefined ? pipMedia : $mdMedia;
     }
 
-    private onBreadcrumbChanged(event, config) {
+    private onBreadcrumbChanged(event: ng.IAngularEvent, config: BreadcrumbConfig): void {
         this.config = config;
     }
 
-    private onBreadcrumbBack() {
-        let items = this.config.items;
+    private onBreadcrumbBack(): void {
+        let items: BreadcrumbItem[] = this.config.items;
         // Go to the last breadcrumb item
         if (_.isArray(items) && items.length > 0) {
-            let item = items[items.length - 1];
-            let backCallback = item.click;
-            if (_.isFunction(backCallback)) 
-                backCallback(item);
-            else
+            let item: BreadcrumbItem = items[items.length - 1];
+            if (_.isFunction(item.click)) {
+                item.click(item);
+            } else {
                 this._window.history.back();
-        } else
+            }
+        } else {
             this._window.history.back();
+        }
     }
 
-    public onClick(item: BreadcrumbItem) {
-        if (_.isFunction(item.click))
+    public onClick(item: BreadcrumbItem): void {
+        if (_.isFunction(item.click)) {
             item.click(item);
+        }
     }
 
-    public openSearch() {
+    public openSearch(): void {
         this._rootScope.$broadcast(OpenSearchEvent);
     }
-    
+
     public actionsVisible(item: BreadcrumbItem): boolean {
 
         return angular.isArray(item.subActions) && item.subActions.length > 1;
     }
 
-    public onOpenMenu($mdOpenMenu, event: Event) {
+    public onOpenMenu($mdOpenMenu: Function, event: Event): void {
         this.originatorEv = event;
         $mdOpenMenu(this.originatorEv);
     }
 
-    public onSubActionClick(action: SimpleActionItem): void { 
+    public onSubActionClick(action: SimpleActionItem): void {
         if (!action || action.divider) {
             return;
         }
 
-        if (action.click) {
+        if (_.isFunction(action.click)) {
             action.click(action);
             return;
         }
@@ -109,8 +111,8 @@ class BreadcrumbController {
 
         if (action.state) {
             if (this._injector.has('$state')) {
-                let $state = this._injector.get('$state') as ng.ui.IStateService
-                $state.go(action.state, action.stateParams);
+                let _state: angular.ui.IStateService = this._injector.get('$state') as ng.ui.IStateService
+                _state.go(action.state, action.stateParams);
             }
             return;
         }
@@ -126,20 +128,20 @@ class BreadcrumbController {
     }
 }
 
+(() => {
+    function breadcrumbDirective() {
+        return {
+            restrict: 'E',
+            scope: {},
+            replace: false,
+            templateUrl: 'breadcrumb/Breadcrumb.html',
+            controller: BreadcrumbController,
+            controllerAs: 'vm'
+        };
+    }
 
-function breadcrumbDirective() {
-    return {
-        restrict: 'E',
-        scope: {},
-        replace: false,
-        templateUrl: 'breadcrumb/Breadcrumb.html',
-        controller: BreadcrumbController,
-        controllerAs: 'vm'
-    };
-}
 
-
-angular.module('pipBreadcrumb')
-    .directive('pipBreadcrumb', breadcrumbDirective);
+    angular.module('pipBreadcrumb')
+        .directive('pipBreadcrumb', breadcrumbDirective);
 
 })();

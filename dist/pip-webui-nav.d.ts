@@ -63,7 +63,7 @@ class PrimaryActionsController {
     private onActionsChanged(event, config);
     isHidden(action: pip.nav.ActionItem): boolean;
     actionCount(action: pip.nav.ActionItem): string;
-    clickAction(action: pip.nav.ActionItem, $mdOpenMenu: any): void;
+    clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void;
 }
 
 class SecondaryActionsController {
@@ -82,14 +82,14 @@ class SecondaryActionsController {
     constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $window: ng.IWindowService, $location: ng.ILocationService, pipActions: pip.nav.IActionsService);
     getMenu(menuFn: Function): void;
     onActionsMenuOpen(): void;
-    openMenu($mdOpenMenu: any, ev: ng.IAngularEvent): void;
+    openMenu($mdOpenMenu: Function, ev: ng.IAngularEvent): void;
     private onActionsChanged(event, config);
     isHidden(action: pip.nav.ActionItem): boolean;
     actionCount(action: pip.nav.ActionItem): string;
     private calcActions(actions);
     secondaryActionsVisible(): boolean;
     secondaryDividerVisible(): boolean;
-    clickAction(action: pip.nav.ActionItem, $mdOpenMenu: any): void;
+    clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void;
 }
 
 class AppBarDirectiveController {
@@ -134,6 +134,18 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 }
 
 
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -152,27 +164,42 @@ export interface IBreadcrumbService {
     text: string;
     items: BreadcrumbItem[];
     criteria: string;
-    showText(text: string, criteria?: string): any;
-    showItems(items: BreadcrumbItem[], criteria?: string): any;
+    showText(text: string, criteria?: string): void;
+    showItems(items: BreadcrumbItem[], criteria?: string): void;
 }
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
 }
 
 
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
+
+
+
+
+export let NavIconChangedEvent: string;
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
 }
-
-
+export interface INavIconService {
+    readonly config: NavIconConfig;
+    showMenu(callbackOrEvent?: any): void;
+    showIcon(icon: string, callbackOrEvent?: any): void;
+    showBack(callbackOrEvent?: any): void;
+    showImage(imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+    config: NavIconConfig;
+    setMenu(callbackOrEvent?: any): void;
+    setIcon(icon: string, callbackOrEvent?: any): void;
+    setBack(callbackOrEvent?: any): void;
+    setImage(imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
 
 
 
@@ -204,33 +231,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     click: () => void;
     event: string;
     set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
-
-
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
 }
 
@@ -280,6 +280,35 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 
 
 
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
+
+
+
+
 
 export let SideNavChangedEvent: string;
 export let SideNavStateChangedEvent: string;
@@ -316,35 +345,6 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
 }
-
-
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
 
 }
 

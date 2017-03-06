@@ -22,14 +22,13 @@ export interface IBreadcrumbService {
     items: BreadcrumbItem[];
     criteria: string;
 
-    showText(text: string, criteria?: string);
-    showItems(items: BreadcrumbItem[], criteria?: string);
+    showText(text: string, criteria?: string): void;
+    showItems(items: BreadcrumbItem[], criteria?: string): void;
 }
 
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
 }
-
 
 class BreadcrumbService implements IBreadcrumbService {
     private _config: BreadcrumbConfig;
@@ -78,14 +77,14 @@ class BreadcrumbService implements IBreadcrumbService {
         this.sendConfigEvent();
     }
 
-    public showText(text: string, criteria?: string) {
+    public showText(text: string, criteria?: string): void {
         this._config.text = text;
         this._config.items = null;
         this._config.criteria = criteria;
         this.sendConfigEvent();
     }
 
-    public showItems(items: BreadcrumbItem[], criteria?: string) {
+    public showItems(items: BreadcrumbItem[], criteria?: string): void {
         this._config.items = items || [];
         this._config.text = null;
         this._config.criteria = criteria;
