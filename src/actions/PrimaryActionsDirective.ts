@@ -95,7 +95,7 @@ class PrimaryActionsController {
         return String(action.count);
     }
 
-    public clickAction(action: pip.nav.ActionItem, $mdOpenMenu): void {
+    public clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void {
         if (!action || action.divider) {
             return;
         }
@@ -110,7 +110,7 @@ class PrimaryActionsController {
             return;
         }
 
-        if (action.click) {
+        if (_.isFunction(action.click)) {
             action.click(action);
             return;
         }

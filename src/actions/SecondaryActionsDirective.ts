@@ -72,7 +72,7 @@ class SecondaryActionsController {
         this._menuFn();
     }
 
-    public openMenu($mdOpenMenu, ev: ng.IAngularEvent): void {
+    public openMenu($mdOpenMenu: Function, ev: ng.IAngularEvent): void {
         this._scope.originatorEv = ev;
         $mdOpenMenu(ev);
     }
@@ -120,7 +120,7 @@ class SecondaryActionsController {
             this.calcActions(this.config.secondaryLocalActions) > 0;
     }
 
-    public clickAction(action: pip.nav.ActionItem, $mdOpenMenu): void {
+    public clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void {
         if (!action || action.divider) {
             return;
         }
