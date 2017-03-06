@@ -1,41 +1,88 @@
 'use strict';
 
 // Prevent junk from going into typescript definitions
-(() => {
 
-function PrimaryActionsController(
-    $scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions) {
+class PrimaryActionsController {
+    private _element: ng.IAugmentedJQuery;
+    private _attrs: ng.IAttributes;
+    private _injector: ng.auto.IInjectorService;
+    private _scope: angular.IScope;
+    private _log: ng.ILogService;
+    private _rootScope: ng.IRootScopeService;
+    private _window: ng.IWindowService;
+    private _location: ng.ILocationService;
+    private _pipActions: pip.nav.IActionsService;
+    private _pipTranslate: pip.services.ITranslateService
 
-    // Apply class and call resize
-    $element.addClass('pip-primary-actions');
+    public config: pip.nav.ActionsConfig;
 
-    if ($scope.localActions) 
-        pipActions.primaryLocalActions = $scope.localActions;
+    constructor(
+        $element: ng.IAugmentedJQuery,
+        $attrs: ng.IAttributes,
+        $injector: ng.auto.IInjectorService,
+        $scope: angular.IScope,
+        $log: ng.ILogService,
+        $rootScope: ng.IRootScopeService,
+        $window: ng.IWindowService,
+        $location: ng.ILocationService,
+        pipActions: pip.nav.IActionsService
 
-    if ($scope.globalActions)
-        pipActions.primaryGlobalActions = $scope.globalActions;
+    ) {
+        "ngInject";
 
-    $scope.config = pipActions.config;
+        this._element = $element;
+        this._attrs = $attrs;
+        this._scope = $scope;
+        this._injector = $injector;
+        this._log = $log;
+        this._rootScope = $rootScope;
+        this._window = $window;
+        this._location = $location;
+        this._pipActions = pipActions;
 
-    $rootScope.$on('pipActionsChanged', onActionsChanged);
 
-    $scope.isHidden = isHidden;
-    $scope.actionCount = actionCount;
-    $scope.clickAction = clickAction;
+        this._pipTranslate = this._injector.has('pipTranslate') ? <pip.services.ITranslateService>this._injector.get('pipTranslate') : null;
+        if (this._pipTranslate && this._pipTranslate.setTranslations) {
+            this._pipTranslate.setTranslations('en', {
+                DOCUMENTS_ATTACHED: 'document(s) attached',
+                ERROR_DOCUMENTS_LOADED: 'Error: <%= error_number %> document(s) are not loaded'
+            });
+            this._pipTranslate.setTranslations('ru', {
+                DOCUMENTS_ATTACHED: 'документов добавлено',
+                ERROR_DOCUMENTS_LOADED: 'Ошибка: <%= error_number %> документ(ов) не загружено'
 
-    return;
-    ///////////////////////
+            });
+        }
 
-    function onActionsChanged(event, config) {
-        $scope.config = config;
+        // Apply class and call resize
+        this._element.addClass('pip-primary-actions');
+
+        if (this._scope.localActions) {
+            pipActions.primaryLocalActions = this._scope.localActions;
+        }
+
+        if (this._scope.globalActions) {
+            pipActions.primaryGlobalActions = this._scope.globalActions;
+        }
+
+        this.config = pipActions.config;
+
+        this._rootScope.$on('pipActionsChanged', (event: ng.IAngularEvent, config: pip.nav.ActionsConfig) => {
+            this.onActionsChanged(event, config);
+        });
+
     }
 
-    function isHidden(action) {
+    private onActionsChanged(event: ng.IAngularEvent, config: pip.nav.ActionsConfig) {
+        this.config = config;
+    }
+
+    public isHidden(action: pip.nav.ActionItem): boolean {
         // Todo: Check breakpoints here
         return action.access && !action.access(action);
     }
 
-    function actionCount(action) {
+    public actionCount(action: pip.nav.ActionItem): string {
         if (action.count === null || action.count <= 0) {
             return '';
         }
@@ -43,14 +90,14 @@ function PrimaryActionsController(
             return '!';
         }
 
-        return action.count;
+        return String(action.count);
     }
 
-    function calcActions(actions) {
+    private calcActions(actions: pip.nav.ActionItem[]): number {
         var count = 0;
 
-        _.each(actions, function (action) {
-            if (!isHidden(action)) {
+        _.each(actions, function (action: pip.nav.ActionItem) {
+            if (!this.isHidden(action)) {
                 count++;
             }
         });
@@ -58,80 +105,84 @@ function PrimaryActionsController(
         return count;
     }
 
-    function secondaryActionsVisible() {
-        return calcActions($scope.config.secondaryGlobalActions) > 0 ||
-            calcActions($scope.config.secondaryLocalActions) > 0;
+    private secondaryActionsVisible() {
+        return this.calcActions(this.config.secondaryGlobalActions) > 0 ||
+            this.calcActions(this.config.secondaryLocalActions) > 0;
     }
 
-    function secondaryDividerVisible() {
-        return calcActions($scope.config.secondaryGlobalActions) > 0 &&
-            calcActions($scope.config.secondaryLocalActions) > 0;
+    private secondaryDividerVisible() {
+        return this.calcActions(this.config.secondaryGlobalActions) > 0 &&
+            this.calcActions(this.config.secondaryLocalActions) > 0;
     }
 
-    function clickAction(action, $mdOpenMenu) {
+    public clickAction(action: pip.nav.ActionItem, $mdOpenMenu): void {
         if (!action || action.divider) {
             return;
         }
 
-        if (action.close) {
-            $scope.originatorEv = null;
-        }
+        // todo: do not supported into ActionItem
+        // if (action.close) {
+        //     this._scope.originatorEv = null;
+        // }
 
-        if (action.menu) {
-            $mdOpenMenu($scope.originatorEv);
+        if (action.subActions) {
+            $mdOpenMenu(this._scope.originatorEv);
             return;
         }
 
         if (action.click) {
-            action.click();
+            action.click(action);
             return;
         }
 
         if (action.href) {
-            $window.location.href = action.href;
+            this._window.location.href = action.href;
             return;
         }
 
         if (action.url) {
-            $location.url(action.url);
+            this._location.url(action.url);
             return;
         }
 
         if (action.state) {
-            if ($injector.has('$state')) {
-                var $state = $injector.get('$state');
-                $state.go(action.state, action.stateParams);
+            if (this._injector.has('this._state')) {
+                var _state: angular.ui.IStateService = this._injector.has('pipTranslate') ? <angular.ui.IStateService>this._injector.get('$state') : null ;
+                if (_state) {
+                    _state.go(action.state, action.stateParams);
+                }
             }
             return;
         }
 
         if (action.event) {
-            $rootScope.$broadcast(action.event);
+            this._rootScope.$broadcast(action.event);
         } else {
             // Otherwise raise notification
-            $rootScope.$broadcast('pipActionClicked', action.name);
+            this._rootScope.$broadcast('pipActionClicked', action.name);
         }
     }
 
 }
 
+(() => {
+    function primaryActionsDirective() {
+        return {
+            restrict: 'E',
+            scope: {
+                localActions: '=pipLocalActions',
+                globalActions: '=pipGlobalActions'
+            },
+            replace: false,
+            templateUrl: 'actions/PrimaryActions.html',
+            controller: PrimaryActionsController,
+            controllerAs: 'vm'
+        };
+    }
 
-function primaryActionsDirective() {
-    return {
-        restrict: 'E',
-        scope: {
-            localActions: '=pipLocalActions',
-            globalActions: '=pipGlobalActions'
-        },
-        replace: false,
-        templateUrl: 'actions/PrimaryActions.html',
-        controller: PrimaryActionsController
-    };
-}
 
-
-angular
-    .module('pipActions')
-    .directive('pipPrimaryActions', primaryActionsDirective);
+    angular
+        .module('pipActions')
+        .directive('pipPrimaryActions', primaryActionsDirective);
 
 })();
