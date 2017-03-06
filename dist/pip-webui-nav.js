@@ -252,23 +252,6 @@ var PrimaryActionsController = (function () {
         }
         return String(action.count);
     };
-    PrimaryActionsController.prototype.calcActions = function (actions) {
-        var count = 0;
-        _.each(actions, function (action) {
-            if (!this.isHidden(action)) {
-                count++;
-            }
-        });
-        return count;
-    };
-    PrimaryActionsController.prototype.secondaryActionsVisible = function () {
-        return this.calcActions(this.config.secondaryGlobalActions) > 0 ||
-            this.calcActions(this.config.secondaryLocalActions) > 0;
-    };
-    PrimaryActionsController.prototype.secondaryDividerVisible = function () {
-        return this.calcActions(this.config.secondaryGlobalActions) > 0 &&
-            this.calcActions(this.config.secondaryLocalActions) > 0;
-    };
     PrimaryActionsController.prototype.clickAction = function (action, $mdOpenMenu) {
         if (!action || action.divider) {
             return;
@@ -327,104 +310,117 @@ var PrimaryActionsController = (function () {
 })();
 },{}],3:[function(require,module,exports){
 'use strict';
-(function () {
-    SecondaryActionsController.$inject = ['$scope', '$element', '$attrs', '$rootScope', '$window', '$location', '$injector', 'pipActions', '$timeout'];
-    function SecondaryActionsController($scope, $element, $attrs, $rootScope, $window, $location, $injector, pipActions, $timeout) {
-        $element.addClass('pip-secondary-actions');
-        if ($scope.localActions)
-            pipActions.secondaryLocalActions = $scope.localActions;
-        if ($scope.globalActions)
-            pipActions.secondaryGlobalActions = $scope.globalActions;
-        $scope.config = pipActions.config;
-        $rootScope.$on('pipActionsChanged', onActionsChanged);
-        $rootScope.$on('pipSecondaryActionsOpen', onActionsMenuOpen);
-        $scope.isHidden = isHidden;
-        $scope.actionCount = actionCount;
-        $scope.secondaryActionsVisible = secondaryActionsVisible;
-        $scope.secondaryDividerVisible = secondaryDividerVisible;
-        $scope.clickAction = clickAction;
-        $scope.getMenu = function (menuFn) {
-            $scope.menuFn = menuFn;
-        };
-        $scope.openMenu = openMenu;
-        return;
-        function onActionsMenuOpen() {
-            $scope.menuFn();
+var SecondaryActionsController = (function () {
+    SecondaryActionsController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$window', '$location', 'pipActions'];
+    function SecondaryActionsController($element, $attrs, $injector, $scope, $log, $rootScope, $window, $location, pipActions) {
+        "ngInject";
+        var _this = this;
+        this._element = $element;
+        this._attrs = $attrs;
+        this._scope = $scope;
+        this._injector = $injector;
+        this._log = $log;
+        this._rootScope = $rootScope;
+        this._window = $window;
+        this._location = $location;
+        this._pipActions = pipActions;
+        this._element.addClass('pip-secondary-actions');
+        if (this._scope.localActions) {
+            pipActions.secondaryLocalActions = this._scope.localActions;
         }
-        function openMenu($mdOpenMenu, ev) {
-            $scope.originatorEv = ev;
-            $mdOpenMenu(ev);
+        if (this._scope.globalActions) {
+            pipActions.secondaryGlobalActions = this._scope.globalActions;
         }
-        function onActionsChanged(event, config) {
-            $scope.config = config;
-        }
-        function isHidden(action) {
-            return action.access && !action.access(action);
-        }
-        function actionCount(action) {
-            if (action.count === null || action.count <= 0) {
-                return '';
-            }
-            if (action.count > 99) {
-                return '!';
-            }
-            return action.count;
-        }
-        function calcActions(actions) {
-            var count = 0;
-            _.each(actions, function (action) {
-                if (!isHidden(action)) {
-                    count++;
-                }
-            });
-            return count;
-        }
-        function secondaryActionsVisible() {
-            return calcActions($scope.config.secondaryGlobalActions) > 0 ||
-                calcActions($scope.config.secondaryLocalActions) > 0;
-        }
-        function secondaryDividerVisible() {
-            return calcActions($scope.config.secondaryGlobalActions) > 0 &&
-                calcActions($scope.config.secondaryLocalActions) > 0;
-        }
-        function clickAction(action, $mdOpenMenu) {
-            if (!action || action.divider) {
-                return;
-            }
-            if (action.close) {
-                $scope.originatorEv = null;
-            }
-            if (action.menu) {
-                $mdOpenMenu($scope.originatorEv);
-                return;
-            }
-            if (action.click) {
-                action.click();
-                return;
-            }
-            if (action.href) {
-                $window.location.href = action.href;
-                return;
-            }
-            if (action.url) {
-                $location.url(action.url);
-                return;
-            }
-            if (action.state) {
-                if ($injector.has('$state')) {
-                    var $state = $injector.get('$state');
-                    $state.go(action.state, action.stateParams);
-                }
-                return;
-            }
-            if (action.event) {
-                $rootScope.$broadcast(action.event);
-            }
-            else {
-                $rootScope.$broadcast('pipActionClicked', action.name);
-            }
-        }
+        this.config = pipActions.config;
+        this._rootScope.$on('pipActionsChanged', function (event, config) {
+            _this.onActionsChanged(event, config);
+        });
+        this._rootScope.$on('pipSecondaryActionsOpen', function () {
+            _this.onActionsMenuOpen();
+        });
     }
+    SecondaryActionsController.prototype.getMenu = function (menuFn) {
+        this._menuFn = menuFn;
+    };
+    SecondaryActionsController.prototype.onActionsMenuOpen = function () {
+        this._menuFn();
+    };
+    SecondaryActionsController.prototype.openMenu = function ($mdOpenMenu, ev) {
+        this._scope.originatorEv = ev;
+        $mdOpenMenu(ev);
+    };
+    SecondaryActionsController.prototype.onActionsChanged = function (event, config) {
+        this.config = config;
+    };
+    SecondaryActionsController.prototype.isHidden = function (action) {
+        return action.access && !action.access(action);
+    };
+    SecondaryActionsController.prototype.actionCount = function (action) {
+        if (action.count === null || action.count <= 0) {
+            return '';
+        }
+        if (action.count > 99) {
+            return '!';
+        }
+        return String(action.count);
+    };
+    SecondaryActionsController.prototype.calcActions = function (actions) {
+        var _this = this;
+        var count = 0;
+        _.each(actions, function (action) {
+            if (!_this.isHidden(action)) {
+                count++;
+            }
+        });
+        return count;
+    };
+    SecondaryActionsController.prototype.secondaryActionsVisible = function () {
+        return this.calcActions(this.config.secondaryGlobalActions) > 0 ||
+            this.calcActions(this.config.secondaryLocalActions) > 0;
+    };
+    SecondaryActionsController.prototype.secondaryDividerVisible = function () {
+        return this.calcActions(this.config.secondaryGlobalActions) > 0 &&
+            this.calcActions(this.config.secondaryLocalActions) > 0;
+    };
+    SecondaryActionsController.prototype.clickAction = function (action, $mdOpenMenu) {
+        if (!action || action.divider) {
+            return;
+        }
+        if (action.subActions) {
+            $mdOpenMenu(this._scope.originatorEv);
+            return;
+        }
+        if (action.click) {
+            action.click(action);
+            return;
+        }
+        if (action.href) {
+            this._window.location.href = action.href;
+            return;
+        }
+        if (action.url) {
+            this._location.url(action.url);
+            return;
+        }
+        if (action.state) {
+            if (this._injector.has('this._state')) {
+                var _state = this._injector.has('pipTranslate') ? this._injector.get('$state') : null;
+                if (_state) {
+                    _state.go(action.state, action.stateParams);
+                }
+            }
+            return;
+        }
+        if (action.event) {
+            this._rootScope.$broadcast(action.event);
+        }
+        else {
+            this._rootScope.$broadcast('pipActionClicked', action.name);
+        }
+    };
+    return SecondaryActionsController;
+}());
+(function () {
     function secondaryActionsDirective() {
         return {
             restrict: 'E',
@@ -434,7 +430,8 @@ var PrimaryActionsController = (function () {
             },
             replace: false,
             templateUrl: 'actions/SecondaryActions.html',
-            controller: SecondaryActionsController
+            controller: SecondaryActionsController,
+            controllerAs: 'vm'
         };
     }
     angular
@@ -2761,7 +2758,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('actions/SecondaryActions.html',
-    '<md-menu ng-if="secondaryActionsVisible()" md-position-mode="target-right target"><md-button class="md-icon-button" tabindex="3" ng-init="getMenu($mdOpenMenu)" ng-click="onSecondaryActionClick(); openMenu($mdOpenMenu, $event);" aria-label="open actions"><md-icon md-svg-icon="icons:vdots"></md-icon></md-button><md-menu-content width="3"><md-menu-item ng-repeat-start="action in config.secondaryLocalActions" ng-if="!action.divider" ng-hide="isHidden(action)"><md-button ng-hide="action.divider" ng-click="clickAction(action)">{{::action.title | translate}}</md-button></md-menu-item><md-menu-divider ng-if="action.divider" ng-repeat-end=""></md-menu-divider><md-menu-divider ng-if="secondaryDividerVisible()"></md-menu-divider><md-menu-item ng-repeat-start="action in config.secondaryGlobalActions" ng-if="!action.divider" ng-hide="isHidden(action)"><md-button ng-hide="action.divider" ng-click="clickAction(action)">{{::action.title | translate}}</md-button></md-menu-item><md-menu-divider ng-if="action.divider" ng-repeat-end=""></md-menu-divider></md-menu-content></md-menu>');
+    '<md-menu ng-if="vm.secondaryActionsVisible()" md-position-mode="target-right target"><md-button class="md-icon-button" tabindex="3" ng-init="vm.getMenu($mdOpenMenu)" ng-click="vm.onSecondaryActionClick(); vm.openMenu($mdOpenMenu, $event);" aria-label="open actions"><md-icon md-svg-icon="icons:vdots"></md-icon></md-button><md-menu-content width="3"><md-menu-item ng-repeat-start="action in vm.config.secondaryLocalActions" ng-if="!action.divider" ng-hide="vm.isHidden(action)"><md-button ng-hide="action.divider" ng-click="vm.clickAction(action)">{{ ::action.title | translate }}</md-button></md-menu-item><md-menu-divider ng-if="action.divider" ng-repeat-end=""></md-menu-divider><md-menu-divider ng-if="vm.secondaryDividerVisible()"></md-menu-divider><md-menu-item ng-repeat-start="action in vm.config.secondaryGlobalActions" ng-if="!action.divider" ng-hide="vm.isHidden(action)"><md-button ng-hide="action.divider" ng-click="vm.clickAction(action)">{{ ::action.title | translate }}</md-button></md-menu-item><md-menu-divider ng-if="action.divider" ng-repeat-end=""></md-menu-divider></md-menu-content></md-menu>');
 }]);
 })();
 
@@ -2808,8 +2805,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('icon/NavIcon.html',
-    '<md-button class="md-icon-button pip-nav-icon" ng-if="config.type != \'none\'" ng-class="config.class" ng-click="onNavIconClick()" tabindex="{{config.type==\'menu\' || config.type==\'back\' ? 4 : -1 }}" aria-label="menu"><md-icon ng-if="config.type==\'menu\'" md-svg-icon="icons:menu"></md-icon><img ng-src="{{config.imageUrl}}" ng-if="config.type==\'image\'" height="24" width="24"><md-icon ng-if="config.type==\'back\'" md-svg-icon="icons:arrow-left"></md-icon><md-icon ng-if="config.type==\'icon\'" md-svg-icon="{{config.icon}}"></md-icon></md-button>');
+  $templateCache.put('header/NavHeader.html',
+    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user" tabindex="-1"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()" tabindex="-1">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
 }]);
 })();
 
@@ -2820,8 +2817,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('header/NavHeader.html',
-    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user" tabindex="-1"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()" tabindex="-1">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
+  $templateCache.put('icon/NavIcon.html',
+    '<md-button class="md-icon-button pip-nav-icon" ng-if="config.type != \'none\'" ng-class="config.class" ng-click="onNavIconClick()" tabindex="{{config.type==\'menu\' || config.type==\'back\' ? 4 : -1 }}" aria-label="menu"><md-icon ng-if="config.type==\'menu\'" md-svg-icon="icons:menu"></md-icon><img ng-src="{{config.imageUrl}}" ng-if="config.type==\'image\'" height="24" width="24"><md-icon ng-if="config.type==\'back\'" md-svg-icon="icons:arrow-left"></md-icon><md-icon ng-if="config.type==\'icon\'" md-svg-icon="{{config.icon}}"></md-icon></md-button>');
 }]);
 })();
 
@@ -2868,8 +2865,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/SideNav.html',
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
+  $templateCache.put('tabs/Tabs.html',
+    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="media(\'gt-sm\')" md-selected="selected.activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="selected.activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(selected.activeIndex)"><md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
 }]);
 })();
 
@@ -2880,8 +2877,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('tabs/Tabs.html',
-    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="media(\'gt-sm\')" md-selected="selected.activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="selected.activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(selected.activeIndex)"><md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
+  $templateCache.put('sidenav/SideNav.html',
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
 }]);
 })();
 

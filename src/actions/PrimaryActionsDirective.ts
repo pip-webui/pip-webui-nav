@@ -93,28 +93,6 @@ class PrimaryActionsController {
         return String(action.count);
     }
 
-    private calcActions(actions: pip.nav.ActionItem[]): number {
-        var count = 0;
-
-        _.each(actions, function (action: pip.nav.ActionItem) {
-            if (!this.isHidden(action)) {
-                count++;
-            }
-        });
-
-        return count;
-    }
-
-    private secondaryActionsVisible() {
-        return this.calcActions(this.config.secondaryGlobalActions) > 0 ||
-            this.calcActions(this.config.secondaryLocalActions) > 0;
-    }
-
-    private secondaryDividerVisible() {
-        return this.calcActions(this.config.secondaryGlobalActions) > 0 &&
-            this.calcActions(this.config.secondaryLocalActions) > 0;
-    }
-
     public clickAction(action: pip.nav.ActionItem, $mdOpenMenu): void {
         if (!action || action.divider) {
             return;
@@ -147,7 +125,7 @@ class PrimaryActionsController {
 
         if (action.state) {
             if (this._injector.has('this._state')) {
-                var _state: angular.ui.IStateService = this._injector.has('pipTranslate') ? <angular.ui.IStateService>this._injector.get('$state') : null ;
+                let _state: angular.ui.IStateService = this._injector.has('pipTranslate') ? <angular.ui.IStateService>this._injector.get('$state') : null ;
                 if (_state) {
                     _state.go(action.state, action.stateParams);
                 }
