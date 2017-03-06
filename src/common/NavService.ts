@@ -11,30 +11,30 @@ import { ISideNavService } from '../sidenav/SideNavService';
 
 export interface INavService {
     appbar: IAppBarService;
-    icon: INavIconService; 
+    icon: INavIconService;
     breadcrumb: IBreadcrumbService;
     actions: IActionsService;
     search: ISearchService;
     sidenav: ISideNavService;
     header: INavHeaderService;
-    menu: INavMenuService;   
+    menu: INavMenuService;
 
     reset(): void;
 }
 
 class NavService implements INavService {
 
-    public constructor($injector) {
+    public constructor($injector: ng.auto.IInjectorService) {
         "ngInject";
 
-        this.appbar = $injector.has('pipAppBar') ? $injector.get('pipAppBar') : null;
-        this.icon = $injector.has('pipNavIcon') ? $injector.get('pipNavIcon') : null;
-        this.breadcrumb = $injector.has('pipBreadcrumb') ? $injector.get('pipBreadcrumb') : null;
-        this.actions = $injector.has('pipActions') ? $injector.get('pipActions') : null;
-        this.search = $injector.has('pipSearch') ? $injector.get('pipSearch') : null;
-        this.sidenav = $injector.has('pipSideNav') ? $injector.get('pipSideNav') : null;
-        this.header = $injector.has('pipNavHeader') ? $injector.get('pipNavHeader') : null;
-        this.menu = $injector.has('pipNavMenu') ? $injector.get('pipNavMenu') : null;    
+        this.appbar = $injector.has('pipAppBar') ? <IAppBarService>$injector.get('pipAppBar') : null;
+        this.icon = $injector.has('pipNavIcon') ? <INavIconService>$injector.get('pipNavIcon') : null;
+        this.breadcrumb = $injector.has('pipBreadcrumb') ? <IBreadcrumbService>$injector.get('pipBreadcrumb') : null;
+        this.actions = $injector.has('pipActions') ? <IActionsService>$injector.get('pipActions') : null;
+        this.search = $injector.has('pipSearch') ? <ISearchService>$injector.get('pipSearch') : null;
+        this.sidenav = $injector.has('pipSideNav') ? <ISideNavService>$injector.get('pipSideNav') : null;
+        this.header = $injector.has('pipNavHeader') ? <INavHeaderService>$injector.get('pipNavHeader') : null;
+        this.menu = $injector.has('pipNavMenu') ? <INavMenuService>$injector.get('pipNavMenu') : null;
     }
 
     public appbar: IAppBarService;
@@ -42,33 +42,40 @@ class NavService implements INavService {
     public breadcrumb: IBreadcrumbService;
     public actions: IActionsService;
     public search: ISearchService;
-    public sidenav: ISideNavService;        
+    public sidenav: ISideNavService;
     public header: INavHeaderService;
-    public menu: INavMenuService;    
+    public menu: INavMenuService;
 
     public reset() {
         // Reset appbar
-        if (this.appbar) 
+        if (this.appbar) {
             this.appbar.show();
+        }
 
         // Reset icon
-        if (this.icon)
+        if (this.icon) {
             this.icon.showMenu();
+        }
 
         // Reset breadcrumb
-        if (this.breadcrumb)
+        if (this.breadcrumb) {
             this.breadcrumb.showText(null);
+        }
 
         // Reset actions
-        if (this.actions)
+        if (this.actions) {
             this.actions.show();
+        }
 
         // Reset search
-        if (this.search)
+        if (this.search) {
             this.search.set(null);
+        }
 
-        if (this.sidenav)
+        if (this.sidenav) {
             this.sidenav.show();
+        }
+
     }
 }
 
