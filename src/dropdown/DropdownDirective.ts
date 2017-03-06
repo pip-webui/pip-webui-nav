@@ -1,51 +1,94 @@
 'use strict';
 
 // Prevent junk from going into typescript definitions
-(() => {
 
-function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootScope, $mdMedia, $timeout) {
-    "ngInject";
+let currentTheme: string = 'default';
 
-    let pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null; 
-    let pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
-    let currentTheme = 'default';
+class DropdownDirectiveController {
+    // ($scope, $element, $attrs, $injector, $rootScope, $mdMedia, $timeout) {
+    private _element: ng.IAugmentedJQuery;
+    private _attrs: ng.IAttributes;
+    private _injector: ng.auto.IInjectorService;
+    private _scope: angular.IScope;
+    private _log: ng.ILogService;
+    private _rootScope: ng.IRootScopeService;
+    private _pipTranslate: pip.services.ITranslateService;
 
-    if (pipTheme)
-        currentTheme = pipTheme.use();
-    else if ($rootScope.$theme)
-        currentTheme = $rootScope.$theme;
+    private _pipTheme: pip.themes.IThemeService;
+    private _pipMedia: pip.layouts.IMediaService;
+    private _timeout: ng.ITimeoutService;
 
-    $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+    public themeClass: string;
+    public media: any;
+    public actions: any; // string or array
+    public activeIndex: number;
 
-    //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
-    $scope.media = pipMedia !== undefined ? pipMedia : $mdMedia;
-    $scope.actions = ($scope.actions && _.isArray($scope.actions)) ? $scope.actions : [];
-    $scope.activeIndex = $scope.activeIndex || 0;
+    constructor(
+        $element: ng.IAugmentedJQuery,
+        $attrs: ng.IAttributes,
+        $injector: ng.auto.IInjectorService,
+        $scope: angular.IScope,
+        $log: ng.ILogService,
+        $rootScope: ng.IRootScopeService,
+        $mdMedia: angular.material.IMedia,
+        $timeout: ng.ITimeoutService
 
-    $scope.disabled = function () {
-        if ($scope.ngDisabled()) {
-            return $scope.ngDisabled();
+    ) {
+        "ngInject";
+
+        this._element = $element;
+        this._attrs = $attrs;
+        this._scope = $scope;
+        this._injector = $injector;
+        this._log = $log;
+        this._rootScope = $rootScope;
+        this._timeout = $timeout;
+
+        this._pipTheme = $injector.has('pipTheme') ? <pip.themes.IThemeService>$injector.get('pipTheme') : null;
+        this._pipMedia = $injector.has('pipMedia') ? <pip.layouts.IMediaService>$injector.get('pipMedia') : null;
+
+        let currentTheme: string;
+
+        if (this._pipTheme) {
+            currentTheme = this._pipTheme.theme;
+        } else if (this._rootScope['$theme']) {
+            currentTheme = this._rootScope['$theme'];
+        }
+
+        this.themeClass = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+
+        //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
+        this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
+        this.actions = ($scope['actions'] && _.isArray($scope['actions'])) ? $scope['actions'] : [];
+        this.activeIndex = $scope['activeIndex'] || 0;
+    }
+
+
+    public disabled(): boolean {
+        if (_.isFunction(this._scope['ngDisabled'])) {
+            return this._scope['ngDisabled']();
         } else {
             return false;
         }
     };
 
-    $scope.onSelect = function (index) {
-        $scope.activeIndex = index;
-        if ($scope.select) {
-            $scope.select($scope.actions[index], $scope.activeIndex);
+    public onSelect(index: number): void {
+        this.activeIndex = index;
+        if (_.isFunction(this._scope['select'])) {
+            this._scope['select'](this.actions[index], this.activeIndex);
         }
 
-        if ($scope.pipChange) {
-            $timeout(function() {
-                $scope.pipChange();
+        if (this._scope['pipChange']) {
+            this._timeout(function () {
+                this._scope['pipChange']();
             });
         }
     };
 
-    $scope.show = function () {
-        if ($scope.showDropdown()) {
-            return $scope.showDropdown();
+    public show(): boolean {
+        let result: boolean;
+        if (this._scope['showDropdown']()) {
+            return !!this._scope['showDropdown']();
         } else {
             return true;
         }
@@ -53,24 +96,27 @@ function DropdownDirectiveController($scope, $element, $attrs, $injector, $rootS
 
 }
 
-function dropdownDirective() {
-    return {
-        restrict: 'E',
-        scope: {
-            ngDisabled: '&',
-            actions: '=pipActions',
-            showDropdown: '&pipShow',
-            activeIndex: '=pipActiveIndex',
-            select: '=pipDropdownSelect',
-            pipChange: '&'
-        },
-        templateUrl: 'dropdown/Dropdown.html',
-        controller: DropdownDirectiveController
-    };
-}
+(() => {
 
-angular
-    .module('pipDropdown', ['pipNav.Templates'])
-    .directive('pipDropdown', dropdownDirective);
+    function dropdownDirective() {
+        return {
+            restrict: 'E',
+            scope: {
+                ngDisabled: '&',
+                actions: '=pipActions',
+                showDropdown: '&pipShow',
+                activeIndex: '=pipActiveIndex',
+                select: '=pipDropdownSelect',
+                pipChange: '&'
+            },
+            templateUrl: 'dropdown/Dropdown.html',
+            controller: DropdownDirectiveController,
+            controllerAs: 'vm'
+        };
+    }
+
+    angular
+        .module('pipDropdown', ['pipNav.Templates'])
+        .directive('pipDropdown', dropdownDirective);
 
 })();
