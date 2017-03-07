@@ -2021,83 +2021,85 @@ __export(require("./NavMenuService"));
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchService_1 = require("./SearchService");
 var SearchService_2 = require("./SearchService");
-(function () {
-    var SearchBarController = (function () {
-        SearchBarController.$inject = ['$element', '$rootScope', 'pipSearch'];
-        function SearchBarController($element, $rootScope, pipSearch) {
-            "ngInject";
-            var _this = this;
-            this.enabled = false;
-            this.search = { text: '' };
-            this._rootScope = $rootScope;
-            this._element = $element;
-            $element.addClass('pip-search-bar');
-            this.config = pipSearch.config;
-            this.stateChange();
-            $rootScope.$on(SearchService_1.SearchChangedEvent, function (event, config) {
-                _this.onSearchChanged(event, config);
-            });
+var SearchBarController = (function () {
+    SearchBarController.$inject = ['$element', '$rootScope', 'pipSearch'];
+    function SearchBarController($element, $rootScope, pipSearch) {
+        "ngInject";
+        var _this = this;
+        this.enabled = false;
+        this.search = { text: '' };
+        this._rootScope = $rootScope;
+        this._element = $element;
+        $element.addClass('pip-search-bar');
+        this.config = pipSearch.config;
+        this.stateChange();
+        $rootScope.$on(SearchService_1.SearchChangedEvent, function (event, config) {
+            _this.onSearchChanged(event, config);
+        });
+    }
+    SearchBarController.prototype.stateChange = function () {
+        if (this.enabled) {
+            this._element.addClass('w-stretch');
+            this._element.parent().addClass('pip-search-active');
         }
-        SearchBarController.prototype.stateChange = function () {
-            if (this.enabled) {
-                this._element.addClass('w-stretch');
-                this._element.parent().addClass('pip-search-active');
-            }
-            else {
-                this._element.removeClass('w-stretch');
-                this._element.parent().removeClass('pip-search-active');
-            }
-        };
-        SearchBarController.prototype.onSearchChanged = function (event, config) {
-            this.config = config;
-            this.enabled = false;
+        else {
+            this._element.removeClass('w-stretch');
+            this._element.parent().removeClass('pip-search-active');
+        }
+    };
+    SearchBarController.prototype.onSearchChanged = function (event, config) {
+        this.config = config;
+        this.enabled = false;
+        this.search.text = '';
+        this.stateChange();
+    };
+    SearchBarController.prototype.focusText = function () {
+        setTimeout(function () {
+            var element = $('.pip-search-text');
+            if (element.length > 0)
+                element.focus();
+        }, 0);
+    };
+    SearchBarController.prototype.enable = function () {
+        this.search.text = this.config.criteria;
+        this.enabled = true;
+        this.focusText();
+        this.stateChange();
+    };
+    SearchBarController.prototype.onClick = function () {
+        var search = this.search.text;
+        this.search.text = '';
+        this.enabled = false;
+        this.stateChange();
+        if (this.config.callback) {
+            this.config.callback(search);
+        }
+        else {
+            this._rootScope.$broadcast(SearchService_2.SearchActivatedEvent, search);
+        }
+    };
+    SearchBarController.prototype.clear = function () {
+        if (this.search.text) {
             this.search.text = '';
-            this.stateChange();
-        };
-        SearchBarController.prototype.focusText = function () {
-            setTimeout(function () {
-                var element = $('.pip-search-text');
-                if (element.length > 0)
-                    element.focus();
-            }, 0);
-        };
-        SearchBarController.prototype.enable = function () {
-            this.search.text = this.config.criteria;
-            this.enabled = true;
             this.focusText();
-            this.stateChange();
-        };
-        SearchBarController.prototype.onClick = function () {
-            var search = this.search.text;
-            this.search.text = '';
+        }
+        else {
             this.enabled = false;
             this.stateChange();
-            if (this.config.callback)
-                this.config.callback(search);
-            else
-                this._rootScope.$broadcast(SearchService_2.SearchActivatedEvent, search);
-        };
-        SearchBarController.prototype.clear = function () {
-            if (this.search.text) {
-                this.search.text = '';
-                this.focusText();
-            }
-            else {
-                this.enabled = false;
-                this.stateChange();
-                this.onClick();
-            }
-        };
-        SearchBarController.prototype.onKeyDown = function (event) {
-            if (event.keyCode === 13)
-                this.onClick();
-            else if (event.keyCode === 27) {
-                this.enabled = false;
-                this.stateChange();
-            }
-        };
-        return SearchBarController;
-    }());
+            this.onClick();
+        }
+    };
+    SearchBarController.prototype.onKeyDown = function (event) {
+        if (event.keyCode === 13)
+            this.onClick();
+        else if (event.keyCode === 27) {
+            this.enabled = false;
+            this.stateChange();
+        }
+    };
+    return SearchBarController;
+}());
+(function () {
     function searchBarDirective() {
         return {
             restrict: 'E',
@@ -2865,8 +2867,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('icon/NavIcon.html',
-    '<md-button class="md-icon-button pip-nav-icon" ng-if="vm.config.type != \'none\'" ng-class="vm.config.class" ng-click="vm.onNavIconClick()" tabindex="{{ vm.config.type==\'menu\' || vm.config.type==\'back\' ? 4 : -1 }}" aria-label="menu"><md-icon ng-if="vm.config.type==\'menu\'" md-svg-icon="icons:menu"></md-icon><img ng-src="{{ vm.config.imageUrl }}" ng-if="vm.config.type==\'image\'" height="24" width="24"><md-icon ng-if="vm.config.type==\'back\'" md-svg-icon="icons:arrow-left"></md-icon><md-icon ng-if="vm.config.type==\'icon\'" md-svg-icon="{{ vm.config.icon }}"></md-icon></md-button>');
+  $templateCache.put('header/NavHeader.html',
+    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user" tabindex="-1"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()" tabindex="-1">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
 }]);
 })();
 
@@ -2877,8 +2879,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('header/NavHeader.html',
-    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user" tabindex="-1"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()" tabindex="-1">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
+  $templateCache.put('icon/NavIcon.html',
+    '<md-button class="md-icon-button pip-nav-icon" ng-if="vm.config.type != \'none\'" ng-class="vm.config.class" ng-click="vm.onNavIconClick()" tabindex="{{ vm.config.type==\'menu\' || vm.config.type==\'back\' ? 4 : -1 }}" aria-label="menu"><md-icon ng-if="vm.config.type==\'menu\'" md-svg-icon="icons:menu"></md-icon><img ng-src="{{ vm.config.imageUrl }}" ng-if="vm.config.type==\'image\'" height="24" width="24"><md-icon ng-if="vm.config.type==\'back\'" md-svg-icon="icons:arrow-left"></md-icon><md-icon ng-if="vm.config.type==\'icon\'" md-svg-icon="{{ vm.config.icon }}"></md-icon></md-button>');
 }]);
 })();
 
@@ -2925,8 +2927,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/SideNav.html',
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
+  $templateCache.put('tabs/Tabs.html',
+    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="media(\'gt-sm\')" md-selected="selected.activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="selected.activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(selected.activeIndex)"><md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
 }]);
 })();
 
@@ -2937,8 +2939,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('tabs/Tabs.html',
-    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="media(\'gt-sm\')" md-selected="selected.activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="selected.activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(selected.activeIndex)"><md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
+  $templateCache.put('sidenav/SideNav.html',
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
 }]);
 })();
 
