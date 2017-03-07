@@ -1038,26 +1038,32 @@ var DropdownDirectiveController = (function () {
         this.activeIndex = $scope['activeIndex'] || 0;
     }
     DropdownDirectiveController.prototype.disabled = function () {
-        if (_.isFunction(this._scope['ngDisabled'])) {
+        console.log('disabled');
+        if (this._scope['ngDisabled']) {
+            console.log('ngDisabled');
             return this._scope['ngDisabled']();
         }
         else {
             return false;
         }
     };
-    ;
     DropdownDirectiveController.prototype.onSelect = function (index) {
+        var _this = this;
+        console.log('onSelect');
         this.activeIndex = index;
-        if (_.isFunction(this._scope['select'])) {
-            this._scope['select'](this.actions[index], this.activeIndex);
+        if (this._scope['select']) {
+            console.log('select', this.selectedIndex, index, this.actions[index], this.activeIndex);
+            var a = this.actions[index];
+            var b = this.activeIndex;
+            this._scope['select'](a, b);
         }
         if (this._scope['pipChange']) {
+            console.log('change');
             this._timeout(function () {
-                this._scope['pipChange']();
+                _this._scope['pipChange']();
             });
         }
     };
-    ;
     DropdownDirectiveController.prototype.show = function () {
         var result;
         if (this._scope['showDropdown']()) {
@@ -1067,7 +1073,6 @@ var DropdownDirectiveController = (function () {
             return true;
         }
     };
-    ;
     return DropdownDirectiveController;
 }());
 (function () {
@@ -2836,8 +2841,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('dropdown/Dropdown.html',
-    '<md-toolbar class="md-subhead color-primary-bg {{ vm.themeClass}}" ng-if="vm.show()" ng-class="{\'md-whiteframe-3dp\': vm.media(\'xs\')}"><div class="pip-divider"></div><md-select ng-model="vm.selectedIndex" tabindex="15" ng-disabled="vm.disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple="" md-on-close="vm.onSelect(selectedIndex)"><md-option ng-repeat="action in vm.actions" value="{{ ::$index }}" ng-selected="vm.activeIndex == $index ? true : false">{{ (action.title || action.name || action) | translate }}</md-option></md-select></md-toolbar>');
+  $templateCache.put('header/NavHeader.html',
+    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user" tabindex="-1"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()" tabindex="-1">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
 }]);
 })();
 
@@ -2848,8 +2853,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('header/NavHeader.html',
-    '<md-toolbar ng-show="showHeader" class="layout-row layout-align-start-center"><div class="flex-fixed pip-sticky-nav-header-user"><md-button class="md-icon-button" ng-click="onUserClick()" aria-label="current user" tabindex="-1"><img src="" class="pip-sticky-nav-header-user-image" ng-class="imageCss"></md-button></div><div class="pip-sticky-nav-header-user-text"><div class="pip-sticky-nav-header-user-pri" ng-click="onUserClick()" tabindex="-1">{{ title | translate }}</div><div class="pip-sticky-nav-header-user-sec">{{ subtitle | translate }}</div></div></md-toolbar>');
+  $templateCache.put('dropdown/Dropdown.html',
+    '<md-toolbar class="md-subhead color-primary-bg {{ vm.themeClass}}" ng-if="vm.show()" ng-class="{\'md-whiteframe-3dp\': vm.media(\'xs\')}"><div class="pip-divider"></div><md-select ng-model="vm.selectedIndex" tabindex="15" ng-disabled="vm.disabled()" md-container-class="pip-full-width-dropdown" aria-label="DROPDOWN" md-ink-ripple="" md-on-close="vm.onSelect(vm.selectedIndex)"><md-option ng-repeat="action in vm.actions" value="{{ ::$index }}" ng-selected="vm.activeIndex == $index ? true : false">{{ (action.title || action.name || action) | translate }}</md-option></md-select></md-toolbar>');
 }]);
 })();
 

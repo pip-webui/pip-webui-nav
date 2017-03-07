@@ -22,6 +22,7 @@ class DropdownDirectiveController {
     public media: any;
     public actions: any; // string or array
     public activeIndex: number;
+    public selectedIndex: number;
 
     constructor(
         $element: ng.IAugmentedJQuery,
@@ -65,25 +66,33 @@ class DropdownDirectiveController {
 
 
     public disabled(): boolean {
-        if (_.isFunction(this._scope['ngDisabled'])) {
+        console.log('disabled');
+        if (this._scope['ngDisabled']) {
+            console.log('ngDisabled');
             return this._scope['ngDisabled']();
         } else {
             return false;
         }
-    };
+    }
 
     public onSelect(index: number): void {
+        console.log('onSelect');
         this.activeIndex = index;
-        if (_.isFunction(this._scope['select'])) {
-            this._scope['select'](this.actions[index], this.activeIndex);
+        if (this._scope['select']) {
+            console.log('select', this.selectedIndex, index, this.actions[index], this.activeIndex);
+
+            let a = this.actions[index];
+            let b = this.activeIndex
+            this._scope['select'](a, b);
         }
 
         if (this._scope['pipChange']) {
-            this._timeout(function () {
+            console.log('change');
+            this._timeout(() => {
                 this._scope['pipChange']();
             });
         }
-    };
+    }
 
     public show(): boolean {
         let result: boolean;
@@ -92,7 +101,7 @@ class DropdownDirectiveController {
         } else {
             return true;
         }
-    };
+    }
 
 }
 

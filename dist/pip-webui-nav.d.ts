@@ -160,7 +160,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
-
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -173,27 +172,6 @@ export interface INavService {
     reset(): void;
 }
 
-let currentTheme: string;
-class DropdownDirectiveController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _pipTranslate;
-    private _pipTheme;
-    private _pipMedia;
-    private _timeout;
-    themeClass: string;
-    media: any;
-    actions: any;
-    activeIndex: number;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService);
-    disabled(): boolean;
-    onSelect(index: number): void;
-    show(): boolean;
-}
 
 
 
@@ -226,6 +204,29 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     event: string;
     set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
+}
+
+let currentTheme: string;
+class DropdownDirectiveController {
+    private _element;
+    private _attrs;
+    private _injector;
+    private _scope;
+    private _log;
+    private _rootScope;
+    private _pipTranslate;
+    private _pipTheme;
+    private _pipMedia;
+    private _timeout;
+    themeClass: string;
+    media: any;
+    actions: any;
+    activeIndex: number;
+    selectedIndex: number;
+    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService);
+    disabled(): boolean;
+    onSelect(index: number): void;
+    show(): boolean;
 }
 
 

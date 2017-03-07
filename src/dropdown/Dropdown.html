@@ -6,7 +6,7 @@
                     md-container-class="pip-full-width-dropdown" 
                     aria-label="DROPDOWN" 
                     md-ink-ripple 
-                    md-on-close="vm.onSelect(selectedIndex)">
+                    md-on-close="vm.onSelect(vm.selectedIndex)">
             <md-option ng-repeat="action in vm.actions" value="{{ ::$index }}" ng-selected="vm.activeIndex == $index ? true : false">
                 {{ (action.title || action.name || action) | translate }}
             </md-option>
