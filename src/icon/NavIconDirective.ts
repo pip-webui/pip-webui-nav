@@ -5,17 +5,11 @@ export let OpenSideNavEvent = 'pipOpenSideNav';
 export let NavIconClickedEvent = 'pipNavIconClicked';
 
 class NavIconDirectiveController {
-    // ($scope, $element, $attrs, $rootScope, $window, pipNavIcon) {
     private _element: ng.IAugmentedJQuery;
-    private _attrs: ng.IAttributes;
-    private _injector: ng.auto.IInjectorService;
     private _scope: angular.IScope;
     private _log: ng.ILogService;
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;
-    private _location: ng.ILocationService;
-    private _pipActions: pip.nav.IActionsService;
-    private _pipTranslate: pip.services.ITranslateService
 
     public config: pip.nav.NavIconConfig;
 
@@ -46,13 +40,11 @@ class NavIconDirectiveController {
 
     }
 
-    public onNavIconChanged(event: ng.IAngularEvent, config: pip.nav.NavIconConfig) {
+    public onNavIconChanged(event: ng.IAngularEvent, config: pip.nav.NavIconConfig): void {
         this.config = config;
     }
 
-    public onNavIconClick() {
-        var breadcrumb, backCallback;
-
+    public onNavIconClick(): void {
         if (_.isFunction(this.config.click)) {
             // Execute nav icon callback
             this.config.click();
