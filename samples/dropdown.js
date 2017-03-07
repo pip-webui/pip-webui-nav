@@ -29,6 +29,8 @@
                     HOME: 'Домашний'
                 });
             }
+
+            $scope.disabled = false;
             
             $scope.actions = [
                 {title: 'BASIC_INFO', id: 1},
@@ -39,11 +41,15 @@
             $scope.activeIndex = 0;
 
             $scope.onSelect = function (tab, index) {
-                $scope.activeValue = tab.id;
+                $scope.activeIndex = tab.id;
             };
 
             $scope.onChange = function () {
                 console.log('activeIndex', $scope.activeIndex);
+            }
+
+            $scope.isDisabled = function() {
+                return $scope.disabled;
             }
         }
     );

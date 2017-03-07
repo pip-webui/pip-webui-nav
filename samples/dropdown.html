@@ -1,6 +1,13 @@
-<pip-dropdown pip-actions="actions" pip-active-index="activeIndex" pip-change="onChange()"></pip-dropdown>
+<md-button ng-click="disabled = !disabled">
+    <span ng-show="!disabled">Disabled</span>
+    <span ng-show="disabled">Enabled</span> 
+    dropdown
+</md-button>
 
-<div >
+<pip-dropdown pip-actions="actions" pip-active-index="activeIndex" pip-change="onChange()" 
+            pip-dropdown-select="onSelect" ng-disabled="isDisabled()"></pip-dropdown>
+
+<div>
 
     <div ng-if="activeIndex == 0">
         <h3 class="text-subhead2 tm0">{{ 'BASIC_INFO' | translate }}</h3>
@@ -22,14 +29,14 @@
         <div class="pip-divider pip-fix-divider flex"></div>
         <div class="pip-ref-item layout-row layout-align-start-center">
             <md-icon class="rm16" md-svg-icon="icons:phone"></md-icon>
-                <h4 class="pip-title flex">+ 788907655443</h4>
+            <h4 class="pip-title flex">+ 788907655443</h4>
 
         </div>
     </div>
 
     <div ng-if="activeIndex == 2">
         <h3 class="text-subhead2 tm0">{{:: 'CODE' | translate}}</h3>
-<pre class="text-body1 color-window-bg p16">
+        <pre class="text-body1 color-window-bg p16">
         <strong>HTML: </strong>
 
             &lt;<strong>pip-dropdown pip-actions="actions"</strong>
@@ -43,7 +50,7 @@
                 {title: '{{ 'CONTACT_INFO' | translate }}', id: 2},
                 {title: '{{ 'CODE_SAMPLE' | translate }}', id: 3}
             ];
-</pre>
+        </pre>
     </div>
 
 
