@@ -88,6 +88,7 @@
             };
 
             $scope.onShowLanguage = function () {
+                console.log('onShowLanguage');
                 pipAppBar.part('actions', 'language');
             };
 

@@ -23,6 +23,7 @@ angular
         'pipSearchBar',
         'pipNavIcon',
         'pipBreadcrumb',
+        'pipLanguagePicker',
         'pipActions', 
         'pipSideNav',
         'pipNavMenu',
