@@ -1,18 +1,18 @@
 <md-button class="md-icon-button pip-nav-icon"
-            ng-if="config.type != 'none'"
-            ng-class="config.class"
-            ng-click="onNavIconClick()"
-            tabindex="{{config.type=='menu' || config.type=='back' ? 4 : -1 }}"
+            ng-if="vm.config.type != 'none'"
+            ng-class="vm.config.class"
+            ng-click="vm.onNavIconClick()"
+            tabindex="{{ vm.config.type=='menu' || vm.config.type=='back' ? 4 : -1 }}"
             aria-label="menu">
     <!-- Menu icon -->
-    <md-icon ng-if="config.type=='menu'"
+    <md-icon ng-if="vm.config.type=='menu'"
         md-svg-icon="icons:menu"></md-icon>
     <!-- Image -->
-    <img ng-src="{{config.imageUrl}}" ng-if="config.type=='image'" height="24" width="24">
+    <img ng-src="{{ vm.config.imageUrl }}" ng-if=" vm.config.type=='image'" height="24" width="24">
     <!-- Back icon -->
-    <md-icon ng-if="config.type=='back'"
+    <md-icon ng-if="vm.config.type=='back'"
         md-svg-icon="icons:arrow-left"></md-icon>
     <!--Icon -->
-    <md-icon ng-if="config.type=='icon'"
-             md-svg-icon="{{config.icon}}"></md-icon>
+    <md-icon ng-if="vm.config.type=='icon'"
+             md-svg-icon="{{ vm.config.icon }}"></md-icon>
 </md-button>
