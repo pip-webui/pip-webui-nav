@@ -1011,7 +1011,6 @@ angular
 })();
 },{}],14:[function(require,module,exports){
 'use strict';
-var currentTheme = 'default';
 var DropdownDirectiveController = (function () {
     DropdownDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout'];
     function DropdownDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout) {
@@ -1025,14 +1024,13 @@ var DropdownDirectiveController = (function () {
         this._timeout = $timeout;
         this._pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null;
         this._pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
-        var currentTheme;
         if (this._pipTheme) {
-            currentTheme = this._pipTheme.theme;
+            this.currentTheme = this._pipTheme.theme;
         }
         else if (this._rootScope['$theme']) {
-            currentTheme = this._rootScope['$theme'];
+            this.currentTheme = this._rootScope['$theme'];
         }
-        this.themeClass = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+        this.themeClass = ($attrs.class || '') + ' md-' + this.currentTheme + '-theme';
         this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
         this.actions = ($scope['actions'] && _.isArray($scope['actions'])) ? $scope['actions'] : [];
         this.activeIndex = $scope['activeIndex'] || 0;
@@ -1048,6 +1046,7 @@ var DropdownDirectiveController = (function () {
     DropdownDirectiveController.prototype.onSelect = function (index) {
         var _this = this;
         this.activeIndex = index;
+        this._scope['activeIndex'] = index;
         if (this._scope['select']) {
             this._scope['select'](this.actions[index], this.activeIndex);
         }
@@ -2674,112 +2673,123 @@ require("./SideNavDirective");
 __export(require("./SideNavService"));
 },{"./SideNavDirective":29,"./SideNavPartDirective":30,"./SideNavService":31}],33:[function(require,module,exports){
 'use strict';
-(function () {
-    TabsDirectiveController.$inject = ['$scope', '$element', '$attrs', '$mdMedia', '$injector', '$rootScope', '$parse', '$timeout'];
-    function TabsDirectiveController($scope, $element, $attrs, $mdMedia, $injector, $rootScope, $parse, $timeout) {
+var Selected = (function () {
+    function Selected() {
+        this.activeIndex = 0;
+        this.activeTab = 0;
+    }
+    return Selected;
+}());
+var TabsDirectiveController = (function () {
+    TabsDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout'];
+    function TabsDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout) {
         "ngInject";
-        var pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null, pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null, pipTabIndex = $attrs.pipTabIndex ? parseInt($attrs.pipTabIndex) : 0, currentTheme = 'default';
-        $scope.selected = {};
-        if (pipTheme)
-            currentTheme = pipTheme.use();
-        else if ($rootScope.$theme)
-            currentTheme = $rootScope.$theme;
-        $scope.class = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
-        if (pipTranslate) {
+        var _this = this;
+        this._element = $element;
+        this._attrs = $attrs;
+        this._scope = $scope;
+        this._injector = $injector;
+        this._log = $log;
+        this._rootScope = $rootScope;
+        this._timeout = $timeout;
+        this._pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null;
+        this._pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
+        this._pipTranslate = this._injector.has('pipTranslate') ? this._injector.get('pipTranslate') : null;
+        if (this._pipTheme) {
+            this.currentTheme = this._pipTheme.theme;
+        }
+        else if (this._rootScope['$theme']) {
+            this.currentTheme = this._rootScope['$theme'];
+        }
+        this.themeClass = ($attrs.class || '') + ' md-' + this.currentTheme + '-theme';
+        if (this._pipTranslate) {
             if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
-                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
+                this._pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
             }
             else {
-                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
+                this._pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
             }
         }
-        if (pipTabIndex) {
+        this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
+        this.pipTabIndex = $attrs['pipTabIndex'] ? parseInt($attrs['pipTabIndex']) : 0,
+            this.selected = new Selected();
+        if (this.pipTabIndex) {
             $timeout(function () {
                 var a = $element.find('md-tabs-canvas');
                 if (a && a[0]) {
-                    angular.element(a[0]).attr('tabindex', pipTabIndex);
+                    angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                 }
                 a.on('focusout', function () {
-                    angular.element(a[0]).attr('tabindex', pipTabIndex);
+                    angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                     $timeout(function () {
-                        angular.element(a[0]).attr('tabindex', pipTabIndex);
+                        angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                     }, 50);
                 });
             }, 1000);
         }
-        $scope.media = pipMedia !== undefined ? pipMedia : $mdMedia;
-        $scope.tabs = ($scope.tabs && _.isArray($scope.tabs)) ? $scope.tabs : [];
-        var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-        if (pipTranslate) {
-            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
-                pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
-            }
-            else {
-                pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
-            }
-        }
-        $scope.selected.activeIndex = $scope.activeIndex || 0;
-        $scope.selected.activeTab = $scope.selected.activeIndex;
-        $scope.disabled = disabled;
-        $scope.tabDisabled = tabDisabled;
-        $scope.onSelect = onSelect;
-        $scope.showShadow = showShadow;
-        $scope.show = show;
-        if (toBoolean($attrs.pipRebind)) {
-            $scope.$watch('activeIndex', function (newValue) {
-                $scope.selected.activeIndex = newValue || 0;
-                $scope.selected.activeTab = $scope.selected.activeIndex;
+        this.tabs = ($scope['tabs'] && _.isArray($scope['tabs'])) ? $scope['tabs'] : [];
+        this.selected.activeIndex = $scope['activeIndex'] || 0;
+        this.selected.activeTab = this.selected.activeIndex;
+        if (this.toBoolean($attrs['pipRebind'])) {
+            this._scope.$watch(function () { return _this._scope['activeIndex']; }, function (newValue, oldValue) {
+                console.log('watch', oldValue, newValue);
+                _this.selected.activeIndex = newValue || 0;
+                _this.selected.activeTab = _this.selected.activeIndex;
             });
         }
-        return;
-        function disabled() {
-            if ($scope.ngDisabled) {
-                return $scope.ngDisabled();
-            }
-        }
-        ;
-        function tabDisabled(index) {
-            return ($scope.disabled() && $scope.selected.activeIndex != index);
-        }
-        ;
-        function onSelect(index) {
-            if ($scope.disabled())
-                return;
-            $scope.activeIndex = index;
-            $scope.selected.activeIndex = index;
-            $scope.selected.activeTab = $scope.selected.activeIndex;
-            if ($scope.select) {
-                $scope.select($scope.tabs[$scope.selected.activeIndex], $scope.selected.activeIndex);
-            }
-        }
-        ;
-        function showShadow() {
-            if ($scope.showTabsShadow) {
-                return $scope.showTabsShadow();
-            }
-            else {
-                return false;
-            }
-        }
-        ;
-        function show() {
-            if ($scope.showTabs) {
-                return $scope.showTabs();
-            }
-            else {
-                return true;
-            }
-        }
-        ;
-        function toBoolean(value) {
-            if (value == null)
-                return false;
-            if (!value)
-                return false;
-            value = value.toString().toLowerCase();
-            return value == '1' || value == 'true';
-        }
     }
+    TabsDirectiveController.prototype.disabled = function () {
+        if (this._scope['ngDisabled']) {
+            return this._scope['ngDisabled']();
+        }
+        return false;
+    };
+    ;
+    TabsDirectiveController.prototype.tabDisabled = function (index) {
+        return (this.disabled() && this.selected.activeIndex != index);
+    };
+    ;
+    TabsDirectiveController.prototype.onSelect = function (index) {
+        console.log('onSelect', index);
+        if (this.disabled())
+            return;
+        this._scope['activeIndex'] = index;
+        this.selected.activeIndex = index;
+        this.selected.activeTab = this.selected.activeIndex;
+        if (this._scope['select']) {
+            this._scope['select'](this.tabs[this.selected.activeIndex], this.selected.activeIndex);
+        }
+    };
+    ;
+    TabsDirectiveController.prototype.showShadow = function () {
+        if (this._scope['showTabsShadow']) {
+            return this._scope['showTabsShadow']();
+        }
+        else {
+            return false;
+        }
+    };
+    ;
+    TabsDirectiveController.prototype.show = function () {
+        if (this._scope['showTabs']) {
+            return this._scope['showTabs']();
+        }
+        else {
+            return true;
+        }
+    };
+    ;
+    TabsDirectiveController.prototype.toBoolean = function (value) {
+        if (value == null)
+            return false;
+        if (!value)
+            return false;
+        value = value.toString().toLowerCase();
+        return value == '1' || value == 'true';
+    };
+    return TabsDirectiveController;
+}());
+(function () {
     function tabsDirective() {
         return {
             restrict: 'E',
@@ -2792,7 +2802,8 @@ __export(require("./SideNavService"));
                 select: '=pipTabsSelect'
             },
             templateUrl: 'tabs/Tabs.html',
-            controller: TabsDirectiveController
+            controller: TabsDirectiveController,
+            controllerAs: 'vm'
         };
     }
     angular
@@ -2927,8 +2938,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('tabs/Tabs.html',
-    '<md-toolbar class="pip-nav {{ class }}" ng-class="{\'pip-visible\': show(), \'pip-shadow\': showShadow()}"><md-tabs ng-if="media(\'gt-sm\')" md-selected="selected.activeTab" ng-class="{\'disabled\': disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in tabs track by $index" ng-disabled="tabDisabled($index)" md-on-select="onSelect($index)"><md-tab-label>{{::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="selected.activeIndex" ng-disabled="disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="onSelect(selected.activeIndex)"><md-option ng-repeat="tab in tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
+  $templateCache.put('sidenav/SideNav.html',
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
 }]);
 })();
 
@@ -2939,8 +2950,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/SideNav.html',
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
+  $templateCache.put('tabs/Tabs.html',
+    '<md-toolbar class="pip-nav {{ vm.themeClass }}" ng-class="{\'pip-visible\': vm.show(), \'pip-shadow\': vm.showShadow()}"><md-tabs ng-if="vm.media(\'gt-sm\')" md-selected="vm.selected.activeTab" ng-class="{\'disabled\': vm.disabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in vm.tabs track by $index" ng-disabled="vm.tabDisabled($index)" md-on-select="vm.onSelect($index)"><md-tab-label>{{:: tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!vm.media(\'gt-sm\')"><div class="pip-divider position-top m0"></div><md-select ng-model="vm.selected.activeIndex" ng-disabled="vm.disabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="vm.onSelect(selected.activeIndex)"><md-option ng-repeat="tab in vm.tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">{{ tab.newCounts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 99">!</div></md-option></md-select></div></md-toolbar>');
 }]);
 })();
 

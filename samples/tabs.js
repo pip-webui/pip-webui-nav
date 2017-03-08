@@ -49,7 +49,7 @@
             }];
 
             $scope.onSelect = function (tab, tabIndex) {
-                console.log('onSelect', tab, tabIndex);
+                console.log('onSelect sample', tab, tabIndex);
                 $scope.messages.push({text: 'Tab object: [title:' + tab.title +
                                                         '], tabIndex: ' + tabIndex});
                 $scope.tabs[2].newCounts ++;

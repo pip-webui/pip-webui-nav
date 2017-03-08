@@ -77,9 +77,9 @@ class SearchBarController {
         this.stateChange();
 
         if (this.config.callback) {
-this.config.callback(search);
+            this.config.callback(search);
         } else {
-this._rootScope.$broadcast(SearchActivatedEvent, search);
+            this._rootScope.$broadcast(SearchActivatedEvent, search);
         }
     }
 

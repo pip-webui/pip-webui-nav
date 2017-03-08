@@ -173,7 +173,6 @@ export interface INavService {
 }
 
 
-let currentTheme: string;
 class DropdownDirectiveController {
     private _element;
     private _attrs;
@@ -190,6 +189,7 @@ class DropdownDirectiveController {
     actions: any;
     activeIndex: number;
     selectedIndex: number;
+    currentTheme: string;
     constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService);
     disabled(): boolean;
     onSelect(index: number): void;
@@ -349,7 +349,6 @@ export interface ISearchProvider extends ng.IServiceProvider {
 
 
 
-
 export let SideNavChangedEvent: string;
 export let SideNavStateChangedEvent: string;
 export let OpenSideNavEvent: string;
@@ -384,6 +383,36 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     addClass(...classes: string[]): void;
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
+}
+
+class Selected {
+    activeIndex: number;
+    activeTab: number;
+}
+class TabsDirectiveController {
+    private _element;
+    private _attrs;
+    private _injector;
+    private _scope;
+    private _log;
+    private _rootScope;
+    private _pipTranslate;
+    private _pipTheme;
+    private _pipMedia;
+    private _timeout;
+    themeClass: string;
+    media: any;
+    pipTabIndex: number;
+    selected: Selected;
+    tabs: any[];
+    currentTheme: string;
+    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService);
+    disabled(): boolean;
+    tabDisabled(index: number): boolean;
+    onSelect(index: number): void;
+    showShadow(): boolean;
+    show(): boolean;
+    toBoolean(value: any): boolean;
 }
 
 }

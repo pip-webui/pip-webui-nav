@@ -2,10 +2,7 @@
 
 // Prevent junk from going into typescript definitions
 
-let currentTheme: string = 'default';
-
 class DropdownDirectiveController {
-    // ($scope, $element, $attrs, $injector, $rootScope, $mdMedia, $timeout) {
     private _element: ng.IAugmentedJQuery;
     private _attrs: ng.IAttributes;
     private _injector: ng.auto.IInjectorService;
@@ -23,6 +20,7 @@ class DropdownDirectiveController {
     public actions: any; // string or array
     public activeIndex: number;
     public selectedIndex: number;
+    public currentTheme: string;
 
     constructor(
         $element: ng.IAugmentedJQuery,
@@ -48,15 +46,13 @@ class DropdownDirectiveController {
         this._pipTheme = $injector.has('pipTheme') ? <pip.themes.IThemeService>$injector.get('pipTheme') : null;
         this._pipMedia = $injector.has('pipMedia') ? <pip.layouts.IMediaService>$injector.get('pipMedia') : null;
 
-        let currentTheme: string;
-
         if (this._pipTheme) {
-            currentTheme = this._pipTheme.theme;
+            this.currentTheme = this._pipTheme.theme;
         } else if (this._rootScope['$theme']) {
-            currentTheme = this._rootScope['$theme'];
+            this.currentTheme = this._rootScope['$theme'];
         }
 
-        this.themeClass = ($attrs.class || '') + ' md-' + currentTheme + '-theme';
+        this.themeClass = ($attrs.class || '') + ' md-' + this.currentTheme + '-theme';
 
         //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
         this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
@@ -75,6 +71,7 @@ class DropdownDirectiveController {
 
     public onSelect(index: number): void {
         this.activeIndex = index;
+        this._scope['activeIndex'] = index;
         if (this._scope['select']) {
             this._scope['select'](this.actions[index], this.activeIndex);
         }
