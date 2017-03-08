@@ -6,7 +6,7 @@
 <div>
     <h2 class="text-title tm0 bm24">Tabs {{:: 'SAMPLE' | translate }}:</h2>
 
-    <div ng-if="tabIndex === 0">
+    <div ng-if="tabIndex == 0">
         <h3 class="text-subhead2">{{:: 'TABS_CONFIG_AND_INFO' | translate}}</h3>
         <p class="text-body1 tm16 bm16">{{ 'TAB_INDEX' | translate }}:<strong> {{ tabIndex }}</strong></p>
 
@@ -20,7 +20,7 @@
         <md-switch ng-model="selected.showShadow">{{ 'SHADOW' | translate }}</md-switch>
     </div>
 
-    <div ng-if="tabIndex === 1">
+    <div ng-if="tabIndex == 1">
         <h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
         <pre class="text-body1 color-window-bg p16">
         <strong>HTML: </strong>
@@ -43,7 +43,7 @@
         </pre>
     </div>
 
-    <div ng-if="tabIndex === 2">
+    <div ng-if="tabIndex == 2">
         Tab 2
 
         <md-button ng-click="onClick()">Go to tab #1</md-button>
