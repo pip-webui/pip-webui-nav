@@ -27,6 +27,7 @@ class TabsDirectiveController {
     public selected: Selected;
     public tabs: any[];
     public currentTheme: string;
+    public breakpoints: string;
 
     constructor(
         $element: ng.IAugmentedJQuery,
@@ -59,41 +60,40 @@ class TabsDirectiveController {
             this.currentTheme = this._rootScope['$theme'];
         }
 
-        this.themeClass = ($attrs.class || '') + ' md-' + this.currentTheme + '-theme';
+        this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
+        this.tabs = ($scope['tabs'] && _.isArray($scope['tabs'])) ? $scope['tabs'] : [];
 
-        if (this._pipTranslate) {
-            if ($scope.tabs.length > 0 && $scope.tabs[0].title) {
-                this._pipTranslate.translateObjects($scope.tabs, 'title', 'nameLocal');
-            } else {
-                this._pipTranslate.translateObjects($scope.tabs, 'name', 'nameLocal');
-            }
-        }
+        this.selected = new Selected();
 
         this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
 
+        this.breakpoints = $scope['breakpoints'] ? $scope['breakpoints'] : 'gt-sm';
         this.pipTabIndex = $attrs['pipTabIndex'] ? parseInt($attrs['pipTabIndex']) : 0,
+            this.selected.activeIndex = $scope['activeIndex'] || 0;
+        this.selected.activeTab = this.selected.activeIndex;
 
-            this.selected = new Selected();
+        if (this._pipTranslate) {
+            if (this.tabs.length > 0 && this.tabs[0].title) {
+                this._pipTranslate.translateObjects(this.tabs, 'title', 'nameLocal');
+            } else {
+                this._pipTranslate.translateObjects(this.tabs, 'name', 'nameLocal');
+            }
+        }
 
         if (this.pipTabIndex) {
-            $timeout(function () {
+            $timeout(() => {
                 let a = $element.find('md-tabs-canvas');
                 if (a && a[0]) {
                     angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                 }
                 a.on('focusout', function () {
                     angular.element(a[0]).attr('tabindex', this.pipTabIndex);
-                    $timeout(function () {
+                    $timeout(() => {
                         angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                     }, 50);
                 });
             }, 1000);
         }
-
-        this.tabs = ($scope['tabs'] && _.isArray($scope['tabs'])) ? $scope['tabs'] : [];
-
-        this.selected.activeIndex = $scope['activeIndex'] || 0;
-        this.selected.activeTab = this.selected.activeIndex;
 
         if (this.toBoolean($attrs['pipRebind'])) {
             this._scope.$watch(() => this._scope['activeIndex'],
@@ -102,7 +102,6 @@ class TabsDirectiveController {
                     this.selected.activeIndex = newValue || 0;
                     this.selected.activeTab = this.selected.activeIndex;
                 });
-
         }
 
     }
@@ -124,12 +123,17 @@ class TabsDirectiveController {
         console.log('onSelect', index);
         if (this.disabled()) return;
 
-        this._scope['activeIndex'] = index;
+
         this.selected.activeIndex = index;
         this.selected.activeTab = this.selected.activeIndex;
-        if (this._scope['select']) {
-            this._scope['select'](this.tabs[this.selected.activeIndex], this.selected.activeIndex);
-        }
+        this._timeout(() => {
+            this._scope['activeIndex'] = index;
+            console.log('activeIndex', this._scope['activeIndex']);
+            if (this._scope['select']) {
+                this._scope['select'](this.tabs[this.selected.activeIndex], this.selected.activeIndex);
+            }
+        }, 0);
+
     };
 
     public showShadow(): boolean {
@@ -167,7 +171,8 @@ class TabsDirectiveController {
                 showTabs: '&pipShowTabs',
                 showTabsShadow: '&pipTabsShadow',
                 activeIndex: '=pipActiveIndex',
-                select: '=pipTabsSelect'
+                select: '=pipTabsSelect',
+                breakpoints: '=pipBreakpoints'
             },
             templateUrl: 'tabs/Tabs.html',
             controller: TabsDirectiveController,

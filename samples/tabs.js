@@ -53,6 +53,8 @@
                 $scope.messages.push({text: 'Tab object: [title:' + tab.title +
                                                         '], tabIndex: ' + tabIndex});
                 $scope.tabs[2].newCounts ++;
+
+                console.log('tabIndex', $scope.tabIndex);
             };
 
             $scope.onClick = function() {
