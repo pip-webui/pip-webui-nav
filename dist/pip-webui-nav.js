@@ -1662,7 +1662,10 @@ angular
     'pipSideNav',
     'pipNavMenu',
     'pipNavHeader'
-]);
+])
+    .constant('navConstant', {
+    'TAB_BREAKPOINT': 'gt-sm'
+});
 __export(require("./actions"));
 __export(require("./appbar"));
 __export(require("./breadcrumb"));
@@ -2681,8 +2684,8 @@ var Selected = (function () {
     return Selected;
 }());
 var TabsDirectiveController = (function () {
-    TabsDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout'];
-    function TabsDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout) {
+    TabsDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout', 'navConstant'];
+    function TabsDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout, navConstant) {
         "ngInject";
         var _this = this;
         this._element = $element;
@@ -2701,6 +2704,7 @@ var TabsDirectiveController = (function () {
         else if (this._rootScope['$theme']) {
             this.currentTheme = this._rootScope['$theme'];
         }
+        console.log('navConstant', navConstant);
         this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
         this.tabs = ($scope['tabs'] && _.isArray($scope['tabs'])) ? $scope['tabs'] : [];
         this.selected = new Selected();

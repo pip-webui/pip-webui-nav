@@ -37,7 +37,8 @@ class TabsDirectiveController {
         $log: ng.ILogService,
         $rootScope: ng.IRootScopeService,
         $mdMedia: angular.material.IMedia,
-        $timeout: ng.ITimeoutService
+        $timeout: ng.ITimeoutService,
+        navConstant: any
 
     ) {
         "ngInject";
@@ -67,7 +68,7 @@ class TabsDirectiveController {
 
         this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
 
-        this.breakpoints = $scope['breakpoints'] ? $scope['breakpoints'] : 'gt-sm';
+        this.breakpoints = $scope['breakpoints'] ? $scope['breakpoints'] : navConstant.TAB_BREAKPOINT;
         this.pipTabIndex = $attrs['pipTabIndex'] ? parseInt($attrs['pipTabIndex']) : 0,
             this.selected.activeIndex = $scope['activeIndex'] || 0;
         this.selected.activeTab = this.selected.activeIndex;

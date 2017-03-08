@@ -28,7 +28,10 @@ angular
         'pipSideNav',
         'pipNavMenu',
         'pipNavHeader'
-    ]);
+    ])
+    .constant('navConstant', {
+        'TAB_BREAKPOINT': 'gt-sm'
+    })
 
 export * from './actions';
 export * from './appbar';
