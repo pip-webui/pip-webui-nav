@@ -51,28 +51,42 @@ class TabsDirectiveController {
         this._rootScope = $rootScope;
         this._timeout = $timeout;
 
-        this._pipTheme = $injector.has('pipTheme') ? <pip.themes.IThemeService>$injector.get('pipTheme') : null;
-        this._pipMedia = $injector.has('pipMedia') ? <pip.layouts.IMediaService>$injector.get('pipMedia') : null;
-        this._pipTranslate = this._injector.has('pipTranslate') ? <pip.services.ITranslateService>this._injector.get('pipTranslate') : null;
+        this.selected = new Selected();
+        this.setTheme();
+        this.setMedia($mdMedia);
+        this.initTabs();
 
+        this.breakpoints = this._scope['breakpoints'] ? this._scope['breakpoints'] : navConstant.TAB_BREAKPOINT;
+
+        if (this.toBoolean($attrs['pipRebind'])) {
+            this._scope.$watch(() => this._scope['activeIndex'],
+                (newValue: number, oldValue: number) => {
+                    this.selected.activeIndex = newValue || 0;
+                    this.selected.activeTab = this.selected.activeIndex;
+                }
+            );
+        }
+
+    }
+
+    private setTheme(): void {
+        this._pipTheme = this._injector.has('pipTheme') ? <pip.themes.IThemeService>this._injector.get('pipTheme') : null;
         if (this._pipTheme) {
             this.currentTheme = this._pipTheme.theme;
         } else if (this._rootScope['$theme']) {
             this.currentTheme = this._rootScope['$theme'];
         }
 
-        this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
-        this.tabs = ($scope['tabs'] && _.isArray($scope['tabs'])) ? $scope['tabs'] : [];
+        this.themeClass = (this._attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
+    }
 
-        this.selected = new Selected();
-
+    private setMedia($mdMedia: angular.material.IMedia): void {
+        this._pipMedia = this._injector.has('pipMedia') ? <pip.layouts.IMediaService>this._injector.get('pipMedia') : null;
         this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
+    }
 
-        this.breakpoints = $scope['breakpoints'] ? $scope['breakpoints'] : navConstant.TAB_BREAKPOINT;
-        this.pipTabIndex = $attrs['pipTabIndex'] ? parseInt($attrs['pipTabIndex']) : 0,
-            this.selected.activeIndex = $scope['activeIndex'] || 0;
-        this.selected.activeTab = this.selected.activeIndex;
-
+    private setTranslate(): void {
+        this._pipTranslate = this._injector.has('pipTranslate') ? <pip.services.ITranslateService>this._injector.get('pipTranslate') : null;
         if (this._pipTranslate) {
             if (this.tabs.length > 0 && this.tabs[0].title) {
                 this._pipTranslate.translateObjects(this.tabs, 'title', 'nameLocal');
@@ -80,31 +94,31 @@ class TabsDirectiveController {
                 this._pipTranslate.translateObjects(this.tabs, 'name', 'nameLocal');
             }
         }
+    }
+
+    private initTabs(): void {
+        this.tabs = (this._scope['tabs'] && _.isArray(this._scope['tabs'])) ? this._scope['tabs'] : [];
+        this.pipTabIndex = this._attrs['pipTabIndex'] ? parseInt(this._attrs['pipTabIndex']) : 0;
+        this.selected.activeIndex = this._scope['activeIndex'] || 0;
+        this.selected.activeTab = this.selected.activeIndex;
+
+
 
         if (this.pipTabIndex) {
-            $timeout(() => {
-                let a = $element.find('md-tabs-canvas');
+            this._timeout(() => {
+                let a = this._element.find('md-tabs-canvas');
                 if (a && a[0]) {
                     angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                 }
                 a.on('focusout', function () {
                     angular.element(a[0]).attr('tabindex', this.pipTabIndex);
-                    $timeout(() => {
+                    this._timeout(() => {
                         angular.element(a[0]).attr('tabindex', this.pipTabIndex);
                     }, 50);
                 });
             }, 1000);
         }
-
-        if (this.toBoolean($attrs['pipRebind'])) {
-            this._scope.$watch(() => this._scope['activeIndex'],
-                (newValue: number, oldValue: number) => {
-                    console.log('watch', oldValue, newValue);
-                    this.selected.activeIndex = newValue || 0;
-                    this.selected.activeTab = this.selected.activeIndex;
-                });
-        }
-
+        this.setTranslate();
     }
 
 
