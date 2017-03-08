@@ -11,6 +11,8 @@ export class NavHeaderConfig {
     public title: string;
     // Subtitle
     public subtitle: string;
+    // image styles
+    public imageCss: string;
     // Handle header click event
     click: () => void;
     // Event name
@@ -22,11 +24,11 @@ export interface INavHeaderService {
     imageUrl: string;
     title: string;
     subtitle: string;
-    click: () => void;
     event: string;
 
     show(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
     hide(): void;
+    click: () => void;
 }
 
 export interface INavHeaderProvider extends ng.IServiceProvider {
@@ -35,11 +37,11 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     imageUrl: string;
     title: string;
     subtitle: string;
-    click: () => void;
     event: string;
 
     set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
+    click: () => void;
 }
 
 class NavHeaderService {
@@ -105,14 +107,16 @@ class NavHeaderService {
         this._config.subtitle = subtitle;
         this._config.imageUrl = imageUrl;
 
-        if (_.isFunction(callbackOrEvent))
+        if (_.isFunction(callbackOrEvent)) {
             this._config.click = callbackOrEvent;
-        else this._config.click = null;
-
-        if (_.isString(callbackOrEvent))
+        } else {
+            this._config.click = null;
+        }
+        if (_.isString(callbackOrEvent)) {
             this._config.event = callbackOrEvent;
-        else this._config.event = null;
-
+        } else {
+            this._config.event = null;
+        }
         this.sendConfigEvent();
     }
 
@@ -126,7 +130,7 @@ class NavHeaderService {
     }
 
     private sendConfigEvent() {
-       this._rootScope.$emit(NavHeaderChangedEvent, this._config);
+        this._rootScope.$emit(NavHeaderChangedEvent, this._config);
     }
 }
 
@@ -195,13 +199,16 @@ class NavHeaderProvider implements INavHeaderProvider {
         this._config.subtitle = subtitle;
         this._config.imageUrl = imageUrl;
 
-        if (_.isFunction(callbackOrEvent))
+        if (_.isFunction(callbackOrEvent)) {
             this._config.click = callbackOrEvent;
-        else this._config.click = null;
-
-        if (_.isString(callbackOrEvent))
+        } else {
+            this._config.click = null;
+        }
+        if (_.isString(callbackOrEvent)) {
             this._config.event = callbackOrEvent;
-        else this._config.event = null;
+        } else {
+            this._config.event = null;
+        }
     }
 
     public clear(): void {
@@ -220,7 +227,7 @@ class NavHeaderProvider implements INavHeaderProvider {
 
         return this._service;
     }
-     
+
 }
 
 

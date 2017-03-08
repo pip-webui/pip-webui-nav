@@ -19,7 +19,7 @@
 
         pipMedia = pipMedia !== undefined ? pipMedia : $mdMedia;
 
-        $scope.navState = {
+        $scope.navState = { // todo create type
             toggle: { // media(sm, xs)
                 id: 'toggle',
                 addClass: 'sidenav-mobile', // change size, color, selected?

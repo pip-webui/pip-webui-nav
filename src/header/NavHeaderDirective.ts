@@ -1,85 +1,145 @@
 'use strict';
 
 // Prevent junk from going into typescript definitions
-(() => {
+import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
 
-    function NavHeaderDirectiveController($scope, $element, $rootScope, $timeout, pipNavHeader) {
+    class NavHeaderDirectiveController {
+    private _element: ng.IAugmentedJQuery;
+    private _scope: angular.IScope;
+    private _log: ng.ILogService;
+    private _rootScope: ng.IRootScopeService;
+    private _timeout: ng.ITimeoutService;
+    private _pipNavHeader: INavHeaderService;
+
+public title: string;
+public subtitle: string;
+public imageUrl: string;
+public imageCss: string;
+public image: ng.IAugmentedJQuery;
+public imageBlock: ng.IAugmentedJQuery;
+public loadedDefaultImage: boolean;
+public showHeader: boolean;
+
+    constructor(
+        $element: ng.IAugmentedJQuery,
+        $scope: angular.IScope,
+        $log: ng.ILogService,
+        $rootScope: ng.IRootScopeService,
+        $timeout: ng.ITimeoutService,
+        pipNavHeader: INavHeaderService,
+        navConstant: any
+
+    ) {
         "ngInject";
 
-        var
-            image = null,
-            imageBlock = $element.find('.pip-sticky-nav-header-user'),
-            $image,
-            currentState,
-            loadedDefaultImage = false;
+        this._element = $element;
+        this._scope = $scope;
+        this._log = $log;
+        this._rootScope = $rootScope;
+        this._timeout = $timeout;
+        this._pipNavHeader = pipNavHeader;
 
         // Apply class and call resize
-        $element.addClass('pip-sticky-nav-header');
+        this._element.addClass('pip-sticky-nav-header');
 
-        $scope.onUserClick = onUserClick;
-        $scope.onImageError = onImageError;
-        $scope.onImageLoad = onImageLoad;
 
-        $timeout(function () {
-            $image = $element.find('.pip-sticky-nav-header-user-image');
+        this.initImage();
 
-            if ($image[0]) {
-                $image[0].onload = onImageLoad;
-                $image[0].onerror = onImageError;
+        let cleanupNavHeaderChanged: Function = this._rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
+            this.onNavHeaderChanged($event, config)
+        });
+        let cleanupSideNavStateChanged: Function = this._rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
+            this.onStateChanged($event, state)
+        });
+
+        $scope.$on('$destroy', () => {
+            if (angular.isFunction(cleanupNavHeaderChanged)) {
+                cleanupNavHeaderChanged();
+            }
+            if (angular.isFunction(cleanupSideNavStateChanged)) {
+                cleanupSideNavStateChanged();
+            }            
+        });
+
+    }
+
+    private initImage() {
+        this.imageBlock = this._element.find('.pip-sticky-nav-header-user')
+
+        this._timeout(() => {
+            this.image = this._element.find('.pip-sticky-nav-header-user-image');
+
+            if (this.image[0]) {
+                this.image[0].onload =  (() => this.onImageLoad());
+                
+                // ($event: HTMLElement, erroev: Event): any =>  {
+                //     this.onImageLoad($event);
+                //     return null;
+                // }
+                this.image[0].onerror = (() => this.onImageError());
+                // ($event: ng.IAngularEvent) => {
+                //     this.onImageError($event);
+                // }
             } else {
-                $image.onload = onImageLoad;
-                $image.onerror = onImageError;
+                this.image.onload = (() => this.onImageLoad());
+                this.image.onerror = (() => this.onImageError());
             }
 
-            onNavHeaderChanged(null, pipNavHeader.config);
-        }, 20);
+            this.onNavHeaderChanged(null, this._pipNavHeader.config);
+        }, 20);        
+    }
 
-        $rootScope.$on('pipNavHeaderChanged', onNavHeaderChanged);
-        $rootScope.$on('pipSideNavStateChanged', onStateChanged);
+       private initHeader() {
+            if (!this._pipNavHeader.config) return;
 
-        return;
-
-        function initHeader() {
-            if (!pipNavHeader.config) return;
-
-            $scope.title = pipNavHeader.config.title;
-            $scope.subtitle = pipNavHeader.config.subtitle;
-            $scope.imageUrl = pipNavHeader.config.imageUrl;
-            $scope.imageCss = pipNavHeader.config.imageCss;
+            this.title = this._pipNavHeader.config.title;
+            this.subtitle = this._pipNavHeader.config.subtitle;
+            this.imageUrl = this._pipNavHeader.config.imageUrl;
+            this.imageCss = this._pipNavHeader.config.imageCss;
         }
 
+        // // When image is loaded resize/reposition it
+        // private onImageLoad($event) {
+        //     let image: ng.IAugmentedJQuery = $($event.target);
+        //     this.setImageMarginCSS(image);
+        // };
+
+        // private onImageError($event) {
+        //     if (this.loadedDefaultImage) return;
+        //     this._scope.$apply(() => {
+        //         this.setImage(this._pipNavHeader.config, true);
+        //     });
+        // };
         // When image is loaded resize/reposition it
-        function onImageLoad($event) {
-            var image = $($event.target);
-            setImageMarginCSS(imageBlock, image);
+        private onImageLoad() {
+            this.setImageMarginCSS(this.image);
         };
 
-        function onImageError($event) {
-            if (loadedDefaultImage) return;
-            $scope.$apply(function () {
-                setImage(pipNavHeader.config, true);
+        private onImageError() {
+            if (this.loadedDefaultImage) return;
+            this._scope.$apply(() => {
+                this.setImage(this._pipNavHeader.config, true);
             });
         };
 
-        function onStateChanged(event, state) {
+        private onStateChanged(event: ng.IAngularEvent, state: any) { // navState
             if (state === undefined) return;
-            currentState = state;
 
             if (state.id == 'toggle') {
-                $timeout(function () {
-                    $scope.showHeader = currentState && currentState.id == 'toggle';
+                this._timeout(function () {
+                    this.showHeader = state && state.id == 'toggle';
                 }, 400);
             } else {
-                $scope.showHeader = false;
+                this.showHeader = false;
             }
         }
 
-        function setImageMarginCSS(container, image) {
+        private setImageMarginCSS(image: ng.IAugmentedJQuery) { //image[0]
             var cssParams = {},
-                containerWidth = container.width ? container.width() : container.clientWidth,
-                containerHeight = container.height ? container.height() : container.clientHeight,
-                imageWidth = image[0].naturalWidth || image.width,
-                imageHeight = image[0].naturalHeight || image.height,
+                containerWidth = this.imageBlock.width ? this.imageBlock.width() : this.imageBlock.clientWidth,
+                containerHeight = this.imageBlock.height ? this.imageBlock.height() : this.imageBlock.clientHeight,
+                imageWidth = image[0]['naturalWidth'] || image.width,
+                imageHeight = image[0]['naturalHeight'] || image.height,
                 margin = 0;
 
             if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
@@ -99,50 +159,50 @@
             image.css(cssParams);
         };
 
-        function setImage(config, loadError: boolean) {
+        private setImage(config, loadError: boolean) {
             if (!config) return;
 
             var url: string;
 
-            if (!loadError && !!config.imageUrl && !loadedDefaultImage) {
+            if (!loadError && !!config.imageUrl && !this.loadedDefaultImage) {
                 url = config.imageUrl;
             } else {
-                loadedDefaultImage = true;
+                this.loadedDefaultImage = true;
                 url = config.defaultImageUrl;
             }
 
-            if (url && $image) {
-                $image.attr('src', url);
+            if (url && this.image) {
+                this.image.attr('src', url);
             } else {
-                imageBlock.css('display', 'none');
+                this.imageBlock.css('display', 'none');
             }
         }
 
-        function onNavHeaderChanged($event, config) {
+        private onNavHeaderChanged($event: ng.IAngularEvent, config: NavHeaderConfig) {
             if (!config) return;
-            setImage(config, false)
+            this.setImage(config, false)
 
-            $scope.title = config.title;
-            $scope.subtitle = config.subtitle;
-            $scope.imageUrl = config.imageUrl;
-            $scope.imageCss = config.imageCss;
+            this.title = config.title;
+            this.subtitle = config.subtitle;
+            this.imageUrl = config.imageUrl;
+            this.imageCss = config.imageCss;
         }
 
-        function onUserClick() {
-            $rootScope.$broadcast('pipNavUserClicked');
+        public onUserClick() {
+            this._rootScope.$broadcast('pipNavUserClicked'); // todo
         }
 
     }
 
+(() => {
     function navHeaderDirective() {
         return {
             restrict: 'EA',
-            scope: {
-
-            },
             replace: false,
             templateUrl: 'header/NavHeader.html',
-            controller: NavHeaderDirectiveController
+            controller: NavHeaderDirectiveController,
+            controllerAs: 'vm'
+
         };
     }
 
