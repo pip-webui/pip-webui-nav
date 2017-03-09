@@ -117,10 +117,7 @@ export interface INavService {
     reset(): void;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> aa0f9db1332b59559ee8ce9e0930faa87bb0f032
 class DropdownDirectiveController {
     private _element;
     private _attrs;
@@ -143,36 +140,6 @@ class DropdownDirectiveController {
     onSelect(index: number): void;
     show(): boolean;
 }
-
-<<<<<<< HEAD
-=======
-export let NavIconClickedEvent: string;
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
->>>>>>> aa0f9db1332b59559ee8ce9e0930faa87bb0f032
 
 
 
@@ -209,7 +176,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 }
 
 
-<<<<<<< HEAD
 export let NavIconClickedEvent: string;
 
 export let NavIconChangedEvent: string;
@@ -237,24 +203,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
     clear(): void;
 }
 
-=======
-class LanguagePickerDirectiveController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _translate;
-    private _timeout;
-    languages: string[];
-    selectedLanguage: string;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
-    readonly language: string;
-    setLanguages(languages: string[]): void;
-    onLanguageClick(language: string): void;
-}
->>>>>>> aa0f9db1332b59559ee8ce9e0930faa87bb0f032
 
 
 export let NavMenuChangedEvent: string;
@@ -298,7 +246,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     defaultIcon: string;
 }
 
-<<<<<<< HEAD
 class LanguagePickerDirectiveController {
     private _element;
     private _attrs;
@@ -316,8 +263,6 @@ class LanguagePickerDirectiveController {
     onLanguageClick(language: string): void;
 }
 
-=======
->>>>>>> aa0f9db1332b59559ee8ce9e0930faa87bb0f032
 
 
 export let OpenSearchEvent: string;
@@ -409,10 +354,6 @@ export class SideNavStateConfig {
     xlarge: SideNavState;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> aa0f9db1332b59559ee8ce9e0930faa87bb0f032
 class Selected {
     activeIndex: number;
     activeTab: number;
