@@ -1,9 +1,4 @@
-'use strict';
-
-export let SideNavChangedEvent = 'pipSideNavChanged';
-export let SideNavStateChangedEvent = 'pipSideNavStateChanged';
-export let OpenSideNavEvent = 'pipOpenSideNav';
-export let CloseSideNavEvent = 'pipCloseSideNav';
+import { SideNavChangedEvent, SideNavStateChangedEvent, OpenSideNavEvent, CloseSideNavEvent } from './SideNavEvents';
 
 export class SideNavConfig {
     parts: any;
