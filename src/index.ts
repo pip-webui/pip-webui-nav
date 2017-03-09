@@ -30,7 +30,13 @@ angular
         'pipNavHeader'
     ])
     .constant('navConstant', {
-        'TAB_BREAKPOINT': 'gt-sm'
+        'TAB_BREAKPOINT': 'gt-sm',
+        'SIDENAV_CONTAINER': '.pip-main',
+        'SIDENAV_LARGE_WIDTH': 320,
+        'SIDENAV_MIDDLE_WIDTH': 240,
+        'SIDENAV_SMALL_WIDTH': 72,
+        'SIDENAV_ANIMATION_DURATION': 600
+
     })
 
 export * from './actions';
