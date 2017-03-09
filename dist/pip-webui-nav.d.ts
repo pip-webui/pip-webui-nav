@@ -1,35 +1,5 @@
 declare module pip.nav {
 
-
-
-export let AppBarChangedEvent: string;
-export class AppBarConfig {
-    visible: boolean;
-    parts: any;
-    classes: string[];
-}
-export interface IAppBarService {
-    readonly config: AppBarConfig;
-    readonly classes: string[];
-    parts: any;
-    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
-    hide(): void;
-    addShadow(...breakpoints: string[]): void;
-    removeShadow(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface IAppBarProvider extends ng.IServiceProvider {
-    config: AppBarConfig;
-    parts: any;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-
-
 export let ActionsChangedEvent: string;
 export let SecondaryActionsOpenEvent: string;
 export class SimpleActionItem {
@@ -80,8 +50,6 @@ export interface IActionsProvider extends ng.IServiceProvider {
 
 
 
-<<<<<<< HEAD
-=======
 
 export let AppBarChangedEvent: string;
 export class AppBarConfig {
@@ -124,7 +92,6 @@ export interface INavService {
 }
 
 
->>>>>>> eb0ebe161c58480ac41dff164bdf7377fc4ee597
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
 export class BreadcrumbItem {
@@ -150,7 +117,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
-
 class DropdownDirectiveController {
     private _element;
     private _attrs;
@@ -173,6 +139,7 @@ class DropdownDirectiveController {
     onSelect(index: number): void;
     show(): boolean;
 }
+
 
 
 export let NavHeaderChangedEvent: string;
@@ -254,38 +221,6 @@ class LanguagePickerDirectiveController {
 }
 
 
-<<<<<<< HEAD
-=======
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-
-
->>>>>>> eb0ebe161c58480ac41dff164bdf7377fc4ee597
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
     name: string;
@@ -327,7 +262,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     defaultIcon: string;
 }
 
-<<<<<<< HEAD
 
 
 export let OpenSearchEvent: string;
@@ -356,7 +290,7 @@ export interface ISearchService {
 export interface ISearchProvider extends ng.IServiceProvider {
 }
 
-=======
+
 class Selected {
     activeIndex: number;
     activeTab: number;
@@ -392,8 +326,6 @@ class TabsDirectiveController {
     toBoolean(value: any): boolean;
 }
 
-
->>>>>>> eb0ebe161c58480ac41dff164bdf7377fc4ee597
 
 export let SideNavChangedEvent: string;
 export let SideNavStateChangedEvent: string;
@@ -433,42 +365,6 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     part(part: string, value: any): void;
 }
 
-<<<<<<< HEAD
-
-class Selected {
-    activeIndex: number;
-    activeTab: number;
-}
-class TabsDirectiveController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _pipTranslate;
-    private _pipTheme;
-    private _pipMedia;
-    private _timeout;
-    themeClass: string;
-    media: any;
-    pipTabIndex: number;
-    selected: Selected;
-    tabs: any[];
-    currentTheme: string;
-    breakpoints: string;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService, navConstant: any);
-    private setTheme();
-    private setMedia($mdMedia);
-    private setTranslate();
-    private initTabs();
-    disabled(): boolean;
-    tabDisabled(index: number): boolean;
-    onSelect(index: number): void;
-    showShadow(): boolean;
-    show(): boolean;
-    toBoolean(value: any): boolean;
-=======
 export class SideNavStateNames {
     static Toggle: string;
     static Small: string;
@@ -490,8 +386,8 @@ export class SideNavStateConfig {
     small: SideNavState;
     large: SideNavState;
     xlarge: SideNavState;
->>>>>>> eb0ebe161c58480ac41dff164bdf7377fc4ee597
 }
+
 
 }
 

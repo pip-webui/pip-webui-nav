@@ -198,6 +198,7 @@ var ActionsProvider = (function () {
 angular
     .module('pipActions')
     .provider('pipActions', ActionsProvider);
+
 },{}],2:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -309,6 +310,7 @@ var PrimaryActionsController = (function () {
         .module('pipActions')
         .directive('pipPrimaryActions', primaryActionsDirective);
 })();
+
 },{}],3:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -440,6 +442,7 @@ var SecondaryActionsController = (function () {
         .module('pipActions')
         .directive('pipSecondaryActions', secondaryActionsDirective);
 })();
+
 },{}],4:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -451,6 +454,7 @@ require("./ActionsService");
 require("./PrimaryActionsDirective");
 require("./SecondaryActionsDirective");
 __export(require("./ActionsService"));
+
 },{"./ActionsService":1,"./PrimaryActionsDirective":2,"./SecondaryActionsDirective":3}],5:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -486,6 +490,7 @@ var AppBarDirectiveController = (function () {
         .module('pipAppBar')
         .directive('pipAppbar', appbarDirective);
 })();
+
 },{}],6:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -538,6 +543,7 @@ var AppBarPartDirectiveController = (function () {
     angular.module('pipAppBar')
         .directive('pipAppbarPart', appbarPartDirective);
 })();
+
 },{}],7:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -721,6 +727,7 @@ var AppBarProvider = (function () {
 angular
     .module('pipAppBar')
     .provider('pipAppBar', AppBarProvider);
+
 },{}],8:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -733,6 +740,7 @@ require("./AppBarService");
 require("./AppBarDirective");
 require("./AppBarPartDirective");
 __export(require("./AppBarService"));
+
 },{"./AppBarDirective":5,"./AppBarPartDirective":6,"./AppBarService":7}],9:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -838,6 +846,7 @@ var BreadcrumbController = (function () {
     angular.module('pipBreadcrumb')
         .directive('pipBreadcrumb', breadcrumbDirective);
 })();
+
 },{"../search/SearchService":27,"./BreadcrumbService":10}],10:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -947,6 +956,7 @@ var BreadcrumbProvider = (function () {
 }());
 angular.module('pipBreadcrumb')
     .provider('pipBreadcrumb', BreadcrumbProvider);
+
 },{}],11:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -957,6 +967,7 @@ angular.module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Trans
 require("./BreadcrumbDirective");
 require("./BreadcrumbService");
 __export(require("./BreadcrumbService"));
+
 },{"./BreadcrumbDirective":9,"./BreadcrumbService":10}],12:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -998,6 +1009,7 @@ var NavService = (function () {
 angular
     .module('pipNavService', [])
     .service('pipNavService', NavService);
+
 },{}],13:[function(require,module,exports){
 'use strict';
 (function () {
@@ -1013,6 +1025,7 @@ angular
         .module('pipNav.Translate', [])
         .filter('translate', translateFilter);
 })();
+
 },{}],14:[function(require,module,exports){
 'use strict';
 var DropdownDirectiveController = (function () {
@@ -1092,6 +1105,7 @@ var DropdownDirectiveController = (function () {
         .module('pipDropdown', ['pipNav.Templates'])
         .directive('pipDropdown', dropdownDirective);
 })();
+
 },{}],15:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1237,6 +1251,7 @@ var NavHeaderDirectiveController = (function () {
         .module('pipNavHeader')
         .directive('pipNavHeader', navHeaderDirective);
 })();
+
 },{}],16:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1455,6 +1470,7 @@ var NavHeaderProvider = (function () {
 angular
     .module('pipNavHeader')
     .provider('pipNavHeader', NavHeaderProvider);
+
 },{}],17:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -1465,6 +1481,7 @@ angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates']);
 require("./NavHeaderService");
 require("./NavHeaderDirective");
 __export(require("./NavHeaderService"));
+
 },{"./NavHeaderDirective":15,"./NavHeaderService":16}],18:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1527,6 +1544,7 @@ var NavIconDirectiveController = (function () {
         .module('pipNavIcon')
         .directive('pipNavIcon', navIconDirective);
 })();
+
 },{"../sidenav/SideNavEvents":30}],19:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1653,6 +1671,7 @@ var NavIconProvider = (function () {
 angular
     .module('pipNavIcon')
     .provider('pipNavIcon', NavIconProvider);
+
 },{}],20:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -1663,6 +1682,7 @@ angular.module('pipNavIcon', ['ngMaterial', 'pipNav.Translate', 'pipNav.Template
 require("./NavIconService");
 require("./NavIconDirective");
 __export(require("./NavIconService"));
+
 },{"./NavIconDirective":18,"./NavIconService":19}],21:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -1713,6 +1733,7 @@ __export(require("./sidenav"));
 __export(require("./icon"));
 __export(require("./menu"));
 __export(require("./header"));
+
 },{"./actions":4,"./appbar":8,"./breadcrumb":11,"./common/NavService":12,"./dependencies/TranslateFilter":13,"./dropdown/DropdownDirective":14,"./header":17,"./icon":20,"./language/LanguagePickerDirective":22,"./menu":25,"./search":28,"./sidenav":34,"./tabs/TabsDirective":35}],22:[function(require,module,exports){
 'use strict';
 var LanguagePickerDirectiveController = (function () {
@@ -1772,6 +1793,7 @@ var LanguagePickerDirectiveController = (function () {
     ])
         .directive('pipLanguagePicker', languagePickerDirective);
 })();
+
 },{}],23:[function(require,module,exports){
 'use strict';
 (function () {
@@ -1925,6 +1947,7 @@ var LanguagePickerDirectiveController = (function () {
         .module('pipNavMenu')
         .directive('pipNavMenu', navMenuDirective);
 })();
+
 },{}],24:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2047,6 +2070,7 @@ var NavMenuProvider = (function () {
 angular
     .module('pipNavMenu')
     .provider('pipNavMenu', NavMenuProvider);
+
 },{}],25:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -2057,6 +2081,7 @@ angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Template
 require("./NavMenuService");
 require("./NavMenuDirective");
 __export(require("./NavMenuService"));
+
 },{"./NavMenuDirective":23,"./NavMenuService":24}],26:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2154,6 +2179,7 @@ var SearchBarController = (function () {
     angular.module('pipSearchBar')
         .directive('pipSearchBar', searchBarDirective);
 })();
+
 },{"./SearchService":27}],27:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2271,6 +2297,7 @@ var SearchProvider = (function () {
 }());
 angular.module('pipSearchBar')
     .provider('pipSearch', SearchProvider);
+
 },{}],28:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -2281,6 +2308,7 @@ angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templa
 require("./SearchService");
 require("./SearchBarDirective");
 __export(require("./SearchService"));
+
 },{"./SearchBarDirective":26,"./SearchService":27}],29:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2455,6 +2483,7 @@ var SideNavDirectiveController = (function () {
         .module('pipSideNav')
         .directive('pipSidenav', sideNavDirective);
 })();
+
 },{"./SideNavState":33}],30:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2462,6 +2491,7 @@ exports.SideNavChangedEvent = 'pipSideNavChanged';
 exports.SideNavStateChangedEvent = 'pipSideNavStateChanged';
 exports.OpenSideNavEvent = 'pipOpenSideNav';
 exports.CloseSideNavEvent = 'pipCloseSideNav';
+
 },{}],31:[function(require,module,exports){
 'use strict';
 (function () {
@@ -2506,6 +2536,7 @@ exports.CloseSideNavEvent = 'pipCloseSideNav';
         .module('pipSideNav')
         .directive('pipSidenavPart', sidenavPartDirective);
 })();
+
 },{}],32:[function(require,module,exports){
 "use strict";
 hookSideNavEvents.$inject = ['$rootScope', 'pipSideNav'];
@@ -2710,6 +2741,7 @@ angular
     .module('pipSideNav')
     .provider('pipSideNav', SideNavProvider)
     .run(hookSideNavEvents);
+
 },{"./SideNavEvents":30}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2775,6 +2807,7 @@ var SideNavStateConfig = (function () {
     return SideNavStateConfig;
 }());
 exports.SideNavStateConfig = SideNavStateConfig;
+
 },{}],34:[function(require,module,exports){
 'use strict';
 function __export(m) {
@@ -2788,6 +2821,7 @@ require("./SideNavService");
 require("./SideNavPartDirective");
 require("./SideNavDirective");
 __export(require("./SideNavService"));
+
 },{"./SideNavDirective":29,"./SideNavEvents":30,"./SideNavPartDirective":31,"./SideNavService":32,"./SideNavState":33}],35:[function(require,module,exports){
 'use strict';
 var Selected = (function () {
@@ -2946,6 +2980,7 @@ var TabsDirectiveController = (function () {
         .module("pipTabs", ['pipNav.Templates'])
         .directive('pipTabs', tabsDirective);
 })();
+
 },{}],36:[function(require,module,exports){
 (function(module) {
 try {
@@ -3050,8 +3085,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('search/SearchBar.html',
-    '<div class="md-toolbar-tools pip-search-container" ng-if="vm.enabled"><div class="layout-row pip-search-selected"><md-button class="md-icon-button" tabindex="6" aria-label="start search" ng-click="vm.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" tabindex="6" ng-model="vm.search.text" ng-keydown="vm.onKeyDown($event)"><md-button class="md-icon-button" tabindex="6" aria-label="clear search" ng-click="vm.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div></div><div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed lp0 rp0" ng-if="!vm.enabled"><md-button class="md-icon-button" tabindex="5" aria-label="start search" ng-click="vm.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
+  $templateCache.put('menu/NavMenu.html',
+    '<div ng-if="sections && sections.length"><md-list class="sidenav-list" pip-focused="" pip-focused-tabindex="10" pip-with-hidden="true"><md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()" ng-disabled="!isCollapsed" tabindex="-1" ng-if="expandedButton"><md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon><md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon></md-list-item><md-divider ng-show="expandedButton"></md-divider><div class="pip-section" ng-repeat="section in sections" ng-hide="section.access && !section.access(section)"><md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider><md-subheader ng-show="section.title" style="height: 48px;"><span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">{{::section.title | translate}}</span><md-icon md-svg-icon="{{section.icon}}" ng-if="!sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon><md-icon md-svg-icon="{{section.icon}}" ng-if="sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"><md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{::section.tooltipText || section.title | translate}}</md-tooltip></md-icon><md-icon md-svg-icon="{{defaultIcon}}" ng-if="!sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon><md-icon md-svg-icon="{{defaultIcon}}" ng-if="sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"><md-tooltip md-visible="showTooltip" class="md-secondary">{{::section.tooltipText || section.title | translate}}</md-tooltip></md-icon></md-subheader><md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable" ng-repeat="link in section.links" tabindex="-1" ng-class="{\'active\': isActive(link)}" ng-hide="link.access && !link.access(link)"><md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="clickLink($event, link)"><md-tooltip md-visible="showTooltip" md-direction="right">{{::link.tooltipText | translate}}</md-tooltip><div class="pip-sticky-nav-menu-icon-block"><md-icon md-svg-icon="{{link.icon}}" ng-if="!(sideNavState.showIconTooltype && !link.tooltipText && !expanded)" ng-hide="!link.icon" class="pip-sticky-nav-menu-icon flex-fixed"></md-icon><md-icon md-svg-icon="{{link.icon}}" ng-hide="!link.icon" ng-if="sideNavState.showIconTooltype && !link.tooltipText && !expanded" class="pip-sticky-nav-menu-icon flex-fixed"><md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{::link.tooltipText || link.title | translate}}</md-tooltip></md-icon></div><div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count < 100">{{link.count}}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count > 99">!</div></md-button></md-list-item></div></md-list></div>');
 }]);
 })();
 
@@ -3062,8 +3097,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('menu/NavMenu.html',
-    '<div ng-if="sections && sections.length"><md-list class="sidenav-list" pip-focused="" pip-focused-tabindex="10" pip-with-hidden="true"><md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()" ng-disabled="!isCollapsed" tabindex="-1" ng-if="expandedButton"><md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon><md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon></md-list-item><md-divider ng-show="expandedButton"></md-divider><div class="pip-section" ng-repeat="section in sections" ng-hide="section.access && !section.access(section)"><md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider><md-subheader ng-show="section.title" style="height: 48px;"><span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">{{::section.title | translate}}</span><md-icon md-svg-icon="{{section.icon}}" ng-if="!sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon><md-icon md-svg-icon="{{section.icon}}" ng-if="sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"><md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{::section.tooltipText || section.title | translate}}</md-tooltip></md-icon><md-icon md-svg-icon="{{defaultIcon}}" ng-if="!sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon><md-icon md-svg-icon="{{defaultIcon}}" ng-if="sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"><md-tooltip md-visible="showTooltip" class="md-secondary">{{::section.tooltipText || section.title | translate}}</md-tooltip></md-icon></md-subheader><md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable" ng-repeat="link in section.links" tabindex="-1" ng-class="{\'active\': isActive(link)}" ng-hide="link.access && !link.access(link)"><md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="clickLink($event, link)"><md-tooltip md-visible="showTooltip" md-direction="right">{{::link.tooltipText | translate}}</md-tooltip><div class="pip-sticky-nav-menu-icon-block"><md-icon md-svg-icon="{{link.icon}}" ng-if="!(sideNavState.showIconTooltype && !link.tooltipText && !expanded)" ng-hide="!link.icon" class="pip-sticky-nav-menu-icon flex-fixed"></md-icon><md-icon md-svg-icon="{{link.icon}}" ng-hide="!link.icon" ng-if="sideNavState.showIconTooltype && !link.tooltipText && !expanded" class="pip-sticky-nav-menu-icon flex-fixed"><md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{::link.tooltipText || link.title | translate}}</md-tooltip></md-icon></div><div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count < 100">{{link.count}}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count > 99">!</div></md-button></md-list-item></div></md-list></div>');
+  $templateCache.put('search/SearchBar.html',
+    '<div class="md-toolbar-tools pip-search-container" ng-if="vm.enabled"><div class="layout-row pip-search-selected"><md-button class="md-icon-button" tabindex="6" aria-label="start search" ng-click="vm.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" tabindex="6" ng-model="vm.search.text" ng-keydown="vm.onKeyDown($event)"><md-button class="md-icon-button" tabindex="6" aria-label="clear search" ng-click="vm.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div></div><div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed lp0 rp0" ng-if="!vm.enabled"><md-button class="md-icon-button" tabindex="5" aria-label="start search" ng-click="vm.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
 }]);
 })();
 
