@@ -56,10 +56,9 @@ class SideNavDirectiveController {
         this._timeout = $timeout;
         this._pipSideNav = pipSideNav;
 
+console.log('this._pipSideNav', this._pipSideNav);
 
-        // var pipMedia = $mdMedia, 
         this._pipMedia = this._injector.has('pipMedia') ? <pip.layouts.IMediaService>this._injector.get('pipMedia') : null;
-        this._pipSystemInfo = this._injector.has('pipSystemInfo') ? <pip.services.ISystemInfo>this._injector.get('pipSystemInfo') : null;
 
         this._mainContainer = navConstant.SIDENAV_CONTAINER;
         this._bigWidth = navConstant.SIDENAV_LARGE_WIDTH;
@@ -67,16 +66,12 @@ class SideNavDirectiveController {
         this._smallWidth = navConstant.SIDENAV_SMALL_WIDTH;
         this._isResizing = false;
         this._animationDuration = navConstant.SIDENAV_ANIMATION_DURATION;
-
         this._navState = new SideNavStateConfig();
-
         this._mediaBreakpoints = this.setBreakpoints();
 
         // Apply class and call resize
-        $element.addClass('pip-sticky-sidenav');
+        this._element.addClass('pip-sticky-sidenav');
 
-        // check Safari
-        this.checkSafari();
         let cleanupMainResized;
         let cleanupSideNavState;
 
@@ -85,7 +80,7 @@ class SideNavDirectiveController {
                 this.setSideNaveState()
             }, 100);
 
-            this.windowResize = _.debounce(() => { this.setSideNaveState; }, 10);
+            this.windowResize = _.debounce(() => { this.setSideNaveState(); }, 10);
             cleanupMainResized = $rootScope.$on('pipMainResized', () => {
                 this.windowResize();
             });
@@ -98,9 +93,7 @@ class SideNavDirectiveController {
             $timeout(function () {
                 this.setState(SideNavStateNames.Toggle);
             }, 100);
-
         }
-
 
         let cleanupNavHeaderChanged: Function = this._rootScope.$on('pipNavIconClicked', () => {
             this.onNavIconClick();
@@ -124,15 +117,6 @@ class SideNavDirectiveController {
             }
         });
 
-    }
-
-
-
-
-    private checkSafari(): void {
-        if (!this._pipSystemInfo || this._pipSystemInfo.browserName != 'safari') {
-            // $element.addClass('sidenav-animate');
-        }
     }
 
     private setBreakpoints(): pip.layouts.MediaBreakpoints {
@@ -217,7 +201,7 @@ class SideNavDirectiveController {
         this._element.addClass(this.sidenavState.addClass);
 
         this._pipSideNav.state = this.sidenavState;
-        
+
         // check sideNav State
         this._timeout(() => {
             this.setSideNaveState()

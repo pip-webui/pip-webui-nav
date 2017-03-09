@@ -455,6 +455,9 @@ md-select md-select-value .md-text .pip-tabs-badge {
 .pip-sticky-sidenav.sidenav-smalldesktop md-sidenav {
   width: 238px !important; }
 
+.pip-sticky-sidenav.pip-sticky-nav-small md-sidenav, .pip-sticky-sidenav.pip-sticky-nav-small.sidenav-smalldesktop md-sidenav {
+  width: 70px !important; }
+
 .sidenav-mobile.pip-sticky-sidenav {
   border-right: none; }
   .sidenav-mobile.pip-sticky-sidenav md-sidenav {
