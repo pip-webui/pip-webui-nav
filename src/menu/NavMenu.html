@@ -23,7 +23,7 @@
                 </md-icon>
                 <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ section.icon }}" 
                     ng-if="vm.sideNavState.showIconTooltype && !vm.expanded && section.icon">
-                    <md-tooltip md-visible="vm.showTooltip" md-direction="right" class="sidenav-icon-tooltip">
+                    <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
                         {{ ::section.tooltipText || section.title | translate }}
                     </md-tooltip>
                 </md-icon>
@@ -32,7 +32,7 @@
                 </md-icon>
                 <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ vm.defaultIcon }}" 
                         ng-if="vm.sideNavState.showIconTooltype && !vm.expanded && !section.icon">
-                    <md-tooltip md-visible="vm.showTooltip" class="md-secondary" class="sidenav-icon-tooltip">
+                    <md-tooltip md-visible="showTooltip" class="md-secondary" class="sidenav-icon-tooltip">
                         {{ ::section.tooltipText || section.title | translate }}
                     </md-tooltip>
                 </md-icon>
@@ -42,7 +42,7 @@
                     ng-repeat="link in section.links"  ng-class="{'active': vm.isActive(link)}"
                     ng-hide="link.access && !link.access(link)">
                 <md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="vm.clickLink($event, link)">
-                    <md-tooltip md-visible="vm.showTooltip" md-direction="right">
+                    <md-tooltip md-visible="showTooltip" md-direction="right">
                         {{ ::link.tooltipText | translate  }}
                     </md-tooltip>
                     <div class="pip-sticky-nav-menu-icon-block">
@@ -51,7 +51,7 @@
                         </md-icon>
                         <md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" 
                                 ng-hide="!link.icon" ng-if="vm.sideNavState.showIconTooltype && !link.tooltipText && !vm.expanded">
-                            <md-tooltip md-visible="vm.showTooltip" md-direction="right" class="sidenav-icon-tooltip">
+                            <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
                                 {{ ::link.tooltipText || link.title | translate }}
                             </md-tooltip>
                         </md-icon>
