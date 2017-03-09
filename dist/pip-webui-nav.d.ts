@@ -1,5 +1,35 @@
 declare module pip.nav {
 
+
+
+export let AppBarChangedEvent: string;
+export class AppBarConfig {
+    visible: boolean;
+    parts: any;
+    classes: string[];
+}
+export interface IAppBarService {
+    readonly config: AppBarConfig;
+    readonly classes: string[];
+    parts: any;
+    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
+    hide(): void;
+    addShadow(...breakpoints: string[]): void;
+    removeShadow(): void;
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+export interface IAppBarProvider extends ng.IServiceProvider {
+    config: AppBarConfig;
+    parts: any;
+    classes: string[];
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+
+
 export let ActionsChangedEvent: string;
 export let SecondaryActionsOpenEvent: string;
 export class SimpleActionItem {
@@ -47,36 +77,6 @@ export interface IActionsProvider extends ng.IServiceProvider {
 }
 
 
-
-
-
-
-export let AppBarChangedEvent: string;
-export class AppBarConfig {
-    visible: boolean;
-    parts: any;
-    classes: string[];
-}
-export interface IAppBarService {
-    readonly config: AppBarConfig;
-    readonly classes: string[];
-    parts: any;
-    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
-    hide(): void;
-    addShadow(...breakpoints: string[]): void;
-    removeShadow(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface IAppBarProvider extends ng.IServiceProvider {
-    config: AppBarConfig;
-    parts: any;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
 
 
 
@@ -142,7 +142,6 @@ class DropdownDirectiveController {
 }
 
 
-
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
     imageUrl: string;
@@ -203,6 +202,7 @@ export interface INavIconProvider extends ng.IServiceProvider {
     clear(): void;
 }
 
+
 class LanguagePickerDirectiveController {
     private _element;
     private _attrs;
@@ -219,7 +219,6 @@ class LanguagePickerDirectiveController {
     setLanguages(languages: string[]): void;
     onLanguageClick(language: string): void;
 }
-
 
 
 export let NavMenuChangedEvent: string;
@@ -291,6 +290,47 @@ export interface ISearchService {
 export interface ISearchProvider extends ng.IServiceProvider {
 }
 
+
+
+export let SideNavChangedEvent: string;
+export let SideNavStateChangedEvent: string;
+export let OpenSideNavEvent: string;
+export let CloseSideNavEvent: string;
+
+
+export class SideNavConfig {
+    parts: any;
+    classes: string[];
+    state: any;
+    type: string;
+    visible: boolean;
+}
+export interface ISideNavService {
+    readonly config: SideNavConfig;
+    readonly classes: string[];
+    parts: any;
+    state: any;
+    open(): void;
+    close(): void;
+    toggle(): void;
+    show(): void;
+    hide(): void;
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+export interface ISideNavProvider extends ng.IServiceProvider {
+    config: SideNavConfig;
+    parts: any;
+    type: string;
+    visible: boolean;
+    classes: string[];
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+
+
 class Selected {
     activeIndex: number;
     activeTab: number;
@@ -324,45 +364,6 @@ class TabsDirectiveController {
     showShadow(): boolean;
     show(): boolean;
     toBoolean(value: any): boolean;
-}
-
-
-
-
-export let SideNavChangedEvent: string;
-export let SideNavStateChangedEvent: string;
-export let OpenSideNavEvent: string;
-export let CloseSideNavEvent: string;
-export class SideNavConfig {
-    parts: any;
-    classes: string[];
-    state: any;
-    type: string;
-    visible: boolean;
-}
-export interface ISideNavService {
-    readonly config: SideNavConfig;
-    readonly classes: string[];
-    parts: any;
-    state: any;
-    open(): void;
-    close(): void;
-    toggle(): void;
-    show(): void;
-    hide(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface ISideNavProvider extends ng.IServiceProvider {
-    config: SideNavConfig;
-    parts: any;
-    type: string;
-    visible: boolean;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
 }
 
 }
