@@ -1,95 +1,96 @@
-'use strict';
+
 
 // Prevent junk from going into typescript definitions
 import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
 
+(() => {
     class NavHeaderDirectiveController {
-    private _element: ng.IAugmentedJQuery;
-    private _scope: angular.IScope;
-    private _log: ng.ILogService;
-    private _rootScope: ng.IRootScopeService;
-    private _timeout: ng.ITimeoutService;
-    private _pipNavHeader: INavHeaderService;
+        private _element: ng.IAugmentedJQuery;
+        private _scope: angular.IScope;
+        private _log: ng.ILogService;
+        private _rootScope: ng.IRootScopeService;
+        private _timeout: ng.ITimeoutService;
+        private _pipNavHeader: INavHeaderService;
 
-public title: string;
-public subtitle: string;
-public imageUrl: string;
-public imageCss: string;
-public image: ng.IAugmentedJQuery;
-public imageBlock: ng.IAugmentedJQuery;
-public loadedDefaultImage: boolean;
-public showHeader: boolean;
+        public title: string;
+        public subtitle: string;
+        public imageUrl: string;
+        public imageCss: string;
+        public image: ng.IAugmentedJQuery;
+        public imageBlock: ng.IAugmentedJQuery;
+        public loadedDefaultImage: boolean;
+        public showHeader: boolean;
 
-    constructor(
-        $element: ng.IAugmentedJQuery,
-        $scope: angular.IScope,
-        $log: ng.ILogService,
-        $rootScope: ng.IRootScopeService,
-        $timeout: ng.ITimeoutService,
-        pipNavHeader: INavHeaderService,
-        navConstant: any
+        constructor(
+            $element: ng.IAugmentedJQuery,
+            $scope: angular.IScope,
+            $log: ng.ILogService,
+            $rootScope: ng.IRootScopeService,
+            $timeout: ng.ITimeoutService,
+            pipNavHeader: INavHeaderService,
+            navConstant: any
 
-    ) {
-        "ngInject";
+        ) {
+            "ngInject";
 
-        this._element = $element;
-        this._scope = $scope;
-        this._log = $log;
-        this._rootScope = $rootScope;
-        this._timeout = $timeout;
-        this._pipNavHeader = pipNavHeader;
+            this._element = $element;
+            this._scope = $scope;
+            this._log = $log;
+            this._rootScope = $rootScope;
+            this._timeout = $timeout;
+            this._pipNavHeader = pipNavHeader;
 
-        // Apply class and call resize
-        this._element.addClass('pip-sticky-nav-header');
+            // Apply class and call resize
+            this._element.addClass('pip-sticky-nav-header');
 
 
-        this.initImage();
+            this.initImage();
 
-        let cleanupNavHeaderChanged: Function = this._rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
-            this.onNavHeaderChanged($event, config)
-        });
-        let cleanupSideNavStateChanged: Function = this._rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
-            this.onStateChanged($event, state)
-        });
+            let cleanupNavHeaderChanged: Function = this._rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
+                this.onNavHeaderChanged($event, config)
+            });
+            let cleanupSideNavStateChanged: Function = this._rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
+                this.onStateChanged($event, state)
+            });
 
-        $scope.$on('$destroy', () => {
-            if (angular.isFunction(cleanupNavHeaderChanged)) {
-                cleanupNavHeaderChanged();
-            }
-            if (angular.isFunction(cleanupSideNavStateChanged)) {
-                cleanupSideNavStateChanged();
-            }            
-        });
+            $scope.$on('$destroy', () => {
+                if (angular.isFunction(cleanupNavHeaderChanged)) {
+                    cleanupNavHeaderChanged();
+                }
+                if (angular.isFunction(cleanupSideNavStateChanged)) {
+                    cleanupSideNavStateChanged();
+                }
+            });
 
-    }
+        }
 
-    private initImage() {
-        this.imageBlock = this._element.find('.pip-sticky-nav-header-user')
+        private initImage() {
+            this.imageBlock = this._element.find('.pip-sticky-nav-header-user')
 
-        this._timeout(() => {
-            this.image = this._element.find('.pip-sticky-nav-header-user-image');
+            this._timeout(() => {
+                this.image = this._element.find('.pip-sticky-nav-header-user-image');
 
-            if (this.image[0]) {
-                this.image[0].onload =  (() => this.onImageLoad());
-                
-                // ($event: HTMLElement, erroev: Event): any =>  {
-                //     this.onImageLoad($event);
-                //     return null;
-                // }
-                this.image[0].onerror = (() => this.onImageError());
-                // ($event: ng.IAngularEvent) => {
-                //     this.onImageError($event);
-                // }
-            } else {
-                this.image.onload = (() => this.onImageLoad());
-                this.image.onerror = (() => this.onImageError());
-            }
+                if (this.image[0]) {
+                    this.image[0].onload = (() => this.onImageLoad());
 
-            this.onNavHeaderChanged(null, this._pipNavHeader.config);
-        }, 20);        
-    }
+                    // ($event: HTMLElement, erroev: Event): any =>  {
+                    //     this.onImageLoad($event);
+                    //     return null;
+                    // }
+                    this.image[0].onerror = (() => this.onImageError());
+                    // ($event: ng.IAngularEvent) => {
+                    //     this.onImageError($event);
+                    // }
+                } else {
+                    this.image.onload = (() => this.onImageLoad());
+                    this.image.onerror = (() => this.onImageError());
+                }
 
-       private initHeader() {
+                this.onNavHeaderChanged(null, this._pipNavHeader.config);
+            }, 20);
+        }
+
+        private initHeader() {
             if (!this._pipNavHeader.config) return;
 
             this.title = this._pipNavHeader.config.title;
@@ -194,7 +195,6 @@ public showHeader: boolean;
 
     }
 
-(() => {
     function navHeaderDirective() {
         return {
             restrict: 'EA',

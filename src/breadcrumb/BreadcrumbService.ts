@@ -1,4 +1,4 @@
-'use strict';
+
 
 import { SimpleActionItem } from '../actions/ActionsService';
 export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";

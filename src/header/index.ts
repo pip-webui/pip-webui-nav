@@ -1,4 +1,4 @@
-'use strict';
+
 
 angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates']);
 

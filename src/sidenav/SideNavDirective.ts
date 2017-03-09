@@ -1,4 +1,4 @@
-'use strict';
+
 import { ISideNavService, SideNavConfig } from './SideNavService';
 
 import { SideNavStateNames, SideNavState, SideNavStateConfig } from './SideNavState';

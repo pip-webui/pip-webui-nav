@@ -1,4 +1,4 @@
-'use strict';
+
 import { OpenSideNavEvent } from '../sidenav/SideNavEvents';
 import {  INavIconService, NavIconConfig } from "./NavIconService";
 // Prevent junk from going into typescript definitions

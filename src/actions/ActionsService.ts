@@ -1,4 +1,4 @@
-'use strict';
+
 
 export let ActionsChangedEvent = 'pipActionsChanged';
 export let SecondaryActionsOpenEvent = 'pipSecondaryActionsOpen';

@@ -1,4 +1,4 @@
-'use strict';
+
 
 import { IActionsService, ActionItem, ActionsConfig } from "./ActionsService";
 // Prevent junk from going into typescript definitions

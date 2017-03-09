@@ -1,4 +1,4 @@
-'use strict';
+
 
 angular.module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate']);
 

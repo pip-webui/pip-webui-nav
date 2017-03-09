@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿
 
 import './dependencies/TranslateFilter';
 import './language/LanguagePickerDirective';

@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿
 
 import { IAppBarService, AppBarConfig } from "./AppBarService";
 // Prevent junk from going into typescript definitions

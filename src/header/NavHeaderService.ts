@@ -1,4 +1,4 @@
-'use strict';
+
 
 export let NavHeaderChangedEvent = 'pipNavHeaderChanged';
 

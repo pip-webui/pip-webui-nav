@@ -1,4 +1,4 @@
-'use strict';
+
 
 angular.module('pipNavIcon', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 

@@ -1,4 +1,4 @@
-'use strict';
+
 
 // Prevent junk from going into typescript definitions
 (() => {

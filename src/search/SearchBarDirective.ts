@@ -1,4 +1,4 @@
-'use strict';
+
 
 import { SearchConfig } from './SearchService';
 import { ISearchService } from './SearchService';
