@@ -14,7 +14,6 @@ class SideNavDirectiveController {
     private _log: ng.ILogService;
     private _rootScope: ng.IRootScopeService;
     private _pipSideNav: ISideNavService;
-    private _pipSystemInfo: pip.services.ISystemInfo;
 
     private _pipMedia: pip.layouts.IMediaService;
     private _timeout: ng.ITimeoutService;
@@ -55,8 +54,6 @@ class SideNavDirectiveController {
         this._rootScope = $rootScope;
         this._timeout = $timeout;
         this._pipSideNav = pipSideNav;
-
-console.log('this._pipSideNav', this._pipSideNav);
 
         this._pipMedia = this._injector.has('pipMedia') ? <pip.layouts.IMediaService>this._injector.get('pipMedia') : null;
 

@@ -79,18 +79,6 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 }
 
 
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
-
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -117,6 +105,19 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
+
 class DropdownDirectiveController {
     private _element;
     private _attrs;
@@ -139,7 +140,6 @@ class DropdownDirectiveController {
     onSelect(index: number): void;
     show(): boolean;
 }
-
 
 
 
@@ -203,23 +203,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
     clear(): void;
 }
 
-class LanguagePickerDirectiveController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _translate;
-    private _timeout;
-    languages: string[];
-    selectedLanguage: string;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
-    readonly language: string;
-    setLanguages(languages: string[]): void;
-    onLanguageClick(language: string): void;
-}
-
 
 
 export let NavMenuChangedEvent: string;
@@ -261,6 +244,23 @@ export interface INavMenuService {
 export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
+}
+
+class LanguagePickerDirectiveController {
+    private _element;
+    private _attrs;
+    private _injector;
+    private _scope;
+    private _log;
+    private _rootScope;
+    private _translate;
+    private _timeout;
+    languages: string[];
+    selectedLanguage: string;
+    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
+    readonly language: string;
+    setLanguages(languages: string[]): void;
+    onLanguageClick(language: string): void;
 }
 
 
