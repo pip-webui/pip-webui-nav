@@ -46,7 +46,6 @@ export interface IActionsProvider extends ng.IServiceProvider {
     secondaryLocalActions: ActionItem[];
 }
 
-
 class PrimaryActionsController {
     private _element;
     private _attrs;
@@ -91,6 +90,7 @@ class SecondaryActionsController {
     secondaryDividerVisible(): boolean;
     clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void;
 }
+
 
 class AppBarDirectiveController {
     config: pip.nav.AppBarConfig;
@@ -197,36 +197,6 @@ class DropdownDirectiveController {
 }
 
 
-export let OpenSideNavEvent: string;
-export let NavIconClickedEvent: string;
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
-export interface INavIconService {
-    readonly config: NavIconConfig;
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
-
-
-
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
     imageUrl: string;
@@ -259,6 +229,36 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     click: () => void;
 }
 
+
+export let OpenSideNavEvent: string;
+export let NavIconClickedEvent: string;
+
+export let NavIconChangedEvent: string;
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
+}
+export interface INavIconService {
+    readonly config: NavIconConfig;
+    showMenu(callbackOrEvent?: any): void;
+    showIcon(icon: string, callbackOrEvent?: any): void;
+    showBack(callbackOrEvent?: any): void;
+    showImage(imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+}
+export interface INavIconProvider extends ng.IServiceProvider {
+    config: NavIconConfig;
+    setMenu(callbackOrEvent?: any): void;
+    setIcon(icon: string, callbackOrEvent?: any): void;
+    setBack(callbackOrEvent?: any): void;
+    setImage(imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+}
+
+
 class LanguagePickerDirectiveController {
     private _element;
     private _attrs;
@@ -275,7 +275,6 @@ class LanguagePickerDirectiveController {
     setLanguages(languages: string[]): void;
     onLanguageClick(language: string): void;
 }
-
 
 
 export let NavMenuChangedEvent: string;
@@ -385,6 +384,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
 }
+
 
 class Selected {
     activeIndex: number;
