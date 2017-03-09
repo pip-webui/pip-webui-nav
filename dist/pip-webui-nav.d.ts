@@ -203,6 +203,23 @@ export interface INavIconProvider extends ng.IServiceProvider {
     clear(): void;
 }
 
+class LanguagePickerDirectiveController {
+    private _element;
+    private _attrs;
+    private _injector;
+    private _scope;
+    private _log;
+    private _rootScope;
+    private _translate;
+    private _timeout;
+    languages: string[];
+    selectedLanguage: string;
+    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
+    readonly language: string;
+    setLanguages(languages: string[]): void;
+    onLanguageClick(language: string): void;
+}
+
 
 
 export let NavMenuChangedEvent: string;
@@ -272,23 +289,6 @@ export interface ISearchService {
     toggle(): void;
 }
 export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-class LanguagePickerDirectiveController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _translate;
-    private _timeout;
-    languages: string[];
-    selectedLanguage: string;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
-    readonly language: string;
-    setLanguages(languages: string[]): void;
-    onLanguageClick(language: string): void;
 }
 
 
