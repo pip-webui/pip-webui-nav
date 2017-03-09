@@ -1,3 +1,6 @@
+/// <reference path="../../pip-webui-services/dist/pip-webui-services.d.ts" />
+/// <reference path="../../pip-webui-themes/dist/pip-webui-themes.d.ts" />
+/// <reference path="../../pip-webui-layouts/dist/pip-webui-layouts.d.ts" />
 /// <reference path="angularjs/angular.d.ts" />
 /// <reference path="jquery/jquery.d.ts" />
 /// <reference path="lodash/lodash.d.ts" />

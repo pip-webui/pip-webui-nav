@@ -46,65 +46,10 @@ export interface IActionsProvider extends ng.IServiceProvider {
     secondaryLocalActions: ActionItem[];
 }
 
-class PrimaryActionsController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _window;
-    private _location;
-    private _pipActions;
-    private _pipTranslate;
-    config: pip.nav.ActionsConfig;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $window: ng.IWindowService, $location: ng.ILocationService, pipActions: pip.nav.IActionsService);
-    private onActionsChanged(event, config);
-    isHidden(action: pip.nav.ActionItem): boolean;
-    actionCount(action: pip.nav.ActionItem): string;
-    clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void;
-}
-
-class SecondaryActionsController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _window;
-    private _location;
-    private _pipActions;
-    private _pipTranslate;
-    private _menuFn;
-    config: pip.nav.ActionsConfig;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $window: ng.IWindowService, $location: ng.ILocationService, pipActions: pip.nav.IActionsService);
-    getMenu(menuFn: Function): void;
-    onActionsMenuOpen(): void;
-    openMenu($mdOpenMenu: Function, ev: ng.IAngularEvent): void;
-    private onActionsChanged(event, config);
-    isHidden(action: pip.nav.ActionItem): boolean;
-    actionCount(action: pip.nav.ActionItem): string;
-    private calcActions(actions);
-    secondaryActionsVisible(): boolean;
-    secondaryDividerVisible(): boolean;
-    clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void;
-}
 
 
-class AppBarDirectiveController {
-    config: pip.nav.AppBarConfig;
-    constructor($element: ng.IAugmentedJQuery, $scope: angular.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, pipAppBar: pip.nav.IAppBarService);
-    onAppBarChanged(event: ng.IAngularEvent, config: pip.nav.AppBarConfig): void;
-}
 
-class AppBarPartDirectiveController {
-    private _scope;
-    private _partName;
-    private _partValue;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, pipAppBar: pip.nav.IAppBarService);
-    private onAppBarChanged(event, config);
-}
+
 
 export let AppBarChangedEvent: string;
 export class AppBarConfig {
@@ -197,6 +142,7 @@ class DropdownDirectiveController {
 }
 
 
+
 export let NavHeaderChangedEvent: string;
 export class NavHeaderConfig {
     imageUrl: string;
@@ -230,7 +176,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 }
 
 
-export let OpenSideNavEvent: string;
 export let NavIconClickedEvent: string;
 
 export let NavIconChangedEvent: string;
@@ -258,23 +203,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
     clear(): void;
 }
 
-
-class LanguagePickerDirectiveController {
-    private _element;
-    private _attrs;
-    private _injector;
-    private _scope;
-    private _log;
-    private _rootScope;
-    private _translate;
-    private _timeout;
-    languages: string[];
-    selectedLanguage: string;
-    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
-    readonly language: string;
-    setLanguages(languages: string[]): void;
-    onLanguageClick(language: string): void;
-}
 
 
 export let NavMenuChangedEvent: string;
@@ -346,6 +274,23 @@ export interface ISearchService {
 export interface ISearchProvider extends ng.IServiceProvider {
 }
 
+class LanguagePickerDirectiveController {
+    private _element;
+    private _attrs;
+    private _injector;
+    private _scope;
+    private _log;
+    private _rootScope;
+    private _translate;
+    private _timeout;
+    languages: string[];
+    selectedLanguage: string;
+    constructor($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $scope: ng.IScope, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService);
+    readonly language: string;
+    setLanguages(languages: string[]): void;
+    onLanguageClick(language: string): void;
+}
+
 
 
 
@@ -384,7 +329,6 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
 }
-
 
 class Selected {
     activeIndex: number;

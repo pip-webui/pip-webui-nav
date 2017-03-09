@@ -1,5 +1,6 @@
 'use strict';
 
+import { IActionsService, ActionItem, ActionsConfig } from "./ActionsService";
 // Prevent junk from going into typescript definitions
 
 // todo: create class ActionsController and extend it 
@@ -13,10 +14,10 @@ class PrimaryActionsController {
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;
     private _location: ng.ILocationService;
-    private _pipActions: pip.nav.IActionsService;
+    private _pipActions: IActionsService;
     private _pipTranslate: pip.services.ITranslateService
 
-    public config: pip.nav.ActionsConfig;
+    public config: ActionsConfig;
 
     constructor(
         $element: ng.IAugmentedJQuery,
@@ -27,7 +28,7 @@ class PrimaryActionsController {
         $rootScope: ng.IRootScopeService,
         $window: ng.IWindowService,
         $location: ng.ILocationService,
-        pipActions: pip.nav.IActionsService
+        pipActions: IActionsService
 
     ) {
         "ngInject";
@@ -69,22 +70,22 @@ class PrimaryActionsController {
 
         this.config = pipActions.config;
 
-        this._rootScope.$on('pipActionsChanged', (event: ng.IAngularEvent, config: pip.nav.ActionsConfig) => {
+        this._rootScope.$on('pipActionsChanged', (event: ng.IAngularEvent, config: ActionsConfig) => {
             this.onActionsChanged(event, config);
         });
 
     }
 
-    private onActionsChanged(event: ng.IAngularEvent, config: pip.nav.ActionsConfig) {
+    private onActionsChanged(event: ng.IAngularEvent, config: ActionsConfig) {
         this.config = config;
     }
 
-    public isHidden(action: pip.nav.ActionItem): boolean {
+    public isHidden(action: ActionItem): boolean {
         // Todo: Check breakpoints here
         return action.access && !action.access(action);
     }
 
-    public actionCount(action: pip.nav.ActionItem): string {
+    public actionCount(action: ActionItem): string {
         if (action.count === null || action.count <= 0) {
             return '';
         }
@@ -95,7 +96,7 @@ class PrimaryActionsController {
         return String(action.count);
     }
 
-    public clickAction(action: pip.nav.ActionItem, $mdOpenMenu: Function): void {
+    public clickAction(action: ActionItem, $mdOpenMenu: Function): void {
         if (!action || action.divider) {
             return;
         }

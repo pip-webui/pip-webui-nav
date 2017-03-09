@@ -1,7 +1,7 @@
 'use strict';
-
+import { OpenSideNavEvent } from "../sidenav/SideNavService";
+import {  INavIconService, NavIconConfig } from "./NavIconService";
 // Prevent junk from going into typescript definitions
-export let OpenSideNavEvent = 'pipOpenSideNav';
 export let NavIconClickedEvent = 'pipNavIconClicked';
 
 class NavIconDirectiveController {
@@ -11,7 +11,7 @@ class NavIconDirectiveController {
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;
 
-    public config: pip.nav.NavIconConfig;
+    public config: NavIconConfig;
 
     constructor(
         $element: ng.IAugmentedJQuery,
@@ -19,7 +19,7 @@ class NavIconDirectiveController {
         $log: ng.ILogService,
         $rootScope: ng.IRootScopeService,
         $window: ng.IWindowService,
-        pipNavIcon: pip.nav.INavIconService
+        pipNavIcon: INavIconService
     ) {
         "ngInject";
 
@@ -34,13 +34,13 @@ class NavIconDirectiveController {
 
         this.config = pipNavIcon.config;
 
-        $rootScope.$on('pipNavIconChanged', (event: ng.IAngularEvent, config: pip.nav.NavIconConfig) => {
+        $rootScope.$on('pipNavIconChanged', (event: ng.IAngularEvent, config: NavIconConfig) => {
             this.onNavIconChanged(event, config)
         });
 
     }
 
-    public onNavIconChanged(event: ng.IAngularEvent, config: pip.nav.NavIconConfig): void {
+    public onNavIconChanged(event: ng.IAngularEvent, config: NavIconConfig): void {
         this.config = config;
     }
 

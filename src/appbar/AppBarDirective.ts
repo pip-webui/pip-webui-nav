@@ -1,16 +1,17 @@
 ﻿'use strict';
 
+import { IAppBarService, AppBarConfig } from "./AppBarService";
 // Prevent junk from going into typescript definitions
 
 class AppBarDirectiveController {
-    public config: pip.nav.AppBarConfig;
+    public config: AppBarConfig;
 
     constructor(
         $element: ng.IAugmentedJQuery,
         $scope: angular.IScope,
         $log: ng.ILogService,
         $rootScope: ng.IRootScopeService,
-        pipAppBar: pip.nav.IAppBarService
+        pipAppBar: IAppBarService
     ) {
         "ngInject";
         // Apply class and call resize
@@ -19,12 +20,12 @@ class AppBarDirectiveController {
 
         $scope.config = pipAppBar.config;
 
-        $rootScope.$on('pipAppBarChanged', (event: ng.IAngularEvent, config: pip.nav.AppBarConfig) => {
+        $rootScope.$on('pipAppBarChanged', (event: ng.IAngularEvent, config: AppBarConfig) => {
             this.onAppBarChanged(event, config)
         });
     }
 
-    public onAppBarChanged(event: ng.IAngularEvent, config: pip.nav.AppBarConfig) {
+    public onAppBarChanged(event: ng.IAngularEvent, config: AppBarConfig) {
         this.config = config;
     }
     

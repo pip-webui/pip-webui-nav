@@ -1,7 +1,7 @@
 'use strict';
 
 // Prevent junk from going into typescript definitions
-
+import { AppBarConfig, IAppBarService } from "./AppBarService";
 
 class AppBarPartDirectiveController {
     private _scope: ng.IScope;
@@ -14,7 +14,7 @@ class AppBarPartDirectiveController {
         $scope: ng.IScope,
         $log: ng.ILogService,
         $rootScope: ng.IRootScopeService,
-        pipAppBar: pip.nav.IAppBarService
+        pipAppBar: IAppBarService
     ) {
         "ngInject";
 
@@ -30,13 +30,13 @@ class AppBarPartDirectiveController {
         }
 
         // onAppBarChanged(null, pipAppBar.config);
-        $rootScope.$on('pipAppBarChanged', (event: ng.IAngularEvent, config: pip.nav.AppBarConfig) => {
+        $rootScope.$on('pipAppBarChanged', (event: ng.IAngularEvent, config: AppBarConfig) => {
             this.onAppBarChanged(null, config)
         });
 
     }
 
-    private onAppBarChanged(event: ng.IAngularEvent, config: pip.nav.AppBarConfig) {
+    private onAppBarChanged(event: ng.IAngularEvent, config: AppBarConfig) {
         let parts: any = config.parts || {};
         let currentPartValue = parts[this._partName];
 
