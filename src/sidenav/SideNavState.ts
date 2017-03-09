@@ -1,5 +1,5 @@
 export class SideNavStateNames {
-        static Toggle: string = 'toogle';
+        static Toggle: string = 'toggle';
         static Small: string = 'small';
         static Large: string = 'large';
         static XLarge: string = 'xlarge';

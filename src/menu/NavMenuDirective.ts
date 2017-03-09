@@ -65,7 +65,6 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
             this._element.addClass('pip-sticky-nav-menu');
 
             this.sections = this._scope['sections'] || this._pipNavMenu.sections;
-console.log('sections', this.sections);
 
             this.setCollapsible();
 
@@ -80,7 +79,7 @@ console.log('sections', this.sections);
                 this.onStateChanged($event, state)
             });
 
-            $scope.$on('$destroy', () => {
+            this._scope.$on('$destroy', () => {
                 if (angular.isFunction(cleanupNavMenuChanged)) {
                     cleanupNavMenuChanged();
                 }
@@ -133,8 +132,6 @@ console.log('sections', this.sections);
         private onConfigChanged($event: ng.IAngularEvent, config: NavMenuConfig): void {
             if (!config) return;
             this.sections = config.sections;
-
-console.log('sections config', this.sections, config);            
         }
 
         private onStateChanged(event: ng.IAngularEvent, state: SideNavState): void {

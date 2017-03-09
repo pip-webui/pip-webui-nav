@@ -135,15 +135,12 @@ class TabsDirectiveController {
     };
 
     public onSelect(index: number): void {
-        console.log('onSelect', index);
         if (this.disabled()) return;
-
 
         this.selected.activeIndex = index;
         this.selected.activeTab = this.selected.activeIndex;
         this._timeout(() => {
             this._scope['activeIndex'] = index;
-            console.log('activeIndex', this._scope['activeIndex']);
             if (this._scope['select']) {
                 this._scope['select'](this.tabs[this.selected.activeIndex], this.selected.activeIndex);
             }

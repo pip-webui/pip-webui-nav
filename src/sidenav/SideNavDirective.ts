@@ -78,16 +78,16 @@ class SideNavDirectiveController {
             }, 100);
 
             this.windowResize = _.debounce(() => { this.setSideNaveState(); }, 10);
-            cleanupMainResized = $rootScope.$on('pipMainResized', () => {
+            cleanupMainResized = this._rootScope.$on('pipMainResized', () => {
                 this.windowResize();
             });
-            cleanupSideNavState = $rootScope.$on('pipSideNavState', ($event: ng.IAngularEvent, state: SideNavStateNames) => {
+            cleanupSideNavState = this._rootScope.$on('pipSideNavState', ($event: ng.IAngularEvent, state: SideNavStateNames) => {
                 this.onSideNavState($event, state)
             });
         } else {
             this._isResizing = false;
-            $scope.sidenavState = null;
-            $timeout(function () {
+            this.sidenavState = null;
+            this._timeout(() => {
                 this.setState(SideNavStateNames.Toggle);
             }, 100);
         }
@@ -99,7 +99,7 @@ class SideNavDirectiveController {
             this.onSideNavChanged($event, config)
         });
 
-        $scope.$on('$destroy', () => {
+        this._scope.$on('$destroy', () => {
             if (angular.isFunction(cleanupNavHeaderChanged)) {
                 cleanupNavHeaderChanged();
             }

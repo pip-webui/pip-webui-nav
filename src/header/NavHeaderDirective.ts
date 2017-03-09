@@ -126,7 +126,7 @@ public showHeader: boolean;
             if (state === undefined) return;
 
             if (state.id == 'toggle') {
-                this._timeout(function () {
+                this._timeout(() => {
                     this.showHeader = state && state.id == 'toggle';
                 }, 400);
             } else {
