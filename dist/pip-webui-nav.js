@@ -1795,152 +1795,180 @@ var LanguagePickerDirectiveController = (function () {
 })();
 
 },{}],23:[function(require,module,exports){
-'use strict';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 (function () {
-    NavMenuDirectiveController.$inject = ['$scope', '$element', '$rootScope', '$window', '$location', '$timeout', '$injector', 'pipSideNav', 'pipNavMenu'];
-    function NavMenuDirectiveController($scope, $element, $rootScope, $window, $location, $timeout, $injector, pipSideNav, pipNavMenu) {
-        "ngInject";
-        var animationDuration = 450, pipSideNavElement = $element.parent().parent();
-        $element.addClass('pip-sticky-nav-menu');
-        $scope.sections = $scope.sections || pipNavMenu.sections;
-        setCollapsible();
-        $scope.defaultIcon = pipNavMenu.defaultIcon;
-        onStateChanged(null, pipSideNav.state);
-        $rootScope.$on('pipNavMenuChanged', onConfigChanged);
-        $rootScope.$on('pipSideNavStateChanged', onStateChanged);
-        $scope.itemVisible = isHidden;
-        $scope.clickLink = clickLink;
-        $scope.isSectionEmpty = isSectionEmpty;
-        $scope.onExpand = onExpand;
-        $scope.isActive = isActive;
-        return;
-        function setCollapsible() {
+    var NavMenuDirectiveController = (function () {
+        NavMenuDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$window', '$location', '$rootScope', '$timeout', 'pipSideNav', 'pipNavMenu', 'navConstant'];
+        function NavMenuDirectiveController($element, $attrs, $injector, $scope, $log, $window, $location, $rootScope, $timeout, pipSideNav, pipNavMenu, navConstant) {
+            "ngInject";
+            var _this = this;
+            this._element = $element;
+            this._attrs = $attrs;
+            this._scope = $scope;
+            this._injector = $injector;
+            this._log = $log;
+            this._rootScope = $rootScope;
+            this._timeout = $timeout;
+            this._window = $window;
+            this._location = $location;
+            this._pipSideNav = pipSideNav;
+            this._pipNavMenu = pipNavMenu;
+            this._state = this._injector.has('$state') ? this._injector.get('$state') : null;
+            this._animationDuration = navConstant.SIDENAV_ANIMATION_DURATION,
+                this._pipSideNavElement = $element.parent().parent();
+            this._element.addClass('pip-sticky-nav-menu');
+            this.sections = this._scope['sections'] || this._pipNavMenu.sections;
+            console.log('sections', this.sections);
+            this.setCollapsible();
+            this.defaultIcon = this._pipNavMenu.defaultIcon;
+            this.onStateChanged(null, this._pipSideNav.state);
+            var cleanupNavMenuChanged = this._rootScope.$on('pipNavMenuChanged', function ($event, config) {
+                _this.onConfigChanged($event, config);
+            });
+            var cleanupSideNavStateChanged = this._rootScope.$on('pipSideNavStateChanged', function ($event, state) {
+                _this.onStateChanged($event, state);
+            });
+            $scope.$on('$destroy', function () {
+                if (angular.isFunction(cleanupNavMenuChanged)) {
+                    cleanupNavMenuChanged();
+                }
+                if (angular.isFunction(cleanupSideNavStateChanged)) {
+                    cleanupSideNavStateChanged();
+                }
+            });
+        }
+        NavMenuDirectiveController.prototype.setCollapsible = function () {
             var collapsed;
-            if (angular.isFunction($scope.collapsed)) {
-                collapsed = $scope.collapsed();
+            if (angular.isFunction(this._scope['collapsed'])) {
+                collapsed = this._scope['collapsed']();
             }
             else {
-                collapsed = $scope.collapsed !== false && $scope.collapsed !== 'false';
+                collapsed = this._scope['collapsed'] !== false && this._scope['collapsed'] !== 'false';
             }
-            $scope.isCollapsed = collapsed;
-        }
-        function onExpand() {
-            if (!$scope.isCollapsed) {
+            this.isCollapsed = collapsed;
+        };
+        NavMenuDirectiveController.prototype.onExpand = function () {
+            if (!this.isCollapsed) {
                 return;
             }
-            $scope.expanded = !$scope.expanded;
-            if ($scope.expanded) {
-                pipSideNavElement.removeClass('pip-sticky-nav-small');
+            this.expanded = !this.expanded;
+            if (this.expanded) {
+                this._pipSideNavElement.removeClass('pip-sticky-nav-small');
             }
             else {
-                pipSideNavElement.addClass('pip-sticky-nav-small');
+                this._pipSideNavElement.addClass('pip-sticky-nav-small');
             }
-            $rootScope.$emit('pipNavExpanded', $scope.expanded);
-        }
-        function isHidden(item) {
+            this._rootScope.$emit('pipNavExpanded', this.expanded);
+        };
+        NavMenuDirectiveController.prototype.isHidden = function (item) {
             return item && item.access && !item.access(item);
-        }
-        function isSectionEmpty(linkCollection) {
+        };
+        NavMenuDirectiveController.prototype.isSectionEmpty = function (linkCollection) {
+            var _this = this;
             var result = true;
             _.each(linkCollection, function (link) {
-                if (!isHidden(link))
+                if (!_this.isHidden(link)) {
                     result = false;
+                }
             });
             return result;
-        }
-        function onConfigChanged(event, config) {
+        };
+        NavMenuDirectiveController.prototype.onConfigChanged = function ($event, config) {
             if (!config)
                 return;
-            $scope.sections = config.sections;
-        }
-        function onStateChanged(event, state) {
+            this.sections = config.sections;
+            console.log('sections config', this.sections, config);
+        };
+        NavMenuDirectiveController.prototype.onStateChanged = function (event, state) {
             if (!state)
                 return;
-            $scope.isCollapsed = state.expand;
-            $scope.expanded = state.isExpanded;
-            $scope.expandedButton = state.expandedButton;
-            $scope.sideNavState = state;
-        }
-        function isActive(link) {
+            this.isCollapsed = state.expand;
+            this.expanded = state.isExpanded;
+            this.expandedButton = state.expandedButton;
+            this.sideNavState = state;
+        };
+        NavMenuDirectiveController.prototype.isActive = function (link) {
             if (link.parentState) {
-                var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.includes(link.parentState)) {
+                if (this._state != null && this._state.includes(link.parentState)) {
                     return true;
                 }
             }
             else if (link.state) {
-                var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.includes(link.state)) {
+                if (this._state != null && this._state.includes(link.state)) {
                     return true;
                 }
             }
             else if (link.href) {
-                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
+                if (link.href.split('?')[0] === this._window.location.href.split('?')[0]) {
                     return true;
                 }
             }
             else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
+                if (link.url.split(/[\s/?]+/)[1] === this._location.url().split(/[\s/?]+/)[1]) {
                     return true;
                 }
             }
             return false;
-        }
-        function clickLink(event, link) {
+        };
+        NavMenuDirectiveController.prototype.clickLink = function (event, link) {
+            var _this = this;
             event.stopPropagation();
             if (!link) {
-                pipSideNav.close();
+                this._pipSideNav.close();
                 return;
             }
             if (link.href) {
-                if (link.href.split('?')[0] === $window.location.href.split('?')[0]) {
-                    pipSideNav.close();
+                if (link.href.split('?')[0] === this._window.location.href.split('?')[0]) {
+                    this._pipSideNav.close();
                     return;
                 }
-                pipSideNav.close();
-                $timeout(function () {
-                    $window.location.href = link.href;
-                }, animationDuration);
+                this._pipSideNav.close();
+                this._timeout(function () {
+                    _this._window.location.href = link.href;
+                }, this._animationDuration);
                 return;
             }
             else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === $location.url().split(/[\s/?]+/)[1]) {
-                    pipSideNav.close();
+                if (link.url.split(/[\s/?]+/)[1] === this._location.url().split(/[\s/?]+/)[1]) {
+                    this._pipSideNav.close();
                     return;
                 }
-                pipSideNav.close();
-                $timeout(function () {
-                    $location.url(link.url);
-                }, animationDuration);
+                this._pipSideNav.close();
+                this._timeout(function () {
+                    _this._location.url(link.url);
+                }, this._animationDuration);
                 return;
             }
             else if (link.state) {
-                var $state = $injector.has('$state') ? $injector.get('$state') : null;
-                if ($state != null && $state.current.name === link.state) {
-                    pipSideNav.close();
+                if (this._state != null && this._state.current.name === link.state) {
+                    this._pipSideNav.close();
                     return;
                 }
-                pipSideNav.close();
-                $timeout(function () {
-                    if ($injector.has('$state')) {
-                        var $state = $injector.get('$state');
-                        $state.go(link.state, link.stateParams);
-                    }
-                }, animationDuration);
+                this._pipSideNav.close();
+                this._timeout(function () {
+                    _this._state.go(link.state, link.stateParams);
+                }, this._animationDuration);
                 return;
             }
-            else if (link.event)
-                $rootScope.$broadcast(link.event, link);
-            pipSideNav.close();
-        }
-    }
+            else if (link.event) {
+                this._rootScope.$broadcast(link.event, link);
+            }
+            this._pipSideNav.close();
+        };
+        return NavMenuDirectiveController;
+    }());
     function navMenuDirective() {
         return {
             restrict: 'EA',
-            scope: {},
+            scope: {
+                sections: '=?pipSections',
+                collapsed: '=?pipCollapsed'
+            },
             replace: false,
             templateUrl: 'menu/NavMenu.html',
-            controller: NavMenuDirectiveController
+            controller: NavMenuDirectiveController,
+            controllerAs: 'vm'
         };
     }
     angular
@@ -2326,7 +2354,6 @@ var SideNavDirectiveController = (function () {
         this._rootScope = $rootScope;
         this._timeout = $timeout;
         this._pipSideNav = pipSideNav;
-        console.log('this._pipSideNav', this._pipSideNav);
         this._pipMedia = this._injector.has('pipMedia') ? this._injector.get('pipMedia') : null;
         this._mainContainer = navConstant.SIDENAV_CONTAINER;
         this._bigWidth = navConstant.SIDENAV_LARGE_WIDTH;
@@ -3068,8 +3095,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('language/LanguagePicker.html',
-    '<md-menu md-position-mode="target-right target"><span class="pip-language" ng-click="$mdOpenMenu()" aria-label="language selection">{{ vm.selectedLanguage | translate }}<md-icon md-svg-icon="icons:triangle-down"></md-icon></span><md-menu-content width="3"><md-menu-item ng-repeat="language in vm.languages"><md-button ng-click="vm.onLanguageClick(language)" tabindex="7">{{ language | translate }}</md-button></md-menu-item></md-menu-content></md-menu>');
+  $templateCache.put('menu/NavMenu.html',
+    '<div ng-if="vm.sections && vm.sections.length"><md-list class="sidenav-list" pip-focused="" pip-focused-tabindex="10" pip-with-hidden="true"><md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="vm.onExpand()" ng-disabled="!vm.isCollapsed" tabindex="-1" ng-if="vm.expandedButton"><md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-left" ng-if="vm.expanded"></md-icon><md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-right" ng-if="!vm.expanded"></md-icon></md-list-item><md-divider ng-show="vm.expandedButton"></md-divider><div class="pip-section" ng-repeat="section in vm.sections" ng-hide="section.access && !section.access(section)"><md-divider ng-show="$index > 0 && !vm.isSectionEmpty(section.links)"></md-divider><md-subheader ng-show="section.title" style="height: 48px;"><span ng-if="vm.expanded" class="pip-sticky-nav-menu-title section-title">{{ ::section.title | translate }}</span><md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ section.icon }}" ng-if="!vm.sideNavState.showIconTooltype && !vm.expanded && section.icon"></md-icon><md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ section.icon }}" ng-if="vm.sideNavState.showIconTooltype && !vm.expanded && section.icon"><md-tooltip md-visible="vm.showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{ ::section.tooltipText || section.title | translate }}</md-tooltip></md-icon><md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ vm.defaultIcon }}" ng-if="!vm.sideNavState.showIconTooltype && !vm.expanded && !section.icon"></md-icon><md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ vm.defaultIcon }}" ng-if="vm.sideNavState.showIconTooltype && !vm.expanded && !section.icon"><md-tooltip md-visible="vm.showTooltip" class="md-secondary">{{ ::section.tooltipText || section.title | translate }}</md-tooltip></md-icon></md-subheader><md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable" tabindex="-1" ng-repeat="link in section.links" ng-class="{\'active\': vm.isActive(link)}" ng-hide="link.access && !link.access(link)"><md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="vm.clickLink($event, link)"><md-tooltip md-visible="vm.showTooltip" md-direction="right">{{ ::link.tooltipText | translate }}</md-tooltip><div class="pip-sticky-nav-menu-icon-block"><md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" ng-if="!(vm.sideNavState.showIconTooltype && !link.tooltipText && !vm.expanded)" ng-hide="!link.icon"></md-icon><md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" ng-hide="!link.icon" ng-if="vm.sideNavState.showIconTooltype && !link.tooltipText && !vm.expanded"><md-tooltip md-visible="vm.showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{ ::link.tooltipText || link.title | translate }}</md-tooltip></md-icon></div><div class="pip-sticky-nav-menu-title">{{ ::link.title | translate }}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count < 100">{{ link.count }}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count > 99">!</div></md-button></md-list-item></div></md-list></div>');
 }]);
 })();
 
@@ -3080,8 +3107,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('menu/NavMenu.html',
-    '<div ng-if="sections && sections.length"><md-list class="sidenav-list" pip-focused="" pip-focused-tabindex="10" pip-with-hidden="true"><md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" ng-click="onExpand()" ng-disabled="!isCollapsed" tabindex="-1" ng-if="expandedButton"><md-icon md-svg-icon="icons:chevron-left" ng-if="expanded" class="pip-sticky-nav-menu-icon"></md-icon><md-icon md-svg-icon="icons:chevron-right" ng-if="!expanded" class="pip-sticky-nav-menu-icon"></md-icon></md-list-item><md-divider ng-show="expandedButton"></md-divider><div class="pip-section" ng-repeat="section in sections" ng-hide="section.access && !section.access(section)"><md-divider ng-show="$index > 0 && !isSectionEmpty(section.links)"></md-divider><md-subheader ng-show="section.title" style="height: 48px;"><span ng-if="expanded" class="pip-sticky-nav-menu-title section-title">{{::section.title | translate}}</span><md-icon md-svg-icon="{{section.icon}}" ng-if="!sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon><md-icon md-svg-icon="{{section.icon}}" ng-if="sideNavState.showIconTooltype && !expanded && section.icon" class="pip-sticky-nav-menu-icon section-icon"><md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{::section.tooltipText || section.title | translate}}</md-tooltip></md-icon><md-icon md-svg-icon="{{defaultIcon}}" ng-if="!sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"></md-icon><md-icon md-svg-icon="{{defaultIcon}}" ng-if="sideNavState.showIconTooltype && !expanded && !section.icon" class="pip-sticky-nav-menu-icon section-icon"><md-tooltip md-visible="showTooltip" class="md-secondary">{{::section.tooltipText || section.title | translate}}</md-tooltip></md-icon></md-subheader><md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable" ng-repeat="link in section.links" tabindex="-1" ng-class="{\'active\': isActive(link)}" ng-hide="link.access && !link.access(link)"><md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="clickLink($event, link)"><md-tooltip md-visible="showTooltip" md-direction="right">{{::link.tooltipText | translate}}</md-tooltip><div class="pip-sticky-nav-menu-icon-block"><md-icon md-svg-icon="{{link.icon}}" ng-if="!(sideNavState.showIconTooltype && !link.tooltipText && !expanded)" ng-hide="!link.icon" class="pip-sticky-nav-menu-icon flex-fixed"></md-icon><md-icon md-svg-icon="{{link.icon}}" ng-hide="!link.icon" ng-if="sideNavState.showIconTooltype && !link.tooltipText && !expanded" class="pip-sticky-nav-menu-icon flex-fixed"><md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">{{::link.tooltipText || link.title | translate}}</md-tooltip></md-icon></div><div class="pip-sticky-nav-menu-title">{{::link.title | translate}}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count < 100">{{link.count}}</div><div class="pip-sticky-nav-menu-badge {{ link.badgeStyle ? link.badgeStyle : \'color-badge-bg\' }} flex-fixed" ng-if="link.count && link.count > 99">!</div></md-button></md-list-item></div></md-list></div>');
+  $templateCache.put('language/LanguagePicker.html',
+    '<md-menu md-position-mode="target-right target"><span class="pip-language" ng-click="$mdOpenMenu()" aria-label="language selection">{{ vm.selectedLanguage | translate }}<md-icon md-svg-icon="icons:triangle-down"></md-icon></span><md-menu-content width="3"><md-menu-item ng-repeat="language in vm.languages"><md-button ng-click="vm.onLanguageClick(language)" tabindex="7">{{ language | translate }}</md-button></md-menu-item></md-menu-content></md-menu>');
 }]);
 })();
 
