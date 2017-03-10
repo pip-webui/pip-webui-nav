@@ -1,8 +1,8 @@
-<md-toolbar class="pip-nav {{  vm.themeClass }}" ng-class="{'pip-visible': vm.show(), 'pip-shadow':  vm.showShadow()}">
-    <md-tabs ng-if="vm.media(vm.breakpoints)" md-selected="vm.selected.activeTab" ng-class="{'disabled': vm.disabled()}"
+<md-toolbar class="pip-nav {{  $ctrl.themeClass }}" ng-class="{'pip-visible': $ctrl.show(), 'pip-shadow':  $ctrl.showShadow()}">
+    <md-tabs ng-if="$ctrl.media($ctrl.breakpoints)" md-selected="$ctrl.selected.activeTab" ng-class="{'disabled': $ctrl.disabled()}"
              md-stretch-tabs="true" md-dynamic-height="true" >
-        <md-tab  ng-repeat="tab in vm.tabs track by $index" ng-disabled="vm.tabDisabled($index)"
-                md-on-select="vm.onSelect($index)">
+        <md-tab  ng-repeat="tab in $ctrl.tabs track by $index" ng-disabled="$ctrl.tabDisabled($index)"
+                md-on-select="$ctrl.onSelect($index)">
             <md-tab-label>
                 {{:: tab.nameLocal }}
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
@@ -12,12 +12,12 @@
             </md-tab-label>
         </md-tab>
     </md-tabs>
-    <div class="md-subhead pip-tabs-content color-primary-bg  " ng-if="!vm.media(vm.breakpoints)">
+    <div class="md-subhead pip-tabs-content color-primary-bg  " ng-if="!$ctrl.media($ctrl.breakpoints)">
         <div class="pip-divider position-top m0"></div>
-        <md-select ng-model="vm.selected.activeIndex" ng-disabled="vm.disabled()" 
+        <md-select ng-model="$ctrl.selected.activeIndex" ng-disabled="$ctrl.disabled()" 
                    md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple
-                   md-on-close="vm.onSelect(vm.selected.activeIndex)">
-            <md-option ng-repeat="tab in vm.tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">
+                   md-on-close="$ctrl.onSelect($ctrl.selected.activeIndex)">
+            <md-option ng-repeat="tab in $ctrl.tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">
                 {{ ::tab.nameLocal }}
                 <div class="pip-tabs-badge color-badge-bg" ng-if="tab.newCounts > 0 && tab.newCounts <= 99">
                     {{ tab.newCounts }}

@@ -1,13 +1,13 @@
-<md-toolbar class="md-subhead color-primary-bg {{ vm.themeClass}}" ng-if="vm.show()" ng-class="{'md-whiteframe-3dp': vm.media('xs')}">
+<md-toolbar class="md-subhead color-primary-bg {{ $ctrl.themeClass}}" ng-if="$ctrl.show()" ng-class="{'md-whiteframe-3dp': $ctrl.media('xs')}">
     <div class="pip-divider"></div>
-        <md-select ng-model="vm.selectedIndex" 
+        <md-select ng-model="$ctrl.selectedIndex" 
                     tabindex="15"
-                    ng-disabled="vm.disabled()" 
+                    ng-disabled="$ctrl.disabled()" 
                     md-container-class="pip-full-width-dropdown" 
                     aria-label="DROPDOWN" 
                     md-ink-ripple 
-                    md-on-close="vm.onSelect(vm.selectedIndex)">
-            <md-option ng-repeat="action in vm.actions" value="{{ ::$index }}" ng-selected="vm.activeIndex == $index ? true : false">
+                    md-on-close="$ctrl.onSelect($ctrl.selectedIndex)">
+            <md-option ng-repeat="action in $ctrl.actions" value="{{ ::$index }}" ng-selected="$ctrl.activeIndex == $index ? true : false">
                 {{ (action.title || action.name || action) | translate }}
             </md-option>
         </md-select>

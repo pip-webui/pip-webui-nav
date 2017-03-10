@@ -39,7 +39,7 @@ class AppBarDirectiveController {
             scope: true,
             templateUrl: 'appbar/AppBar.html',
             controller: AppBarDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

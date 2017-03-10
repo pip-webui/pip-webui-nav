@@ -1,22 +1,22 @@
 <div pip-focused pip-focused-tabindex="2">
-<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in vm.config.primaryLocalActions">
+<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in $ctrl.config.primaryLocalActions">
     <md-button class="pip-primary-actions-action md-icon-button pip-focusable"
-                ng-click="vm.clickAction(action, $mdOpenMenu);"
+                ng-click="$ctrl.clickAction(action, $mdOpenMenu);"
                 tabindex="-1"
-                ng-hide="vm.isHidden(action)"
+                ng-hide="$ctrl.isHidden(action)"
                 aria-label="{{ action.title | translate }}">
         <div class="pip-primary-actions-badge" ng-show="action.count > 0">
-            {{ vm.actionCount(action) }}
+            {{ $ctrl.actionCount(action) }}
         </div>
         <md-icon md-svg-icon="{{ action.icon}}"></md-icon>
     </md-button>
     <md-menu-content width="3" >
         <md-menu-item ng-repeat-start="subAction in action.subActions"
                         ng-if="!subAction.divider"
-                        ng-hide="vm.isHidden(subAction)">
+                        ng-hide="$ctrl.isHidden(subAction)">
             <md-button class="pip-focusable" ng-hide="subAction.divider"
                         tabindex="-1"
-                        ng-click="vm.clickAction(subAction)">
+                        ng-click="$ctrl.clickAction(subAction)">
                 {{ ::subAction.title | translate }}
             </md-button>
         </md-menu-item>
@@ -24,24 +24,24 @@
     </md-menu-content>
 </md-menu>
 
-<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in vm.config.primaryGlobalActions">
+<md-menu md-position-mode="target-right target" class="pip-primary-actions" ng-repeat="action in $ctrl.config.primaryGlobalActions">
     <md-button class="pip-primary-actions-action md-icon-button pip-focusable"
-               ng-click="vm.clickAction(action, $mdOpenMenu);"
-               ng-hide="vm.isHidden(action)"
+               ng-click="$ctrl.clickAction(action, $mdOpenMenu);"
+               ng-hide="$ctrl.isHidden(action)"
                tabindex="-1"
                aria-label="{{ action.title | translate }}">
         <div class="pip-primary-actions-badge color-badge-bg" ng-show="action.count > 0">
-            {{ vm.actionCount(action) }}
+            {{ $ctrl.actionCount(action) }}
         </div>
         <md-icon md-svg-icon="{{ action.icon }}"></md-icon>
     </md-button>
     <md-menu-content width="3" >
         <md-menu-item ng-repeat-start="subAction in action.subActions"
                       ng-if="!subAction.divider"
-                      ng-hide="vm.isHidden(subAction)">
+                      ng-hide="$ctrl.isHidden(subAction)">
             <md-button class="pip-focusable" ng-hide="subAction.divider"
                         tabindex="-1"
-                       ng-click="vm.clickAction(subAction)">
+                       ng-click="$ctrl.clickAction(subAction)">
                 {{ subAction.title | translate }}
             </md-button>
         </md-menu-item>

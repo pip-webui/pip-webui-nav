@@ -73,7 +73,7 @@ class NavIconDirectiveController {
             replace: false,
             templateUrl: 'icon/NavIcon.html',
             controller: NavIconDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

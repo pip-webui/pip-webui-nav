@@ -201,7 +201,7 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
             replace: false,
             templateUrl: 'header/NavHeader.html',
             controller: NavHeaderDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
 
         };
     }

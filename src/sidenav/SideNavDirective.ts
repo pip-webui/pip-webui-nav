@@ -220,7 +220,7 @@ class SideNavDirectiveController {
             scope: true,
             templateUrl: 'sidenav/SideNav.html',
             controller: SideNavDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

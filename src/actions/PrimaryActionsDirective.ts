@@ -157,7 +157,7 @@ class PrimaryActionsController {
             replace: false,
             templateUrl: 'actions/PrimaryActions.html',
             controller: PrimaryActionsController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

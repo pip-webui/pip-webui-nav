@@ -235,7 +235,7 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
             replace: false,
             templateUrl: 'menu/NavMenu.html',
             controller: NavMenuDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

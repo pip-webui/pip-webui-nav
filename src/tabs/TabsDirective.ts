@@ -1,6 +1,6 @@
 
 // Prevent junk from going into typescript definitions
-(() => {
+{
     class Selected {
         activeIndex: number = 0;
         activeTab: number = 0;
@@ -186,7 +186,7 @@
             },
             templateUrl: 'tabs/Tabs.html',
             controller: TabsDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 
@@ -195,4 +195,4 @@
         .module("pipTabs", ['pipNav.Templates'])
         .directive('pipTabs', tabsDirective);
 
-})();
+}

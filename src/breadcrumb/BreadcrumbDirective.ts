@@ -136,7 +136,7 @@ class BreadcrumbController {
             replace: false,
             templateUrl: 'breadcrumb/Breadcrumb.html',
             controller: BreadcrumbController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 
