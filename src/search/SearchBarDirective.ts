@@ -114,7 +114,7 @@ class SearchBarController {
             replace: false,
             templateUrl: 'search/SearchBar.html',
             controller: SearchBarController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

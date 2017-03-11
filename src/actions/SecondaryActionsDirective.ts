@@ -183,7 +183,7 @@ class SecondaryActionsController {
             replace: false,
             templateUrl: 'actions/SecondaryActions.html',
             controller: SecondaryActionsController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

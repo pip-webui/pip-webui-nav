@@ -1,37 +1,37 @@
-<div ng-if="vm.sections && vm.sections.length">
+<div ng-if="$ctrl.sections && $ctrl.sections.length">
     <md-list class="sidenav-list" pip-focused pip-focused-tabindex="10" pip-with-hidden="true">
         <md-list-item class="no-border pip-sticky-nav-menu-item pip-sticky-nav-expanded-button" 
-                ng-click="vm.onExpand()" ng-disabled="!vm.isCollapsed"
-                tabindex="-1" ng-if="vm.expandedButton">
+                ng-click="$ctrl.onExpand()" ng-disabled="!$ctrl.isCollapsed"
+                tabindex="-1" ng-if="$ctrl.expandedButton">
 
-            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-left" ng-if="vm.expanded">
+            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-left" ng-if="$ctrl.expanded">
             </md-icon>
-            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-right" ng-if="!vm.expanded" >
+            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-right" ng-if="!$ctrl.expanded" >
             </md-icon>
 
         </md-list-item>
-        <md-divider ng-show="vm.expandedButton"></md-divider>
-        <div class="pip-section" ng-repeat="section in vm.sections" ng-hide="section.access && !section.access(section)">
+        <md-divider ng-show="$ctrl.expandedButton"></md-divider>
+        <div class="pip-section" ng-repeat="section in $ctrl.sections" ng-hide="section.access && !section.access(section)">
 
-            <md-divider ng-show="$index > 0 && !vm.isSectionEmpty(section.links)"></md-divider>
+            <md-divider ng-show="$index > 0 && !$ctrl.isSectionEmpty(section.links)"></md-divider>
             <md-subheader ng-show="section.title" style="height: 48px;">
-                <span ng-if="vm.expanded" class="pip-sticky-nav-menu-title section-title">
+                <span ng-if="$ctrl.expanded" class="pip-sticky-nav-menu-title section-title">
                     {{ ::section.title | translate }}
                 </span>
                 <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ section.icon }}" 
-                    ng-if="!vm.sideNavState.showIconTooltype && !vm.expanded && section.icon">
+                    ng-if="!$ctrl.sideNavState.showIconTooltype && !$ctrl.expanded && section.icon">
                 </md-icon>
                 <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ section.icon }}" 
-                    ng-if="vm.sideNavState.showIconTooltype && !vm.expanded && section.icon">
+                    ng-if="$ctrl.sideNavState.showIconTooltype && !$ctrl.expanded && section.icon">
                     <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
                         {{ ::section.tooltipText || section.title | translate }}
                     </md-tooltip>
                 </md-icon>
-                <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ vm.defaultIcon }}" 
-                    ng-if="!vm.sideNavState.showIconTooltype && !vm.expanded && !section.icon">
+                <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ $ctrl.defaultIcon }}" 
+                    ng-if="!$ctrl.sideNavState.showIconTooltype && !$ctrl.expanded && !section.icon">
                 </md-icon>
-                <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ vm.defaultIcon }}" 
-                        ng-if="vm.sideNavState.showIconTooltype && !vm.expanded && !section.icon">
+                <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ $ctrl.defaultIcon }}" 
+                        ng-if="$ctrl.sideNavState.showIconTooltype && !$ctrl.expanded && !section.icon">
                     <md-tooltip md-visible="showTooltip" class="md-secondary" class="sidenav-icon-tooltip">
                         {{ ::section.tooltipText || section.title | translate }}
                     </md-tooltip>
@@ -39,18 +39,18 @@
             </md-subheader>
 
             <md-list-item class="no-border pip-sticky-nav-menu-item pip-focusable" tabindex="-1" 
-                    ng-repeat="link in section.links"  ng-class="{'active': vm.isActive(link)}"
+                    ng-repeat="link in section.links"  ng-class="{'active': $ctrl.isActive(link)}"
                     ng-hide="link.access && !link.access(link)">
-                <md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="vm.clickLink($event, link)">
+                <md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="$ctrl.clickLink($event, link)">
                     <md-tooltip md-visible="showTooltip" md-direction="right">
                         {{ ::link.tooltipText | translate  }}
                     </md-tooltip>
                     <div class="pip-sticky-nav-menu-icon-block">
                         <md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" 
-                            ng-if="!(vm.sideNavState.showIconTooltype && !link.tooltipText && !vm.expanded)" ng-hide="!link.icon">
+                            ng-if="!($ctrl.sideNavState.showIconTooltype && !link.tooltipText && !$ctrl.expanded)" ng-hide="!link.icon">
                         </md-icon>
                         <md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" 
-                                ng-hide="!link.icon" ng-if="vm.sideNavState.showIconTooltype && !link.tooltipText && !vm.expanded">
+                                ng-hide="!link.icon" ng-if="$ctrl.sideNavState.showIconTooltype && !link.tooltipText && !$ctrl.expanded">
                             <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
                                 {{ ::link.tooltipText || link.title | translate }}
                             </md-tooltip>

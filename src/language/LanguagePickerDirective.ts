@@ -76,7 +76,7 @@
                 return 'language/LanguagePicker.html';
             },
             controller: LanguagePickerDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

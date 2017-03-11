@@ -107,7 +107,7 @@
             },
             templateUrl: 'dropdown/Dropdown.html',
             controller: DropdownDirectiveController,
-            controllerAs: 'vm'
+            controllerAs: '$ctrl'
         };
     }
 

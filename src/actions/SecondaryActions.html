@@ -1,33 +1,33 @@
-<md-menu ng-if="vm.secondaryActionsVisible()"
+<md-menu ng-if="$ctrl.secondaryActionsVisible()"
     md-position-mode="target-right target">
     <md-button class="md-icon-button"
         tabindex="3"
-        ng-init="vm.getMenu($mdOpenMenu)"
-        ng-click="vm.onSecondaryActionClick(); vm.openMenu($mdOpenMenu, $event);"
+        ng-init="$ctrl.getMenu($mdOpenMenu)"
+        ng-click="$ctrl.onSecondaryActionClick(); $ctrl.openMenu($mdOpenMenu, $event);"
         aria-label="open actions">
         <md-icon md-svg-icon="icons:vdots"></md-icon>
     </md-button>
     <md-menu-content width="3">
         <!-- Local secondary actions -->
-        <md-menu-item ng-repeat-start="action in vm.config.secondaryLocalActions"
+        <md-menu-item ng-repeat-start="action in $ctrl.config.secondaryLocalActions"
             ng-if="!action.divider"
-            ng-hide="vm.isHidden(action)">
+            ng-hide="$ctrl.isHidden(action)">
             <md-button ng-hide="action.divider"
-                ng-click="vm.clickAction(action)">
+                ng-click="$ctrl.clickAction(action)">
                 {{ ::action.title | translate }}
             </md-button>
         </md-menu-item>
         <md-menu-divider ng-if="action.divider" ng-repeat-end></md-menu-divider>
 
-        <md-menu-divider ng-if="vm.secondaryDividerVisible()" >
+        <md-menu-divider ng-if="$ctrl.secondaryDividerVisible()" >
 
         </md-menu-divider>
         <!-- Global secondary actions -->
-        <md-menu-item ng-repeat-start="action in vm.config.secondaryGlobalActions"
+        <md-menu-item ng-repeat-start="action in $ctrl.config.secondaryGlobalActions"
             ng-if="!action.divider"
-            ng-hide="vm.isHidden(action)">
+            ng-hide="$ctrl.isHidden(action)">
             <md-button ng-hide="action.divider"
-                ng-click="vm.clickAction(action)">
+                ng-click="$ctrl.clickAction(action)">
                 {{ ::action.title | translate }}
             </md-button>                    
         </md-menu-item>
