@@ -49,14 +49,17 @@ export interface IActionsProvider extends ng.IServiceProvider {
 
 
 
-
-
 export let AppBarChangedEvent: string;
+
 export class AppBarConfig {
     visible: boolean;
     parts: any;
     classes: string[];
 }
+
+
+
+
 export interface IAppBarService {
     readonly config: AppBarConfig;
     readonly classes: string[];
@@ -105,7 +108,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
-
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -117,6 +119,7 @@ export interface INavService {
     menu: INavMenuService;
     reset(): void;
 }
+
 
 
 
@@ -194,6 +197,7 @@ export class NavIconConfig {
 
 
 
+
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
     name: string;
@@ -236,7 +240,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
 }
 
 
-
 export interface ISearchService {
     config: SearchConfig;
     criteria: string;
@@ -264,6 +267,19 @@ export class SearchConfig {
     params: any;
     history: string[];
     callback: (criteria: string) => void;
+}
+
+
+export interface ITabsBindings {
+    [key: string]: any;
+    ngDisabled: any;
+    tabs: any;
+    showTabs: any;
+    showTabsShadow: any;
+    activeIndex: any;
+    select: any;
+    breakpoints: any;
+    themeClass: any;
 }
 
 
@@ -329,19 +345,6 @@ export class SideNavStateConfig {
     large: SideNavState;
     xlarge: SideNavState;
 }
-
-export interface ITabsBindings {
-    [key: string]: any;
-    ngDisabled: any;
-    tabs: any;
-    showTabs: any;
-    showTabsShadow: any;
-    activeIndex: any;
-    select: any;
-    breakpoints: any;
-    themeClass: any;
-}
-
 
 }
 

@@ -1,4 +1,5 @@
-import { AppBarConfig, IAppBarService } from "./AppBarService";
+import { AppBarConfig } from './AppBarConfig';
+import { IAppBarService } from "./IAppBarService";
 
 class AppBarPartDirectiveController {
     private _scope: ng.IScope;

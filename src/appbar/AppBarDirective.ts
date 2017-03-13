@@ -1,4 +1,5 @@
-﻿import { IAppBarService, AppBarConfig } from "./AppBarService";
+﻿import { AppBarConfig } from './AppBarConfig';
+import { IAppBarService } from "./IAppBarService";
 
 class AppBarDirectiveController {
     public config: AppBarConfig;
