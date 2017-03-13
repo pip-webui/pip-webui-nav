@@ -8,7 +8,7 @@ class PipTab {
 }
 
 const TabsBindings: ITabsBindings = {
-    ngDisabled: '<?', // function
+    ngDisabled: '&?', // function
     tabs: '<pipTabs', // PipTab[]
     showTabs: '&pipShowTabs', // function
     showTabsShadow: '&pipTabsShadow', // function
