@@ -1,12 +1,67 @@
 
 // Prevent junk from going into typescript definitions
 {
-    class Selected {
-        activeIndex: number = 0;
-        activeTab: number = 0;
+
+    class PipTab {
+        id: string;
+        name: string;
+        count: number;
+        title: string;
     }
 
-    class TabsDirectiveController {
+    interface ITabsBindings {
+        [key: string]: any;
+
+        ngDisabled: any; 
+        tabs: any;
+        showTabs: any; 
+        showTabsShadow: any;
+        activeIndex: any; 
+        select: any; 
+        breakpoints: any; 
+    }
+
+    const TabsBindings: ITabsBindings = {
+        ngDisabled: '<?', // function
+        tabs: '<pipTabs', // PipTab[]
+        showTabs: '&pipShowTabs', // function
+        showTabsShadow: '&pipTabsShadow', // function
+        activeIndex: '<pipActiveIndex', // number
+        select: '=pipTabsSelect', // function
+        breakpoints: '<?pipBreakpoints', // string
+    }
+
+    class TabsChanges implements ng.IOnChangesObject, ITabsBindings {
+        [key: string]: ng.IChangesObject<any>;
+        // Not one way bindings
+
+        ngDisabled: ng.IChangesObject<boolean>;
+        tabs: ng.IChangesObject<PipTab[]>;
+        showTabs: ng.IChangesObject<() => ng.IPromise<void>>;
+        showTabsShadow: ng.IChangesObject<() => ng.IPromise<void>>;
+        activeIndex: ng.IChangesObject<number>; 
+        select: ng.IChangesObject<() => ng.IPromise<void>>;
+        breakpoints: ng.IChangesObject<string>;
+    }
+
+    class TabsDirectiveController implements ITabsBindings {
+        public ngDisabled: boolean;
+        public tabs: PipTab[];
+        public activeIndex: number;
+        public breakpoints: string;
+        public showTabs: Function;
+        public showTabsShadow: Function;
+        public select: Function;
+
+
+        public disabled: boolean;
+
+        public selectedIndex: number = 0;
+        public selectedTab: number = 0;
+
+        public change: () => ng.IPromise<any>;
+
+
 
         private _element: ng.IAugmentedJQuery;
         private _attrs: ng.IAttributes;
@@ -23,10 +78,9 @@
         public themeClass: string;
         public media: any;
         public pipTabIndex: number;
-        public selected: Selected;
-        public tabs: any[];
+
         public currentTheme: string;
-        public breakpoints: string;
+
 
         constructor(
             $element: ng.IAugmentedJQuery,
@@ -50,7 +104,6 @@
             this._rootScope = $rootScope;
             this._timeout = $timeout;
 
-            this.selected = new Selected();
             this.setTheme();
             this.setMedia($mdMedia);
             this.initTabs();
@@ -60,8 +113,10 @@
             if (this.toBoolean($attrs['pipRebind'])) {
                 this._scope.$watch(() => this._scope['activeIndex'],
                     (newValue: number, oldValue: number) => {
-                        this.selected.activeIndex = newValue || 0;
-                        this.selected.activeTab = this.selected.activeIndex;
+                        // this.selectedIndex = newValue || 0;
+                        this.selectedIndex = newValue || 0;
+                        // this.selectedTab = this.selectedIndex;
+                        this.selectedTab = this.selectedIndex;
                     }
                 );
             }
@@ -98,8 +153,8 @@
         private initTabs(): void {
             this.tabs = (this._scope['tabs'] && _.isArray(this._scope['tabs'])) ? this._scope['tabs'] : [];
             this.pipTabIndex = this._attrs['pipTabIndex'] ? parseInt(this._attrs['pipTabIndex']) : 0;
-            this.selected.activeIndex = this._scope['activeIndex'] || 0;
-            this.selected.activeTab = this.selected.activeIndex;
+            this.selectedIndex = this._scope['activeIndex'] || 0;
+            this.selectedTab = this.selectedIndex;
 
 
 
@@ -121,7 +176,7 @@
         }
 
 
-        public disabled(): boolean {
+        public isDisabled(): boolean {
             if (this._scope['ngDisabled']) {
                 return this._scope['ngDisabled']();
             }
@@ -130,18 +185,18 @@
         };
 
         public tabDisabled(index: number): boolean {
-            return (this.disabled() && this.selected.activeIndex != index);
+            return (this.isDisabled() && this.selectedIndex != index);
         };
 
         public onSelect(index: number): void {
-            if (this.disabled()) return;
+            if (this.isDisabled()) return;
 
-            this.selected.activeIndex = index;
-            this.selected.activeTab = this.selected.activeIndex;
+            this.selectedIndex = index;
+            this.selectedTab = this.selectedIndex;
             this._timeout(() => {
                 this._scope['activeIndex'] = index;
                 if (this._scope['select']) {
-                    this._scope['select'](this.tabs[this.selected.activeIndex], this.selected.activeIndex);
+                    this._scope['select'](this.tabs[this.selectedIndex], this.selectedIndex);
                 }
             }, 0);
 
