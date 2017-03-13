@@ -1,6 +1,4 @@
-﻿
-
-import './dependencies/TranslateFilter';
+﻿import './dependencies/TranslateFilter';
 import './language/LanguagePickerDirective';
 import './dropdown/DropdownDirective';
 import './tabs/TabsDirective';

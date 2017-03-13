@@ -105,6 +105,7 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
+
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -116,7 +117,6 @@ export interface INavService {
     menu: INavMenuService;
     reset(): void;
 }
-
 
 
 
@@ -184,34 +184,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
 
 
 
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-
-
 export let NavMenuChangedEvent: string;
 export class NavMenuLink {
     name: string;
@@ -252,7 +224,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
 }
-
 
 
 
@@ -316,6 +287,46 @@ export class SideNavStateConfig {
     large: SideNavState;
     xlarge: SideNavState;
 }
+
+
+
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
+
+export interface ITabsBindings {
+    [key: string]: any;
+    ngDisabled: any;
+    tabs: any;
+    showTabs: any;
+    showTabsShadow: any;
+    activeIndex: any;
+    select: any;
+    breakpoints: any;
+}
+
 
 }
 
