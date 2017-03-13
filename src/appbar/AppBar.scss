@@ -1,9 +1,5 @@
-// $file CSS styles for application App Bar component
-// $copyright Digital Living Software Corp. 2014-2016
-
 $appbar-title-font-size: $font-size-title;
 $appbar-title-color: rgb(255, 255, 255);
-//$appbar-title-font-family:         $font-family;
 $appbar-title-font-letter-spacing: 0.005em;
 $appbar-height: 45px;
 $appbar-ext-height: 95px;
@@ -26,7 +22,6 @@ $appbar-font-size: 24px;
     }
   }
 
-  // min-height: 56px;
   z-index: 11;
   .pip-shadow {
     box-shadow: $box-shadow;
@@ -109,31 +104,3 @@ $appbar-font-size: 24px;
     box-shadow: $box-shadow;
   }
 }
-
-
-// $media ( max-width: $layout-breakpoint-xs) {
-//   .pip-appbar .pip-shadow-xs {
-//     box-shadow: $box-shadow;
-//   }
-// }
-
-// $media (min-width: $layout-breakpoint-xs + 1) and (max-width: $layout-breakpoint-sm) {
-//   .pip-appbar .pip-shadow-sm {
-//     box-shadow: $box-shadow;
-//   }
-// }
-// $media (min-width: $layout-breakpoint-sm + 1) and (max-width: $layout-breakpoint-md) {
-//   .pip-appbar .pip-shadow-md {
-//     box-shadow: $box-shadow;
-//   }
-// }
-// $media (min-width: $layout-breakpoint-md + 1) and (max-width: $layout-breakpoint-lg) {
-//   .pip-appbar .pip-shadow-lg {
-//     box-shadow: $box-shadow;
-//   }
-// }
-// $media (min-width: $layout-breakpoint-lg + 1) {
-//   .pip-appbar .pip-shadow-xl {
-//     box-shadow: $box-shadow;
-//   }
-// }

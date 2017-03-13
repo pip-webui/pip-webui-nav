@@ -1,5 +1,3 @@
-
-
 import { SimpleActionItem } from '../actions/ActionsService';
 export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 export let BreadcrumbBackEvent = "pipBreadcrumbBack";

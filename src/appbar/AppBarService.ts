@@ -1,5 +1,3 @@
-
-
 export let AppBarChangedEvent = 'pipAppBarChanged';
 
 export class AppBarConfig {

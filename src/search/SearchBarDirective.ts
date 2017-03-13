@@ -1,12 +1,7 @@
-
-
 import { SearchConfig } from './SearchService';
 import { ISearchService } from './SearchService';
 import { SearchChangedEvent } from './SearchService';
 import { SearchActivatedEvent } from './SearchService';
-
-// Prevent junk from going into typescript definitions
-
 
 class SearchBarController {
     private _rootScope: ng.IRootScopeService;

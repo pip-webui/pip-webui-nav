@@ -1,5 +1,3 @@
-
-
 export let NavHeaderChangedEvent = 'pipNavHeaderChanged';
 
 export class NavHeaderConfig {

@@ -1,6 +1,3 @@
-
-
-// Prevent junk from going into typescript definitions
 (() => {
     class DropdownDirectiveController {
         private _element: ng.IAugmentedJQuery;

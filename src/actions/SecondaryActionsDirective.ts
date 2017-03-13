@@ -1,10 +1,4 @@
-
-
 import { IActionsService, ActionItem, ActionsConfig } from "./ActionsService";
-
-// Prevent junk from going into typescript definitions
-
-// todo: create class ActionsController and extend it 
 
 class SecondaryActionsController {
     private _element: ng.IAugmentedJQuery;

@@ -1,5 +1,3 @@
-
-
 export let NavIconChangedEvent = 'pipNavIconChanged';
 
 export class NavIconConfig {

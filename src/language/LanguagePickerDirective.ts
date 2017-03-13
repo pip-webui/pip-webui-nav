@@ -1,8 +1,3 @@
-
-
-// Prevent junk from going into typescript definitions
-
-
 (() => {
     class LanguagePickerDirectiveController {
         private _element: ng.IAugmentedJQuery;

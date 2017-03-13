@@ -1,5 +1,3 @@
-
-
 angular.module('pipNavIcon', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 
 import './NavIconService';

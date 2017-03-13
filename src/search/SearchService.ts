@@ -1,5 +1,3 @@
-
-
 export let OpenSearchEvent = 'pipOpenSearch';
 export let CloseSearchEvent = 'pipCloseSearch';
 export let SearchChangedEvent = 'pipSearchChanged';
@@ -32,7 +30,7 @@ export interface ISearchService {
     toggle(): void;
 }
 
-export interface ISearchProvider extends ng.IServiceProvider {    
+export interface ISearchProvider extends ng.IServiceProvider {
 }
 
 
@@ -108,18 +106,18 @@ class SearchService implements ISearchService {
 
     public open(): void {
         this._config.visible = true;
-        this.sendConfigEvent();                
+        this.sendConfigEvent();
     }
-            
+
     public close(): void {
-        this._config.visible = false;        
-        this.sendConfigEvent();                
-    }                
+        this._config.visible = false;
+        this.sendConfigEvent();
+    }
 
     public toggle(): void {
         this._config.visible = !this._config.visible;
-        this.sendConfigEvent();                
-    }                   
+        this.sendConfigEvent();
+    }
 
     private sendConfigEvent(): void {
         this._rootScope.$broadcast(SearchChangedEvent, this._config);
@@ -137,7 +135,7 @@ class SearchProvider implements ISearchProvider {
             this._service = new SearchService(this._config, $rootScope);
 
         return this._service;
-    } 
+    }
 }
 
 

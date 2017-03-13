@@ -1,5 +1,3 @@
-
-
 export let NavMenuChangedEvent = 'pipNavMenuChanged';
 
 export class NavMenuLink {
@@ -8,7 +6,7 @@ export class NavMenuLink {
     // Link visible title
     public title: string;
     // Tooltip text
-    public tooltipText?: string;    
+    public tooltipText?: string;
     // Icon name from $iconProvider
     public icon?: string;
     // Counter badge
@@ -39,7 +37,7 @@ export class NavMenuSection {
     // Section visible title
     public title?: string;
     // Tooltip text
-    public tooltipText?: string;      
+    public tooltipText?: string;
     // Icon name from $iconProvider
     public icon?: string;
     // Links shown in the section
@@ -56,7 +54,7 @@ export class NavMenuConfig {
 export interface INavMenuService {
     sections: NavMenuSection[];
     defaultIcon: string;
-    updateCount(link: string, count: number): void; 
+    updateCount(link: string, count: number): void;
     updateBadgeStyle(link: string, style: string): void;
     clearCounts(): void;
 }
@@ -165,7 +163,7 @@ class NavMenuProvider implements INavMenuProvider {
 
         if (this._service == null)
             this._service = new NavMenuService(this._config, $rootScope);
-        
+
         return this._service;
     }
 }

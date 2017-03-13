@@ -1,6 +1,3 @@
-
-
-// Prevent junk from going into typescript definitions
 import { AppBarConfig, IAppBarService } from "./AppBarService";
 
 class AppBarPartDirectiveController {

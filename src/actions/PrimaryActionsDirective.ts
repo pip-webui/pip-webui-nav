@@ -1,9 +1,4 @@
-
-
 import { IActionsService, ActionItem, ActionsConfig } from "./ActionsService";
-// Prevent junk from going into typescript definitions
-
-// todo: create class ActionsController and extend it 
 
 class PrimaryActionsController {
     private _element: ng.IAugmentedJQuery;
@@ -100,11 +95,6 @@ class PrimaryActionsController {
         if (!action || action.divider) {
             return;
         }
-
-        // todo: do not supported into ActionItem
-        // if (action.close) {
-        //     this._scope.originatorEv = null;
-        // }
 
         if (action.subActions) {
             $mdOpenMenu(this._scope.originatorEv);

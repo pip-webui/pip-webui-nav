@@ -1,5 +1,3 @@
-
-
 angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates']);
 
 import './SideNavEvents';

@@ -1,4 +1,3 @@
-// Prevent junk from going into typescript definitions
 import { ISideNavService, SideNavConfig } from '../sidenav/SideNavService';
 import { NavMenuConfig, NavMenuSection, INavMenuService, NavMenuLink } from './NavMenuService';
 import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';

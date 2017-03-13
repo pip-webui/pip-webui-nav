@@ -1,10 +1,5 @@
-
 import { ISideNavService, SideNavConfig } from './SideNavService';
-
 import { SideNavStateNames, SideNavState, SideNavStateConfig } from './SideNavState';
-
-// Prevent junk from going into typescript definitions
-
 
 class SideNavDirectiveController {
     private _element: ng.IAugmentedJQuery;
@@ -146,7 +141,7 @@ class SideNavDirectiveController {
         if (this._pipSideNav.config && this._pipSideNav.config.type == 'popup') { return }
 
         if (this._isResizing) {
-            this._timeout(() => { this.setSideNaveState() }, this._animationDuration); 
+            this._timeout(() => { this.setSideNaveState() }, this._animationDuration);
 
             return;
         }

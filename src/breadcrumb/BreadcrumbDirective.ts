@@ -1,5 +1,3 @@
-
-
 import { SimpleActionItem } from '../actions/ActionsService';
 import { BreadcrumbItem } from './BreadcrumbService';
 import { BreadcrumbConfig } from './BreadcrumbService';
@@ -8,7 +6,6 @@ import { BreadcrumbChangedEvent } from './BreadcrumbService';
 import { BreadcrumbBackEvent } from './BreadcrumbService';
 import { OpenSearchEvent } from '../search/SearchService'
 
-// Prevent junk from going into typescript definitions
 class BreadcrumbController {
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;

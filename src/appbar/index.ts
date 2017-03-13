@@ -1,5 +1,3 @@
-
-
 angular
     .module('pipAppBar', ['ngMaterial', 'pipNav.Templates']);
 

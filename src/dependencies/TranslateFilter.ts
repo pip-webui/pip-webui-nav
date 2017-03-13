@@ -1,6 +1,3 @@
-
-
-// Prevent junk from going into typescript definitions
 (() => {
 
 function translateFilter($injector: ng.auto.IInjectorService) {
