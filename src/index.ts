@@ -45,4 +45,4 @@ export * from './sidenav';
 export * from './icon';
 export * from './menu';
 export * from './header';
-export * from './common/NavService';
+export * from './common/INavService';
