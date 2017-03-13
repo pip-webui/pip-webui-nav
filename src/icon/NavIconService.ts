@@ -1,37 +1,7 @@
+import { NavIconConfig } from './NavIconConfig';
+import { INavIconService, INavIconProvider } from './INavIconService';
+
 export let NavIconChangedEvent = 'pipNavIconChanged';
-
-export class NavIconConfig {
-    // Type of nav icon: 'back', 'menu', 'image' or 'none'
-    public type: string;
-    // Image url
-    public imageUrl: string;
-    // Icon name
-    public icon: string;
-    // Handle nav icon click event
-    click: () => void;
-    // Event name
-    event: string
-};
-
-export interface INavIconService {
-    readonly config: NavIconConfig;
-
-    showMenu(callbackOrEvent?: any): void;
-    showIcon(icon: string, callbackOrEvent?: any): void;
-    showBack(callbackOrEvent?: any): void;
-    showImage(imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-}
-
-export interface INavIconProvider extends ng.IServiceProvider {
-    config: NavIconConfig;
-
-    setMenu(callbackOrEvent?: any): void;
-    setIcon(icon: string, callbackOrEvent?: any): void;
-    setBack(callbackOrEvent?: any): void;
-    setImage(imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-}
 
 class NavIconService implements INavIconService {
     private _config: NavIconConfig;

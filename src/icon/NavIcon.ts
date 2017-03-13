@@ -1,5 +1,6 @@
 import { OpenSideNavEvent } from '../sidenav/SideNavEvents';
-import { INavIconService, NavIconConfig } from "./NavIconService";
+import { NavIconConfig } from './NavIconConfig';
+import { INavIconService } from './INavIconService';
 import { INavIconBindings } from './INavIconBindings';
 
 export let NavIconClickedEvent = 'pipNavIconClicked';
@@ -19,7 +20,7 @@ class NavIconChanges implements ng.IOnChangesObject, INavIconBindings {
     icon: ng.IChangesObject<string>;
 }
 
-class NavIconDirectiveController implements INavIconBindings {
+class NavIconController implements INavIconBindings {
     private _element: ng.IAugmentedJQuery;
     private _scope: angular.IScope;
     private _log: ng.ILogService;
@@ -103,33 +104,9 @@ class NavIconDirectiveController implements INavIconBindings {
 const NavIcon: ng.IComponentOptions = {
     bindings: NavIconBindings,
     templateUrl: 'icon/NavIcon.html',
-    controller: NavIconDirectiveController
+    controller: NavIconController
 }
 
 angular
     .module('pipNavIcon')
     .component('pipNavIcon', NavIcon);
-
-
-// (() => {
-//     function navIconDirective() {
-//         return {
-//             restrict: 'E',
-//             scope: {
-//                 type: '=pipType',
-//                 imageUrl: '=pipImageUrl',
-//                 icon: '=pipIcon'
-//             },
-//             replace: false,
-//             templateUrl: 'icon/NavIcon.html',
-//             controller: NavIconDirectiveController,
-//             controllerAs: '$ctrl'
-//         };
-//     }
-
-
-//     angular
-//         .module('pipNavIcon')
-//         .directive('pipNavIcon', navIconDirective);
-
-// })();

@@ -105,7 +105,6 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
-
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -117,6 +116,7 @@ export interface INavService {
     menu: INavMenuService;
     reset(): void;
 }
+
 
 
 
@@ -153,7 +153,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     click: () => void;
 }
 
-
 export interface INavIconBindings {
     [key: string]: any;
     type: any;
@@ -161,17 +160,6 @@ export interface INavIconBindings {
     icon: any;
 }
 
-
-export let NavIconClickedEvent: string;
-
-export let NavIconChangedEvent: string;
-export class NavIconConfig {
-    type: string;
-    imageUrl: string;
-    icon: string;
-    click: () => void;
-    event: string;
-}
 export interface INavIconService {
     readonly config: NavIconConfig;
     showMenu(callbackOrEvent?: any): void;
@@ -187,6 +175,48 @@ export interface INavIconProvider extends ng.IServiceProvider {
     setBack(callbackOrEvent?: any): void;
     setImage(imageUrl: string, callbackOrEvent?: any): void;
     clear(): void;
+}
+
+
+export let NavIconClickedEvent: string;
+
+export class NavIconConfig {
+    type: string;
+    imageUrl: string;
+    icon: string;
+    click: () => void;
+    event: string;
+}
+
+export let NavIconChangedEvent: string;
+
+
+
+
+export let OpenSearchEvent: string;
+export let CloseSearchEvent: string;
+export let SearchChangedEvent: string;
+export let SearchActivatedEvent: string;
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
 }
 
 
@@ -230,47 +260,6 @@ export interface INavMenuService {
 export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
-}
-
-export interface ITabsBindings {
-    [key: string]: any;
-    ngDisabled: any;
-    tabs: any;
-    showTabs: any;
-    showTabsShadow: any;
-    activeIndex: any;
-    select: any;
-    breakpoints: any;
-    themeClass: any;
-}
-
-
-
-
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
 }
 
 
@@ -335,6 +324,19 @@ export class SideNavStateConfig {
     large: SideNavState;
     xlarge: SideNavState;
 }
+
+export interface ITabsBindings {
+    [key: string]: any;
+    ngDisabled: any;
+    tabs: any;
+    showTabs: any;
+    showTabsShadow: any;
+    activeIndex: any;
+    select: any;
+    breakpoints: any;
+    themeClass: any;
+}
+
 
 }
 

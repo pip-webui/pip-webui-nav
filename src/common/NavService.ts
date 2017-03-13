@@ -1,4 +1,4 @@
-import { INavIconService } from '../icon/NavIconService';
+import { INavIconService } from '../icon/INavIconService';
 import { INavMenuService } from '../menu/NavMenuService';
 import { INavHeaderService } from '../header/NavHeaderService';
 import { IBreadcrumbService } from '../breadcrumb/BreadcrumbService';
