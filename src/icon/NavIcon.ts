@@ -2,8 +2,7 @@ import { OpenSideNavEvent } from '../sidenav/SideNavEvents';
 import { NavIconConfig } from './NavIconConfig';
 import { INavIconService } from './INavIconService';
 import { INavIconBindings } from './INavIconBindings';
-
-export let NavIconClickedEvent = 'pipNavIconClicked';
+import { NavIconClickedEvent, NavIconChangedEvent } from './NavIconAngularEvents';
 
 const NavIconBindings: INavIconBindings = {
     type: '<?pipType',

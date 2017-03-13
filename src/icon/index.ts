@@ -1,6 +1,7 @@
 angular.module('pipNavIcon', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 
 import './NavIconConfig';
+import './NavIconAngularEvents';
 import './INavIconBindings';
 import './INavIconService';
 import './NavIconService';

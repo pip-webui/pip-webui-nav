@@ -1,7 +1,7 @@
 ﻿import './dependencies/TranslateFilter';
 import './language/LanguagePickerDirective';
 import './dropdown/DropdownDirective';
-import './tabs/TabsDirective';
+import './tabs/Tabs';
 import './actions';
 import './appbar';
 import './search';

@@ -1,7 +1,6 @@
 import { NavIconConfig } from './NavIconConfig';
 import { INavIconService, INavIconProvider } from './INavIconService';
-
-export let NavIconChangedEvent = 'pipNavIconChanged';
+import { NavIconChangedEvent } from './NavIconAngularEvents';
 
 class NavIconService implements INavIconService {
     private _config: NavIconConfig;
