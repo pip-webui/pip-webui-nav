@@ -8,4 +8,5 @@ export interface ITabsBindings {
     activeIndex: any;
     select: any;
     breakpoints: any;
+    themeClass: any;
 }

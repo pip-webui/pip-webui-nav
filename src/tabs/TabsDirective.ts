@@ -2,7 +2,7 @@ import { ITabsBindings } from './ITabsBindings';
 
 class PipTab {
     id: string;
-    name: string;
+    name?: string;
     count: number;
     title: string;
 }
@@ -12,101 +12,70 @@ const TabsBindings: ITabsBindings = {
     tabs: '<pipTabs', // PipTab[]
     showTabs: '&pipShowTabs', // function
     showTabsShadow: '&pipTabsShadow', // function
-    activeIndex: '<pipActiveIndex', // number
+    activeIndex: '<?pipActiveIndex', // number
     select: '=pipTabsSelect', // function
     breakpoints: '<?pipBreakpoints', // string
+    themeClass: '<?themeClass', // string
 }
 
 class TabsChanges implements ng.IOnChangesObject, ITabsBindings {
     [key: string]: ng.IChangesObject<any>;
     // Not one way bindings
-
-    ngDisabled: ng.IChangesObject<boolean>;
+    ngDisabled: ng.IChangesObject<() => ng.IPromise<void>>;
     tabs: ng.IChangesObject<PipTab[]>;
     showTabs: ng.IChangesObject<() => ng.IPromise<void>>;
     showTabsShadow: ng.IChangesObject<() => ng.IPromise<void>>;
     activeIndex: ng.IChangesObject<number>;
     select: ng.IChangesObject<() => ng.IPromise<void>>;
     breakpoints: ng.IChangesObject<string>;
+    themeClass: ng.IChangesObject<string>;
 }
 
 class TabsDirectiveController implements ITabsBindings {
-    public ngDisabled: boolean;
+    private _element: ng.IAugmentedJQuery;
+    private _injector: ng.auto.IInjectorService;
+    private _log: ng.ILogService;
+    private _rootScope: ng.IRootScopeService;
+    private _pipTranslate: pip.services.ITranslateService;
+    private _pipTheme: pip.themes.IThemeService;
+    private _pipMedia: pip.layouts.IMediaService;
+    private _timeout: ng.ITimeoutService;
+    private _navConstant: any;
+    private selectedTabId: string;
+
+    public ngDisabled: Function;
     public tabs: PipTab[];
     public activeIndex: number;
     public breakpoints: string;
     public showTabs: Function;
     public showTabsShadow: Function;
     public select: Function;
-
-
-    public disabled: boolean;
-
-    public selectedIndex: number = 0;
-    public selectedTab: number = 0;
+    public themeClass: string;
+    
+    public media: any;
+    public currentTheme: string;
 
     public change: () => ng.IPromise<any>;
 
-
-
-    private _element: ng.IAugmentedJQuery;
-    private _attrs: ng.IAttributes;
-    private _injector: ng.auto.IInjectorService;
-    private _scope: angular.IScope;
-    private _log: ng.ILogService;
-    private _rootScope: ng.IRootScopeService;
-    private _pipTranslate: pip.services.ITranslateService;
-
-    private _pipTheme: pip.themes.IThemeService;
-    private _pipMedia: pip.layouts.IMediaService;
-    private _timeout: ng.ITimeoutService;
-
-    public themeClass: string;
-    public media: any;
-    public pipTabIndex: number;
-
-    public currentTheme: string;
-
-
     constructor(
         $element: ng.IAugmentedJQuery,
-        $attrs: ng.IAttributes,
         $injector: ng.auto.IInjectorService,
-        $scope: angular.IScope,
         $log: ng.ILogService,
         $rootScope: ng.IRootScopeService,
         $mdMedia: angular.material.IMedia,
         $timeout: ng.ITimeoutService,
         navConstant: any
-
     ) {
         "ngInject";
 
         this._element = $element;
-        this._attrs = $attrs;
-        this._scope = $scope;
         this._injector = $injector;
         this._log = $log;
         this._rootScope = $rootScope;
         this._timeout = $timeout;
-
+        this._navConstant = navConstant;
         this.setTheme();
         this.setMedia($mdMedia);
-        this.initTabs();
-
-        this.breakpoints = this._scope['breakpoints'] ? this._scope['breakpoints'] : navConstant.TAB_BREAKPOINT;
-
-        if (this.toBoolean($attrs['pipRebind'])) {
-            this._scope.$watch(() => this._scope['activeIndex'],
-                (newValue: number, oldValue: number) => {
-                    // this.selectedIndex = newValue || 0;
-                    this.selectedIndex = newValue || 0;
-                    // this.selectedTab = this.selectedIndex;
-                    this.selectedTab = this.selectedIndex;
-                }
-            );
-        }
-
     }
 
     private setTheme(): void {
@@ -117,7 +86,7 @@ class TabsDirectiveController implements ITabsBindings {
             this.currentTheme = this._rootScope['$theme'];
         }
 
-        this.themeClass = (this._attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
+        this.themeClass = (this.themeClass || '') + ' md-' + this.currentTheme + '-theme';
     }
 
     private setMedia($mdMedia: angular.material.IMedia): void {
@@ -136,71 +105,43 @@ class TabsDirectiveController implements ITabsBindings {
         }
     }
 
-    private initTabs(): void {
-        this.tabs = (this._scope['tabs'] && _.isArray(this._scope['tabs'])) ? this._scope['tabs'] : [];
-        this.pipTabIndex = this._attrs['pipTabIndex'] ? parseInt(this._attrs['pipTabIndex']) : 0;
-        this.selectedIndex = this._scope['activeIndex'] || 0;
-        this.selectedTab = this.selectedIndex;
-
-
-
-        if (this.pipTabIndex) {
-            this._timeout(() => {
-                let a = this._element.find('md-tabs-canvas');
-                if (a && a[0]) {
-                    angular.element(a[0]).attr('tabindex', this.pipTabIndex);
-                }
-                a.on('focusout', function () {
-                    angular.element(a[0]).attr('tabindex', this.pipTabIndex);
-                    this._timeout(() => {
-                        angular.element(a[0]).attr('tabindex', this.pipTabIndex);
-                    }, 50);
-                });
-            }, 1000);
-        }
-        this.setTranslate();
-    }
-
-
     public isDisabled(): boolean {
-        if (this._scope['ngDisabled']) {
-            return this._scope['ngDisabled']();
+        if (_.isFunction(this.ngDisabled)) {
+            return this.ngDisabled();
+        } else {
+            return this.toBoolean(this.ngDisabled);
         }
-
-        return false;
     };
 
     public tabDisabled(index: number): boolean {
-        return (this.isDisabled() && this.selectedIndex != index);
+        return (this.isDisabled() && this.activeIndex != index);
     };
 
     public onSelect(index: number): void {
         if (this.isDisabled()) return;
-
-        this.selectedIndex = index;
-        this.selectedTab = this.selectedIndex;
+        this.activeIndex = index;
+        this.selectedTabId = this.tabs.length >= this.activeIndex ? this.tabs[this.activeIndex].id : null;
         this._timeout(() => {
-            this._scope['activeIndex'] = index;
-            if (this._scope['select']) {
-                this._scope['select'](this.tabs[this.selectedIndex], this.selectedIndex);
+            if (this.select) {
+                this.select(this.tabs[this.activeIndex], this.activeIndex);
             }
         }, 0);
 
     };
 
     public showShadow(): boolean {
-        if (this._scope['showTabsShadow']) {
-            return this._scope['showTabsShadow']();
+        if (_.isFunction(this.showTabsShadow)) {
+            return this.showTabsShadow();
         } else {
-            return false;
+            return this.toBoolean(this.showTabsShadow);
         }
     };
 
     public show(): boolean {
-        if (this._scope['showTabs']) {
-            return this._scope['showTabs']();
+        if (_.isFunction(this.showTabs)) {
+            return this.showTabs();
         } else {
-            return true;
+            return this.toBoolean(this.showTabs);
         }
     };
 
@@ -211,40 +152,69 @@ class TabsDirectiveController implements ITabsBindings {
         return value == '1' || value == 'true';
     }
 
+    public $onChanges(changes: TabsChanges) {
+        if (changes.activeIndex === undefined) {
+            if (!this.activeIndex) {
+                this.activeIndex = 0;
+            }
+        } else {
+            this.activeIndex = changes.activeIndex.currentValue || 0;
+            if (this._timeout && this.activeIndex !== changes.activeIndex.previousValue) {
+                this._timeout(() => {
+                    let a = this._element.find('md-tabs-canvas');
+                    if (a && a[0]) {
+                        angular.element(a[0]).attr('activeIndex', this.activeIndex);
+                    }
+                    a.on('focusout', () => {
+                        angular.element(a[0]).attr('activeIndex', this.activeIndex);
+                        this._timeout(() => {
+                            angular.element(a[0]).attr('activeIndex', this.activeIndex);
+                        }, 50);
+                    });
+                }, 1000);
+            }
+        }
+
+        if (changes.breakpoints === undefined) {
+            if (!this.breakpoints) {
+                this.breakpoints = this._navConstant.TAB_BREAKPOINT;
+            }
+        } else {
+            this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this._navConstant.TAB_BREAKPOINT
+        }
+
+        if (changes.tabs === undefined || !_.isArray(changes.tabs.currentValue)) {
+            if (!this.tabs) {
+                this.tabs = [];
+            }
+        } else {
+            this.tabs = changes.tabs.currentValue;
+            this.setTranslate();
+        }
+
+        if (!changes.activeIndex && changes.tabs && this.selectedTabId !== undefined) {
+            const index = _.indexOf(this.tabs, _.find(this.tabs, {
+                id: this.selectedTabId
+            }));
+            if (index < 0) {
+                this.selectedTabId = this.tabs.length >= this.activeIndex ? this.tabs[this.activeIndex].id : null;
+            } else if (this.tabs.length > 0 && this.activeIndex) {
+                this.onSelect(index);
+            }
+        } else {
+            this.selectedTabId = this.tabs.length >= this.activeIndex ? this.tabs[this.activeIndex].id : null;
+        }
+    }
+
 }
 
-function tabsDirective() {
-    return {
-        restrict: 'E',
-        scope: {
-            ngDisabled: '&',
-            tabs: '=pipTabs',
-            showTabs: '&pipShowTabs',
-            showTabsShadow: '&pipTabsShadow',
-            activeIndex: '=pipActiveIndex',
-            select: '=pipTabsSelect',
-            breakpoints: '=pipBreakpoints'
-        },
-        templateUrl: 'tabs/Tabs.html',
-        controller: TabsDirectiveController,
-        controllerAs: '$ctrl'
-    };
+const Tabs: ng.IComponentOptions = {
+    bindings: TabsBindings,
+    templateUrl: 'tabs/Tabs.html',
+    controller: TabsDirectiveController
 }
 
 angular
-    .module("pipTabs", ['pipNav.Templates'])
-    .directive('pipTabs', tabsDirective);
+    .module('pipTabs', ['pipNav.Templates'])
+    .component('pipTabs', Tabs);
 
-
-
-// const ToggleButtons: ng.IComponentOptions = {
-//     bindings: ToggleButtonsBindings,
-//     templateUrl: 'toggle_buttons/ToggleButtons.html',
-//     controller: ToggleButtonsController
-// }
-
-// angular
-//     .module('pipToggleButtons', ['pipButtons.Templates'])
-//     .component('pipToggleButtons', ToggleButtons);
-
-// }
