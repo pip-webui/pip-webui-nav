@@ -2,7 +2,7 @@ import { INavIconService } from '../icon/INavIconService';
 import { INavMenuService } from '../menu/NavMenuService';
 import { INavHeaderService } from '../header/NavHeaderService';
 import { IBreadcrumbService } from '../breadcrumb/BreadcrumbService';
-import { ISearchService } from '../search/SearchService';
+import { ISearchService } from '../search/ISearchService';
 import { IActionsService } from '../actions/ActionsService';
 import { IAppBarService } from '../appbar/AppBarService';
 import { ISideNavService } from '../sidenav/SideNavService';

@@ -1,6 +1,9 @@
 angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 
+import './SearchConfig';
+import './SearchAngularEvents';
+import './ISearchService';
 import './SearchService';
-import './SearchBarDirective';
+import './SearchBar';
 
-export * from './SearchService';
+export * from './ISearchService';

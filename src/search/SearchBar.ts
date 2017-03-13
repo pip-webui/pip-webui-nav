@@ -1,7 +1,6 @@
-import { SearchConfig } from './SearchService';
-import { ISearchService } from './SearchService';
-import { SearchChangedEvent } from './SearchService';
-import { SearchActivatedEvent } from './SearchService';
+import { SearchConfig } from './SearchConfig';
+import { ISearchService } from './ISearchService';
+import { OpenSearchEvent, CloseSearchEvent, SearchChangedEvent, SearchActivatedEvent } from './SearchAngularEvents';
 
 class SearchBarController {
     private _rootScope: ng.IRootScopeService;

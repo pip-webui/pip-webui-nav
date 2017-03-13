@@ -4,7 +4,7 @@ import { BreadcrumbConfig } from './BreadcrumbService';
 import { IBreadcrumbService } from './BreadcrumbService';
 import { BreadcrumbChangedEvent } from './BreadcrumbService';
 import { BreadcrumbBackEvent } from './BreadcrumbService';
-import { OpenSearchEvent } from '../search/SearchService'
+import { OpenSearchEvent } from '../search/SearchAngularEvents'
 
 class BreadcrumbController {
     private _rootScope: ng.IRootScopeService;

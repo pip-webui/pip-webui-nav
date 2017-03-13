@@ -1,38 +1,6 @@
-export let OpenSearchEvent = 'pipOpenSearch';
-export let CloseSearchEvent = 'pipCloseSearch';
-export let SearchChangedEvent = 'pipSearchChanged';
-export let SearchActivatedEvent = 'pipSearchActivated';
-
-export class SearchConfig {
-    // Search visible
-    public visible: boolean;
-    // Search criteria
-    public criteria: string;
-    // Custom search parameters
-    public params: any;
-    // History for search autocomplete
-    public history: string[];
-    // Callback for search
-    callback: (criteria: string) => void;
-}
-
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
+import { SearchConfig } from './SearchConfig';
+import { ISearchProvider, ISearchService } from './ISearchService';
+import { OpenSearchEvent, CloseSearchEvent, SearchChangedEvent, SearchActivatedEvent } from './SearchAngularEvents';
 
 class SearchService implements ISearchService {
     private _config: SearchConfig;
