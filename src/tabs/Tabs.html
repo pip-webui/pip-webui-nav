@@ -1,5 +1,5 @@
-<md-toolbar class="pip-nav {{  $ctrl.themeClass }}" ng-class="{'pip-visible': $ctrl.show(), 'pip-shadow':  $ctrl.showShadow()}">
-    <md-tabs ng-if="$ctrl.media($ctrl.breakpoints)" md-selected="$ctrl.selectedTab" ng-class="{'disabled': $ctrl.isDisabled()}"
+<md-toolbar class="pip-nav color-primary-bg {{  $ctrl.themeClass }}" ng-class="{'pip-visible': $ctrl.show(), 'pip-shadow':  $ctrl.showShadow()}">
+    <md-tabs class="color-primary-bg"" ng-if="$ctrl.media($ctrl.breakpoints)" md-selected="$ctrl.selectedTab" ng-class="{'disabled': $ctrl.isDisabled()}"
              md-stretch-tabs="true" md-dynamic-height="true" >
         <md-tab  ng-repeat="tab in $ctrl.tabs track by $index" ng-disabled="$ctrl.tabDisabled($index)"
                 md-on-select="$ctrl.onSelect($index)">

@@ -138,25 +138,26 @@ pip-dropdown md-select {
   .pip-full-width-dropdown {
     top: 56px !important; } }
 
-pip-tabs .pip-nav {
+pip-tabs md-toolbar.pip-nav {
   min-height: 0;
   height: 0;
   -webkit-transition: height .35s ease;
   -moz-transition: height .35s ease;
   -o-transition: height .35s ease;
   transition: height .35s ease; }
-  pip-tabs .pip-nav md-tabs-wrapper {
+  pip-tabs md-toolbar.pip-nav md-tabs md-tabs-wrapper {
     height: 0;
     min-height: 0;
     -webkit-transition: height .35s ease;
     -moz-transition: height .35s ease;
     -o-transition: height .35s ease;
-    transition: height .35s ease; }
-  pip-tabs .pip-nav.pip-shadow {
+    transition: height .35s ease;
+    background-color: transparent !important; }
+  pip-tabs md-toolbar.pip-nav.pip-shadow {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
-  pip-tabs .pip-nav.pip-visible {
+  pip-tabs md-toolbar.pip-nav.pip-visible {
     min-height: 48px; }
-    pip-tabs .pip-nav.pip-visible md-tabs-wrapper {
+    pip-tabs md-toolbar.pip-nav.pip-visible md-tabs-wrapper {
       height: 48px;
       min-height: 48px; }
 

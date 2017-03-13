@@ -235,3 +235,16 @@ angular
     .module("pipTabs", ['pipNav.Templates'])
     .directive('pipTabs', tabsDirective);
 
+
+
+// const ToggleButtons: ng.IComponentOptions = {
+//     bindings: ToggleButtonsBindings,
+//     templateUrl: 'toggle_buttons/ToggleButtons.html',
+//     controller: ToggleButtonsController
+// }
+
+// angular
+//     .module('pipToggleButtons', ['pipButtons.Templates'])
+//     .component('pipToggleButtons', ToggleButtons);
+
+// }
