@@ -1,5 +1,4 @@
 .pip-search-bar {
-
   .pip-search-container {
 
     width: 100%;
@@ -15,7 +14,6 @@
       }
       
       &::-webkit-search-cancel-button {
-        /* псевдо что-то, что отвечает за кнопку очистки */
         -webkit-appearance: none; /* без сброса оформление не применится */
       }
     }
@@ -41,12 +39,10 @@
     width: 100%;
     position: absolute;
 
-
     .pip-search-selected {
       width: calc(100% - 16px);
       background-color: rgba(0, 0, 0, 0.12);
       margin: 0 auto;
-      // opacity: 0.9;
       border-radius: 4px;
       animation: search-animation 0.35s ease;
     }
@@ -57,7 +53,6 @@
        }
     }
   }
-
 
   .pip-secondary-actions, .pip-primary-actions,
   .pip-language-picker, .pip-breadcrumb, .pip-nav-icon {

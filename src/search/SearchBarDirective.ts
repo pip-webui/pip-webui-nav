@@ -6,6 +6,7 @@ import { SearchActivatedEvent } from './SearchService';
 class SearchBarController {
     private _rootScope: ng.IRootScopeService;
     private _element: any;
+    private clearFn: Function;
 
     public config: SearchConfig;
     public enabled: boolean = false;
@@ -26,9 +27,15 @@ class SearchBarController {
 
         this.config = pipSearch.config;
         this.stateChange();
-        $rootScope.$on(SearchChangedEvent, (event: ng.IAngularEvent, config: SearchConfig) => {
+        this.clearFn = $rootScope.$on(SearchChangedEvent, (event: ng.IAngularEvent, config: SearchConfig) => {
             this.onSearchChanged(event, config);
         });
+    }
+
+    public $onDestroy() {
+        if (_.isFunction(this.clearFn)) {
+            this.clearFn();
+        }
     }
 
     private stateChange(): void {
@@ -101,19 +108,11 @@ class SearchBarController {
     }
 }
 
-(() => {
-    function searchBarDirective() {
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: false,
-            templateUrl: 'search/SearchBar.html',
-            controller: SearchBarController,
-            controllerAs: '$ctrl'
-        };
-    }
+const SearchBar: ng.IComponentOptions = {
+    templateUrl: 'search/SearchBar.html',
+    controller: SearchBarController
+}
 
-    angular.module('pipSearchBar')
-        .directive('pipSearchBar', searchBarDirective);
-
-})();
+angular
+    .module('pipSearchBar')
+    .component('pipSearchBar', SearchBar);
