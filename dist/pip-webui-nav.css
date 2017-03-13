@@ -391,7 +391,6 @@ md-select md-select-value .md-text .pip-tabs-badge {
     .pip-search-bar .pip-search-container .pip-search-text::-ms-clear {
       display: none; }
     .pip-search-bar .pip-search-container .pip-search-text::-webkit-search-cancel-button {
-      /* псевдо что-то, что отвечает за кнопку очистки */
       -webkit-appearance: none;
       /* без сброса оформление не применится */ }
 

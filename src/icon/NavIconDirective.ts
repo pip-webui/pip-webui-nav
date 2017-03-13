@@ -1,16 +1,38 @@
 import { OpenSideNavEvent } from '../sidenav/SideNavEvents';
-import {  INavIconService, NavIconConfig } from "./NavIconService";
+import { INavIconService, NavIconConfig } from "./NavIconService";
+import { INavIconBindings } from './INavIconBindings';
 
 export let NavIconClickedEvent = 'pipNavIconClicked';
 
-class NavIconDirectiveController {
+const NavIconBindings: INavIconBindings = {
+    type: '<?pipType',
+    imageUrl: '<?pipImageUrl',
+    icon: '<?pipIcon'
+}
+
+class NavIconChanges implements ng.IOnChangesObject, INavIconBindings {
+    [key: string]: ng.IChangesObject<any>;
+    // Not one way bindings
+
+    type: ng.IChangesObject<string>;
+    imageUrl: ng.IChangesObject<string>;
+    icon: ng.IChangesObject<string>;
+}
+
+class NavIconDirectiveController implements INavIconBindings {
     private _element: ng.IAugmentedJQuery;
     private _scope: angular.IScope;
     private _log: ng.ILogService;
     private _rootScope: ng.IRootScopeService;
     private _window: ng.IWindowService;
 
+    private clearFn: Function;
+
     public config: NavIconConfig;
+
+    public type: string;
+    public imageUrl: string;
+    public icon: string;
 
     constructor(
         $element: ng.IAugmentedJQuery,
@@ -33,10 +55,28 @@ class NavIconDirectiveController {
 
         this.config = pipNavIcon.config;
 
-        $rootScope.$on('pipNavIconChanged', (event: ng.IAngularEvent, config: NavIconConfig) => {
+        this.clearFn = $rootScope.$on('pipNavIconChanged', (event: ng.IAngularEvent, config: NavIconConfig) => {
             this.onNavIconChanged(event, config)
         });
 
+    }
+
+    public $onInit() {
+        if (this.type) {
+            this.config.type = this.type;
+        }
+        if (this.imageUrl) {
+            this.config.imageUrl = this.imageUrl;
+        }
+        if (this.icon) {
+            this.config.icon = this.icon;
+        }        
+    }
+
+    public $onDestroy() {
+        if (_.isFunction(this.clearFn)) {
+            this.clearFn();
+        }
     }
 
     public onNavIconChanged(event: ng.IAngularEvent, config: NavIconConfig): void {
@@ -60,25 +100,36 @@ class NavIconDirectiveController {
 
 }
 
-(() => {
-    function navIconDirective() {
-        return {
-            restrict: 'E',
-            scope: {
-                type: '=pipType',
-                imageUrl: '=pipImageUrl',
-                icon: '=pipIcon'
-            },
-            replace: false,
-            templateUrl: 'icon/NavIcon.html',
-            controller: NavIconDirectiveController,
-            controllerAs: '$ctrl'
-        };
-    }
+const NavIcon: ng.IComponentOptions = {
+    bindings: NavIconBindings,
+    templateUrl: 'icon/NavIcon.html',
+    controller: NavIconDirectiveController
+}
+
+angular
+    .module('pipNavIcon')
+    .component('pipNavIcon', NavIcon);
 
 
-    angular
-        .module('pipNavIcon')
-        .directive('pipNavIcon', navIconDirective);
+// (() => {
+//     function navIconDirective() {
+//         return {
+//             restrict: 'E',
+//             scope: {
+//                 type: '=pipType',
+//                 imageUrl: '=pipImageUrl',
+//                 icon: '=pipIcon'
+//             },
+//             replace: false,
+//             templateUrl: 'icon/NavIcon.html',
+//             controller: NavIconDirectiveController,
+//             controllerAs: '$ctrl'
+//         };
+//     }
 
-})();
+
+//     angular
+//         .module('pipNavIcon')
+//         .directive('pipNavIcon', navIconDirective);
+
+// })();
