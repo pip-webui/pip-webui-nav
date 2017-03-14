@@ -3,7 +3,7 @@ angular
 
 import './AppBarConfig';
 import './AppBarService';
-import './AppBarDirective';
+import './AppBar';
 import './AppBarPart';
 
 export * from './AppBarService';
