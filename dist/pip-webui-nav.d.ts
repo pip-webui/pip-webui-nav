@@ -82,6 +82,19 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 }
 
 
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
+}
+
+
 
 export let BreadcrumbChangedEvent: string;
 export let BreadcrumbBackEvent: string;
@@ -105,19 +118,6 @@ export interface IBreadcrumbService {
 }
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
-}
-
-
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
 }
 
 
@@ -270,19 +270,6 @@ export class SearchConfig {
 }
 
 
-export interface ITabsBindings {
-    [key: string]: any;
-    ngDisabled: any;
-    tabs: any;
-    showTabs: any;
-    showTabsShadow: any;
-    activeIndex: any;
-    select: any;
-    breakpoints: any;
-    themeClass: any;
-}
-
-
 
 
 export let SideNavChangedEvent: string;
@@ -345,6 +332,19 @@ export class SideNavStateConfig {
     large: SideNavState;
     xlarge: SideNavState;
 }
+
+export interface ITabsBindings {
+    [key: string]: any;
+    ngDisabled: any;
+    tabs: any;
+    showTabs: any;
+    showTabsShadow: any;
+    activeIndex: any;
+    select: any;
+    breakpoints: any;
+    themeClass: any;
+}
+
 
 }
 
