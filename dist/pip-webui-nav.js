@@ -202,20 +202,18 @@ angular
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PrimaryActionsController = (function () {
-    PrimaryActionsController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$window', '$location', 'pipActions'];
-    function PrimaryActionsController($element, $attrs, $injector, $scope, $log, $rootScope, $window, $location, pipActions) {
+    PrimaryActionsController.$inject = ['$element', '$injector', '$scope', '$rootScope', '$window', '$location', 'pipActions', '$log', '$attrs'];
+    function PrimaryActionsController($element, $injector, $scope, $rootScope, $window, $location, pipActions, $log, $attrs) {
         "ngInject";
         var _this = this;
-        this._element = $element;
-        this._attrs = $attrs;
-        this._scope = $scope;
-        this._injector = $injector;
-        this._log = $log;
-        this._rootScope = $rootScope;
-        this._window = $window;
-        this._location = $location;
-        this._pipActions = pipActions;
-        this._pipTranslate = this._injector.has('pipTranslate') ? this._injector.get('pipTranslate') : null;
+        this.$element = $element;
+        this.$injector = $injector;
+        this.$scope = $scope;
+        this.$rootScope = $rootScope;
+        this.$window = $window;
+        this.$location = $location;
+        this.pipActions = pipActions;
+        this._pipTranslate = this.$injector.has('pipTranslate') ? this.$injector.get('pipTranslate') : null;
         if (this._pipTranslate && this._pipTranslate.setTranslations) {
             this._pipTranslate.setTranslations('en', {
                 DOCUMENTS_ATTACHED: 'document(s) attached',
@@ -226,18 +224,20 @@ var PrimaryActionsController = (function () {
                 ERROR_DOCUMENTS_LOADED: 'Ошибка: <%= error_number %> документ(ов) не загружено'
             });
         }
-        this._element.addClass('pip-primary-actions');
-        if (this._scope.localActions) {
-            pipActions.primaryLocalActions = this._scope.localActions;
-        }
-        if (this._scope.globalActions) {
-            pipActions.primaryGlobalActions = this._scope.globalActions;
-        }
-        this.config = pipActions.config;
-        this._rootScope.$on('pipActionsChanged', function (event, config) {
+        this.$element.addClass('pip-primary-actions');
+        this.$rootScope.$on('pipActionsChanged', function (event, config) {
             _this.onActionsChanged(event, config);
         });
     }
+    PrimaryActionsController.prototype.$onInit = function () {
+        if (this.localActions) {
+            this.pipActions.primaryLocalActions = this.localActions;
+        }
+        if (this.globalActions) {
+            this.pipActions.primaryGlobalActions = this.globalActions;
+        }
+        this.config = this.pipActions.config;
+    };
     PrimaryActionsController.prototype.onActionsChanged = function (event, config) {
         this.config = config;
     };
@@ -258,7 +258,7 @@ var PrimaryActionsController = (function () {
             return;
         }
         if (action.subActions) {
-            $mdOpenMenu(this._scope.originatorEv);
+            $mdOpenMenu(this.originatorEv);
             return;
         }
         if (_.isFunction(action.click)) {
@@ -266,16 +266,16 @@ var PrimaryActionsController = (function () {
             return;
         }
         if (action.href) {
-            this._window.location.href = action.href;
+            this.$window.location.href = action.href;
             return;
         }
         if (action.url) {
-            this._location.url(action.url);
+            this.$location.url(action.url);
             return;
         }
         if (action.state) {
-            if (this._injector.has('this._state')) {
-                var _state = this._injector.has('pipTranslate') ? this._injector.get('$state') : null;
+            if (this.$injector.has('this._state')) {
+                var _state = this.$injector.has('pipTranslate') ? this.$injector.get('$state') : null;
                 if (_state) {
                     _state.go(action.state, action.stateParams);
                 }
@@ -283,31 +283,35 @@ var PrimaryActionsController = (function () {
             return;
         }
         if (action.event) {
-            this._rootScope.$broadcast(action.event);
+            this.$rootScope.$broadcast(action.event);
         }
         else {
-            this._rootScope.$broadcast('pipActionClicked', action.name);
+            this.$rootScope.$broadcast('pipActionClicked', action.name);
         }
     };
     return PrimaryActionsController;
 }());
-(function () {
-    function primaryActionsDirective() {
-        return {
-            restrict: 'E',
-            scope: {
-                localActions: '=pipLocalActions',
-                globalActions: '=pipGlobalActions'
-            },
-            replace: false,
-            templateUrl: 'actions/PrimaryActions.html',
-            controller: PrimaryActionsController,
-            controllerAs: '$ctrl'
-        };
+var PrimaryActionsBindings = {
+    localActions: '<pipLocalActions',
+    globalActions: '<pipGlobalActions',
+    originatorEv: '<?pipOriginatorEv'
+};
+var PrimaryActionsChanges = (function () {
+    function PrimaryActionsChanges() {
     }
+    return PrimaryActionsChanges;
+}());
+(function () {
+    var primaryActions = {
+        restrict: 'E',
+        bindings: PrimaryActionsBindings,
+        replace: false,
+        templateUrl: 'actions/PrimaryActions.html',
+        controller: PrimaryActionsController
+    };
     angular
         .module('pipActions')
-        .directive('pipPrimaryActions', primaryActionsDirective);
+        .component('pipPrimaryActions', primaryActions);
 })();
 },{}],3:[function(require,module,exports){
 "use strict";
@@ -448,10 +452,10 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipActions', ['ngMaterial', 'pipNav.Templates', 'ui.router']);
 require("./ActionsService");
-require("./PrimaryActionsDirective");
+require("./PrimaryActions");
 require("./SecondaryActionsDirective");
 __export(require("./ActionsService"));
-},{"./ActionsService":1,"./PrimaryActionsDirective":2,"./SecondaryActionsDirective":3}],5:[function(require,module,exports){
+},{"./ActionsService":1,"./PrimaryActions":2,"./SecondaryActionsDirective":3}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppBarChangedEvent = 'pipAppBarChanged';
