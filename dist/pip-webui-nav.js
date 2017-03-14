@@ -825,20 +825,13 @@ var BreadcrumbController = (function () {
     };
     return BreadcrumbController;
 }());
-(function () {
-    function breadcrumbDirective() {
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: false,
-            templateUrl: 'breadcrumb/Breadcrumb.html',
-            controller: BreadcrumbController,
-            controllerAs: '$ctrl'
-        };
-    }
-    angular.module('pipBreadcrumb')
-        .directive('pipBreadcrumb', breadcrumbDirective);
-})();
+var breadcrumb = {
+    bindings: {},
+    templateUrl: 'breadcrumb/Breadcrumb.html',
+    controller: BreadcrumbController
+};
+angular.module('pipBreadcrumb')
+    .component('pipBreadcrumb', breadcrumb);
 },{"../search/SearchAngularEvents":32,"./BreadcrumbService":11}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });

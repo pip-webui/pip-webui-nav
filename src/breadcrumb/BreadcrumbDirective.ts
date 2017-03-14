@@ -125,20 +125,11 @@ class BreadcrumbController {
     }
 }
 
-(() => {
-    function breadcrumbDirective() {
-        return {
-            restrict: 'E',
-            scope: {},
-            replace: false,
-            templateUrl: 'breadcrumb/Breadcrumb.html',
-            controller: BreadcrumbController,
-            controllerAs: '$ctrl'
-        };
-    }
+const breadcrumb: ng.IComponentOptions = {
+    bindings: {},
+    templateUrl: 'breadcrumb/Breadcrumb.html',
+    controller: BreadcrumbController
+}
 
-
-    angular.module('pipBreadcrumb')
-        .directive('pipBreadcrumb', breadcrumbDirective);
-
-})();
+angular.module('pipBreadcrumb')
+    .component('pipBreadcrumb', breadcrumb);
