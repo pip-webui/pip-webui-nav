@@ -10,14 +10,14 @@ class SecondaryActionsController {
     public globalActions: ActionItem[];
 
     constructor(
-        $element: ng.IAugmentedJQuery,
         private $attrs: ng.IAttributes,
         private $injector: ng.auto.IInjectorService,
         private $log: ng.ILogService,
         private $rootScope: ng.IRootScopeService,
         private $window: ng.IWindowService,
         private $location: ng.ILocationService,
-        private pipActions: IActionsService
+        private pipActions: IActionsService,
+        $element: ng.IAugmentedJQuery,
     ) {
         "ngInject";
 
@@ -172,10 +172,8 @@ class SecondaryActionsChanges implements ng.IOnChangesObject, ISecondaryActionsB
 
 
 (() => {
-    const secondaryActions = {
-        restrict: 'E',
+    const secondaryActions: ng.IComponentOptions = {
         bindings: SecondaryActionsBindings,
-        replace: false,
         templateUrl: 'actions/SecondaryActions.html',
         controller: SecondaryActionsController
     };

@@ -148,10 +148,8 @@ class PrimaryActionsChanges implements ng.IOnChangesObject, IPrimaryActionsBindi
 
 
 (() => {
-    const primaryActions = {
-        restrict: 'E',
+    const primaryActions: ng.IComponentOptions = {
         bindings: PrimaryActionsBindings,
-        replace: false,
         templateUrl: 'actions/PrimaryActions.html',
         controller: PrimaryActionsController
     };
