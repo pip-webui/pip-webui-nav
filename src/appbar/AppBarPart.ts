@@ -1,23 +1,22 @@
 import { AppBarConfig } from './AppBarConfig';
 import { IAppBarService } from "./IAppBarService";
 
-class AppBarPartDirectiveController {
-    private _scope: ng.IScope;
+class AppBarPartController {
+    
     private _partName: string;
     private _partValue: string;
 
     constructor(
+        private $scope: ng.IScope,
         $element: ng.IAugmentedJQuery,
         $attrs: ng.IAttributes,
-        $scope: ng.IScope,
         $log: ng.ILogService,
         $rootScope: ng.IRootScopeService,
         pipAppBar: IAppBarService
     ) {
         "ngInject";
 
-        this._scope = $scope;
-        this._partName = String($attrs.pipAppbarPart);
+        this._partName = String($attrs['pipAppbarPart']);
         this._partValue = null;
 
         // Break part apart
@@ -41,15 +40,15 @@ class AppBarPartDirectiveController {
         // Set visible variable to switch ngIf
         let visible: boolean = !!(this._partValue ? currentPartValue == this._partValue : currentPartValue);
 
-        if (visible != this._scope['visible'])
-            this._scope['visible'] = visible;
+        if (visible != this.$scope['visible'])
+            this.$scope['visible'] = visible;
     }
 
 }
 
 // Example is taken from here: http://stackoverflow.com/questions/20325480/angularjs-whats-the-best-practice-to-add-ngif-to-a-directive-programmatically
 (() => {
-    function appbarPartDirective(ngIfDirective) {
+    function appbarPart(ngIfDirective) {
         "ngInject";
 
         var ngIf = ngIfDirective[0];
@@ -62,16 +61,16 @@ class AppBarPartDirectiveController {
             scope: true,
             link: function linkFunction($scope: ng.IScope, $element: ng.IAugmentedJQuery, $attrs: ng.IAttributes) {
                 // Visualize based on visible variable in scope
-                $attrs.ngIf = function () {
-                    return $scope.visible;
+                $attrs['ngIf'] = () => {
+                    return $scope['visible'];
                 };
                 ngIf.link.apply(ngIf, arguments);
             },
-            controller: AppBarPartDirectiveController
+            controller: AppBarPartController
         };
     }
 
     angular.module('pipAppBar')
-        .directive('pipAppbarPart', appbarPartDirective);
+        .directive('pipAppbarPart', appbarPart);
 
 })();

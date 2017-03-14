@@ -2,10 +2,8 @@ angular
     .module('pipAppBar', ['ngMaterial', 'pipNav.Templates']);
 
 import './AppBarConfig';
-import './IAppBarService';
-import './AppBarAngularEvents';
 import './AppBarService';
 import './AppBarDirective';
-import './AppBarPartDirective';
+import './AppBarPart';
 
 export * from './AppBarService';
