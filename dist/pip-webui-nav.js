@@ -741,14 +741,14 @@ var BreadcrumbService_1 = require("./BreadcrumbService");
 var BreadcrumbService_2 = require("./BreadcrumbService");
 var SearchAngularEvents_1 = require("../search/SearchAngularEvents");
 var BreadcrumbController = (function () {
-    BreadcrumbController.$inject = ['$element', '$rootScope', '$window', '$state', '$location', '$injector', 'pipBreadcrumb', '$mdMedia'];
-    function BreadcrumbController($element, $rootScope, $window, $state, $location, $injector, pipBreadcrumb, $mdMedia) {
+    BreadcrumbController.$inject = ['$rootScope', '$window', '$location', '$injector', 'pipBreadcrumb', '$mdMedia', '$state', '$element'];
+    function BreadcrumbController($rootScope, $window, $location, $injector, pipBreadcrumb, $mdMedia, $state, $element) {
         "ngInject";
         var _this = this;
-        this._rootScope = $rootScope;
-        this._window = $window;
-        this._location = $location;
-        this._injector = $injector;
+        this.$rootScope = $rootScope;
+        this.$window = $window;
+        this.$location = $location;
+        this.$injector = $injector;
         $element.addClass('pip-breadcrumb');
         this.config = pipBreadcrumb.config;
         $rootScope.$on(BreadcrumbService_1.BreadcrumbChangedEvent, function (event, config) {
@@ -769,11 +769,11 @@ var BreadcrumbController = (function () {
                 item.click(item);
             }
             else {
-                this._window.history.back();
+                this.$window.history.back();
             }
         }
         else {
-            this._window.history.back();
+            this.$window.history.back();
         }
     };
     BreadcrumbController.prototype.onClick = function (item) {
@@ -782,7 +782,7 @@ var BreadcrumbController = (function () {
         }
     };
     BreadcrumbController.prototype.openSearch = function () {
-        this._rootScope.$broadcast(SearchAngularEvents_1.OpenSearchEvent);
+        this.$rootScope.$broadcast(SearchAngularEvents_1.OpenSearchEvent);
     };
     BreadcrumbController.prototype.actionsVisible = function (item) {
         return angular.isArray(item.subActions) && item.subActions.length > 1;
@@ -800,26 +800,26 @@ var BreadcrumbController = (function () {
             return;
         }
         if (action.href) {
-            this._window.location.href = action.href;
+            this.$window.location.href = action.href;
             return;
         }
         if (action.url) {
-            this._location.url(action.url);
+            this.$location.url(action.url);
             return;
         }
         if (action.state) {
-            if (this._injector.has('$state')) {
-                var _state = this._injector.get('$state');
+            if (this.$injector.has('$state')) {
+                var _state = this.$injector.get('$state');
                 _state.go(action.state, action.stateParams);
             }
             return;
         }
         if (action.event) {
-            this._rootScope.$broadcast(action.event);
+            this.$rootScope.$broadcast(action.event);
             this.originatorEv = null;
         }
         else {
-            this._rootScope.$broadcast('pipActionClicked', action.name);
+            this.$rootScope.$broadcast('pipActionClicked', action.name);
             this.originatorEv = null;
         }
     };
@@ -857,9 +857,8 @@ exports.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 exports.BreadcrumbBackEvent = "pipBreadcrumbBack";
 var BreadcrumbConfig_1 = require("./BreadcrumbConfig");
 var BreadcrumbService = (function () {
-    function BreadcrumbService(config, $rootScope) {
-        this._config = config;
-        this._rootScope = $rootScope;
+    function BreadcrumbService($rootScope, config) {
+        this.$rootScope = $rootScope;
     }
     Object.defineProperty(BreadcrumbService.prototype, "config", {
         get: function () {
@@ -916,7 +915,7 @@ var BreadcrumbService = (function () {
         this.sendConfigEvent();
     };
     BreadcrumbService.prototype.sendConfigEvent = function () {
-        this._rootScope.$broadcast(exports.BreadcrumbChangedEvent, this._config);
+        this.$rootScope.$broadcast(exports.BreadcrumbChangedEvent, this._config);
     };
     return BreadcrumbService;
 }());
@@ -937,7 +936,7 @@ var BreadcrumbProvider = (function () {
     BreadcrumbProvider.prototype.$get = ['$rootScope', function ($rootScope) {
         "ngInject";
         if (this._service == null)
-            this._service = new BreadcrumbService(this._config, $rootScope);
+            this._service = new BreadcrumbService($rootScope, this._config);
         return this._service;
     }];
     return BreadcrumbProvider;

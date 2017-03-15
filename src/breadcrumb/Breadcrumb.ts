@@ -7,31 +7,22 @@ import { BreadcrumbBackEvent } from './BreadcrumbService';
 import { OpenSearchEvent } from '../search/SearchAngularEvents'
 
 class BreadcrumbController {
-    private _rootScope: ng.IRootScopeService;
-    private _window: ng.IWindowService;
-    private _location: ng.ILocationService;
-    private _injector: ng.auto.IInjectorService;
     private originatorEv: Event;
     private _media: any;
 
     public config: BreadcrumbConfig;
 
     public constructor(
-        $element: ng.IAugmentedJQuery,
-        $rootScope: ng.IRootScopeService,
-        $window: ng.IWindowService,
-        $state: ng.ui.IStateService,
-        $location: ng.ILocationService,
-        $injector: ng.auto.IInjectorService,
+        private $rootScope: ng.IRootScopeService,
+        private $window: ng.IWindowService,
+        private $location: ng.ILocationService,
+        private $injector: ng.auto.IInjectorService,
         pipBreadcrumb: IBreadcrumbService,
-        $mdMedia: angular.material.IMedia
+        $mdMedia: angular.material.IMedia,
+        $state: ng.ui.IStateService,
+        $element: ng.IAugmentedJQuery,
     ) {
         "ngInject";
-
-        this._rootScope = $rootScope;
-        this._window = $window;
-        this._location = $location;
-        this._injector = $injector;
 
         // Apply class and call resize
         $element.addClass('pip-breadcrumb');
@@ -59,10 +50,10 @@ class BreadcrumbController {
             if (_.isFunction(item.click)) {
                 item.click(item);
             } else {
-                this._window.history.back();
+                this.$window.history.back();
             }
         } else {
-            this._window.history.back();
+            this.$window.history.back();
         }
     }
 
@@ -73,7 +64,7 @@ class BreadcrumbController {
     }
 
     public openSearch(): void {
-        this._rootScope.$broadcast(OpenSearchEvent);
+        this.$rootScope.$broadcast(OpenSearchEvent);
     }
 
     public actionsVisible(item: BreadcrumbItem): boolean {
@@ -97,29 +88,29 @@ class BreadcrumbController {
         }
 
         if (action.href) {
-            this._window.location.href = action.href;
+            this.$window.location.href = action.href;
             return;
         }
 
         if (action.url) {
-            this._location.url(action.url);
+            this.$location.url(action.url);
             return;
         }
 
         if (action.state) {
-            if (this._injector.has('$state')) {
-                let _state: angular.ui.IStateService = this._injector.get('$state') as ng.ui.IStateService
+            if (this.$injector.has('$state')) {
+                let _state: angular.ui.IStateService = this.$injector.get('$state') as ng.ui.IStateService
                 _state.go(action.state, action.stateParams);
             }
             return;
         }
 
         if (action.event) {
-            this._rootScope.$broadcast(action.event);
+            this.$rootScope.$broadcast(action.event);
             this.originatorEv = null;
         } else {
             // Otherwise raise notification
-            this._rootScope.$broadcast('pipActionClicked', action.name);
+            this.$rootScope.$broadcast('pipActionClicked', action.name);
             this.originatorEv = null;
         }
     }

@@ -6,15 +6,11 @@ import { IBreadcrumbService, IBreadcrumbProvider } from './IBreadcrumbService';
 
 class BreadcrumbService implements IBreadcrumbService {
     private _config: BreadcrumbConfig;
-    private _rootScope: ng.IRootScopeService;
 
     public constructor(
-        config: BreadcrumbConfig,
-        $rootScope: ng.IRootScopeService
-    ) {
-        this._config = config;
-        this._rootScope = $rootScope;
-    }
+        private $rootScope: ng.IRootScopeService,
+        config: BreadcrumbConfig
+    ) {}
 
     public get config() {
         return this._config;
@@ -66,7 +62,7 @@ class BreadcrumbService implements IBreadcrumbService {
     }
 
     public sendConfigEvent() {
-        this._rootScope.$broadcast(BreadcrumbChangedEvent, this._config);
+        this.$rootScope.$broadcast(BreadcrumbChangedEvent, this._config);
     }
 }
 
@@ -87,7 +83,7 @@ class BreadcrumbProvider implements IBreadcrumbProvider, ng.IServiceProvider {
         "ngInject";
 
         if (this._service == null)
-            this._service = new BreadcrumbService(this._config, $rootScope);
+            this._service = new BreadcrumbService($rootScope, this._config);
 
         return this._service;
     }
