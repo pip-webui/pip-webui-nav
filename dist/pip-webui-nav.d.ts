@@ -193,7 +193,6 @@ export let NavIconChangedEvent: string;
 
 
 
-export let NavMenuChangedEvent: string;
 export class NavMenuLink {
     name: string;
     title: string;
@@ -222,6 +221,8 @@ export class NavMenuConfig {
     sections: NavMenuSection[];
     defaultIcon: string;
 }
+
+export const NavMenuChangedEvent: string;
 export interface INavMenuService {
     sections: NavMenuSection[];
     defaultIcon: string;

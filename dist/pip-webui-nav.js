@@ -1950,24 +1950,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NavMenuChangedEvent = 'pipNavMenuChanged';
-var NavMenuLink = (function () {
-    function NavMenuLink() {
-    }
-    return NavMenuLink;
-}());
-exports.NavMenuLink = NavMenuLink;
-var NavMenuSection = (function () {
-    function NavMenuSection() {
-    }
-    return NavMenuSection;
-}());
-exports.NavMenuSection = NavMenuSection;
-var NavMenuConfig = (function () {
-    function NavMenuConfig() {
-    }
-    return NavMenuConfig;
-}());
-exports.NavMenuConfig = NavMenuConfig;
 var NavMenuService = (function () {
     function NavMenuService(config, $rootScope) {
         this._config = config;
@@ -2076,9 +2058,9 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 require("./NavMenuService");
-require("./NavMenuDirective");
+require("./NavMenu");
 __export(require("./NavMenuService"));
-},{"./NavMenuDirective":28,"./NavMenuService":29}],31:[function(require,module,exports){
+},{"./NavMenu":28,"./NavMenuService":29}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 },{}],32:[function(require,module,exports){

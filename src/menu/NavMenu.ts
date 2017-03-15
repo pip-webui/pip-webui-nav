@@ -1,6 +1,7 @@
 import { ISideNavService, SideNavConfig } from '../sidenav/SideNavService';
-import { NavMenuConfig, NavMenuSection, INavMenuService, NavMenuLink } from './NavMenuService';
+import { INavMenuService} from './NavMenuService';
 import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
+import { NavMenuConfig, NavMenuSection, NavMenuLink } from './NavMenuConfig';
 
 (() => {
     class NavMenuController {
