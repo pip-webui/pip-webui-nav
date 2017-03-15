@@ -11,6 +11,11 @@
         public selectedIndex: number;
         public currentTheme: string;
 
+        public ngDisabled: Function;
+        public showDropdown: Function;
+        public select: any;
+        public pipChange: Function;
+
         constructor(
             private $scope: angular.IScope,
             private $timeout: ng.ITimeoutService,
@@ -37,14 +42,14 @@
 
             //pipAssert.isArray($scope.actions, 'pipDropdown: pip-actions attribute should take an array, but take ' + typeof $scope.actions);
             this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
-            this.actions = ($scope['actions'] && _.isArray($scope['actions'])) ? $scope['actions'] : [];
-            this.activeIndex = $scope['activeIndex'] || 0;
+            this.actions = (this.actions && _.isArray(this.actions)) ? this.actions : [];
+            this.activeIndex = this.activeIndex || 0;
         }
 
 
         public disabled(): boolean {
-            if (this.$scope['ngDisabled']) {
-                return this.$scope['ngDisabled']();
+            if (this.ngDisabled) {
+                return this.ngDisabled();
             } else {
                 return false;
             }
@@ -52,22 +57,21 @@
 
         public onSelect(index: number): void {
             this.activeIndex = index;
-            this.$scope['activeIndex'] = index;
-            if (this.$scope['select']) {
-                this.$scope['select'](this.actions[index], this.activeIndex);
+            if (this.select) {
+                this.select(this.actions[index], this.activeIndex);
             }
 
-            if (this.$scope['pipChange']) {
+            if (this.pipChange) {
                 this.$timeout(() => {
-                    this.$scope['pipChange']();
+                    this.pipChange();
                 });
             }
         }
 
         public show(): boolean {
             let result: boolean;
-            if (this.$scope['showDropdown']()) {
-                return !!this.$scope['showDropdown']();
+            if (this.showDropdown()) {
+                return !!this.showDropdown();
             } else {
                 return true;
             }
@@ -75,10 +79,9 @@
 
     }
 
-    function dropdownDirective() {
-        return {
+    const dropdownDirective = {
             restrict: 'E',
-            scope: {
+            bindings: {
                 ngDisabled: '&',
                 actions: '=pipActions',
                 showDropdown: '&pipShow',
@@ -90,10 +93,9 @@
             controller: DropdownController,
             controllerAs: '$ctrl'
         };
-    }
 
     angular
         .module('pipDropdown', ['pipNav.Templates'])
-        .directive('pipDropdown', dropdownDirective);
+        .component('pipDropdown', dropdownDirective);
 
 })();

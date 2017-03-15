@@ -1027,12 +1027,12 @@ angular
             }
             this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
             this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
-            this.actions = ($scope['actions'] && _.isArray($scope['actions'])) ? $scope['actions'] : [];
-            this.activeIndex = $scope['activeIndex'] || 0;
+            this.actions = (this.actions && _.isArray(this.actions)) ? this.actions : [];
+            this.activeIndex = this.activeIndex || 0;
         }
         DropdownController.prototype.disabled = function () {
-            if (this.$scope['ngDisabled']) {
-                return this.$scope['ngDisabled']();
+            if (this.ngDisabled) {
+                return this.ngDisabled();
             }
             else {
                 return false;
@@ -1041,20 +1041,19 @@ angular
         DropdownController.prototype.onSelect = function (index) {
             var _this = this;
             this.activeIndex = index;
-            this.$scope['activeIndex'] = index;
-            if (this.$scope['select']) {
-                this.$scope['select'](this.actions[index], this.activeIndex);
+            if (this.select) {
+                this.select(this.actions[index], this.activeIndex);
             }
-            if (this.$scope['pipChange']) {
+            if (this.pipChange) {
                 this.$timeout(function () {
-                    _this.$scope['pipChange']();
+                    _this.pipChange();
                 });
             }
         };
         DropdownController.prototype.show = function () {
             var result;
-            if (this.$scope['showDropdown']()) {
-                return !!this.$scope['showDropdown']();
+            if (this.showDropdown()) {
+                return !!this.showDropdown();
             }
             else {
                 return true;
@@ -1062,25 +1061,23 @@ angular
         };
         return DropdownController;
     }());
-    function dropdownDirective() {
-        return {
-            restrict: 'E',
-            scope: {
-                ngDisabled: '&',
-                actions: '=pipActions',
-                showDropdown: '&pipShow',
-                activeIndex: '=pipActiveIndex',
-                select: '=pipDropdownSelect',
-                pipChange: '&'
-            },
-            templateUrl: 'dropdown/Dropdown.html',
-            controller: DropdownController,
-            controllerAs: '$ctrl'
-        };
-    }
+    var dropdownDirective = {
+        restrict: 'E',
+        bindings: {
+            ngDisabled: '&',
+            actions: '=pipActions',
+            showDropdown: '&pipShow',
+            activeIndex: '=pipActiveIndex',
+            select: '=pipDropdownSelect',
+            pipChange: '&'
+        },
+        templateUrl: 'dropdown/Dropdown.html',
+        controller: DropdownController,
+        controllerAs: '$ctrl'
+    };
     angular
         .module('pipDropdown', ['pipNav.Templates'])
-        .directive('pipDropdown', dropdownDirective);
+        .component('pipDropdown', dropdownDirective);
 })();
 },{}],17:[function(require,module,exports){
 "use strict";
