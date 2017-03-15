@@ -1,8 +1,15 @@
 import { OpenSideNavEvent } from '../sidenav/SideNavEvents';
 import { NavIconConfig } from './NavIconConfig';
 import { INavIconService } from './INavIconService';
-import { INavIconBindings } from './INavIconBindings';
-import { NavIconClickedEvent, NavIconChangedEvent } from './NavIconAngularEvents';
+import { NavIconClickedEvent, NavIconChangedEvent } from './NavIconService';
+
+interface INavIconBindings {
+    [key: string]: any;
+
+    type: any;
+    imageUrl: any;
+    icon: any;
+}
 
 const NavIconBindings: INavIconBindings = {
     type: '<?pipType',
@@ -20,35 +27,23 @@ class NavIconChanges implements ng.IOnChangesObject, INavIconBindings {
 }
 
 class NavIconController implements INavIconBindings {
-    private _element: ng.IAugmentedJQuery;
-    private _scope: angular.IScope;
-    private _log: ng.ILogService;
-    private _rootScope: ng.IRootScopeService;
-    private _window: ng.IWindowService;
-
     private clearFn: Function;
 
     public config: NavIconConfig;
-
     public type: string;
     public imageUrl: string;
     public icon: string;
 
     constructor(
+        private $rootScope: ng.IRootScopeService,
+        private $window: ng.IWindowService,
         $element: ng.IAugmentedJQuery,
         $scope: angular.IScope,
         $log: ng.ILogService,
-        $rootScope: ng.IRootScopeService,
-        $window: ng.IWindowService,
         pipNavIcon: INavIconService
     ) {
         "ngInject";
 
-        this._element = $element;
-        this._scope = $scope;
-        this._log = $log;
-        this._rootScope = $rootScope;
-        this._window = $window;
 
         // Apply class and call resize
         $element.addClass('pip-nav-icon');
@@ -88,13 +83,13 @@ class NavIconController implements INavIconBindings {
             // Execute nav icon callback
             this.config.click();
         } else if (this.config.event) {
-            this._rootScope.$broadcast(this.config.event);
+            this.$rootScope.$broadcast(this.config.event);
         } else if (this.config.type == 'menu') {
-            this._rootScope.$broadcast(OpenSideNavEvent);
+            this.$rootScope.$broadcast(OpenSideNavEvent);
         } else if (this.config.type == 'back') {
-            this._window.history.back();
+            this.$window.history.back();
         } else {
-            this._rootScope.$broadcast(NavIconClickedEvent);
+            this.$rootScope.$broadcast(NavIconClickedEvent);
         }
     }
 

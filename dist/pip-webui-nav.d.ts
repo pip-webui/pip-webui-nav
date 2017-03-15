@@ -199,13 +199,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     click: () => void;
 }
 
-export interface INavIconBindings {
-    [key: string]: any;
-    type: any;
-    imageUrl: any;
-    icon: any;
-}
-
 export interface INavIconService {
     readonly config: NavIconConfig;
     showMenu(callbackOrEvent?: any): void;
@@ -225,9 +218,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
 
 
 
-export let NavIconClickedEvent: string;
-export let NavIconChangedEvent: string;
-
 export class NavIconConfig {
     type: string;
     imageUrl: string;
@@ -236,6 +226,8 @@ export class NavIconConfig {
     event: string;
 }
 
+export let NavIconClickedEvent: string;
+export let NavIconChangedEvent: string;
 
 
 
