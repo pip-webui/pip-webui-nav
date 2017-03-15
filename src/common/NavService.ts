@@ -10,6 +10,15 @@ import { ISideNavService } from '../sidenav/SideNavService';
 
 class NavService implements INavService {
 
+    public appbar: IAppBarService;
+    public icon: INavIconService;
+    public breadcrumb: IBreadcrumbService;
+    public actions: IActionsService;
+    public search: ISearchService;
+    public sidenav: ISideNavService;
+    public header: INavHeaderService;
+    public menu: INavMenuService;
+
     public constructor($injector: ng.auto.IInjectorService) {
         "ngInject";
 
@@ -22,15 +31,6 @@ class NavService implements INavService {
         this.header = $injector.has('pipNavHeader') ? <INavHeaderService>$injector.get('pipNavHeader') : null;
         this.menu = $injector.has('pipNavMenu') ? <INavMenuService>$injector.get('pipNavMenu') : null;
     }
-
-    public appbar: IAppBarService;
-    public icon: INavIconService;
-    public breadcrumb: IBreadcrumbService;
-    public actions: IActionsService;
-    public search: ISearchService;
-    public sidenav: ISideNavService;
-    public header: INavHeaderService;
-    public menu: INavMenuService;
 
     public reset() {
         // Reset appbar
