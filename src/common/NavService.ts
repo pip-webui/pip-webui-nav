@@ -1,7 +1,7 @@
 import { INavService } from './INavService'
 import { INavIconService } from '../icon/INavIconService';
 import { INavMenuService } from '../menu/NavMenuService';
-import { INavHeaderService } from '../header/NavHeaderService';
+import { INavHeaderService } from '../header/INavHeaderService';
 import { IBreadcrumbService } from '../breadcrumb/IBreadcrumbService';
 import { ISearchService } from '../search/ISearchService';
 import { IActionsService } from '../actions/ActionsService';

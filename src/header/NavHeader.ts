@@ -1,4 +1,5 @@
-import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
+import { INavHeaderService } from "./INavHeaderService";
+import { NavHeaderConfig } from "./NavHeaderConfig";
 
 (() => {
     class NavHeaderController {

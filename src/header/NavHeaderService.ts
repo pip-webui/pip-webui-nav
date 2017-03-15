@@ -1,54 +1,13 @@
+import { NavHeaderConfig } from "./NavHeaderConfig";
+import { INavHeaderService, INavHeaderProvider } from "./INavHeaderService";
+
 export let NavHeaderChangedEvent = 'pipNavHeaderChanged';
 
-export class NavHeaderConfig {
-    // Image url
-    public imageUrl: string;
-    // Image url
-    public defaultImageUrl: string;
-    // Title
-    public title: string;
-    // Subtitle
-    public subtitle: string;
-    // image styles
-    public imageCss: string;
-    // Handle header click event
-    click: () => void;
-    // Event name
-    event: string
-};
-
-export interface INavHeaderService {
-    readonly config: NavHeaderConfig;
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    event: string;
-
-    show(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-    click: () => void;
-}
-
-export interface INavHeaderProvider extends ng.IServiceProvider {
-    config: NavHeaderConfig;
-    defaultImageUrl: string;
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    event: string;
-
-    set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-    click: () => void;
-}
-
-class NavHeaderService {
+class NavHeaderService implements INavHeaderService {
     private _config: NavHeaderConfig;
-    private _rootScope: ng.IRootScopeService;
 
-    public constructor(config: NavHeaderConfig, $rootScope: ng.IRootScopeService) {
+    public constructor(config: NavHeaderConfig, private $rootScope: ng.IRootScopeService) {
         this._config = config;
-        this._rootScope = $rootScope;
     }
 
     public get config(): NavHeaderConfig {
@@ -128,7 +87,7 @@ class NavHeaderService {
     }
 
     private sendConfigEvent() {
-        this._rootScope.$emit(NavHeaderChangedEvent, this._config);
+        this.$rootScope.$emit(NavHeaderChangedEvent, this._config);
     }
 }
 

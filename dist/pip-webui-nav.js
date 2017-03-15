@@ -832,7 +832,7 @@ var breadcrumb = {
 };
 angular.module('pipBreadcrumb')
     .component('pipBreadcrumb', breadcrumb);
-},{"../search/SearchAngularEvents":31,"./BreadcrumbService":12}],11:[function(require,module,exports){
+},{"../search/SearchAngularEvents":32,"./BreadcrumbService":12}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var BreadcrumbItem = (function () {
@@ -1231,7 +1231,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 },{}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NavHeaderChangedEvent = 'pipNavHeaderChanged';
 var NavHeaderConfig = (function () {
     function NavHeaderConfig() {
     }
@@ -1239,10 +1238,15 @@ var NavHeaderConfig = (function () {
 }());
 exports.NavHeaderConfig = NavHeaderConfig;
 ;
+},{}],19:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var NavHeaderConfig_1 = require("./NavHeaderConfig");
+exports.NavHeaderChangedEvent = 'pipNavHeaderChanged';
 var NavHeaderService = (function () {
     function NavHeaderService(config, $rootScope) {
+        this.$rootScope = $rootScope;
         this._config = config;
-        this._rootScope = $rootScope;
     }
     Object.defineProperty(NavHeaderService.prototype, "config", {
         get: function () {
@@ -1333,20 +1337,20 @@ var NavHeaderService = (function () {
         this.sendConfigEvent();
     };
     NavHeaderService.prototype.sendConfigEvent = function () {
-        this._rootScope.$emit(exports.NavHeaderChangedEvent, this._config);
+        this.$rootScope.$emit(exports.NavHeaderChangedEvent, this._config);
     };
     return NavHeaderService;
 }());
 var NavHeaderProvider = (function () {
     function NavHeaderProvider() {
-        this._config = new NavHeaderConfig();
+        this._config = new NavHeaderConfig_1.NavHeaderConfig();
     }
     Object.defineProperty(NavHeaderProvider.prototype, "config", {
         get: function () {
             return this._config;
         },
         set: function (value) {
-            this._config = value || new NavHeaderConfig();
+            this._config = value || new NavHeaderConfig_1.NavHeaderConfig();
         },
         enumerable: true,
         configurable: true
@@ -1446,7 +1450,7 @@ var NavHeaderProvider = (function () {
 angular
     .module('pipNavHeader')
     .provider('pipNavHeader', NavHeaderProvider);
-},{}],19:[function(require,module,exports){
+},{"./NavHeaderConfig":18}],20:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -1454,12 +1458,12 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipNavHeader', ['ngMaterial', 'pipNav.Templates']);
 require("./NavHeaderService");
-require("./NavHeaderDirective");
+require("./NavHeader");
 __export(require("./NavHeaderService"));
-},{"./NavHeaderDirective":17,"./NavHeaderService":18}],20:[function(require,module,exports){
+},{"./NavHeader":17,"./NavHeaderService":19}],21:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavEvents_1 = require("../sidenav/SideNavEvents");
@@ -1533,7 +1537,7 @@ var NavIcon = {
 angular
     .module('pipNavIcon')
     .component('pipNavIcon', NavIcon);
-},{"../sidenav/SideNavEvents":37,"./NavIconService":23}],22:[function(require,module,exports){
+},{"../sidenav/SideNavEvents":38,"./NavIconService":24}],23:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var NavIconConfig = (function () {
@@ -1543,7 +1547,7 @@ var NavIconConfig = (function () {
 }());
 exports.NavIconConfig = NavIconConfig;
 ;
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var NavIconConfig_1 = require("./NavIconConfig");
@@ -1664,7 +1668,7 @@ var NavIconProvider = (function () {
 angular
     .module('pipNavIcon')
     .provider('pipNavIcon', NavIconProvider);
-},{"./NavIconConfig":22}],24:[function(require,module,exports){
+},{"./NavIconConfig":23}],25:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -1677,7 +1681,7 @@ require("./NavIconService");
 require("./NavIcon");
 __export(require("./NavIconConfig"));
 __export(require("./NavIconService"));
-},{"./INavIconService":20,"./NavIcon":21,"./NavIconConfig":22,"./NavIconService":23}],25:[function(require,module,exports){
+},{"./INavIconService":21,"./NavIcon":22,"./NavIconConfig":23,"./NavIconService":24}],26:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -1726,7 +1730,7 @@ __export(require("./sidenav"));
 __export(require("./icon"));
 __export(require("./menu"));
 __export(require("./header"));
-},{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/Dropdown":16,"./header":19,"./icon":24,"./language/LanguagePickerDirective":26,"./menu":29,"./search":35,"./sidenav":41,"./tabs/Tabs":42}],26:[function(require,module,exports){
+},{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/Dropdown":16,"./header":20,"./icon":25,"./language/LanguagePickerDirective":27,"./menu":30,"./search":36,"./sidenav":42,"./tabs/Tabs":43}],27:[function(require,module,exports){
 (function () {
     var LanguagePickerDirectiveController = (function () {
         LanguagePickerDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$timeout'];
@@ -1784,7 +1788,7 @@ __export(require("./header"));
     ])
         .directive('pipLanguagePicker', languagePickerDirective);
 })();
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 (function () {
@@ -1963,7 +1967,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         .module('pipNavMenu')
         .directive('pipNavMenu', navMenuDirective);
 })();
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NavMenuChangedEvent = 'pipNavMenuChanged';
@@ -2085,7 +2089,7 @@ var NavMenuProvider = (function () {
 angular
     .module('pipNavMenu')
     .provider('pipNavMenu', NavMenuProvider);
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -2095,17 +2099,17 @@ angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Template
 require("./NavMenuService");
 require("./NavMenuDirective");
 __export(require("./NavMenuService"));
-},{"./NavMenuDirective":27,"./NavMenuService":28}],30:[function(require,module,exports){
+},{"./NavMenuDirective":28,"./NavMenuService":29}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OpenSearchEvent = 'pipOpenSearch';
 exports.CloseSearchEvent = 'pipCloseSearch';
 exports.SearchChangedEvent = 'pipSearchChanged';
 exports.SearchActivatedEvent = 'pipSearchActivated';
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchAngularEvents_1 = require("./SearchAngularEvents");
@@ -2199,7 +2203,7 @@ var SearchBar = {
 angular
     .module('pipSearchBar')
     .component('pipSearchBar', SearchBar);
-},{"./SearchAngularEvents":31}],33:[function(require,module,exports){
+},{"./SearchAngularEvents":32}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchConfig = (function () {
@@ -2208,7 +2212,7 @@ var SearchConfig = (function () {
     return SearchConfig;
 }());
 exports.SearchConfig = SearchConfig;
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchConfig_1 = require("./SearchConfig");
@@ -2317,7 +2321,7 @@ var SearchProvider = (function () {
 }());
 angular.module('pipSearchBar')
     .provider('pipSearch', SearchProvider);
-},{"./SearchAngularEvents":31,"./SearchConfig":33}],35:[function(require,module,exports){
+},{"./SearchAngularEvents":32,"./SearchConfig":34}],36:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
@@ -2326,7 +2330,7 @@ require("./SearchAngularEvents");
 require("./ISearchService");
 require("./SearchService");
 require("./SearchBar");
-},{"./ISearchService":30,"./SearchAngularEvents":31,"./SearchBar":32,"./SearchConfig":33,"./SearchService":34}],36:[function(require,module,exports){
+},{"./ISearchService":31,"./SearchAngularEvents":32,"./SearchBar":33,"./SearchConfig":34,"./SearchService":35}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavState_1 = require("./SideNavState");
@@ -2494,14 +2498,14 @@ var SideNavDirectiveController = (function () {
         .module('pipSideNav')
         .directive('pipSidenav', sideNavDirective);
 })();
-},{"./SideNavState":40}],37:[function(require,module,exports){
+},{"./SideNavState":41}],38:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SideNavChangedEvent = 'pipSideNavChanged';
 exports.SideNavStateChangedEvent = 'pipSideNavStateChanged';
 exports.OpenSideNavEvent = 'pipOpenSideNav';
 exports.CloseSideNavEvent = 'pipCloseSideNav';
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 (function () {
     SideNavPartDirectiveController.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav'];
     sidenavPartDirective.$inject = ['ngIfDirective'];
@@ -2544,7 +2548,7 @@ exports.CloseSideNavEvent = 'pipCloseSideNav';
         .module('pipSideNav')
         .directive('pipSidenavPart', sidenavPartDirective);
 })();
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 "use strict";
 hookSideNavEvents.$inject = ['$rootScope', 'pipSideNav'];
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2748,7 +2752,7 @@ angular
     .module('pipSideNav')
     .provider('pipSideNav', SideNavProvider)
     .run(hookSideNavEvents);
-},{"./SideNavEvents":37}],40:[function(require,module,exports){
+},{"./SideNavEvents":38}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavStateNames = (function () {
@@ -2813,7 +2817,7 @@ var SideNavStateConfig = (function () {
     return SideNavStateConfig;
 }());
 exports.SideNavStateConfig = SideNavStateConfig;
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -2826,7 +2830,7 @@ require("./SideNavService");
 require("./SideNavPartDirective");
 require("./SideNavDirective");
 __export(require("./SideNavService"));
-},{"./SideNavDirective":36,"./SideNavEvents":37,"./SideNavPartDirective":38,"./SideNavService":39,"./SideNavState":40}],42:[function(require,module,exports){
+},{"./SideNavDirective":37,"./SideNavEvents":38,"./SideNavPartDirective":39,"./SideNavService":40,"./SideNavState":41}],43:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PipTab = (function () {
@@ -3005,7 +3009,7 @@ var Tabs = {
 angular
     .module('pipTabs', ['pipNav.Templates'])
     .component('pipTabs', Tabs);
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -3152,7 +3156,7 @@ module.run(['$templateCache', function($templateCache) {
 
 
 
-},{}]},{},[43,25])(43)
+},{}]},{},[44,26])(44)
 });
 
 //# sourceMappingURL=pip-webui-nav.js.map

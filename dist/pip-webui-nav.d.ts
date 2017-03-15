@@ -124,18 +124,6 @@ export interface INavService {
 
 
 
-
-
-export let NavHeaderChangedEvent: string;
-export class NavHeaderConfig {
-    imageUrl: string;
-    defaultImageUrl: string;
-    title: string;
-    subtitle: string;
-    imageCss: string;
-    click: () => void;
-    event: string;
-}
 export interface INavHeaderService {
     readonly config: NavHeaderConfig;
     imageUrl: string;
@@ -157,6 +145,20 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
     clear(): void;
     click: () => void;
 }
+
+
+
+export class NavHeaderConfig {
+    imageUrl: string;
+    defaultImageUrl: string;
+    title: string;
+    subtitle: string;
+    imageCss: string;
+    click: () => void;
+    event: string;
+}
+
+export let NavHeaderChangedEvent: string;
 
 export interface INavIconService {
     readonly config: NavIconConfig;
