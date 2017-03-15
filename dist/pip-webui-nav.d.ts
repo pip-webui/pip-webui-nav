@@ -265,6 +265,19 @@ export class SearchConfig {
 }
 
 
+export interface ITabsBindings {
+    [key: string]: any;
+    ngDisabled: any;
+    tabs: any;
+    showTabs: any;
+    showTabsShadow: any;
+    activeIndex: any;
+    select: any;
+    breakpoints: any;
+    themeClass: any;
+}
+
+
 
 
 export let SideNavChangedEvent: string;
@@ -327,19 +340,6 @@ export class SideNavStateConfig {
     large: SideNavState;
     xlarge: SideNavState;
 }
-
-export interface ITabsBindings {
-    [key: string]: any;
-    ngDisabled: any;
-    tabs: any;
-    showTabs: any;
-    showTabsShadow: any;
-    activeIndex: any;
-    select: any;
-    breakpoints: any;
-    themeClass: any;
-}
-
 
 }
 
