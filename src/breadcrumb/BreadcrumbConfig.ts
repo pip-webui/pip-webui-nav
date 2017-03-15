@@ -1,8 +1,8 @@
 import { SimpleActionItem } from '../actions/ActionsService';
 export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;   
-    subActions?: SimpleActionItem[]; 
+    title: string = null;
+    click?: (item: BreadcrumbItem) => void = null;   
+    subActions?: SimpleActionItem[] = null; 
 }
 
 export class BreadcrumbConfig {

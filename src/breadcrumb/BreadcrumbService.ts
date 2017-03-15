@@ -2,20 +2,7 @@
 export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 export let BreadcrumbBackEvent = "pipBreadcrumbBack";
 import { BreadcrumbItem, BreadcrumbConfig } from './BreadcrumbConfig';
-
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-
-    showText(text: string, criteria?: string): void;
-    showItems(items: BreadcrumbItem[], criteria?: string): void;
-}
-
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
+import { IBreadcrumbService, IBreadcrumbProvider } from './IBreadcrumbService';
 
 class BreadcrumbService implements IBreadcrumbService {
     private _config: BreadcrumbConfig;
@@ -84,12 +71,8 @@ class BreadcrumbService implements IBreadcrumbService {
 }
 
 
-class BreadcrumbProvider implements IBreadcrumbProvider {
-    private _config: BreadcrumbConfig = { 
-        text: null,
-        items: null,
-        criteria: null
-    };
+class BreadcrumbProvider implements IBreadcrumbProvider, ng.IServiceProvider {
+    private _config: BreadcrumbConfig = new BreadcrumbConfig();
     private _service: BreadcrumbService;
 
     public get text(): string {
@@ -100,7 +83,7 @@ class BreadcrumbProvider implements IBreadcrumbProvider {
         this._config.text = value;
     }
 
-    public $get($rootScope: ng.IRootScopeService): any {
+    public $get($rootScope: ng.IRootScopeService): IBreadcrumbService {
         "ngInject";
 
         if (this._service == null)
