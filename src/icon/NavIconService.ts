@@ -6,11 +6,9 @@ export let NavIconChangedEvent = 'pipNavIconChanged';
 
 class NavIconService implements INavIconService {
     private _config: NavIconConfig;
-    private _rootScope: ng.IRootScopeService;
 
-    public constructor(config: NavIconConfig, $rootScope: ng.IRootScopeService) {
+    public constructor(config: NavIconConfig, private $rootScope: ng.IRootScopeService) {
         this._config = config;
-        this._rootScope = $rootScope;
     }
 
     public get config(): NavIconConfig {
@@ -63,7 +61,7 @@ class NavIconService implements INavIconService {
     }
 
     private sendConfigEvent() {
-        this._rootScope.$broadcast(NavIconChangedEvent, this._config);
+        this.$rootScope.$broadcast(NavIconChangedEvent, this._config);
     }
 }
 

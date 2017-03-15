@@ -1550,8 +1550,8 @@ exports.NavIconClickedEvent = 'pipNavIconClicked';
 exports.NavIconChangedEvent = 'pipNavIconChanged';
 var NavIconService = (function () {
     function NavIconService(config, $rootScope) {
+        this.$rootScope = $rootScope;
         this._config = config;
-        this._rootScope = $rootScope;
     }
     Object.defineProperty(NavIconService.prototype, "config", {
         get: function () {
@@ -1602,7 +1602,7 @@ var NavIconService = (function () {
         this.sendConfigEvent();
     };
     NavIconService.prototype.sendConfigEvent = function () {
-        this._rootScope.$broadcast(exports.NavIconChangedEvent, this._config);
+        this.$rootScope.$broadcast(exports.NavIconChangedEvent, this._config);
     };
     return NavIconService;
 }());

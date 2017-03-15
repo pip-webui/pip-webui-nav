@@ -1,4 +1,4 @@
-(() => {
+{
     class LanguagePickerDirectiveController {
         private _element: ng.IAugmentedJQuery;
         private _attrs: ng.IAttributes;
@@ -81,4 +81,4 @@
         ])
         .directive('pipLanguagePicker', languagePickerDirective);
 
-})();
+}
