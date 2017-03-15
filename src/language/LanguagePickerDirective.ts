@@ -1,8 +1,8 @@
 {
-    class LanguagePickerDirectiveController {
+    class LanguagePickerDirectiveController implements ILanguagePickerBindings {
         private _translate: pip.services.ITranslateService;
         public languages: string[] = ['en', 'ru'];
-        public value: string;
+        public value: string = null;
 
         public constructor(
             $element: ng.IAugmentedJQuery,
@@ -18,7 +18,7 @@
 
             this.setLanguages(this.languages);
 
-            this.value = this.value || this.languages[0];
+            this.value = this.value  || this.languages[0];
         }
 
         public get language() {
@@ -40,14 +40,23 @@
 
     }
 
+    interface ILanguagePickerBindings {
+        [key: string]: any;
+
+        languages: any,
+        value: any
+    }
+
+    const LanguagePickerBindings: ILanguagePickerBindings = {
+        languages: '<languages',
+        value: '=?value'
+    }
+
     const languagePickerDirective: ng.IComponentOptions = {
-            bindings: {
-                languages: '=languages',
-                value: '=value'
-            },
-            templateUrl: 'language/LanguagePicker.html',
-            controller: LanguagePickerDirectiveController
-        };
+        bindings: LanguagePickerBindings,
+        templateUrl: 'language/LanguagePicker.html',
+        controller: LanguagePickerDirectiveController
+    }
 
     angular
         .module('pipLanguagePicker', [
