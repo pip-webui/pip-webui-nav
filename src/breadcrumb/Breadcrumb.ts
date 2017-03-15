@@ -1,6 +1,6 @@
 import { SimpleActionItem } from '../actions/ActionsService';
-import { BreadcrumbItem } from './BreadcrumbService';
-import { BreadcrumbConfig } from './BreadcrumbService';
+import { BreadcrumbItem } from './BreadcrumbConfig';
+import { BreadcrumbConfig } from './BreadcrumbConfig';
 import { IBreadcrumbService } from './BreadcrumbService';
 import { BreadcrumbChangedEvent } from './BreadcrumbService';
 import { BreadcrumbBackEvent } from './BreadcrumbService';

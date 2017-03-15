@@ -1,6 +1,6 @@
 angular.module('pipBreadcrumb', ['ngMaterial', 'pipNav.Templates', 'pipNav.Translate']);
 
-import './BreadcrumbDirective';
+import './Breadcrumb';
 import './BreadcrumbService';
 
 export * from './BreadcrumbService';

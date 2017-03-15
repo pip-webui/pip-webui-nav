@@ -1,18 +1,7 @@
-import { SimpleActionItem } from '../actions/ActionsService';
+
 export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 export let BreadcrumbBackEvent = "pipBreadcrumbBack";
-
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;   
-    subActions?: SimpleActionItem[]; 
-}
-
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-}
+import { BreadcrumbItem, BreadcrumbConfig } from './BreadcrumbConfig';
 
 export interface IBreadcrumbService {
     config: BreadcrumbConfig;
