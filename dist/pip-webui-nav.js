@@ -1215,18 +1215,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
         };
         return NavHeaderController;
     }());
-    function navHeaderDirective() {
-        return {
-            restrict: 'EA',
-            replace: false,
-            templateUrl: 'header/NavHeader.html',
-            controller: NavHeaderController,
-            controllerAs: '$ctrl'
-        };
-    }
+    var navHeader = {
+        templateUrl: 'header/NavHeader.html',
+        controller: NavHeaderController
+    };
     angular
         .module('pipNavHeader')
-        .directive('pipNavHeader', navHeaderDirective);
+        .component('pipNavHeader', navHeader);
 })();
 },{}],18:[function(require,module,exports){
 "use strict";

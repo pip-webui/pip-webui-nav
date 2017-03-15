@@ -180,19 +180,13 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
 
     }
 
-    function navHeaderDirective() {
-        return {
-            restrict: 'EA',
-            replace: false,
-            templateUrl: 'header/NavHeader.html',
-            controller: NavHeaderController,
-            controllerAs: '$ctrl'
-
-        };
-    }
+    const navHeader: ng.IComponentOptions = {
+        templateUrl: 'header/NavHeader.html',
+        controller: NavHeaderController
+    };
 
     angular
         .module('pipNavHeader')
-        .directive('pipNavHeader', navHeaderDirective);
+        .component('pipNavHeader', navHeader);
 
 })();
