@@ -1,18 +1,18 @@
 (() => {
 
-function translateFilter($injector: ng.auto.IInjectorService) {
-    "ngInject";
+    function translateFilter($injector: ng.auto.IInjectorService) {
+        "ngInject";
 
-    let pipTranslate: pip.services.ITranslateService = $injector.has('pipTranslate') ? <pip.services.ITranslateService>$injector.get('pipTranslate') : null;
+        let pipTranslate: pip.services.ITranslateService = $injector.has('pipTranslate') ? <pip.services.ITranslateService>$injector.get('pipTranslate') : null;
 
-    return function (key: string) {
-        return pipTranslate ? pipTranslate.translate(key) || key : key;
+        return function (key: string) {
+            return pipTranslate ? pipTranslate.translate(key) || key : key;
+        }
     }
-}
 
-angular
-    .module('pipNav.Translate', [])
-    .filter('translate', translateFilter);
+    angular
+        .module('pipNav.Translate', [])
+        .filter('translate', translateFilter);
 
 })();
 
