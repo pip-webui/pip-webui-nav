@@ -1,7 +1,7 @@
 import { AppBarConfig } from './AppBarConfig';
 import { IAppBarService, IAppBarProvider } from './IAppBarService';
 
-export let AppBarChangedEvent = 'pipAppBarChanged';
+export const AppBarChangedEvent: string = 'pipAppBarChanged';
 
 class AppBarService implements IAppBarService {
     private _config: AppBarConfig;

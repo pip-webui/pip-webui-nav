@@ -4,7 +4,7 @@ import { BreadcrumbConfig } from './BreadcrumbConfig';
 import { IBreadcrumbService } from './IBreadcrumbService';
 import { BreadcrumbChangedEvent } from './BreadcrumbService';
 import { BreadcrumbBackEvent } from './BreadcrumbService';
-import { OpenSearchEvent } from '../search/SearchAngularEvents'
+import { OpenSearchEvent } from '../search/SearchService';
 
 class BreadcrumbController {
     private originatorEv: Event;

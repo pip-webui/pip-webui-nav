@@ -1,17 +1,19 @@
 import { SearchConfig } from './SearchConfig';
 import { ISearchProvider, ISearchService } from './ISearchService';
-import { OpenSearchEvent, CloseSearchEvent, SearchChangedEvent, SearchActivatedEvent } from './SearchAngularEvents';
+
+export const OpenSearchEvent = 'pipOpenSearch';
+export const CloseSearchEvent = 'pipCloseSearch';
+export const SearchChangedEvent = 'pipSearchChanged';
+export const SearchActivatedEvent = 'pipSearchActivated';
 
 class SearchService implements ISearchService {
     private _config: SearchConfig;
-    private _rootScope: ng.IRootScopeService;
 
     public constructor(
         config: SearchConfig,
-        $rootScope: ng.IRootScopeService
+        private $rootScope: ng.IRootScopeService
     ) {
         this._config = config;
-        this._rootScope = $rootScope;
 
         $rootScope.$on(OpenSearchEvent, () => { this.open });
         $rootScope.$on(CloseSearchEvent, () => { this.close });
@@ -88,7 +90,7 @@ class SearchService implements ISearchService {
     }
 
     private sendConfigEvent(): void {
-        this._rootScope.$broadcast(SearchChangedEvent, this._config);
+        this.$rootScope.$broadcast(SearchChangedEvent, this._config);
     }
 }
 

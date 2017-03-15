@@ -739,7 +739,7 @@ __export(require("./AppBarService"));
 Object.defineProperty(exports, "__esModule", { value: true });
 var BreadcrumbService_1 = require("./BreadcrumbService");
 var BreadcrumbService_2 = require("./BreadcrumbService");
-var SearchAngularEvents_1 = require("../search/SearchAngularEvents");
+var SearchService_1 = require("../search/SearchService");
 var BreadcrumbController = (function () {
     BreadcrumbController.$inject = ['$rootScope', '$window', '$location', '$injector', 'pipBreadcrumb', '$mdMedia', '$state', '$element'];
     function BreadcrumbController($rootScope, $window, $location, $injector, pipBreadcrumb, $mdMedia, $state, $element) {
@@ -782,7 +782,7 @@ var BreadcrumbController = (function () {
         }
     };
     BreadcrumbController.prototype.openSearch = function () {
-        this.$rootScope.$broadcast(SearchAngularEvents_1.OpenSearchEvent);
+        this.$rootScope.$broadcast(SearchService_1.OpenSearchEvent);
     };
     BreadcrumbController.prototype.actionsVisible = function (item) {
         return angular.isArray(item.subActions) && item.subActions.length > 1;
@@ -832,7 +832,7 @@ var breadcrumb = {
 };
 angular.module('pipBreadcrumb')
     .component('pipBreadcrumb', breadcrumb);
-},{"../search/SearchAngularEvents":32,"./BreadcrumbService":12}],11:[function(require,module,exports){
+},{"../search/SearchService":34,"./BreadcrumbService":12}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var BreadcrumbItem = (function () {
@@ -853,9 +853,9 @@ exports.BreadcrumbConfig = BreadcrumbConfig;
 },{}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var BreadcrumbConfig_1 = require("./BreadcrumbConfig");
 exports.BreadcrumbChangedEvent = "pipBreadcrumbChanged";
 exports.BreadcrumbBackEvent = "pipBreadcrumbBack";
-var BreadcrumbConfig_1 = require("./BreadcrumbConfig");
 var BreadcrumbService = (function () {
     function BreadcrumbService($rootScope, config) {
         this.$rootScope = $rootScope;
@@ -1532,7 +1532,7 @@ var NavIcon = {
 angular
     .module('pipNavIcon')
     .component('pipNavIcon', NavIcon);
-},{"../sidenav/SideNavEvents":38,"./NavIconService":24}],23:[function(require,module,exports){
+},{"../sidenav/SideNavEvents":37,"./NavIconService":24}],23:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var NavIconConfig = (function () {
@@ -1725,7 +1725,7 @@ __export(require("./sidenav"));
 __export(require("./icon"));
 __export(require("./menu"));
 __export(require("./header"));
-},{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/Dropdown":16,"./header":20,"./icon":25,"./language/LanguagePickerDirective":27,"./menu":30,"./search":36,"./sidenav":42,"./tabs/Tabs":43}],27:[function(require,module,exports){
+},{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/Dropdown":16,"./header":20,"./icon":25,"./language/LanguagePickerDirective":27,"./menu":30,"./search":35,"./sidenav":41,"./tabs/Tabs":42}],27:[function(require,module,exports){
 {
     var LanguagePickerDirectiveController = (function () {
         LanguagePickerDirectiveController.$inject = ['$element', '$injector', '$rootScope'];
@@ -2088,27 +2088,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 },{}],32:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OpenSearchEvent = 'pipOpenSearch';
-exports.CloseSearchEvent = 'pipCloseSearch';
-exports.SearchChangedEvent = 'pipSearchChanged';
-exports.SearchActivatedEvent = 'pipSearchActivated';
-},{}],33:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var SearchAngularEvents_1 = require("./SearchAngularEvents");
+var SearchService_1 = require("./SearchService");
 var SearchBarController = (function () {
     SearchBarController.$inject = ['$element', '$rootScope', 'pipSearch'];
     function SearchBarController($element, $rootScope, pipSearch) {
         "ngInject";
         var _this = this;
+        this.$element = $element;
+        this.$rootScope = $rootScope;
         this.enabled = false;
         this.search = { text: '' };
-        this._rootScope = $rootScope;
-        this._element = $element;
         $element.addClass('pip-search-bar');
         this.config = pipSearch.config;
         this.stateChange();
-        this.clearFn = $rootScope.$on(SearchAngularEvents_1.SearchChangedEvent, function (event, config) {
+        this.clearFn = $rootScope.$on(SearchService_1.SearchChangedEvent, function (event, config) {
             _this.onSearchChanged(event, config);
         });
     }
@@ -2119,12 +2112,12 @@ var SearchBarController = (function () {
     };
     SearchBarController.prototype.stateChange = function () {
         if (this.enabled) {
-            this._element.addClass('w-stretch');
-            this._element.parent().addClass('pip-search-active');
+            this.$element.addClass('w-stretch');
+            this.$element.parent().addClass('pip-search-active');
         }
         else {
-            this._element.removeClass('w-stretch');
-            this._element.parent().removeClass('pip-search-active');
+            this.$element.removeClass('w-stretch');
+            this.$element.parent().removeClass('pip-search-active');
         }
     };
     SearchBarController.prototype.onSearchChanged = function (event, config) {
@@ -2155,7 +2148,7 @@ var SearchBarController = (function () {
             this.config.callback(search);
         }
         else {
-            this._rootScope.$broadcast(SearchAngularEvents_1.SearchActivatedEvent, search);
+            this.$rootScope.$broadcast(SearchService_1.SearchActivatedEvent, search);
         }
     };
     SearchBarController.prototype.clear = function () {
@@ -2186,7 +2179,7 @@ var SearchBar = {
 angular
     .module('pipSearchBar')
     .component('pipSearchBar', SearchBar);
-},{"./SearchAngularEvents":32}],34:[function(require,module,exports){
+},{"./SearchService":34}],33:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchConfig = (function () {
@@ -2195,18 +2188,21 @@ var SearchConfig = (function () {
     return SearchConfig;
 }());
 exports.SearchConfig = SearchConfig;
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchConfig_1 = require("./SearchConfig");
-var SearchAngularEvents_1 = require("./SearchAngularEvents");
+exports.OpenSearchEvent = 'pipOpenSearch';
+exports.CloseSearchEvent = 'pipCloseSearch';
+exports.SearchChangedEvent = 'pipSearchChanged';
+exports.SearchActivatedEvent = 'pipSearchActivated';
 var SearchService = (function () {
     function SearchService(config, $rootScope) {
         var _this = this;
+        this.$rootScope = $rootScope;
         this._config = config;
-        this._rootScope = $rootScope;
-        $rootScope.$on(SearchAngularEvents_1.OpenSearchEvent, function () { _this.open; });
-        $rootScope.$on(SearchAngularEvents_1.CloseSearchEvent, function () { _this.close; });
+        $rootScope.$on(exports.OpenSearchEvent, function () { _this.open; });
+        $rootScope.$on(exports.CloseSearchEvent, function () { _this.close; });
     }
     Object.defineProperty(SearchService.prototype, "config", {
         get: function () {
@@ -2285,7 +2281,7 @@ var SearchService = (function () {
         this.sendConfigEvent();
     };
     SearchService.prototype.sendConfigEvent = function () {
-        this._rootScope.$broadcast(SearchAngularEvents_1.SearchChangedEvent, this._config);
+        this.$rootScope.$broadcast(exports.SearchChangedEvent, this._config);
     };
     return SearchService;
 }());
@@ -2304,16 +2300,15 @@ var SearchProvider = (function () {
 }());
 angular.module('pipSearchBar')
     .provider('pipSearch', SearchProvider);
-},{"./SearchAngularEvents":32,"./SearchConfig":34}],36:[function(require,module,exports){
+},{"./SearchConfig":33}],35:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipSearchBar', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 require("./SearchConfig");
-require("./SearchAngularEvents");
 require("./ISearchService");
 require("./SearchService");
 require("./SearchBar");
-},{"./ISearchService":31,"./SearchAngularEvents":32,"./SearchBar":33,"./SearchConfig":34,"./SearchService":35}],37:[function(require,module,exports){
+},{"./ISearchService":31,"./SearchBar":32,"./SearchConfig":33,"./SearchService":34}],36:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavState_1 = require("./SideNavState");
@@ -2481,14 +2476,14 @@ var SideNavDirectiveController = (function () {
         .module('pipSideNav')
         .directive('pipSidenav', sideNavDirective);
 })();
-},{"./SideNavState":41}],38:[function(require,module,exports){
+},{"./SideNavState":40}],37:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SideNavChangedEvent = 'pipSideNavChanged';
 exports.SideNavStateChangedEvent = 'pipSideNavStateChanged';
 exports.OpenSideNavEvent = 'pipOpenSideNav';
 exports.CloseSideNavEvent = 'pipCloseSideNav';
-},{}],39:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 (function () {
     SideNavPartDirectiveController.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav'];
     sidenavPartDirective.$inject = ['ngIfDirective'];
@@ -2531,7 +2526,7 @@ exports.CloseSideNavEvent = 'pipCloseSideNav';
         .module('pipSideNav')
         .directive('pipSidenavPart', sidenavPartDirective);
 })();
-},{}],40:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 hookSideNavEvents.$inject = ['$rootScope', 'pipSideNav'];
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -2735,7 +2730,7 @@ angular
     .module('pipSideNav')
     .provider('pipSideNav', SideNavProvider)
     .run(hookSideNavEvents);
-},{"./SideNavEvents":38}],41:[function(require,module,exports){
+},{"./SideNavEvents":37}],40:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavStateNames = (function () {
@@ -2800,7 +2795,7 @@ var SideNavStateConfig = (function () {
     return SideNavStateConfig;
 }());
 exports.SideNavStateConfig = SideNavStateConfig;
-},{}],42:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -2813,7 +2808,7 @@ require("./SideNavService");
 require("./SideNavPartDirective");
 require("./SideNavDirective");
 __export(require("./SideNavService"));
-},{"./SideNavDirective":37,"./SideNavEvents":38,"./SideNavPartDirective":39,"./SideNavService":40,"./SideNavState":41}],43:[function(require,module,exports){
+},{"./SideNavDirective":36,"./SideNavEvents":37,"./SideNavPartDirective":38,"./SideNavService":39,"./SideNavState":40}],42:[function(require,module,exports){
 var PipTab = (function () {
     function PipTab() {
     }
@@ -2989,7 +2984,7 @@ var Tabs = {
 angular
     .module('pipTabs', ['pipNav.Templates'])
     .component('pipTabs', Tabs);
-},{}],44:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 (function(module) {
 try {
   module = angular.module('pipNav.Templates');
@@ -3136,7 +3131,7 @@ module.run(['$templateCache', function($templateCache) {
 
 
 
-},{}]},{},[44,26])(44)
+},{}]},{},[43,26])(43)
 });
 
 //# sourceMappingURL=pip-webui-nav.js.map

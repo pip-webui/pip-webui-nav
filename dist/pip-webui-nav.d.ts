@@ -1,7 +1,7 @@
 declare module pip.nav {
 
-export let ActionsChangedEvent: string;
-export let SecondaryActionsOpenEvent: string;
+export const ActionsChangedEvent: string;
+export const SecondaryActionsOpenEvent: string;
 export class SimpleActionItem {
     name: string;
     title?: string;
@@ -57,7 +57,7 @@ export class AppBarConfig {
 }
 
 
-export let AppBarChangedEvent: string;
+export const AppBarChangedEvent: string;
 
 export interface IAppBarService {
     readonly config: AppBarConfig;
@@ -93,8 +93,8 @@ export class BreadcrumbConfig {
     criteria: string;
 }
 
-export let BreadcrumbChangedEvent: string;
-export let BreadcrumbBackEvent: string;
+export const BreadcrumbChangedEvent: string;
+export const BreadcrumbBackEvent: string;
 
 export interface IBreadcrumbService {
     config: BreadcrumbConfig;
@@ -250,11 +250,6 @@ export interface ISearchService {
 export interface ISearchProvider extends ng.IServiceProvider {
 }
 
-export let OpenSearchEvent: string;
-export let CloseSearchEvent: string;
-export let SearchChangedEvent: string;
-export let SearchActivatedEvent: string;
-
 
 export class SearchConfig {
     visible: boolean;
@@ -264,6 +259,10 @@ export class SearchConfig {
     callback: (criteria: string) => void;
 }
 
+export const OpenSearchEvent = "pipOpenSearch";
+export const CloseSearchEvent = "pipCloseSearch";
+export const SearchChangedEvent = "pipSearchChanged";
+export const SearchActivatedEvent = "pipSearchActivated";
 
 
 

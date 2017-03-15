@@ -1,10 +1,8 @@
 import { SearchConfig } from './SearchConfig';
 import { ISearchService } from './ISearchService';
-import { OpenSearchEvent, CloseSearchEvent, SearchChangedEvent, SearchActivatedEvent } from './SearchAngularEvents';
+import { OpenSearchEvent, CloseSearchEvent, SearchChangedEvent, SearchActivatedEvent } from './SearchService';
 
 class SearchBarController {
-    private _rootScope: ng.IRootScopeService;
-    private _element: any;
     private clearFn: Function;
 
     public config: SearchConfig;
@@ -12,14 +10,11 @@ class SearchBarController {
     public search: any = { text: '' };
 
     public constructor(
-        $element: ng.IAugmentedJQuery,
-        $rootScope: ng.IRootScopeService,
+        private $element: ng.IAugmentedJQuery,
+        private $rootScope: ng.IRootScopeService,
         pipSearch: ISearchService
     ) {
         "ngInject";
-
-        this._rootScope = $rootScope;
-        this._element = $element;
 
         // Apply class and call resize
         $element.addClass('pip-search-bar');
@@ -39,12 +34,12 @@ class SearchBarController {
 
     private stateChange(): void {
         if (this.enabled) {
-            this._element.addClass('w-stretch');
-            this._element.parent().addClass('pip-search-active');
+            this.$element.addClass('w-stretch');
+            this.$element.parent().addClass('pip-search-active');
 
         } else {
-            this._element.removeClass('w-stretch');
-            this._element.parent().removeClass('pip-search-active');
+            this.$element.removeClass('w-stretch');
+            this.$element.parent().removeClass('pip-search-active');
         }
     }
 
@@ -80,7 +75,7 @@ class SearchBarController {
         if (this.config.callback) {
             this.config.callback(search);
         } else {
-            this._rootScope.$broadcast(SearchActivatedEvent, search);
+            this.$rootScope.$broadcast(SearchActivatedEvent, search);
         }
     }
 

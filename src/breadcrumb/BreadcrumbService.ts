@@ -1,8 +1,8 @@
-
-export let BreadcrumbChangedEvent = "pipBreadcrumbChanged";
-export let BreadcrumbBackEvent = "pipBreadcrumbBack";
 import { BreadcrumbItem, BreadcrumbConfig } from './BreadcrumbConfig';
 import { IBreadcrumbService, IBreadcrumbProvider } from './IBreadcrumbService';
+
+export const BreadcrumbChangedEvent: string = "pipBreadcrumbChanged";
+export const BreadcrumbBackEvent: string = "pipBreadcrumbBack";
 
 class BreadcrumbService implements IBreadcrumbService {
     private _config: BreadcrumbConfig;

@@ -1,5 +1,5 @@
-export let ActionsChangedEvent = 'pipActionsChanged';
-export let SecondaryActionsOpenEvent = 'pipSecondaryActionsOpen';
+export const ActionsChangedEvent: string = 'pipActionsChanged';
+export const SecondaryActionsOpenEvent: string = 'pipSecondaryActionsOpen';
 
 export class SimpleActionItem {
     // Name to refer to the item
