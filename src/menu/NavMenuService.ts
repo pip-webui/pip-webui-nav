@@ -1,19 +1,7 @@
 import { NavMenuConfig, NavMenuSection } from './NavMenuConfig';
+import { INavMenuService, INavMenuProvider } from './INavMenuService';
 
 export const NavMenuChangedEvent: string = 'pipNavMenuChanged';
-
-export interface INavMenuService {
-    sections: NavMenuSection[];
-    defaultIcon: string;
-    updateCount(link: string, count: number): void;
-    updateBadgeStyle(link: string, style: string): void;
-    clearCounts(): void;
-}
-
-export interface INavMenuProvider extends ng.IServiceProvider {
-    sections: NavMenuSection[];
-    defaultIcon: string;
-}
 
 class NavMenuService implements INavMenuService {
     private _config: NavMenuConfig;

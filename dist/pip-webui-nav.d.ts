@@ -191,6 +191,18 @@ export let NavIconClickedEvent: string;
 export let NavIconChangedEvent: string;
 
 
+export interface INavMenuService {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+    updateCount(link: string, count: number): void;
+    updateBadgeStyle(link: string, style: string): void;
+    clearCounts(): void;
+}
+export interface INavMenuProvider extends ng.IServiceProvider {
+    sections: NavMenuSection[];
+    defaultIcon: string;
+}
+
 
 
 export class NavMenuLink {
@@ -223,17 +235,6 @@ export class NavMenuConfig {
 }
 
 export const NavMenuChangedEvent: string;
-export interface INavMenuService {
-    sections: NavMenuSection[];
-    defaultIcon: string;
-    updateCount(link: string, count: number): void;
-    updateBadgeStyle(link: string, style: string): void;
-    clearCounts(): void;
-}
-export interface INavMenuProvider extends ng.IServiceProvider {
-    sections: NavMenuSection[];
-    defaultIcon: string;
-}
 
 
 export interface ISearchService {

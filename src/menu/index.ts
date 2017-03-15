@@ -2,5 +2,3 @@ angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Template
 
 import './NavMenuService';
 import './NavMenu';
-
-export * from './NavMenuService';

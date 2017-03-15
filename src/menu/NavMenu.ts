@@ -1,5 +1,5 @@
 import { ISideNavService, SideNavConfig } from '../sidenav/SideNavService';
-import { INavMenuService} from './NavMenuService';
+import { INavMenuService} from './INavMenuService';
 import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
 import { NavMenuConfig, NavMenuSection, NavMenuLink } from './NavMenuConfig';
 

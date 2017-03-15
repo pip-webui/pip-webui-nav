@@ -1723,7 +1723,6 @@ __export(require("./appbar"));
 __export(require("./breadcrumb"));
 __export(require("./sidenav"));
 __export(require("./icon"));
-__export(require("./menu"));
 __export(require("./header"));
 },{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/Dropdown":16,"./header":20,"./icon":25,"./language/LanguagePickerDirective":27,"./menu":30,"./search":35,"./sidenav":40,"./tabs/Tabs":41}],27:[function(require,module,exports){
 {
@@ -2052,14 +2051,10 @@ angular
     .provider('pipNavMenu', NavMenuProvider);
 },{}],30:[function(require,module,exports){
 "use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipNavMenu', ['ngMaterial', 'pipNav.Translate', 'pipNav.Templates']);
 require("./NavMenuService");
 require("./NavMenu");
-__export(require("./NavMenuService"));
 },{"./NavMenu":28,"./NavMenuService":29}],31:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
