@@ -266,12 +266,11 @@ export const SearchActivatedEvent = "pipSearchActivated";
 
 
 
-export let SideNavChangedEvent: string;
-export let SideNavStateChangedEvent: string;
-export let OpenSideNavEvent: string;
-export let CloseSideNavEvent: string;
 
-
+export const SideNavChangedEvent: string;
+export const SideNavStateChangedEvent: string;
+export const OpenSideNavEvent: string;
+export const CloseSideNavEvent: string;
 export class SideNavConfig {
     parts: any;
     classes: string[];
@@ -327,69 +326,12 @@ export class SideNavStateConfig {
     xlarge: SideNavState;
 }
 
-class PipTab {
+export class PipTab {
     id: string;
     name?: string;
     count: number;
     title: string;
 }
-interface ITabsBindings {
-    [key: string]: any;
-    ngDisabled: any;
-    tabs: any;
-    showTabs: any;
-    showTabsShadow: any;
-    activeIndex: any;
-    select: any;
-    breakpoints: any;
-    themeClass: any;
-}
-const TabsBindings: ITabsBindings;
-class TabsChanges implements ng.IOnChangesObject, ITabsBindings {
-    [key: string]: ng.IChangesObject<any>;
-    ngDisabled: ng.IChangesObject<() => ng.IPromise<void>>;
-    tabs: ng.IChangesObject<PipTab[]>;
-    showTabs: ng.IChangesObject<() => ng.IPromise<void>>;
-    showTabsShadow: ng.IChangesObject<() => ng.IPromise<void>>;
-    activeIndex: ng.IChangesObject<number>;
-    select: ng.IChangesObject<() => ng.IPromise<void>>;
-    breakpoints: ng.IChangesObject<string>;
-    themeClass: ng.IChangesObject<string>;
-}
-class TabsDirectiveController implements ITabsBindings {
-    private $element;
-    private $injector;
-    private $rootScope;
-    private $timeout;
-    private navConstant;
-    private _pipTranslate;
-    private _pipTheme;
-    private _pipMedia;
-    private selectedTabId;
-    ngDisabled: Function;
-    tabs: PipTab[];
-    activeIndex: number;
-    breakpoints: string;
-    showTabs: Function;
-    showTabsShadow: Function;
-    select: Function;
-    themeClass: string;
-    media: any;
-    currentTheme: string;
-    change: () => ng.IPromise<any>;
-    constructor($element: ng.IAugmentedJQuery, $injector: ng.auto.IInjectorService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService, navConstant: any, $mdMedia: angular.material.IMedia);
-    private setTheme();
-    private setMedia($mdMedia);
-    private setTranslate();
-    isDisabled(): boolean;
-    tabDisabled(index: number): boolean;
-    onSelect(index: number): void;
-    showShadow(): boolean;
-    show(): boolean;
-    toBoolean(value: any): boolean;
-    $onChanges(changes: TabsChanges): void;
-}
-const Tabs: ng.IComponentOptions;
 
 }
 

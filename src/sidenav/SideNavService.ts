@@ -1,4 +1,7 @@
-import { SideNavChangedEvent, SideNavStateChangedEvent, OpenSideNavEvent, CloseSideNavEvent } from './SideNavEvents';
+export const SideNavChangedEvent: string = 'pipSideNavChanged';
+export const SideNavStateChangedEvent: string = 'pipSideNavStateChanged';
+export const OpenSideNavEvent: string = 'pipOpenSideNav';
+export const CloseSideNavEvent: string = 'pipCloseSideNav';
 
 export class SideNavConfig {
     parts: any;

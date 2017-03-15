@@ -1,4 +1,4 @@
-import { OpenSideNavEvent } from '../sidenav/SideNavEvents';
+import { OpenSideNavEvent } from '../sidenav/SideNavService';
 import { NavIconConfig } from './NavIconConfig';
 import { INavIconService } from './INavIconService';
 import { NavIconClickedEvent, NavIconChangedEvent } from './NavIconService';
