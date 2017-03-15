@@ -1086,7 +1086,7 @@ angular
 },{}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-(function () {
+{
     var NavHeaderController = (function () {
         NavHeaderController.$inject = ['$element', '$scope', '$log', '$rootScope', '$timeout', 'pipNavHeader', 'navConstant'];
         function NavHeaderController($element, $scope, $log, $rootScope, $timeout, pipNavHeader, navConstant) {
@@ -1099,21 +1099,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
             this.pipNavHeader = pipNavHeader;
             $element.addClass('pip-sticky-nav-header');
             this.initImage();
-            var cleanupNavHeaderChanged = $rootScope.$on('pipNavHeaderChanged', function ($event, config) {
+            this.cleanupNavHeaderChanged = $rootScope.$on('pipNavHeaderChanged', function ($event, config) {
                 _this.onNavHeaderChanged($event, config);
             });
-            var cleanupSideNavStateChanged = $rootScope.$on('pipSideNavStateChanged', function ($event, state) {
+            this.cleanupSideNavStateChanged = $rootScope.$on('pipSideNavStateChanged', function ($event, state) {
                 _this.onStateChanged($event, state);
             });
-            $scope.$on('$destroy', function () {
-                if (angular.isFunction(cleanupNavHeaderChanged)) {
-                    cleanupNavHeaderChanged();
-                }
-                if (angular.isFunction(cleanupSideNavStateChanged)) {
-                    cleanupSideNavStateChanged();
-                }
-            });
         }
+        NavHeaderController.prototype.$onDestroy = function () {
+            if (angular.isFunction(this.cleanupNavHeaderChanged)) {
+                this.cleanupNavHeaderChanged();
+            }
+            if (angular.isFunction(this.cleanupSideNavStateChanged)) {
+                this.cleanupSideNavStateChanged();
+            }
+        };
         NavHeaderController.prototype.initImage = function () {
             var _this = this;
             this.imageBlock = this.$element.find('.pip-sticky-nav-header-user');
@@ -1222,7 +1222,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     angular
         .module('pipNavHeader')
         .component('pipNavHeader', navHeader);
-})();
+}
 },{}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });

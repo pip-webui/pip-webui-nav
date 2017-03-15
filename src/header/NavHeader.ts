@@ -1,8 +1,10 @@
 import { INavHeaderService } from "./INavHeaderService";
 import { NavHeaderConfig } from "./NavHeaderConfig";
 
-(() => {
+{
     class NavHeaderController {
+        private cleanupNavHeaderChanged: Function;
+        private cleanupSideNavStateChanged: Function;
 
         public title: string;
         public subtitle: string;
@@ -28,25 +30,25 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
             // Apply class and call resize
             $element.addClass('pip-sticky-nav-header');
 
-
             this.initImage();
 
-            let cleanupNavHeaderChanged: Function = $rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
+            this.cleanupNavHeaderChanged = $rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
                 this.onNavHeaderChanged($event, config)
             });
-            let cleanupSideNavStateChanged: Function = $rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
+            this.cleanupSideNavStateChanged = $rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
                 this.onStateChanged($event, state)
             });
 
-            $scope.$on('$destroy', () => {
-                if (angular.isFunction(cleanupNavHeaderChanged)) {
-                    cleanupNavHeaderChanged();
-                }
-                if (angular.isFunction(cleanupSideNavStateChanged)) {
-                    cleanupSideNavStateChanged();
-                }
-            });
+        }
 
+        public $onDestroy() {
+
+            if (angular.isFunction(this.cleanupNavHeaderChanged)) {
+                this.cleanupNavHeaderChanged();
+            }
+            if (angular.isFunction(this.cleanupSideNavStateChanged)) {
+                this.cleanupSideNavStateChanged();
+            }
         }
 
         private initImage() {
@@ -189,4 +191,4 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
         .module('pipNavHeader')
         .component('pipNavHeader', navHeader);
 
-})();
+}
