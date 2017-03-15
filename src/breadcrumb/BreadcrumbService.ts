@@ -10,7 +10,9 @@ class BreadcrumbService implements IBreadcrumbService {
     public constructor(
         private $rootScope: ng.IRootScopeService,
         config: BreadcrumbConfig
-    ) {}
+    ) {
+        this._config = config;
+    }
 
     public get config() {
         return this._config;
