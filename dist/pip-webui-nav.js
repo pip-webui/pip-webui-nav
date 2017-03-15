@@ -1012,32 +1012,27 @@ angular
 },{}],16:[function(require,module,exports){
 (function () {
     var DropdownController = (function () {
-        DropdownController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout'];
-        function DropdownController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout) {
+        DropdownController.$inject = ['$scope', '$timeout', '$element', '$attrs', '$injector', '$log', '$rootScope', '$mdMedia'];
+        function DropdownController($scope, $timeout, $element, $attrs, $injector, $log, $rootScope, $mdMedia) {
             "ngInject";
-            this._element = $element;
-            this._attrs = $attrs;
-            this._scope = $scope;
-            this._injector = $injector;
-            this._log = $log;
-            this._rootScope = $rootScope;
-            this._timeout = $timeout;
+            this.$scope = $scope;
+            this.$timeout = $timeout;
             this._pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null;
             this._pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
             if (this._pipTheme) {
                 this.currentTheme = this._pipTheme.theme;
             }
-            else if (this._rootScope['$theme']) {
-                this.currentTheme = this._rootScope['$theme'];
+            else if ($rootScope['$theme']) {
+                this.currentTheme = $rootScope['$theme'];
             }
-            this.themeClass = ($attrs.class || '') + ' md-' + this.currentTheme + '-theme';
+            this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
             this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
             this.actions = ($scope['actions'] && _.isArray($scope['actions'])) ? $scope['actions'] : [];
             this.activeIndex = $scope['activeIndex'] || 0;
         }
         DropdownController.prototype.disabled = function () {
-            if (this._scope['ngDisabled']) {
-                return this._scope['ngDisabled']();
+            if (this.$scope['ngDisabled']) {
+                return this.$scope['ngDisabled']();
             }
             else {
                 return false;
@@ -1046,20 +1041,20 @@ angular
         DropdownController.prototype.onSelect = function (index) {
             var _this = this;
             this.activeIndex = index;
-            this._scope['activeIndex'] = index;
-            if (this._scope['select']) {
-                this._scope['select'](this.actions[index], this.activeIndex);
+            this.$scope['activeIndex'] = index;
+            if (this.$scope['select']) {
+                this.$scope['select'](this.actions[index], this.activeIndex);
             }
-            if (this._scope['pipChange']) {
-                this._timeout(function () {
-                    _this._scope['pipChange']();
+            if (this.$scope['pipChange']) {
+                this.$timeout(function () {
+                    _this.$scope['pipChange']();
                 });
             }
         };
         DropdownController.prototype.show = function () {
             var result;
-            if (this._scope['showDropdown']()) {
-                return !!this._scope['showDropdown']();
+            if (this.$scope['showDropdown']()) {
+                return !!this.$scope['showDropdown']();
             }
             else {
                 return true;
