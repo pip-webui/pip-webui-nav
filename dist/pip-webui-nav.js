@@ -2835,34 +2835,33 @@ var TabsChanges = (function () {
     return TabsChanges;
 }());
 var TabsDirectiveController = (function () {
-    TabsDirectiveController.$inject = ['$element', '$injector', '$log', '$rootScope', '$mdMedia', '$timeout', 'navConstant'];
-    function TabsDirectiveController($element, $injector, $log, $rootScope, $mdMedia, $timeout, navConstant) {
+    TabsDirectiveController.$inject = ['$element', '$injector', '$rootScope', '$timeout', 'navConstant', '$mdMedia'];
+    function TabsDirectiveController($element, $injector, $rootScope, $timeout, navConstant, $mdMedia) {
         "ngInject";
-        this._element = $element;
-        this._injector = $injector;
-        this._log = $log;
-        this._rootScope = $rootScope;
-        this._timeout = $timeout;
-        this._navConstant = navConstant;
+        this.$element = $element;
+        this.$injector = $injector;
+        this.$rootScope = $rootScope;
+        this.$timeout = $timeout;
+        this.navConstant = navConstant;
         this.setTheme();
         this.setMedia($mdMedia);
     }
     TabsDirectiveController.prototype.setTheme = function () {
-        this._pipTheme = this._injector.has('pipTheme') ? this._injector.get('pipTheme') : null;
+        this._pipTheme = this.$injector.has('pipTheme') ? this.$injector.get('pipTheme') : null;
         if (this._pipTheme) {
             this.currentTheme = this._pipTheme.theme;
         }
-        else if (this._rootScope['$theme']) {
-            this.currentTheme = this._rootScope['$theme'];
+        else if (this.$rootScope['$theme']) {
+            this.currentTheme = this.$rootScope['$theme'];
         }
         this.themeClass = (this.themeClass || '') + ' md-' + this.currentTheme + '-theme';
     };
     TabsDirectiveController.prototype.setMedia = function ($mdMedia) {
-        this._pipMedia = this._injector.has('pipMedia') ? this._injector.get('pipMedia') : null;
+        this._pipMedia = this.$injector.has('pipMedia') ? this.$injector.get('pipMedia') : null;
         this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
     };
     TabsDirectiveController.prototype.setTranslate = function () {
-        this._pipTranslate = this._injector.has('pipTranslate') ? this._injector.get('pipTranslate') : null;
+        this._pipTranslate = this.$injector.has('pipTranslate') ? this.$injector.get('pipTranslate') : null;
         if (this._pipTranslate) {
             if (this.tabs.length > 0 && this.tabs[0].title) {
                 this._pipTranslate.translateObjects(this.tabs, 'title', 'nameLocal');
@@ -2891,7 +2890,7 @@ var TabsDirectiveController = (function () {
             return;
         this.activeIndex = index;
         this.selectedTabId = this.tabs.length >= this.activeIndex ? this.tabs[this.activeIndex].id : null;
-        this._timeout(function () {
+        this.$timeout(function () {
             if (_this.select) {
                 _this.select(_this.tabs[_this.activeIndex], _this.activeIndex);
             }
@@ -2933,15 +2932,15 @@ var TabsDirectiveController = (function () {
         }
         else {
             this.activeIndex = changes.activeIndex.currentValue || 0;
-            if (this._timeout && this.activeIndex !== changes.activeIndex.previousValue) {
-                this._timeout(function () {
-                    var a = _this._element.find('md-tabs-canvas');
+            if (this.$timeout && this.activeIndex !== changes.activeIndex.previousValue) {
+                this.$timeout(function () {
+                    var a = _this.$element.find('md-tabs-canvas');
                     if (a && a[0]) {
                         angular.element(a[0]).attr('activeIndex', _this.activeIndex);
                     }
                     a.on('focusout', function () {
                         angular.element(a[0]).attr('activeIndex', _this.activeIndex);
-                        _this._timeout(function () {
+                        _this.$timeout(function () {
                             angular.element(a[0]).attr('activeIndex', _this.activeIndex);
                         }, 50);
                     });
@@ -2950,11 +2949,11 @@ var TabsDirectiveController = (function () {
         }
         if (changes.breakpoints === undefined) {
             if (!this.breakpoints) {
-                this.breakpoints = this._navConstant.TAB_BREAKPOINT;
+                this.breakpoints = this.navConstant.TAB_BREAKPOINT;
             }
         }
         else {
-            this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this._navConstant.TAB_BREAKPOINT;
+            this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this.navConstant.TAB_BREAKPOINT;
         }
         if (changes.tabs === undefined || !_.isArray(changes.tabs.currentValue)) {
             if (!this.tabs) {

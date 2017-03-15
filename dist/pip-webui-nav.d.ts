@@ -358,15 +358,14 @@ class TabsChanges implements ng.IOnChangesObject, ITabsBindings {
     themeClass: ng.IChangesObject<string>;
 }
 class TabsDirectiveController implements ITabsBindings {
-    private _element;
-    private _injector;
-    private _log;
-    private _rootScope;
+    private $element;
+    private $injector;
+    private $rootScope;
+    private $timeout;
+    private navConstant;
     private _pipTranslate;
     private _pipTheme;
     private _pipMedia;
-    private _timeout;
-    private _navConstant;
     private selectedTabId;
     ngDisabled: Function;
     tabs: PipTab[];
@@ -379,7 +378,7 @@ class TabsDirectiveController implements ITabsBindings {
     media: any;
     currentTheme: string;
     change: () => ng.IPromise<any>;
-    constructor($element: ng.IAugmentedJQuery, $injector: ng.auto.IInjectorService, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService, navConstant: any);
+    constructor($element: ng.IAugmentedJQuery, $injector: ng.auto.IInjectorService, $rootScope: ng.IRootScopeService, $timeout: ng.ITimeoutService, navConstant: any, $mdMedia: angular.material.IMedia);
     private setTheme();
     private setMedia($mdMedia);
     private setTranslate();
