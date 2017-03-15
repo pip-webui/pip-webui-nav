@@ -82,8 +82,6 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 
 
 
-export let BreadcrumbChangedEvent: string;
-export let BreadcrumbBackEvent: string;
 export class BreadcrumbItem {
     title: string;
     click?: (item: BreadcrumbItem) => void;
@@ -94,6 +92,10 @@ export class BreadcrumbConfig {
     items: BreadcrumbItem[];
     criteria: string;
 }
+
+export let BreadcrumbChangedEvent: string;
+export let BreadcrumbBackEvent: string;
+
 export interface IBreadcrumbService {
     config: BreadcrumbConfig;
     text: string;
