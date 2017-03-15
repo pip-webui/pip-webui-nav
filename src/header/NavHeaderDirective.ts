@@ -1,52 +1,39 @@
 import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
 
 (() => {
-    class NavHeaderDirectiveController {
-        private _element: ng.IAugmentedJQuery;
-        private _scope: angular.IScope;
-        private _log: ng.ILogService;
-        private _rootScope: ng.IRootScopeService;
-        private _timeout: ng.ITimeoutService;
-        private _pipNavHeader: INavHeaderService;
+    class NavHeaderController {
 
         public title: string;
         public subtitle: string;
         public imageUrl: string;
         public imageCss: string;
-        public image: ng.IAugmentedJQuery;
-        public imageBlock: ng.IAugmentedJQuery;
+        public image: any;
+        public imageBlock: any;
         public loadedDefaultImage: boolean;
         public showHeader: boolean;
 
         constructor(
-            $element: ng.IAugmentedJQuery,
-            $scope: angular.IScope,
+            private $element: ng.IAugmentedJQuery,
+            private $scope: angular.IScope,
             $log: ng.ILogService,
-            $rootScope: ng.IRootScopeService,
-            $timeout: ng.ITimeoutService,
-            pipNavHeader: INavHeaderService,
+            private $rootScope: ng.IRootScopeService,
+            private $timeout: ng.ITimeoutService,
+            private pipNavHeader: INavHeaderService,
             navConstant: any
 
         ) {
             "ngInject";
 
-            this._element = $element;
-            this._scope = $scope;
-            this._log = $log;
-            this._rootScope = $rootScope;
-            this._timeout = $timeout;
-            this._pipNavHeader = pipNavHeader;
-
             // Apply class and call resize
-            this._element.addClass('pip-sticky-nav-header');
+            $element.addClass('pip-sticky-nav-header');
 
 
             this.initImage();
 
-            let cleanupNavHeaderChanged: Function = this._rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
+            let cleanupNavHeaderChanged: Function = $rootScope.$on('pipNavHeaderChanged', ($event: ng.IAngularEvent, config: NavHeaderConfig) => {
                 this.onNavHeaderChanged($event, config)
             });
-            let cleanupSideNavStateChanged: Function = this._rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
+            let cleanupSideNavStateChanged: Function = $rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: any) => { //navState
                 this.onStateChanged($event, state)
             });
 
@@ -62,10 +49,10 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
         }
 
         private initImage() {
-            this.imageBlock = this._element.find('.pip-sticky-nav-header-user')
+            this.imageBlock = this.$element.find('.pip-sticky-nav-header-user')
 
-            this._timeout(() => {
-                this.image = this._element.find('.pip-sticky-nav-header-user-image');
+            this.$timeout(() => {
+                this.image = this.$element.find('.pip-sticky-nav-header-user-image');
 
                 if (this.image[0]) {
                     this.image[0].onload = (() => this.onImageLoad());
@@ -83,17 +70,17 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
                     this.image.onerror = (() => this.onImageError());
                 }
 
-                this.onNavHeaderChanged(null, this._pipNavHeader.config);
+                this.onNavHeaderChanged(null, this.pipNavHeader.config);
             }, 20);
         }
 
         private initHeader() {
-            if (!this._pipNavHeader.config) return;
+            if (!this.pipNavHeader.config) return;
 
-            this.title = this._pipNavHeader.config.title;
-            this.subtitle = this._pipNavHeader.config.subtitle;
-            this.imageUrl = this._pipNavHeader.config.imageUrl;
-            this.imageCss = this._pipNavHeader.config.imageCss;
+            this.title = this.pipNavHeader.config.title;
+            this.subtitle = this.pipNavHeader.config.subtitle;
+            this.imageUrl = this.pipNavHeader.config.imageUrl;
+            this.imageCss = this.pipNavHeader.config.imageCss;
         }
 
         // // When image is loaded resize/reposition it
@@ -104,8 +91,8 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
 
         // private onImageError($event) {
         //     if (this.loadedDefaultImage) return;
-        //     this._scope.$apply(() => {
-        //         this.setImage(this._pipNavHeader.config, true);
+        //     this.$scope.$apply(() => {
+        //         this.setImage(this.pipNavHeader.config, true);
         //     });
         // };
         // When image is loaded resize/reposition it
@@ -115,8 +102,8 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
 
         private onImageError() {
             if (this.loadedDefaultImage) return;
-            this._scope.$apply(() => {
-                this.setImage(this._pipNavHeader.config, true);
+            this.$scope.$apply(() => {
+                this.setImage(this.pipNavHeader.config, true);
             });
         };
 
@@ -124,7 +111,7 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
             if (state === undefined) return;
 
             if (state.id == 'toggle') {
-                this._timeout(() => {
+                this.$timeout(() => {
                     this.showHeader = state && state.id == 'toggle';
                 }, 400);
             } else {
@@ -187,7 +174,7 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
         }
 
         public onUserClick() {
-            this._rootScope.$broadcast('pipNavUserClicked'); // todo
+            this.$rootScope.$broadcast('pipNavUserClicked'); // todo
         }
 
     }
@@ -197,7 +184,7 @@ import { INavHeaderService, NavHeaderConfig } from "./NavHeaderService";
             restrict: 'EA',
             replace: false,
             templateUrl: 'header/NavHeader.html',
-            controller: NavHeaderDirectiveController,
+            controller: NavHeaderController,
             controllerAs: '$ctrl'
 
         };

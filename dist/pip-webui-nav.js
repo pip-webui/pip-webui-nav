@@ -1087,23 +1087,22 @@ angular
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 (function () {
-    var NavHeaderDirectiveController = (function () {
-        NavHeaderDirectiveController.$inject = ['$element', '$scope', '$log', '$rootScope', '$timeout', 'pipNavHeader', 'navConstant'];
-        function NavHeaderDirectiveController($element, $scope, $log, $rootScope, $timeout, pipNavHeader, navConstant) {
+    var NavHeaderController = (function () {
+        NavHeaderController.$inject = ['$element', '$scope', '$log', '$rootScope', '$timeout', 'pipNavHeader', 'navConstant'];
+        function NavHeaderController($element, $scope, $log, $rootScope, $timeout, pipNavHeader, navConstant) {
             "ngInject";
             var _this = this;
-            this._element = $element;
-            this._scope = $scope;
-            this._log = $log;
-            this._rootScope = $rootScope;
-            this._timeout = $timeout;
-            this._pipNavHeader = pipNavHeader;
-            this._element.addClass('pip-sticky-nav-header');
+            this.$element = $element;
+            this.$scope = $scope;
+            this.$rootScope = $rootScope;
+            this.$timeout = $timeout;
+            this.pipNavHeader = pipNavHeader;
+            $element.addClass('pip-sticky-nav-header');
             this.initImage();
-            var cleanupNavHeaderChanged = this._rootScope.$on('pipNavHeaderChanged', function ($event, config) {
+            var cleanupNavHeaderChanged = $rootScope.$on('pipNavHeaderChanged', function ($event, config) {
                 _this.onNavHeaderChanged($event, config);
             });
-            var cleanupSideNavStateChanged = this._rootScope.$on('pipSideNavStateChanged', function ($event, state) {
+            var cleanupSideNavStateChanged = $rootScope.$on('pipSideNavStateChanged', function ($event, state) {
                 _this.onStateChanged($event, state);
             });
             $scope.$on('$destroy', function () {
@@ -1115,11 +1114,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             });
         }
-        NavHeaderDirectiveController.prototype.initImage = function () {
+        NavHeaderController.prototype.initImage = function () {
             var _this = this;
-            this.imageBlock = this._element.find('.pip-sticky-nav-header-user');
-            this._timeout(function () {
-                _this.image = _this._element.find('.pip-sticky-nav-header-user-image');
+            this.imageBlock = this.$element.find('.pip-sticky-nav-header-user');
+            this.$timeout(function () {
+                _this.image = _this.$element.find('.pip-sticky-nav-header-user-image');
                 if (_this.image[0]) {
                     _this.image[0].onload = (function () { return _this.onImageLoad(); });
                     _this.image[0].onerror = (function () { return _this.onImageError(); });
@@ -1128,36 +1127,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     _this.image.onload = (function () { return _this.onImageLoad(); });
                     _this.image.onerror = (function () { return _this.onImageError(); });
                 }
-                _this.onNavHeaderChanged(null, _this._pipNavHeader.config);
+                _this.onNavHeaderChanged(null, _this.pipNavHeader.config);
             }, 20);
         };
-        NavHeaderDirectiveController.prototype.initHeader = function () {
-            if (!this._pipNavHeader.config)
+        NavHeaderController.prototype.initHeader = function () {
+            if (!this.pipNavHeader.config)
                 return;
-            this.title = this._pipNavHeader.config.title;
-            this.subtitle = this._pipNavHeader.config.subtitle;
-            this.imageUrl = this._pipNavHeader.config.imageUrl;
-            this.imageCss = this._pipNavHeader.config.imageCss;
+            this.title = this.pipNavHeader.config.title;
+            this.subtitle = this.pipNavHeader.config.subtitle;
+            this.imageUrl = this.pipNavHeader.config.imageUrl;
+            this.imageCss = this.pipNavHeader.config.imageCss;
         };
-        NavHeaderDirectiveController.prototype.onImageLoad = function () {
+        NavHeaderController.prototype.onImageLoad = function () {
             this.setImageMarginCSS(this.image);
         };
         ;
-        NavHeaderDirectiveController.prototype.onImageError = function () {
+        NavHeaderController.prototype.onImageError = function () {
             var _this = this;
             if (this.loadedDefaultImage)
                 return;
-            this._scope.$apply(function () {
-                _this.setImage(_this._pipNavHeader.config, true);
+            this.$scope.$apply(function () {
+                _this.setImage(_this.pipNavHeader.config, true);
             });
         };
         ;
-        NavHeaderDirectiveController.prototype.onStateChanged = function (event, state) {
+        NavHeaderController.prototype.onStateChanged = function (event, state) {
             var _this = this;
             if (state === undefined)
                 return;
             if (state.id == 'toggle') {
-                this._timeout(function () {
+                this.$timeout(function () {
                     _this.showHeader = state && state.id == 'toggle';
                 }, 400);
             }
@@ -1165,7 +1164,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 this.showHeader = false;
             }
         };
-        NavHeaderDirectiveController.prototype.setImageMarginCSS = function (image) {
+        NavHeaderController.prototype.setImageMarginCSS = function (image) {
             var cssParams = {}, containerWidth = this.imageBlock.width ? this.imageBlock.width() : this.imageBlock.clientWidth, containerHeight = this.imageBlock.height ? this.imageBlock.height() : this.imageBlock.clientHeight, imageWidth = image[0]['naturalWidth'] || image.width, imageHeight = image[0]['naturalHeight'] || image.height, margin = 0;
             if ((imageWidth / containerWidth) > (imageHeight / containerHeight)) {
                 margin = -((imageWidth / imageHeight * containerHeight - containerWidth) / 2);
@@ -1184,7 +1183,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             image.css(cssParams);
         };
         ;
-        NavHeaderDirectiveController.prototype.setImage = function (config, loadError) {
+        NavHeaderController.prototype.setImage = function (config, loadError) {
             if (!config)
                 return;
             var url;
@@ -1202,7 +1201,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 this.imageBlock.css('display', 'none');
             }
         };
-        NavHeaderDirectiveController.prototype.onNavHeaderChanged = function ($event, config) {
+        NavHeaderController.prototype.onNavHeaderChanged = function ($event, config) {
             if (!config)
                 return;
             this.setImage(config, false);
@@ -1211,17 +1210,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
             this.imageUrl = config.imageUrl;
             this.imageCss = config.imageCss;
         };
-        NavHeaderDirectiveController.prototype.onUserClick = function () {
-            this._rootScope.$broadcast('pipNavUserClicked');
+        NavHeaderController.prototype.onUserClick = function () {
+            this.$rootScope.$broadcast('pipNavUserClicked');
         };
-        return NavHeaderDirectiveController;
+        return NavHeaderController;
     }());
     function navHeaderDirective() {
         return {
             restrict: 'EA',
             replace: false,
             templateUrl: 'header/NavHeader.html',
-            controller: NavHeaderDirectiveController,
+            controller: NavHeaderController,
             controllerAs: '$ctrl'
         };
     }
