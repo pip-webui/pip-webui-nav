@@ -3,20 +3,9 @@ import { NavMenuConfig, NavMenuSection, INavMenuService, NavMenuLink } from './N
 import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
 
 (() => {
-    class NavMenuDirectiveController {
-        private _element: ng.IAugmentedJQuery;
-        private _attrs: ng.IAttributes;
-        private _injector: ng.auto.IInjectorService;
-        private _scope: angular.IScope;
-        private _log: ng.ILogService;
-        private _rootScope: ng.IRootScopeService;
-        private _pipSideNav: ISideNavService;
-        private _pipNavMenu: INavMenuService;
+    class NavMenuController {
         private _state: angular.ui.IStateService;
-        private _window: ng.IWindowService;
-        private _location: ng.ILocationService;
         private _pipMedia: pip.layouts.IMediaService;
-        private _timeout: ng.ITimeoutService;
         private _animationDuration;
         private _pipSideNavElement: ng.IAugmentedJQuery;
 
@@ -28,57 +17,44 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
         public sideNavState: SideNavState;
 
         constructor(
+            private $scope: angular.IScope,
+            private $window: ng.IWindowService,
+            private $location: ng.ILocationService,
+            private $rootScope: ng.IRootScopeService,
+            private $timeout: ng.ITimeoutService,
+            private pipSideNav: ISideNavService,
+            private pipNavMenu: INavMenuService,
+
             $element: ng.IAugmentedJQuery,
-            $attrs: ng.IAttributes,
             $injector: ng.auto.IInjectorService,
-            $scope: angular.IScope,
-            $log: ng.ILogService,
-            $window: ng.IWindowService,
-            $location: ng.ILocationService,
-            $rootScope: ng.IRootScopeService,
-            $timeout: ng.ITimeoutService,
-            pipSideNav: ISideNavService,
-            pipNavMenu: INavMenuService,
             navConstant: any
 
         ) {
             "ngInject";
 
-            this._element = $element;
-            this._attrs = $attrs;
-            this._scope = $scope;
-            this._injector = $injector;
-            this._log = $log;
-            this._rootScope = $rootScope;
-            this._timeout = $timeout;
-            this._window = $window;
-            this._location = $location;
-            this._pipSideNav = pipSideNav;
-            this._pipNavMenu = pipNavMenu;
-
-            this._state = this._injector.has('$state') ? <angular.ui.IStateService>this._injector.get('$state') : null;
+            this._state = $injector.has('$state') ? <angular.ui.IStateService>$injector.get('$state') : null;
 
             this._animationDuration = navConstant.SIDENAV_ANIMATION_DURATION,
                 this._pipSideNavElement = $element.parent().parent();
             // Apply class and call resize
-            this._element.addClass('pip-sticky-nav-menu');
+            $element.addClass('pip-sticky-nav-menu');
 
-            this.sections = this._scope['sections'] || this._pipNavMenu.sections;
+            this.sections = this.$scope['sections'] || this.pipNavMenu.sections;
 
             this.setCollapsible();
 
-            this.defaultIcon = this._pipNavMenu.defaultIcon;
+            this.defaultIcon = this.pipNavMenu.defaultIcon;
 
-            this.onStateChanged(null, this._pipSideNav.state);
+            this.onStateChanged(null, this.pipSideNav.state);
 
-            let cleanupNavMenuChanged: Function = this._rootScope.$on('pipNavMenuChanged', ($event: ng.IAngularEvent, config: NavMenuConfig) => { //navState
+            let cleanupNavMenuChanged: Function = this.$rootScope.$on('pipNavMenuChanged', ($event: ng.IAngularEvent, config: NavMenuConfig) => { //navState
                 this.onConfigChanged($event, config)
             });
-            let cleanupSideNavStateChanged: Function = this._rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: SideNavState) => { //navState
+            let cleanupSideNavStateChanged: Function = this.$rootScope.$on('pipSideNavStateChanged', ($event: ng.IAngularEvent, state: SideNavState) => { //navState
                 this.onStateChanged($event, state)
             });
 
-            this._scope.$on('$destroy', () => {
+            this.$scope.$on('$destroy', () => {
                 if (angular.isFunction(cleanupNavMenuChanged)) {
                     cleanupNavMenuChanged();
                 }
@@ -91,10 +67,10 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
 
         private setCollapsible(): void {
             var collapsed: boolean;
-            if (angular.isFunction(this._scope['collapsed'])) {
-                collapsed = this._scope['collapsed']();
+            if (angular.isFunction(this.$scope['collapsed'])) {
+                collapsed = this.$scope['collapsed']();
             } else {
-                collapsed = this._scope['collapsed'] !== false && this._scope['collapsed'] !== 'false';
+                collapsed = this.$scope['collapsed'] !== false && this.$scope['collapsed'] !== 'false';
             }
 
             this.isCollapsed = collapsed;
@@ -110,7 +86,7 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
             } else {
                 this._pipSideNavElement.addClass('pip-sticky-nav-small');
             }
-            this._rootScope.$emit('pipNavExpanded', this.expanded);
+            this.$rootScope.$emit('pipNavExpanded', this.expanded);
         }
 
         public isHidden(item: NavMenuLink): boolean {
@@ -155,11 +131,11 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
                     return true;
                 }
             } else if (link.href) {
-                if (link.href.split('?')[0] === this._window.location.href.split('?')[0]) {
+                if (link.href.split('?')[0] === this.$window.location.href.split('?')[0]) {
                     return true;
                 }
             } else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === this._location.url().split(/[\s/?]+/)[1]) {
+                if (link.url.split(/[\s/?]+/)[1] === this.$location.url().split(/[\s/?]+/)[1]) {
                     return true;
                 }
             }
@@ -171,55 +147,54 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
             event.stopPropagation();
 
             if (!link) {
-                this._pipSideNav.close();
+                this.pipSideNav.close();
 
                 return;
             }
 
             if (link.href) {
-                if (link.href.split('?')[0] === this._window.location.href.split('?')[0]) {
-                    this._pipSideNav.close();
+                if (link.href.split('?')[0] === this.$window.location.href.split('?')[0]) {
+                    this.pipSideNav.close();
 
                     return;
                 }
 
-                this._pipSideNav.close();
-                this._timeout(() => {
-                    this._window.location.href = link.href;
+                this.pipSideNav.close();
+                this.$timeout(() => {
+                    this.$window.location.href = link.href;
                 }, this._animationDuration);
 
                 return;
             } else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === this._location.url().split(/[\s/?]+/)[1]) {
-                    this._pipSideNav.close();
+                if (link.url.split(/[\s/?]+/)[1] === this.$location.url().split(/[\s/?]+/)[1]) {
+                    this.pipSideNav.close();
                     return;
                 }
 
-                this._pipSideNav.close();
-                this._timeout(() => {
-                    this._location.url(link.url);
+                this.pipSideNav.close();
+                this.$timeout(() => {
+                    this.$location.url(link.url);
                 }, this._animationDuration);
 
                 return;
             } else if (link.state) {
                 if (this._state != null && this._state.current.name === link.state) {
-                    this._pipSideNav.close();
+                    this.pipSideNav.close();
 
                     return;
                 }
 
-                this._pipSideNav.close();
-                this._timeout(() => {
+                this.pipSideNav.close();
+                this.$timeout(() => {
                     this._state.go(link.state, link.stateParams);
                 }, this._animationDuration);
 
                 return;
             } else if (link.event) {
-                this._rootScope.$broadcast(link.event, link);
+                this.$rootScope.$broadcast(link.event, link);
             }
 
-
-            this._pipSideNav.close();
+            this.pipSideNav.close();
         }
     }
 
@@ -233,7 +208,7 @@ import { SideNavStateNames, SideNavState } from '../sidenav/SideNavState';
             },
             replace: false,
             templateUrl: 'menu/NavMenu.html',
-            controller: NavMenuDirectiveController,
+            controller: NavMenuController,
             controllerAs: '$ctrl'
         };
     }

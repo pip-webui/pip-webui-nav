@@ -1775,37 +1775,33 @@ __export(require("./header"));
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 (function () {
-    var NavMenuDirectiveController = (function () {
-        NavMenuDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$window', '$location', '$rootScope', '$timeout', 'pipSideNav', 'pipNavMenu', 'navConstant'];
-        function NavMenuDirectiveController($element, $attrs, $injector, $scope, $log, $window, $location, $rootScope, $timeout, pipSideNav, pipNavMenu, navConstant) {
+    var NavMenuController = (function () {
+        NavMenuController.$inject = ['$scope', '$window', '$location', '$rootScope', '$timeout', 'pipSideNav', 'pipNavMenu', '$element', '$injector', 'navConstant'];
+        function NavMenuController($scope, $window, $location, $rootScope, $timeout, pipSideNav, pipNavMenu, $element, $injector, navConstant) {
             "ngInject";
             var _this = this;
-            this._element = $element;
-            this._attrs = $attrs;
-            this._scope = $scope;
-            this._injector = $injector;
-            this._log = $log;
-            this._rootScope = $rootScope;
-            this._timeout = $timeout;
-            this._window = $window;
-            this._location = $location;
-            this._pipSideNav = pipSideNav;
-            this._pipNavMenu = pipNavMenu;
-            this._state = this._injector.has('$state') ? this._injector.get('$state') : null;
+            this.$scope = $scope;
+            this.$window = $window;
+            this.$location = $location;
+            this.$rootScope = $rootScope;
+            this.$timeout = $timeout;
+            this.pipSideNav = pipSideNav;
+            this.pipNavMenu = pipNavMenu;
+            this._state = $injector.has('$state') ? $injector.get('$state') : null;
             this._animationDuration = navConstant.SIDENAV_ANIMATION_DURATION,
                 this._pipSideNavElement = $element.parent().parent();
-            this._element.addClass('pip-sticky-nav-menu');
-            this.sections = this._scope['sections'] || this._pipNavMenu.sections;
+            $element.addClass('pip-sticky-nav-menu');
+            this.sections = this.$scope['sections'] || this.pipNavMenu.sections;
             this.setCollapsible();
-            this.defaultIcon = this._pipNavMenu.defaultIcon;
-            this.onStateChanged(null, this._pipSideNav.state);
-            var cleanupNavMenuChanged = this._rootScope.$on('pipNavMenuChanged', function ($event, config) {
+            this.defaultIcon = this.pipNavMenu.defaultIcon;
+            this.onStateChanged(null, this.pipSideNav.state);
+            var cleanupNavMenuChanged = this.$rootScope.$on('pipNavMenuChanged', function ($event, config) {
                 _this.onConfigChanged($event, config);
             });
-            var cleanupSideNavStateChanged = this._rootScope.$on('pipSideNavStateChanged', function ($event, state) {
+            var cleanupSideNavStateChanged = this.$rootScope.$on('pipSideNavStateChanged', function ($event, state) {
                 _this.onStateChanged($event, state);
             });
-            this._scope.$on('$destroy', function () {
+            this.$scope.$on('$destroy', function () {
                 if (angular.isFunction(cleanupNavMenuChanged)) {
                     cleanupNavMenuChanged();
                 }
@@ -1814,17 +1810,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             });
         }
-        NavMenuDirectiveController.prototype.setCollapsible = function () {
+        NavMenuController.prototype.setCollapsible = function () {
             var collapsed;
-            if (angular.isFunction(this._scope['collapsed'])) {
-                collapsed = this._scope['collapsed']();
+            if (angular.isFunction(this.$scope['collapsed'])) {
+                collapsed = this.$scope['collapsed']();
             }
             else {
-                collapsed = this._scope['collapsed'] !== false && this._scope['collapsed'] !== 'false';
+                collapsed = this.$scope['collapsed'] !== false && this.$scope['collapsed'] !== 'false';
             }
             this.isCollapsed = collapsed;
         };
-        NavMenuDirectiveController.prototype.onExpand = function () {
+        NavMenuController.prototype.onExpand = function () {
             if (!this.isCollapsed) {
                 return;
             }
@@ -1835,12 +1831,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
             else {
                 this._pipSideNavElement.addClass('pip-sticky-nav-small');
             }
-            this._rootScope.$emit('pipNavExpanded', this.expanded);
+            this.$rootScope.$emit('pipNavExpanded', this.expanded);
         };
-        NavMenuDirectiveController.prototype.isHidden = function (item) {
+        NavMenuController.prototype.isHidden = function (item) {
             return item && item.access && !item.access(item);
         };
-        NavMenuDirectiveController.prototype.isSectionEmpty = function (linkCollection) {
+        NavMenuController.prototype.isSectionEmpty = function (linkCollection) {
             var _this = this;
             var result = true;
             _.each(linkCollection, function (link) {
@@ -1850,12 +1846,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
             return result;
         };
-        NavMenuDirectiveController.prototype.onConfigChanged = function ($event, config) {
+        NavMenuController.prototype.onConfigChanged = function ($event, config) {
             if (!config)
                 return;
             this.sections = config.sections;
         };
-        NavMenuDirectiveController.prototype.onStateChanged = function (event, state) {
+        NavMenuController.prototype.onStateChanged = function (event, state) {
             if (!state)
                 return;
             this.isCollapsed = state.expand;
@@ -1863,7 +1859,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             this.expandedButton = state.expandedButton;
             this.sideNavState = state;
         };
-        NavMenuDirectiveController.prototype.isActive = function (link) {
+        NavMenuController.prototype.isActive = function (link) {
             if (link.parentState) {
                 if (this._state != null && this._state.includes(link.parentState)) {
                     return true;
@@ -1875,63 +1871,63 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             }
             else if (link.href) {
-                if (link.href.split('?')[0] === this._window.location.href.split('?')[0]) {
+                if (link.href.split('?')[0] === this.$window.location.href.split('?')[0]) {
                     return true;
                 }
             }
             else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === this._location.url().split(/[\s/?]+/)[1]) {
+                if (link.url.split(/[\s/?]+/)[1] === this.$location.url().split(/[\s/?]+/)[1]) {
                     return true;
                 }
             }
             return false;
         };
-        NavMenuDirectiveController.prototype.clickLink = function (event, link) {
+        NavMenuController.prototype.clickLink = function (event, link) {
             var _this = this;
             event.stopPropagation();
             if (!link) {
-                this._pipSideNav.close();
+                this.pipSideNav.close();
                 return;
             }
             if (link.href) {
-                if (link.href.split('?')[0] === this._window.location.href.split('?')[0]) {
-                    this._pipSideNav.close();
+                if (link.href.split('?')[0] === this.$window.location.href.split('?')[0]) {
+                    this.pipSideNav.close();
                     return;
                 }
-                this._pipSideNav.close();
-                this._timeout(function () {
-                    _this._window.location.href = link.href;
+                this.pipSideNav.close();
+                this.$timeout(function () {
+                    _this.$window.location.href = link.href;
                 }, this._animationDuration);
                 return;
             }
             else if (link.url) {
-                if (link.url.split(/[\s/?]+/)[1] === this._location.url().split(/[\s/?]+/)[1]) {
-                    this._pipSideNav.close();
+                if (link.url.split(/[\s/?]+/)[1] === this.$location.url().split(/[\s/?]+/)[1]) {
+                    this.pipSideNav.close();
                     return;
                 }
-                this._pipSideNav.close();
-                this._timeout(function () {
-                    _this._location.url(link.url);
+                this.pipSideNav.close();
+                this.$timeout(function () {
+                    _this.$location.url(link.url);
                 }, this._animationDuration);
                 return;
             }
             else if (link.state) {
                 if (this._state != null && this._state.current.name === link.state) {
-                    this._pipSideNav.close();
+                    this.pipSideNav.close();
                     return;
                 }
-                this._pipSideNav.close();
-                this._timeout(function () {
+                this.pipSideNav.close();
+                this.$timeout(function () {
                     _this._state.go(link.state, link.stateParams);
                 }, this._animationDuration);
                 return;
             }
             else if (link.event) {
-                this._rootScope.$broadcast(link.event, link);
+                this.$rootScope.$broadcast(link.event, link);
             }
-            this._pipSideNav.close();
+            this.pipSideNav.close();
         };
-        return NavMenuDirectiveController;
+        return NavMenuController;
     }());
     function navMenuDirective() {
         return {
@@ -1942,7 +1938,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             },
             replace: false,
             templateUrl: 'menu/NavMenu.html',
-            controller: NavMenuDirectiveController,
+            controller: NavMenuController,
             controllerAs: '$ctrl'
         };
     }
