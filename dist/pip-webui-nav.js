@@ -2814,8 +2814,6 @@ require("./SideNavPartDirective");
 require("./SideNavDirective");
 __export(require("./SideNavService"));
 },{"./SideNavDirective":37,"./SideNavEvents":38,"./SideNavPartDirective":39,"./SideNavService":40,"./SideNavState":41}],43:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var PipTab = (function () {
     function PipTab() {
     }

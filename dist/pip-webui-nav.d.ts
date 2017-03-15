@@ -328,7 +328,13 @@ export class SideNavStateConfig {
     xlarge: SideNavState;
 }
 
-export interface ITabsBindings {
+class PipTab {
+    id: string;
+    name?: string;
+    count: number;
+    title: string;
+}
+interface ITabsBindings {
     [key: string]: any;
     ngDisabled: any;
     tabs: any;
@@ -339,7 +345,53 @@ export interface ITabsBindings {
     breakpoints: any;
     themeClass: any;
 }
-
+const TabsBindings: ITabsBindings;
+class TabsChanges implements ng.IOnChangesObject, ITabsBindings {
+    [key: string]: ng.IChangesObject<any>;
+    ngDisabled: ng.IChangesObject<() => ng.IPromise<void>>;
+    tabs: ng.IChangesObject<PipTab[]>;
+    showTabs: ng.IChangesObject<() => ng.IPromise<void>>;
+    showTabsShadow: ng.IChangesObject<() => ng.IPromise<void>>;
+    activeIndex: ng.IChangesObject<number>;
+    select: ng.IChangesObject<() => ng.IPromise<void>>;
+    breakpoints: ng.IChangesObject<string>;
+    themeClass: ng.IChangesObject<string>;
+}
+class TabsDirectiveController implements ITabsBindings {
+    private _element;
+    private _injector;
+    private _log;
+    private _rootScope;
+    private _pipTranslate;
+    private _pipTheme;
+    private _pipMedia;
+    private _timeout;
+    private _navConstant;
+    private selectedTabId;
+    ngDisabled: Function;
+    tabs: PipTab[];
+    activeIndex: number;
+    breakpoints: string;
+    showTabs: Function;
+    showTabsShadow: Function;
+    select: Function;
+    themeClass: string;
+    media: any;
+    currentTheme: string;
+    change: () => ng.IPromise<any>;
+    constructor($element: ng.IAugmentedJQuery, $injector: ng.auto.IInjectorService, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia, $timeout: ng.ITimeoutService, navConstant: any);
+    private setTheme();
+    private setMedia($mdMedia);
+    private setTranslate();
+    isDisabled(): boolean;
+    tabDisabled(index: number): boolean;
+    onSelect(index: number): void;
+    showShadow(): boolean;
+    show(): boolean;
+    toBoolean(value: any): boolean;
+    $onChanges(changes: TabsChanges): void;
+}
+const Tabs: ng.IComponentOptions;
 
 }
 
