@@ -859,6 +859,7 @@ var BreadcrumbConfig_1 = require("./BreadcrumbConfig");
 var BreadcrumbService = (function () {
     function BreadcrumbService($rootScope, config) {
         this.$rootScope = $rootScope;
+        this._config = config;
     }
     Object.defineProperty(BreadcrumbService.prototype, "config", {
         get: function () {
@@ -1010,9 +1011,9 @@ angular
 })();
 },{}],16:[function(require,module,exports){
 (function () {
-    var DropdownDirectiveController = (function () {
-        DropdownDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout'];
-        function DropdownDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout) {
+    var DropdownController = (function () {
+        DropdownController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$mdMedia', '$timeout'];
+        function DropdownController($element, $attrs, $injector, $scope, $log, $rootScope, $mdMedia, $timeout) {
             "ngInject";
             this._element = $element;
             this._attrs = $attrs;
@@ -1034,7 +1035,7 @@ angular
             this.actions = ($scope['actions'] && _.isArray($scope['actions'])) ? $scope['actions'] : [];
             this.activeIndex = $scope['activeIndex'] || 0;
         }
-        DropdownDirectiveController.prototype.disabled = function () {
+        DropdownController.prototype.disabled = function () {
             if (this._scope['ngDisabled']) {
                 return this._scope['ngDisabled']();
             }
@@ -1042,7 +1043,7 @@ angular
                 return false;
             }
         };
-        DropdownDirectiveController.prototype.onSelect = function (index) {
+        DropdownController.prototype.onSelect = function (index) {
             var _this = this;
             this.activeIndex = index;
             this._scope['activeIndex'] = index;
@@ -1055,7 +1056,7 @@ angular
                 });
             }
         };
-        DropdownDirectiveController.prototype.show = function () {
+        DropdownController.prototype.show = function () {
             var result;
             if (this._scope['showDropdown']()) {
                 return !!this._scope['showDropdown']();
@@ -1064,7 +1065,7 @@ angular
                 return true;
             }
         };
-        return DropdownDirectiveController;
+        return DropdownController;
     }());
     function dropdownDirective() {
         return {
@@ -1078,7 +1079,7 @@ angular
                 pipChange: '&'
             },
             templateUrl: 'dropdown/Dropdown.html',
-            controller: DropdownDirectiveController,
+            controller: DropdownController,
             controllerAs: '$ctrl'
         };
     }
@@ -1700,7 +1701,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./dependencies/TranslateFilter");
 require("./language/LanguagePickerDirective");
-require("./dropdown/DropdownDirective");
+require("./dropdown/Dropdown");
 require("./tabs/Tabs");
 require("./actions");
 require("./appbar");
@@ -1741,7 +1742,7 @@ __export(require("./sidenav"));
 __export(require("./icon"));
 __export(require("./menu"));
 __export(require("./header"));
-},{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/DropdownDirective":16,"./header":19,"./icon":26,"./language/LanguagePickerDirective":28,"./menu":31,"./search":37,"./sidenav":43,"./tabs/Tabs":44}],28:[function(require,module,exports){
+},{"./actions":4,"./appbar":9,"./breadcrumb":13,"./common/NavService":14,"./dependencies/TranslateFilter":15,"./dropdown/Dropdown":16,"./header":19,"./icon":26,"./language/LanguagePickerDirective":28,"./menu":31,"./search":37,"./sidenav":43,"./tabs/Tabs":44}],28:[function(require,module,exports){
 (function () {
     var LanguagePickerDirectiveController = (function () {
         LanguagePickerDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$timeout'];

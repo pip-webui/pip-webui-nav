@@ -1,6 +1,6 @@
 ﻿import './dependencies/TranslateFilter';
 import './language/LanguagePickerDirective';
-import './dropdown/DropdownDirective';
+import './dropdown/Dropdown';
 import './tabs/Tabs';
 import './actions';
 import './appbar';

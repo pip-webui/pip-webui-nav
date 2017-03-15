@@ -1,5 +1,5 @@
 (() => {
-    class DropdownDirectiveController {
+    class DropdownController {
         private _element: ng.IAugmentedJQuery;
         private _attrs: ng.IAttributes;
         private _injector: ng.auto.IInjectorService;
@@ -103,7 +103,7 @@
                 pipChange: '&'
             },
             templateUrl: 'dropdown/Dropdown.html',
-            controller: DropdownDirectiveController,
+            controller: DropdownController,
             controllerAs: '$ctrl'
         };
     }
