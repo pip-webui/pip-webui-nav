@@ -1,8 +1,8 @@
 import { NavIconConfig } from './NavIconConfig';
 import { INavIconService, INavIconProvider } from './INavIconService';
 
-export let NavIconClickedEvent = 'pipNavIconClicked';
-export let NavIconChangedEvent = 'pipNavIconChanged';
+export const NavIconClickedEvent: string = 'pipNavIconClicked';
+export const NavIconChangedEvent: string = 'pipNavIconChanged';
 
 class NavIconService implements INavIconService {
     private _config: NavIconConfig;
