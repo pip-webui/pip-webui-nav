@@ -123,47 +123,6 @@ export interface INavService {
 
 
 
-class DropdownController {
-    private $scope;
-    private $timeout;
-    private _pipTranslate;
-    private _pipTheme;
-    private _pipMedia;
-    themeClass: string;
-    media: any;
-    actions: any[];
-    activeIndex: number;
-    selectedIndex: number;
-    currentTheme: string;
-    ngDisabled: Function;
-    showDropdown: Function;
-    select: any;
-    pipChange: Function;
-    constructor($scope: angular.IScope, $timeout: ng.ITimeoutService, $element: ng.IAugmentedJQuery, $attrs: ng.IAttributes, $injector: ng.auto.IInjectorService, $log: ng.ILogService, $rootScope: ng.IRootScopeService, $mdMedia: angular.material.IMedia);
-    disabled(): boolean;
-    onSelect(index: number): void;
-    show(): boolean;
-}
-interface IDropdownBindings {
-    [key: string]: any;
-    ngDisabled: any;
-    actions: any;
-    showDropdown: any;
-    activeIndex: any;
-    select: any;
-    pipChange: any;
-}
-const DropdownBindings: IDropdownBindings;
-class DropdownChanges implements ng.IOnChangesObject, IDropdownBindings {
-    [key: string]: ng.IChangesObject<any>;
-    ngDisabled: ng.IChangesObject<Function>;
-    actions: ng.IChangesObject<any>;
-    showDropdown: ng.IChangesObject<Function>;
-    activeIndex: ng.IChangesObject<number>;
-    select: ng.IChangesObject<any>;
-    pipChange: ng.IChangesObject<Function>;
-}
-const dropdown: ng.IComponentOptions;
 
 
 

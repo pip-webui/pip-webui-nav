@@ -1010,77 +1010,79 @@ angular
         .filter('translate', translateFilter);
 })();
 },{}],16:[function(require,module,exports){
-var DropdownController = (function () {
-    DropdownController.$inject = ['$scope', '$timeout', '$element', '$attrs', '$injector', '$log', '$rootScope', '$mdMedia'];
-    function DropdownController($scope, $timeout, $element, $attrs, $injector, $log, $rootScope, $mdMedia) {
-        "ngInject";
-        this.$scope = $scope;
-        this.$timeout = $timeout;
-        this._pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null;
-        this._pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
-        if (this._pipTheme) {
-            this.currentTheme = this._pipTheme.theme;
+{
+    var DropdownController = (function () {
+        DropdownController.$inject = ['$scope', '$timeout', '$element', '$attrs', '$injector', '$log', '$rootScope', '$mdMedia'];
+        function DropdownController($scope, $timeout, $element, $attrs, $injector, $log, $rootScope, $mdMedia) {
+            "ngInject";
+            this.$scope = $scope;
+            this.$timeout = $timeout;
+            this._pipTheme = $injector.has('pipTheme') ? $injector.get('pipTheme') : null;
+            this._pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
+            if (this._pipTheme) {
+                this.currentTheme = this._pipTheme.theme;
+            }
+            else if ($rootScope['$theme']) {
+                this.currentTheme = $rootScope['$theme'];
+            }
+            this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
+            this.media = !_.isUndefined(this._pipMedia) ? this._pipMedia : $mdMedia;
+            this.actions = (this.actions && _.isArray(this.actions)) ? this.actions : [];
+            this.activeIndex = this.activeIndex || 0;
         }
-        else if ($rootScope['$theme']) {
-            this.currentTheme = $rootScope['$theme'];
-        }
-        this.themeClass = ($attrs['class'] || '') + ' md-' + this.currentTheme + '-theme';
-        this.media = !_.isUndefined(this._pipMedia) ? this._pipMedia : $mdMedia;
-        this.actions = (this.actions && _.isArray(this.actions)) ? this.actions : [];
-        this.activeIndex = this.activeIndex || 0;
-    }
-    DropdownController.prototype.disabled = function () {
-        if (this.ngDisabled) {
-            return this.ngDisabled();
-        }
-        else {
-            return false;
-        }
+        DropdownController.prototype.disabled = function () {
+            if (this.ngDisabled) {
+                return this.ngDisabled();
+            }
+            else {
+                return false;
+            }
+        };
+        DropdownController.prototype.onSelect = function (index) {
+            var _this = this;
+            this.activeIndex = index;
+            if (this.select) {
+                this.select(this.actions[index], this.activeIndex);
+            }
+            if (this.pipChange) {
+                this.$timeout(function () {
+                    _this.pipChange();
+                });
+            }
+        };
+        DropdownController.prototype.show = function () {
+            var result;
+            if (this.showDropdown()) {
+                return !!this.showDropdown();
+            }
+            else {
+                return true;
+            }
+        };
+        return DropdownController;
+    }());
+    var DropdownBindings = {
+        ngDisabled: '&',
+        actions: '=pipActions',
+        showDropdown: '&pipShow',
+        activeIndex: '=pipActiveIndex',
+        select: '=pipDropdownSelect',
+        pipChange: '&'
     };
-    DropdownController.prototype.onSelect = function (index) {
-        var _this = this;
-        this.activeIndex = index;
-        if (this.select) {
-            this.select(this.actions[index], this.activeIndex);
+    var DropdownChanges = (function () {
+        function DropdownChanges() {
         }
-        if (this.pipChange) {
-            this.$timeout(function () {
-                _this.pipChange();
-            });
-        }
+        return DropdownChanges;
+    }());
+    var dropdown = {
+        bindings: DropdownBindings,
+        templateUrl: 'dropdown/Dropdown.html',
+        controller: DropdownController
     };
-    DropdownController.prototype.show = function () {
-        var result;
-        if (this.showDropdown()) {
-            return !!this.showDropdown();
-        }
-        else {
-            return true;
-        }
-    };
-    return DropdownController;
-}());
-var DropdownBindings = {
-    ngDisabled: '&',
-    actions: '=pipActions',
-    showDropdown: '&pipShow',
-    activeIndex: '=pipActiveIndex',
-    select: '=pipDropdownSelect',
-    pipChange: '&'
-};
-var DropdownChanges = (function () {
-    function DropdownChanges() {
-    }
-    return DropdownChanges;
-}());
-var dropdown = {
-    bindings: DropdownBindings,
-    templateUrl: 'dropdown/Dropdown.html',
-    controller: DropdownController
-};
-angular
-    .module('pipDropdown', ['pipNav.Templates'])
-    .component('pipDropdown', dropdown);
+    angular
+        .module('pipDropdown', ['pipNav.Templates'])
+        .component('pipDropdown', dropdown);
+}
 },{}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
