@@ -1,7 +1,7 @@
 import { SimpleActionItem } from '../actions/ActionsService';
 import { BreadcrumbItem } from './BreadcrumbConfig';
 import { BreadcrumbConfig } from './BreadcrumbConfig';
-import { IBreadcrumbService } from './BreadcrumbService';
+import { IBreadcrumbService } from './IBreadcrumbService';
 import { BreadcrumbChangedEvent } from './BreadcrumbService';
 import { BreadcrumbBackEvent } from './BreadcrumbService';
 import { OpenSearchEvent } from '../search/SearchAngularEvents'
