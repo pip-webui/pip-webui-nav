@@ -2286,8 +2286,8 @@ require("./SearchBar");
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavState_1 = require("./SideNavState");
 var SideNavDirectiveController = (function () {
-    SideNavDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$log', '$rootScope', '$timeout', 'pipSideNav', 'navConstant'];
-    function SideNavDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $timeout, pipSideNav, navConstant) {
+    SideNavDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$rootScope', '$timeout', 'pipSideNav', 'navConstant'];
+    function SideNavDirectiveController($element, $attrs, $injector, $scope, $rootScope, $timeout, pipSideNav, navConstant) {
         "ngInject";
         var _this = this;
         this.$element = $element;
@@ -2324,27 +2324,27 @@ var SideNavDirectiveController = (function () {
                 _this.setState(SideNavState_1.SideNavStateNames.Toggle);
             }, 100);
         }
-        var cleanupNavHeaderChanged = this.$rootScope.$on('pipNavIconClicked', function () {
+        this.cleanupNavHeaderChanged = this.$rootScope.$on('pipNavIconClicked', function () {
             _this.onNavIconClick();
         });
-        var cleanupSideNavChanged = this.$rootScope.$on('pipSideNavChanged', function ($event, config) {
+        this.cleanupSideNavChanged = this.$rootScope.$on('pipSideNavChanged', function ($event, config) {
             _this.onSideNavChanged($event, config);
         });
-        this.$scope.$on('$destroy', function () {
-            if (angular.isFunction(cleanupNavHeaderChanged)) {
-                cleanupNavHeaderChanged();
-            }
-            if (angular.isFunction(cleanupSideNavChanged)) {
-                cleanupSideNavChanged();
-            }
-            if (angular.isFunction(_this.cleanupMainResized)) {
-                _this.cleanupMainResized();
-            }
-            if (angular.isFunction(_this.cleanupSideNavState)) {
-                _this.cleanupSideNavState();
-            }
-        });
     }
+    SideNavDirectiveController.prototype.$onDestroy = function () {
+        if (angular.isFunction(this.cleanupNavHeaderChanged)) {
+            this.cleanupNavHeaderChanged();
+        }
+        if (angular.isFunction(this.cleanupSideNavChanged)) {
+            this.cleanupSideNavChanged();
+        }
+        if (angular.isFunction(this.cleanupMainResized)) {
+            this.cleanupMainResized();
+        }
+        if (angular.isFunction(this.cleanupSideNavState)) {
+            this.cleanupSideNavState();
+        }
+    };
     SideNavDirectiveController.prototype.setBreakpoints = function () {
         if (!this._pipMedia || !angular.isObject(this._pipMedia.breakpoints)) {
             return { xs: 639, sm: 959, md: 1024, lg: 1919 };
@@ -2430,19 +2430,17 @@ var SideNavDirectiveController = (function () {
     return SideNavDirectiveController;
 }());
 (function () {
-    function sideNavDirective() {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: true,
-            templateUrl: 'sidenav/SideNav.html',
-            controller: SideNavDirectiveController,
-            controllerAs: '$ctrl'
-        };
-    }
+    var sideNav = {
+        transclude: true,
+        bindings: {
+            sidenavState: '=',
+        },
+        templateUrl: 'sidenav/SideNav.html',
+        controller: SideNavDirectiveController
+    };
     angular
         .module('pipSideNav')
-        .directive('pipSidenav', sideNavDirective);
+        .component('pipSidenav', sideNav);
 })();
 },{"./SideNavState":39}],37:[function(require,module,exports){
 (function () {

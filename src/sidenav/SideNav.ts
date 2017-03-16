@@ -13,6 +13,8 @@ class SideNavDirectiveController {
     private _navState: SideNavStateConfig;
     private cleanupMainResized: Function;
     private cleanupSideNavState: Function;
+    private cleanupNavHeaderChanged: Function;
+    private cleanupSideNavChanged: Function;
     private windowResize: Function;
 
     public sidenavState: SideNavState;
@@ -64,19 +66,21 @@ class SideNavDirectiveController {
             }, 100);
         }
 
-        let cleanupNavHeaderChanged: Function = this.$rootScope.$on('pipNavIconClicked', () => {
+        this.cleanupNavHeaderChanged = this.$rootScope.$on('pipNavIconClicked', () => {
             this.onNavIconClick();
         });
-        let cleanupSideNavChanged: Function = this.$rootScope.$on('pipSideNavChanged', ($event: ng.IAngularEvent, config: SideNavConfig) => { //navState
+        this.cleanupSideNavChanged = this.$rootScope.$on('pipSideNavChanged', ($event: ng.IAngularEvent, config: SideNavConfig) => { //navState
             this.onSideNavChanged($event, config)
         });
 
-        this.$scope.$on('$destroy', () => {
-            if (angular.isFunction(cleanupNavHeaderChanged)) {
-                cleanupNavHeaderChanged();
+    }
+
+    public $onDestroy() {
+         if (angular.isFunction(this.cleanupNavHeaderChanged)) {
+                this.cleanupNavHeaderChanged();
             }
-            if (angular.isFunction(cleanupSideNavChanged)) {
-                cleanupSideNavChanged();
+            if (angular.isFunction(this.cleanupSideNavChanged)) {
+                this.cleanupSideNavChanged();
             }
             if (angular.isFunction(this.cleanupMainResized)) {
                 this.cleanupMainResized();
@@ -84,8 +88,6 @@ class SideNavDirectiveController {
             if (angular.isFunction(this.cleanupSideNavState)) {
                 this.cleanupSideNavState();
             }
-        });
-
     }
 
     private setBreakpoints(): pip.layouts.MediaBreakpoints {
@@ -185,19 +187,17 @@ class SideNavDirectiveController {
 }
 
 (() => {
-    function sideNavDirective() {
-        return {
-            restrict: 'E',
-            transclude: true,
-            scope: true,
-            templateUrl: 'sidenav/SideNav.html',
-            controller: SideNavDirectiveController,
-            controllerAs: '$ctrl'
-        };
-    }
+    const sideNav: ng.IComponentOptions = {
+        transclude: true,
+        bindings: {
+            sidenavState: '=',
+        },
+        templateUrl: 'sidenav/SideNav.html',
+        controller: SideNavDirectiveController
+    };
 
     angular
         .module('pipSideNav')
-        .directive('pipSidenav', sideNavDirective);
+        .component('pipSidenav', sideNav);
 
 })();
