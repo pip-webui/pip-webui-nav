@@ -199,14 +199,21 @@ import { NavMenuConfig, NavMenuSection, NavMenuLink } from './NavMenuConfig';
         }
     }
 
+    interface INavMenuBindings {
+        [key: string]: any;
+        sections: any,
+        collapsed: any
+    }
+
+    const NavMenuBindings: INavMenuBindings = {
+        sections: '=?pipSections',
+        collapsed: '=?pipCollapsed'
+    };
 
     function navMenuDirective() {
         return {
             restrict: 'EA',
-            scope: {
-                sections: '=?pipSections',
-                collapsed: '=?pipCollapsed'
-            },
+            scope: NavMenuBindings,
             replace: false,
             templateUrl: 'menu/NavMenu.html',
             controller: NavMenuController,

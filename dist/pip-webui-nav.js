@@ -1928,13 +1928,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
         };
         return NavMenuController;
     }());
+    var NavMenuBindings = {
+        sections: '=?pipSections',
+        collapsed: '=?pipCollapsed'
+    };
     function navMenuDirective() {
         return {
             restrict: 'EA',
-            scope: {
-                sections: '=?pipSections',
-                collapsed: '=?pipCollapsed'
-            },
+            scope: NavMenuBindings,
             replace: false,
             templateUrl: 'menu/NavMenu.html',
             controller: NavMenuController,
