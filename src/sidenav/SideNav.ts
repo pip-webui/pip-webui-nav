@@ -1,7 +1,7 @@
-import { ISideNavService} from './ISideNavService';
-import { SideNavStateNames, SideNavState, SideNavStateConfig, SideNavConfig  } from './SideNavState';
+import { ISideNavService } from './ISideNavService';
+import { SideNavStateNames, SideNavState, SideNavStateConfig, SideNavConfig } from './SideNavState';
 
-class SideNavDirectiveController {
+class SideNavController implements ISideNavBindings {
     private _pipMedia: pip.layouts.IMediaService;
     private _isResizing: boolean;
     private _animationDuration: number;
@@ -76,18 +76,18 @@ class SideNavDirectiveController {
     }
 
     public $onDestroy() {
-         if (angular.isFunction(this.cleanupNavHeaderChanged)) {
-                this.cleanupNavHeaderChanged();
-            }
-            if (angular.isFunction(this.cleanupSideNavChanged)) {
-                this.cleanupSideNavChanged();
-            }
-            if (angular.isFunction(this.cleanupMainResized)) {
-                this.cleanupMainResized();
-            }
-            if (angular.isFunction(this.cleanupSideNavState)) {
-                this.cleanupSideNavState();
-            }
+        if (angular.isFunction(this.cleanupNavHeaderChanged)) {
+            this.cleanupNavHeaderChanged();
+        }
+        if (angular.isFunction(this.cleanupSideNavChanged)) {
+            this.cleanupSideNavChanged();
+        }
+        if (angular.isFunction(this.cleanupMainResized)) {
+            this.cleanupMainResized();
+        }
+        if (angular.isFunction(this.cleanupSideNavState)) {
+            this.cleanupSideNavState();
+        }
     }
 
     private setBreakpoints(): pip.layouts.MediaBreakpoints {
@@ -186,14 +186,23 @@ class SideNavDirectiveController {
     }
 }
 
+
+interface ISideNavBindings {
+    [key: string]: any;
+    sidenavState: any
+}
+
+const SideNavBindings: ISideNavBindings = {
+    sidenavState: '=?'
+};
+
 (() => {
+
     const sideNav: ng.IComponentOptions = {
         transclude: true,
-        bindings: {
-            sidenavState: '=',
-        },
+        bindings: SideNavBindings,
         templateUrl: 'sidenav/SideNav.html',
-        controller: SideNavDirectiveController
+        controller: SideNavController
     };
 
     angular

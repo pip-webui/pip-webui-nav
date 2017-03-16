@@ -2285,9 +2285,9 @@ require("./SearchBar");
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavState_1 = require("./SideNavState");
-var SideNavDirectiveController = (function () {
-    SideNavDirectiveController.$inject = ['$element', '$attrs', '$injector', '$scope', '$rootScope', '$timeout', 'pipSideNav', 'navConstant'];
-    function SideNavDirectiveController($element, $attrs, $injector, $scope, $rootScope, $timeout, pipSideNav, navConstant) {
+var SideNavController = (function () {
+    SideNavController.$inject = ['$element', '$attrs', '$injector', '$scope', '$rootScope', '$timeout', 'pipSideNav', 'navConstant'];
+    function SideNavController($element, $attrs, $injector, $scope, $rootScope, $timeout, pipSideNav, navConstant) {
         "ngInject";
         var _this = this;
         this.$element = $element;
@@ -2331,7 +2331,7 @@ var SideNavDirectiveController = (function () {
             _this.onSideNavChanged($event, config);
         });
     }
-    SideNavDirectiveController.prototype.$onDestroy = function () {
+    SideNavController.prototype.$onDestroy = function () {
         if (angular.isFunction(this.cleanupNavHeaderChanged)) {
             this.cleanupNavHeaderChanged();
         }
@@ -2345,7 +2345,7 @@ var SideNavDirectiveController = (function () {
             this.cleanupSideNavState();
         }
     };
-    SideNavDirectiveController.prototype.setBreakpoints = function () {
+    SideNavController.prototype.setBreakpoints = function () {
         if (!this._pipMedia || !angular.isObject(this._pipMedia.breakpoints)) {
             return { xs: 639, sm: 959, md: 1024, lg: 1919 };
         }
@@ -2353,7 +2353,7 @@ var SideNavDirectiveController = (function () {
             return this._pipMedia.breakpoints;
         }
     };
-    SideNavDirectiveController.prototype.onSideNavChanged = function ($event, config) {
+    SideNavController.prototype.onSideNavChanged = function ($event, config) {
         if (config && config.visible) {
             this.$element.css('display', 'block');
         }
@@ -2361,15 +2361,15 @@ var SideNavDirectiveController = (function () {
             this.$element.css('display', 'none');
         }
     };
-    SideNavDirectiveController.prototype.onNavIconClick = function () {
+    SideNavController.prototype.onNavIconClick = function () {
         this.pipSideNav.open();
     };
-    SideNavDirectiveController.prototype.onSideNavState = function ($event, stateName) {
+    SideNavController.prototype.onSideNavState = function ($event, stateName) {
         if (angular.isString(stateName) && this._navState[stateName] !== undefined) {
             this.setState(stateName);
         }
     };
-    SideNavDirectiveController.prototype.setSideNaveState = function () {
+    SideNavController.prototype.setSideNaveState = function () {
         var _this = this;
         if (this.pipSideNav.config && this.pipSideNav.config.type == 'popup') {
             return;
@@ -2395,7 +2395,7 @@ var SideNavDirectiveController = (function () {
         }
         this.setState(SideNavState_1.SideNavStateNames.XLarge);
     };
-    SideNavDirectiveController.prototype.setState = function (stateName) {
+    SideNavController.prototype.setState = function (stateName) {
         var _this = this;
         if (this._isResizing)
             return;
@@ -2427,16 +2427,17 @@ var SideNavDirectiveController = (function () {
             _this._isResizing = false;
         }, this._animationDuration);
     };
-    return SideNavDirectiveController;
+    return SideNavController;
 }());
+var SideNavBindings = {
+    sidenavState: '=?'
+};
 (function () {
     var sideNav = {
         transclude: true,
-        bindings: {
-            sidenavState: '=',
-        },
+        bindings: SideNavBindings,
         templateUrl: 'sidenav/SideNav.html',
-        controller: SideNavDirectiveController
+        controller: SideNavController
     };
     angular
         .module('pipSideNav')
