@@ -1,22 +1,20 @@
 import { SideNavState, SideNavConfig } from "./SideNavState";
 import { ISideNavProvider, ISideNavService } from "./ISideNavService";
 
-export const SideNavChangedEvent: string = 'pipSideNavChanged';
-export const SideNavStateChangedEvent: string = 'pipSideNavStateChanged';
-export const OpenSideNavEvent: string = 'pipOpenSideNav';
-export const CloseSideNavEvent: string = 'pipCloseSideNav';
+export const SideNavChangedEvent = 'pipSideNavChanged';
+export const SideNavStateChangedEvent = 'pipSideNavStateChanged';
+export const OpenSideNavEvent = 'pipOpenSideNav';
+export const CloseSideNavEvent = 'pipCloseSideNav';
 
 class SideNavService implements ISideNavService {
     private _config: SideNavConfig;
     private _state: any;
-    private _rootScope: ng.IRootScopeService;
-    private _sidenav: ng.material.ISidenavService;
 
-
-    public constructor(config: SideNavConfig, $rootScope: ng.IRootScopeService, $mdSidenav: ng.material.ISidenavService) {
+    public constructor(
+        config: SideNavConfig, 
+        private $rootScope: ng.IRootScopeService, 
+        private $mdSidenav: ng.material.ISidenavService) {
         this._config = config;
-        this._rootScope = $rootScope;
-        this._sidenav = $mdSidenav;
     }
 
     public get config(): SideNavConfig {
@@ -42,19 +40,19 @@ class SideNavService implements ISideNavService {
 
     public set state(value: any) {
         this._state = value || {};
-        this._rootScope.$broadcast(SideNavStateChangedEvent, value);
+        this.$rootScope.$broadcast(SideNavStateChangedEvent, value);
     }
 
     public open() {
-        this._sidenav('pip-sticky-sidenav').open();
+        this.$mdSidenav('pip-sticky-sidenav').open();
     }
 
     public close() {
-        this._sidenav('pip-sticky-sidenav').close();
+        this.$mdSidenav('pip-sticky-sidenav').close();
     }
 
     public toggle() {
-        this._sidenav('pip-sticky-sidenav').toggle();
+        this.$mdSidenav('pip-sticky-sidenav').toggle();
     }
 
     public show() {
@@ -91,7 +89,7 @@ class SideNavService implements ISideNavService {
     }
 
     private sendConfigEvent() {
-        this._rootScope.$emit(SideNavChangedEvent, this._config);
+        this.$rootScope.$emit(SideNavChangedEvent, this._config);
     }
 }
 

@@ -2503,9 +2503,9 @@ exports.OpenSideNavEvent = 'pipOpenSideNav';
 exports.CloseSideNavEvent = 'pipCloseSideNav';
 var SideNavService = (function () {
     function SideNavService(config, $rootScope, $mdSidenav) {
+        this.$rootScope = $rootScope;
+        this.$mdSidenav = $mdSidenav;
         this._config = config;
-        this._rootScope = $rootScope;
-        this._sidenav = $mdSidenav;
     }
     Object.defineProperty(SideNavService.prototype, "config", {
         get: function () {
@@ -2538,19 +2538,19 @@ var SideNavService = (function () {
         },
         set: function (value) {
             this._state = value || {};
-            this._rootScope.$broadcast(exports.SideNavStateChangedEvent, value);
+            this.$rootScope.$broadcast(exports.SideNavStateChangedEvent, value);
         },
         enumerable: true,
         configurable: true
     });
     SideNavService.prototype.open = function () {
-        this._sidenav('pip-sticky-sidenav').open();
+        this.$mdSidenav('pip-sticky-sidenav').open();
     };
     SideNavService.prototype.close = function () {
-        this._sidenav('pip-sticky-sidenav').close();
+        this.$mdSidenav('pip-sticky-sidenav').close();
     };
     SideNavService.prototype.toggle = function () {
-        this._sidenav('pip-sticky-sidenav').toggle();
+        this.$mdSidenav('pip-sticky-sidenav').toggle();
     };
     SideNavService.prototype.show = function () {
         if (!this._config.visible) {
@@ -2591,7 +2591,7 @@ var SideNavService = (function () {
         this.sendConfigEvent();
     };
     SideNavService.prototype.sendConfigEvent = function () {
-        this._rootScope.$emit(exports.SideNavChangedEvent, this._config);
+        this.$rootScope.$emit(exports.SideNavChangedEvent, this._config);
     };
     return SideNavService;
 }());

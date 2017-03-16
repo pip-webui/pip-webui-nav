@@ -294,10 +294,10 @@ export interface ISideNavProvider extends ng.IServiceProvider {
 
 
 
-export const SideNavChangedEvent: string;
-export const SideNavStateChangedEvent: string;
-export const OpenSideNavEvent: string;
-export const CloseSideNavEvent: string;
+export const SideNavChangedEvent = "pipSideNavChanged";
+export const SideNavStateChangedEvent = "pipSideNavStateChanged";
+export const OpenSideNavEvent = "pipOpenSideNav";
+export const CloseSideNavEvent = "pipCloseSideNav";
 
 export class SideNavStateNames {
     static Toggle: string;
