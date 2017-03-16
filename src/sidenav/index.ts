@@ -2,7 +2,7 @@ angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates']);
 
 import './SideNavState';
 import './SideNavService';
-import './SideNavPartDirective';
-import './SideNavDirective';
+import './SideNavPart';
+import './SideNav';
 
 export * from './SideNavService';

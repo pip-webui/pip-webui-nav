@@ -2,55 +2,35 @@ import { ISideNavService} from './ISideNavService';
 import { SideNavStateNames, SideNavState, SideNavStateConfig, SideNavConfig  } from './SideNavState';
 
 class SideNavDirectiveController {
-    private _element: ng.IAugmentedJQuery;
-    private _attrs: ng.IAttributes;
-    private _injector: ng.auto.IInjectorService;
-    private _scope: angular.IScope;
-    private _log: ng.ILogService;
-    private _rootScope: ng.IRootScopeService;
-    private _pipSideNav: ISideNavService;
-
     private _pipMedia: pip.layouts.IMediaService;
-    private _timeout: ng.ITimeoutService;
-
     private _isResizing: boolean;
     private _animationDuration: number;
     private _mainContainer: string; // todo add  to config
     private _bigWidth: number;
-
     private _middleWidth: number;
     private _smallWidth: number;
     private _mediaBreakpoints: pip.layouts.MediaBreakpoints;
     private _navState: SideNavStateConfig;
-
+    private cleanupMainResized: Function;
+    private cleanupSideNavState: Function;
     private windowResize: Function;
 
     public sidenavState: SideNavState;
 
     constructor(
-        $element: ng.IAugmentedJQuery,
+        private $element: ng.IAugmentedJQuery,
         $attrs: ng.IAttributes,
         $injector: ng.auto.IInjectorService,
-        $scope: angular.IScope,
-        $log: ng.ILogService,
-        $rootScope: ng.IRootScopeService,
-        $timeout: ng.ITimeoutService,
-        pipSideNav: ISideNavService,
+        private $scope: angular.IScope,
+        private $rootScope: ng.IRootScopeService,
+        private $timeout: ng.ITimeoutService,
+        private pipSideNav: ISideNavService,
         navConstant: any
 
     ) {
         "ngInject";
 
-        this._element = $element;
-        this._attrs = $attrs;
-        this._scope = $scope;
-        this._injector = $injector;
-        this._log = $log;
-        this._rootScope = $rootScope;
-        this._timeout = $timeout;
-        this._pipSideNav = pipSideNav;
-
-        this._pipMedia = this._injector.has('pipMedia') ? <pip.layouts.IMediaService>this._injector.get('pipMedia') : null;
+        this._pipMedia = $injector.has('pipMedia') ? <pip.layouts.IMediaService>$injector.get('pipMedia') : null;
 
         this._mainContainer = navConstant.SIDENAV_CONTAINER;
         this._bigWidth = navConstant.SIDENAV_LARGE_WIDTH;
@@ -62,50 +42,47 @@ class SideNavDirectiveController {
         this._mediaBreakpoints = this.setBreakpoints();
 
         // Apply class and call resize
-        this._element.addClass('pip-sticky-sidenav');
+        this.$element.addClass('pip-sticky-sidenav');
 
-        let cleanupMainResized;
-        let cleanupSideNavState;
-
-        if (this._pipSideNav.config && this._pipSideNav.config.type != 'popup') {
-            this._timeout(() => {
+        if (this.pipSideNav.config && this.pipSideNav.config.type != 'popup') {
+            this.$timeout(() => {
                 this.setSideNaveState()
             }, 100);
 
             this.windowResize = _.debounce(() => { this.setSideNaveState(); }, 10);
-            cleanupMainResized = this._rootScope.$on('pipMainResized', () => {
+            this.cleanupMainResized = this.$rootScope.$on('pipMainResized', () => {
                 this.windowResize();
             });
-            cleanupSideNavState = this._rootScope.$on('pipSideNavState', ($event: ng.IAngularEvent, state: SideNavStateNames) => {
+            this.cleanupSideNavState = this.$rootScope.$on('pipSideNavState', ($event: ng.IAngularEvent, state: SideNavStateNames) => {
                 this.onSideNavState($event, state)
             });
         } else {
             this._isResizing = false;
             this.sidenavState = null;
-            this._timeout(() => {
+            this.$timeout(() => {
                 this.setState(SideNavStateNames.Toggle);
             }, 100);
         }
 
-        let cleanupNavHeaderChanged: Function = this._rootScope.$on('pipNavIconClicked', () => {
+        let cleanupNavHeaderChanged: Function = this.$rootScope.$on('pipNavIconClicked', () => {
             this.onNavIconClick();
         });
-        let cleanupSideNavChanged: Function = this._rootScope.$on('pipSideNavChanged', ($event: ng.IAngularEvent, config: SideNavConfig) => { //navState
+        let cleanupSideNavChanged: Function = this.$rootScope.$on('pipSideNavChanged', ($event: ng.IAngularEvent, config: SideNavConfig) => { //navState
             this.onSideNavChanged($event, config)
         });
 
-        this._scope.$on('$destroy', () => {
+        this.$scope.$on('$destroy', () => {
             if (angular.isFunction(cleanupNavHeaderChanged)) {
                 cleanupNavHeaderChanged();
             }
             if (angular.isFunction(cleanupSideNavChanged)) {
                 cleanupSideNavChanged();
             }
-            if (angular.isFunction(cleanupMainResized)) {
-                cleanupMainResized();
+            if (angular.isFunction(this.cleanupMainResized)) {
+                this.cleanupMainResized();
             }
-            if (angular.isFunction(cleanupSideNavState)) {
-                cleanupSideNavState();
+            if (angular.isFunction(this.cleanupSideNavState)) {
+                this.cleanupSideNavState();
             }
         });
 
@@ -121,14 +98,14 @@ class SideNavDirectiveController {
 
     private onSideNavChanged($event: ng.IAngularEvent, config: SideNavConfig): void {
         if (config && config.visible) {
-            this._element.css('display', 'block');
+            this.$element.css('display', 'block');
         } else {
-            this._element.css('display', 'none');
+            this.$element.css('display', 'none');
         }
     }
 
     private onNavIconClick(): void {
-        this._pipSideNav.open();
+        this.pipSideNav.open();
     }
 
     private onSideNavState($event: ng.IAngularEvent, stateName: SideNavStateNames): void {
@@ -138,10 +115,10 @@ class SideNavDirectiveController {
     }
 
     private setSideNaveState(): void {
-        if (this._pipSideNav.config && this._pipSideNav.config.type == 'popup') { return }
+        if (this.pipSideNav.config && this.pipSideNav.config.type == 'popup') { return }
 
         if (this._isResizing) {
-            this._timeout(() => { this.setSideNaveState() }, this._animationDuration);
+            this.$timeout(() => { this.setSideNaveState() }, this._animationDuration);
 
             return;
         }
@@ -170,37 +147,37 @@ class SideNavDirectiveController {
         if (this.sidenavState && this.sidenavState.id == stateName) return;
 
         if (stateName != SideNavStateNames.Toggle) {
-            this._element.removeClass('sidenav-mobile');
+            this.$element.removeClass('sidenav-mobile');
         }
 
         if (stateName != SideNavStateNames.Small) {
-            this._element.removeClass('pip-sticky-nav-small');
+            this.$element.removeClass('pip-sticky-nav-small');
         }
 
         if (stateName != SideNavStateNames.XLarge) {
-            this._element.removeClass('sidenav-desktop');
+            this.$element.removeClass('sidenav-desktop');
         }
 
         if (stateName != SideNavStateNames.Large) {
-            this._element.removeClass('sidenav-smalldesktop');
+            this.$element.removeClass('sidenav-smalldesktop');
         }
 
         this._isResizing = true;
         if (stateName == SideNavStateNames.Toggle) {
-            this._pipSideNav.close();
+            this.pipSideNav.close();
         }
         this.sidenavState = this._navState[String(stateName)];
-        this._element.addClass(this.sidenavState.addClass);
+        this.$element.addClass(this.sidenavState.addClass);
 
-        this._pipSideNav.state = this.sidenavState;
+        this.pipSideNav.state = this.sidenavState;
 
         // check sideNav State
-        this._timeout(() => {
+        this.$timeout(() => {
             this.setSideNaveState()
         }, 15);
 
         // complete animation
-        this._timeout(() => {
+        this.$timeout(() => {
             this._isResizing = false;
         }, this._animationDuration); //animationDuration
 

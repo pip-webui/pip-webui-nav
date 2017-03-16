@@ -2290,15 +2290,12 @@ var SideNavDirectiveController = (function () {
     function SideNavDirectiveController($element, $attrs, $injector, $scope, $log, $rootScope, $timeout, pipSideNav, navConstant) {
         "ngInject";
         var _this = this;
-        this._element = $element;
-        this._attrs = $attrs;
-        this._scope = $scope;
-        this._injector = $injector;
-        this._log = $log;
-        this._rootScope = $rootScope;
-        this._timeout = $timeout;
-        this._pipSideNav = pipSideNav;
-        this._pipMedia = this._injector.has('pipMedia') ? this._injector.get('pipMedia') : null;
+        this.$element = $element;
+        this.$scope = $scope;
+        this.$rootScope = $rootScope;
+        this.$timeout = $timeout;
+        this.pipSideNav = pipSideNav;
+        this._pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
         this._mainContainer = navConstant.SIDENAV_CONTAINER;
         this._bigWidth = navConstant.SIDENAV_LARGE_WIDTH;
         this._middleWidth = navConstant.SIDENAV_MIDDLE_WIDTH;
@@ -2307,46 +2304,44 @@ var SideNavDirectiveController = (function () {
         this._animationDuration = navConstant.SIDENAV_ANIMATION_DURATION;
         this._navState = new SideNavState_1.SideNavStateConfig();
         this._mediaBreakpoints = this.setBreakpoints();
-        this._element.addClass('pip-sticky-sidenav');
-        var cleanupMainResized;
-        var cleanupSideNavState;
-        if (this._pipSideNav.config && this._pipSideNav.config.type != 'popup') {
-            this._timeout(function () {
+        this.$element.addClass('pip-sticky-sidenav');
+        if (this.pipSideNav.config && this.pipSideNav.config.type != 'popup') {
+            this.$timeout(function () {
                 _this.setSideNaveState();
             }, 100);
             this.windowResize = _.debounce(function () { _this.setSideNaveState(); }, 10);
-            cleanupMainResized = this._rootScope.$on('pipMainResized', function () {
+            this.cleanupMainResized = this.$rootScope.$on('pipMainResized', function () {
                 _this.windowResize();
             });
-            cleanupSideNavState = this._rootScope.$on('pipSideNavState', function ($event, state) {
+            this.cleanupSideNavState = this.$rootScope.$on('pipSideNavState', function ($event, state) {
                 _this.onSideNavState($event, state);
             });
         }
         else {
             this._isResizing = false;
             this.sidenavState = null;
-            this._timeout(function () {
+            this.$timeout(function () {
                 _this.setState(SideNavState_1.SideNavStateNames.Toggle);
             }, 100);
         }
-        var cleanupNavHeaderChanged = this._rootScope.$on('pipNavIconClicked', function () {
+        var cleanupNavHeaderChanged = this.$rootScope.$on('pipNavIconClicked', function () {
             _this.onNavIconClick();
         });
-        var cleanupSideNavChanged = this._rootScope.$on('pipSideNavChanged', function ($event, config) {
+        var cleanupSideNavChanged = this.$rootScope.$on('pipSideNavChanged', function ($event, config) {
             _this.onSideNavChanged($event, config);
         });
-        this._scope.$on('$destroy', function () {
+        this.$scope.$on('$destroy', function () {
             if (angular.isFunction(cleanupNavHeaderChanged)) {
                 cleanupNavHeaderChanged();
             }
             if (angular.isFunction(cleanupSideNavChanged)) {
                 cleanupSideNavChanged();
             }
-            if (angular.isFunction(cleanupMainResized)) {
-                cleanupMainResized();
+            if (angular.isFunction(_this.cleanupMainResized)) {
+                _this.cleanupMainResized();
             }
-            if (angular.isFunction(cleanupSideNavState)) {
-                cleanupSideNavState();
+            if (angular.isFunction(_this.cleanupSideNavState)) {
+                _this.cleanupSideNavState();
             }
         });
     }
@@ -2360,14 +2355,14 @@ var SideNavDirectiveController = (function () {
     };
     SideNavDirectiveController.prototype.onSideNavChanged = function ($event, config) {
         if (config && config.visible) {
-            this._element.css('display', 'block');
+            this.$element.css('display', 'block');
         }
         else {
-            this._element.css('display', 'none');
+            this.$element.css('display', 'none');
         }
     };
     SideNavDirectiveController.prototype.onNavIconClick = function () {
-        this._pipSideNav.open();
+        this.pipSideNav.open();
     };
     SideNavDirectiveController.prototype.onSideNavState = function ($event, stateName) {
         if (angular.isString(stateName) && this._navState[stateName] !== undefined) {
@@ -2376,11 +2371,11 @@ var SideNavDirectiveController = (function () {
     };
     SideNavDirectiveController.prototype.setSideNaveState = function () {
         var _this = this;
-        if (this._pipSideNav.config && this._pipSideNav.config.type == 'popup') {
+        if (this.pipSideNav.config && this.pipSideNav.config.type == 'popup') {
             return;
         }
         if (this._isResizing) {
-            this._timeout(function () { _this.setSideNaveState(); }, this._animationDuration);
+            this.$timeout(function () { _this.setSideNaveState(); }, this._animationDuration);
             return;
         }
         var mainWidth = $(this._mainContainer).innerWidth();
@@ -2407,28 +2402,28 @@ var SideNavDirectiveController = (function () {
         if (this.sidenavState && this.sidenavState.id == stateName)
             return;
         if (stateName != SideNavState_1.SideNavStateNames.Toggle) {
-            this._element.removeClass('sidenav-mobile');
+            this.$element.removeClass('sidenav-mobile');
         }
         if (stateName != SideNavState_1.SideNavStateNames.Small) {
-            this._element.removeClass('pip-sticky-nav-small');
+            this.$element.removeClass('pip-sticky-nav-small');
         }
         if (stateName != SideNavState_1.SideNavStateNames.XLarge) {
-            this._element.removeClass('sidenav-desktop');
+            this.$element.removeClass('sidenav-desktop');
         }
         if (stateName != SideNavState_1.SideNavStateNames.Large) {
-            this._element.removeClass('sidenav-smalldesktop');
+            this.$element.removeClass('sidenav-smalldesktop');
         }
         this._isResizing = true;
         if (stateName == SideNavState_1.SideNavStateNames.Toggle) {
-            this._pipSideNav.close();
+            this.pipSideNav.close();
         }
         this.sidenavState = this._navState[String(stateName)];
-        this._element.addClass(this.sidenavState.addClass);
-        this._pipSideNav.state = this.sidenavState;
-        this._timeout(function () {
+        this.$element.addClass(this.sidenavState.addClass);
+        this.pipSideNav.state = this.sidenavState;
+        this.$timeout(function () {
             _this.setSideNaveState();
         }, 15);
-        this._timeout(function () {
+        this.$timeout(function () {
             _this._isResizing = false;
         }, this._animationDuration);
     };
@@ -2781,10 +2776,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 angular.module('pipSideNav', ['ngMaterial', 'pipNav.Templates']);
 require("./SideNavState");
 require("./SideNavService");
-require("./SideNavPartDirective");
-require("./SideNavDirective");
+require("./SideNavPart");
+require("./SideNav");
 __export(require("./SideNavService"));
-},{"./SideNavDirective":36,"./SideNavPartDirective":37,"./SideNavService":38,"./SideNavState":39}],41:[function(require,module,exports){
+},{"./SideNav":36,"./SideNavPart":37,"./SideNavService":38,"./SideNavState":39}],41:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PipTab = (function () {
