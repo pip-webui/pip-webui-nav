@@ -1,5 +1,5 @@
-import { ISideNavService, SideNavConfig } from './SideNavService';
-import { SideNavStateNames, SideNavState, SideNavStateConfig } from './SideNavState';
+import { ISideNavService} from './ISideNavService';
+import { SideNavStateNames, SideNavState, SideNavStateConfig, SideNavConfig  } from './SideNavState';
 
 class SideNavDirectiveController {
     private _element: ng.IAugmentedJQuery;

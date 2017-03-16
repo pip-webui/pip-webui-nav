@@ -5,7 +5,7 @@ import { IBreadcrumbService } from '../breadcrumb/IBreadcrumbService';
 import { ISearchService } from '../search/ISearchService';
 import { IActionsService } from '../actions/ActionsService';
 import { IAppBarService } from '../appbar/IAppBarService';
-import { ISideNavService } from '../sidenav/SideNavService';
+import { ISideNavService } from '../sidenav/ISideNavService';
 
 export interface INavService {
     appbar: IAppBarService;

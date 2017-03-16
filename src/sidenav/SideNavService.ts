@@ -1,46 +1,10 @@
+import { SideNavState, SideNavConfig } from "./SideNavState";
+import { ISideNavProvider, ISideNavService } from "./ISideNavService";
+
 export const SideNavChangedEvent: string = 'pipSideNavChanged';
 export const SideNavStateChangedEvent: string = 'pipSideNavStateChanged';
 export const OpenSideNavEvent: string = 'pipOpenSideNav';
 export const CloseSideNavEvent: string = 'pipCloseSideNav';
-
-export class SideNavConfig {
-    parts: any;
-    classes: string[];
-    state: any;
-    type: string;
-    visible: boolean;
-}
-
-export interface ISideNavService {
-    readonly config: SideNavConfig;
-    readonly classes: string[];
-    parts: any;
-    state: any;
-
-    open(): void;
-    close(): void;
-    toggle(): void;
-    show(): void;
-    hide(): void;
-
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-
-    part(part: string, value: any): void;
-}
-
-export interface ISideNavProvider extends ng.IServiceProvider {
-    config: SideNavConfig;
-    parts: any;
-    type: string;
-    visible: boolean;
-    classes: string[];
-
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-
-    part(part: string, value: any): void;
-}
 
 class SideNavService implements ISideNavService {
     private _config: SideNavConfig;

@@ -65,3 +65,11 @@ export class SideNavStateConfig {
         showIconTooltype: false
     };
 }
+
+export class SideNavConfig {
+    parts: any;
+    classes: string[];
+    state: SideNavState;
+    type: string;
+    visible: boolean;
+}

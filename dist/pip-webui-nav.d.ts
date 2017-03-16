@@ -187,8 +187,8 @@ export class NavIconConfig {
     event: string;
 }
 
-export let NavIconClickedEvent: string;
-export let NavIconChangedEvent: string;
+export const NavIconClickedEvent: string;
+export const NavIconChangedEvent: string;
 
 
 export interface INavMenuService {
@@ -267,19 +267,6 @@ export const SearchChangedEvent = "pipSearchChanged";
 export const SearchActivatedEvent = "pipSearchActivated";
 
 
-
-
-export const SideNavChangedEvent: string;
-export const SideNavStateChangedEvent: string;
-export const OpenSideNavEvent: string;
-export const CloseSideNavEvent: string;
-export class SideNavConfig {
-    parts: any;
-    classes: string[];
-    state: any;
-    type: string;
-    visible: boolean;
-}
 export interface ISideNavService {
     readonly config: SideNavConfig;
     readonly classes: string[];
@@ -305,6 +292,13 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     part(part: string, value: any): void;
 }
 
+
+
+export const SideNavChangedEvent: string;
+export const SideNavStateChangedEvent: string;
+export const OpenSideNavEvent: string;
+export const CloseSideNavEvent: string;
+
 export class SideNavStateNames {
     static Toggle: string;
     static Small: string;
@@ -326,6 +320,13 @@ export class SideNavStateConfig {
     small: SideNavState;
     large: SideNavState;
     xlarge: SideNavState;
+}
+export class SideNavConfig {
+    parts: any;
+    classes: string[];
+    state: SideNavState;
+    type: string;
+    visible: boolean;
 }
 
 export class PipTab {

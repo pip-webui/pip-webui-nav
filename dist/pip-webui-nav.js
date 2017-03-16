@@ -2496,16 +2496,11 @@ var SideNavDirectiveController = (function () {
 "use strict";
 hookSideNavEvents.$inject = ['$rootScope', 'pipSideNav'];
 Object.defineProperty(exports, "__esModule", { value: true });
+var SideNavState_1 = require("./SideNavState");
 exports.SideNavChangedEvent = 'pipSideNavChanged';
 exports.SideNavStateChangedEvent = 'pipSideNavStateChanged';
 exports.OpenSideNavEvent = 'pipOpenSideNav';
 exports.CloseSideNavEvent = 'pipCloseSideNav';
-var SideNavConfig = (function () {
-    function SideNavConfig() {
-    }
-    return SideNavConfig;
-}());
-exports.SideNavConfig = SideNavConfig;
 var SideNavService = (function () {
     function SideNavService(config, $rootScope, $mdSidenav) {
         this._config = config;
@@ -2615,7 +2610,7 @@ var SideNavProvider = (function () {
             return this._config;
         },
         set: function (value) {
-            this._config = value || new SideNavConfig();
+            this._config = value || new SideNavState_1.SideNavConfig();
         },
         enumerable: true,
         configurable: true
@@ -2699,7 +2694,7 @@ angular
     .module('pipSideNav')
     .provider('pipSideNav', SideNavProvider)
     .run(hookSideNavEvents);
-},{}],39:[function(require,module,exports){
+},{"./SideNavState":39}],39:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var SideNavStateNames = (function () {
@@ -2764,6 +2759,12 @@ var SideNavStateConfig = (function () {
     return SideNavStateConfig;
 }());
 exports.SideNavStateConfig = SideNavStateConfig;
+var SideNavConfig = (function () {
+    function SideNavConfig() {
+    }
+    return SideNavConfig;
+}());
+exports.SideNavConfig = SideNavConfig;
 },{}],40:[function(require,module,exports){
 "use strict";
 function __export(m) {
