@@ -2451,27 +2451,34 @@ var SideNavDirectiveController = (function () {
 })();
 },{"./SideNavState":39}],37:[function(require,module,exports){
 (function () {
-    SideNavPartDirectiveController.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav'];
     sidenavPartDirective.$inject = ['ngIfDirective'];
-    function SideNavPartDirectiveController($scope, $element, $attrs, $rootScope, pipSideNav) {
-        "ngInject";
-        var partName = '' + $attrs.pipSidenavPart;
-        var partValue = null;
-        var pos = partName.indexOf(':');
-        if (pos > 0) {
-            partValue = partName.substr(pos + 1);
-            partName = partName.substr(0, pos);
+    var SideNavPartBindings = {
+        visible: '=?'
+    };
+    var SideNavPartController = (function () {
+        SideNavPartController.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav'];
+        function SideNavPartController($scope, $element, $attrs, $rootScope, pipSideNav) {
+            var _this = this;
+            this.$scope = $scope;
+            this.partValue = null;
+            this.partName = '' + $attrs['pipSidenavPart'];
+            this.pos = this.partName.indexOf(':');
+            if (this.pos > 0) {
+                this.partValue = this.partName.substr(this.pos + 1);
+                this.partName = this.partName.substr(0, this.pos);
+            }
+            this.onSideNavChanged(null, pipSideNav.config);
+            $rootScope.$on('pipSideNavChanged', function (event, config) { _this.onSideNavChanged(event, config); });
         }
-        onSideNavChanged(null, pipSideNav.config);
-        $rootScope.$on('pipSideNavChanged', onSideNavChanged);
-        function onSideNavChanged(event, config) {
+        SideNavPartController.prototype.onSideNavChanged = function (event, config) {
             var parts = config.parts || {};
-            var currentPartValue = parts[partName];
-            var visible = !!(partValue ? currentPartValue == partValue : currentPartValue);
-            if (visible != $scope.visible)
-                $scope.visible = visible;
-        }
-    }
+            var currentPartValue = parts[this.partName];
+            var visible = !!(this.partValue ? currentPartValue == this.partValue : currentPartValue);
+            if (visible != this.$scope['visible'])
+                this.$scope['visible'] = visible;
+        };
+        return SideNavPartController;
+    }());
     function sidenavPartDirective(ngIfDirective) {
         "ngInject";
         var ngIf = ngIfDirective[0];
@@ -2480,12 +2487,12 @@ var SideNavDirectiveController = (function () {
             priority: ngIf.priority,
             terminal: ngIf.terminal,
             restrict: ngIf.restrict,
-            scope: true,
+            scope: SideNavPartBindings,
             link: function linkFunction($scope, $element, $attrs) {
-                $attrs.ngIf = function () { return $scope.visible; };
+                $attrs['ngIf'] = function () { return $scope['visible']; };
                 ngIf.link.apply(ngIf, arguments);
             },
-            controller: SideNavPartDirectiveController
+            controller: SideNavPartController
         };
     }
     angular

@@ -234,7 +234,7 @@ export class NavMenuConfig {
     defaultIcon: string;
 }
 
-export const NavMenuChangedEvent: string;
+export const NavMenuChangedEvent = "pipNavMenuChanged";
 
 
 export interface ISearchService {

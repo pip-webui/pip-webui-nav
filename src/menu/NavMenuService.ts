@@ -1,7 +1,7 @@
 import { NavMenuConfig, NavMenuSection } from './NavMenuConfig';
 import { INavMenuService, INavMenuProvider } from './INavMenuService';
 
-export const NavMenuChangedEvent: string = 'pipNavMenuChanged';
+export const NavMenuChangedEvent = 'pipNavMenuChanged';
 
 class NavMenuService implements INavMenuService {
     private _config: NavMenuConfig;
