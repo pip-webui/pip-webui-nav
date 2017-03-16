@@ -64,53 +64,53 @@ A sticky-sidenav have some state which depend on the size of the browser window.
 It contains menu icon, title that can be turned into breadcrumb, primary actions on the bar, secondary actions hidden in popup menu and search.
 
 <a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+    <img src="doc/images/img-show-shadow.png"/>
 </a>
 
 **menu icon**
-<a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+<a href="doc/images/img-icon.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="doc/images/img-icon.png"/>
 </a>
 
 **title**
-<a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+<a href="doc/images/img-show-title.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="doc/images/img-show-title.png"/>
 </a>
 
 **breadcrumb**
-<a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+<a href="doc/images/img-show-breadcrumb.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="doc/images/img-show-breadcrumb.png"/>
 </a>
 
 **primary actions**
-<a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+<a href="doc/images/img-primary-actions.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="doc/images/img-primary-actions.png"/>
 </a>
 
 **secondary actions**
 <a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+    <img src="doc/images/img-secondary-action-close.png"/>
 </a>
 
 **search**
 <a href="doc/images/img-app-bar.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-app-bar.png"/>
+    <img src="doc/images/img-search.png"/>
 </a>
 
 ### Navigation tabs
 
 **Navigation tabs** are similar to regular tabs. But they contain links and turn into **Navigation dropdown** on smaller screens.
 
-<a href="doc/images/img-tabs.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-tabs.png"/>
+<a href="doc/images/img-nav-tabs.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="doc/images/img-nav-tabs.png"/>
 </a>
 
 ### Navigation dropdown
 
 **Navigation dropdown** control is places at the top of the page, properly styled and contains navigation links
 
-<a href="doc/images/img-dropdown.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
-    <img src="doc/images/img-dropdown.png"/>
+<a href="doc/images/img-dropdown-close.png" style="border: 3px ridge #c8d2df; margin: 0 auto; display: inline-block">
+    <img src="doc/images/img-dropdown-close.png"/>
 </a>
 
 
