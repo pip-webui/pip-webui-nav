@@ -27,7 +27,7 @@ class AppBarController {
     
 }
 
-(() => {
+{
     const appbar: ng.IComponentOptions = {
         transclude: true,
         templateUrl: 'appbar/AppBar.html',
@@ -38,4 +38,4 @@ class AppBarController {
         .module('pipAppBar')
         .component('pipAppbar', appbar);
 
-})();
+}

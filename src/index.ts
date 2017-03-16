@@ -34,7 +34,6 @@ angular
         'SIDENAV_MIDDLE_WIDTH': 240,
         'SIDENAV_SMALL_WIDTH': 72,
         'SIDENAV_ANIMATION_DURATION': 600
-
     })
 
 export * from './actions';

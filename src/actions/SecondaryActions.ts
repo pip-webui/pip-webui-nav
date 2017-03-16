@@ -1,4 +1,4 @@
-import { IActionsService, ActionItem, ActionsConfig } from "./ActionsService";
+import { IActionsService, ActionItem, ActionsConfig } from "./IActionsService";
 
 class SecondaryActionsController {
     private pipTranslate: pip.services.ITranslateService

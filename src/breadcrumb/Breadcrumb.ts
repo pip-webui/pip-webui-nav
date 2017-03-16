@@ -1,4 +1,4 @@
-import { SimpleActionItem } from '../actions/ActionsService';
+import { SimpleActionItem } from '../actions/IActionsService';
 import { BreadcrumbItem } from './BreadcrumbConfig';
 import { BreadcrumbConfig } from './BreadcrumbConfig';
 import { IBreadcrumbService } from './IBreadcrumbService';
@@ -122,5 +122,6 @@ const breadcrumb: ng.IComponentOptions = {
     controller: BreadcrumbController
 }
 
-angular.module('pipBreadcrumb')
+angular
+    .module('pipBreadcrumb')
     .component('pipBreadcrumb', breadcrumb);

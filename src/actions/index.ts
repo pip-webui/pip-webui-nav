@@ -4,4 +4,4 @@ import './ActionsService';
 import './PrimaryActions';
 import './SecondaryActions';
 
-export * from './ActionsService';
+export * from './IActionsService';

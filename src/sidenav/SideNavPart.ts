@@ -1,4 +1,4 @@
-(() => {
+{
 
     interface ISideNavPartBindings {
         [key: string]: any;
@@ -67,4 +67,4 @@
         .module('pipSideNav')
         .directive('pipSidenavPart', sidenavPartDirective);
 
-})();
+}

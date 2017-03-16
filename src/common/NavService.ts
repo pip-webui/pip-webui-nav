@@ -4,7 +4,7 @@ import { INavMenuService } from '../menu/INavMenuService';
 import { INavHeaderService } from '../header/INavHeaderService';
 import { IBreadcrumbService } from '../breadcrumb/IBreadcrumbService';
 import { ISearchService } from '../search/ISearchService';
-import { IActionsService } from '../actions/ActionsService';
+import { IActionsService } from '../actions/IActionsService';
 import { IAppBarService } from '../appbar/IAppBarService';
 import { ISideNavService } from '../sidenav/ISideNavService';
 

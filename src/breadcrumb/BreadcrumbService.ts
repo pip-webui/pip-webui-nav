@@ -92,5 +92,6 @@ class BreadcrumbProvider implements IBreadcrumbProvider, ng.IServiceProvider {
 }
 
 
-angular.module('pipBreadcrumb')
+angular
+    .module('pipBreadcrumb')
     .provider('pipBreadcrumb', BreadcrumbProvider);
