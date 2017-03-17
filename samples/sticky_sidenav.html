@@ -1,4 +1,15 @@
-<div class="layout-row">
+<pip-sidenav >
+        <pip-nav-header pip-sidenav-part="user"></pip-nav-header>
+        <pip-nav-menu  pip-sidenav-part="links"></pip-nav-menu>
+</pip-sidenav> 
+
+
+    <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
+            <pip-main style="background: lightblue;">
+                <pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
+                        <div style="width: 100%;">
+
+                            <div class="layout-row">
     <h2 class="text-title" style="padding-left: 24px;">Side Nav {{ 'SAMPLE' | translate }}</h2>
 
     <div style="padding-left: 24px;">
@@ -53,3 +64,8 @@
     <div style="padding-left: 24px;">
         <md-button class="lm0 md-raised md-accent flat" ng-click="onShowNewHeader()">{{ 'SIDENAV_NEW_HEADER' | translate }} Side Nav</md-button>
     </div>
+
+                        </div>
+                </pip-main-body>
+            </pip-main>    
+    </md-content>   

@@ -84,8 +84,11 @@
             $scope.languages = ['en', 'ru'];
             $scope.themes = _.keys(_.omit($mdTheming.THEMES, 'default'));
 
-            $scope.onSwitchPage = function (state) {
 
+            $scope.content = content;
+            $scope.menuOpened = false;
+            $scope.onSwitchPage = function (state) {
+                $mdSidenav('left').close();
                 pipSideNav.close();
                 $state.go(state);
             };
