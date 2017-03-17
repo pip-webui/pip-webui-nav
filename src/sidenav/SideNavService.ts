@@ -43,6 +43,14 @@ class SideNavService implements ISideNavService {
         this.$rootScope.$broadcast(SideNavStateChangedEvent, value);
     }
 
+    public get type(): string {
+        return this._config.type;
+    }
+
+    public set type(value: string) {
+        this._config.type = value;
+    }
+
     public open() {
         this.$mdSidenav('pip-sticky-sidenav').open();
     }

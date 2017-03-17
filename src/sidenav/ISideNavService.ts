@@ -5,6 +5,7 @@ export interface ISideNavService {
     readonly classes: string[];
     parts: any;
     state: any;
+    type: string;
 
     open(): void;
     close(): void;

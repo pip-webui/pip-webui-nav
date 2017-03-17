@@ -9,7 +9,7 @@
 
         'appAppbar.Icons', 'appAppbar.Titles', 'appAppbar.Actions', 'appAppbar.Search',
         'appAppbar.Shadows', 'appNav.Dropdown', 'appNav.Tabs', 'appNav.StickySideNav',
-        'appNav.Navigations'
+        'appNav.Navigations',  'appNav.PopupSideNav'
     ]);
 
     var content = [
@@ -22,14 +22,16 @@
         { title: 'Tabs', state: 'tabs', icon: 'icons:folder', url: '/tabs', controller: 'TabsController', templateUrl: 'tabs.html' },
         { title: 'Dropdown', state: 'dropdown', icon: 'icons:list', url: '/dropdown', controller: 'DropdownController', templateUrl: 'dropdown.html' },
         { title: 'StickySideNav', state: 'sticky_sidenav', icon: 'icons:submenu', url: '/sticky_sidenav', controller: 'StickySideNavController', templateUrl: 'sticky_sidenav.html' },
+        { title: 'PopupSideNav', state: 'popup_sidenav', icon: 'icons:submenu', url: '/popup_sidenav', controller: 'PopupSideNavController', templateUrl: 'popup_sidenav.html' },
         { title: 'Navigations', state: 'navigations', icon: 'icons:preview', url: '/navigations', controller: 'NavigationsController', templateUrl: 'navigations.html' },
     ];
 
     thisModule.config(function ($mdIconProvider, pipAppBarProvider, $stateProvider, $urlRouterProvider, pipSideNavProvider, pipNavHeaderProvider, pipNavMenuProvider) {
         $mdIconProvider.iconSet('icons', 'images/icons.svg', 512);
-
-        for (var i = 0; i < content.length; i++) {
-            var contentItem = content[i];
+        
+        let contentItem;
+        for (let i = 0; i < content.length; i++) {
+            contentItem = content[i];
             $stateProvider.state(contentItem.state, contentItem);
         }
 

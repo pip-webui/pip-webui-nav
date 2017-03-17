@@ -2,9 +2,9 @@
 (function (angular) {
     'use strict';
 
-    var thisModule = angular.module('appNav.StickySideNav', []);
+    var thisModule = angular.module('appNav.PopupSideNav', []);
 
-    thisModule.controller('StickySideNavController',
+    thisModule.controller('PopupSideNavController',
         function ($scope, $rootScope, pipSideNav, $mdTheming, $timeout, $mdMedia,
             $injector, pipNavHeader, pipNavMenu, pipNavService, pipNavIcon) {
 
@@ -57,10 +57,11 @@
                 imageUrl: 'https://www.american.edu/uploads/profiles/large/kate_resnick_avatar_3001.jpg'
             };
 
-            pipSideNav.type = "sticky";
+
             $scope.media = pipMedia ? pipMedia : $mdMedia;
             $scope.$mdMedia = $mdMedia;
-        
+            
+            pipSideNav.type = "popup";
             onWindowResized();
 
             $timeout(function () {
@@ -170,6 +171,6 @@
             $rootScope.$on('pipMainResized', onWindowResized);
 
         }
-    );
+    )
 
 })(window.angular);
