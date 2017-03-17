@@ -16,39 +16,7 @@
         <md-button class="lm0 md-raised md-accent flat" ng-click="onOpenSideNav()">{{ 'OPEN' | translate }} Side Nav</md-button>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onCloseSideNav()">{{ 'CLOSE' | translate }} Side Nav</md-button>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onToggleSideNav()">{{ 'TOGGLE' | translate }} Side Nav</md-button>
-        <md-button class="lm0 md-raised md-accent flat" ng-click="onStickySideNav()">{{ 'SIDENAV_STICKY' | translate }} Side Nav</md-button>
-        <md-button class="lm0 md-raised md-accent flat" ng-click="onPopupSideNav()">{{ 'SIDENAV_POPUP' | translate }} Side Nav</md-button>
-        <md-button class="lm0 md-raised md-accent flat" ng-click="onSideNavShow()">{{ 'SHOW' | translate }} Side Nav</md-button>
-        <md-button class="lm0 md-raised md-accent flat" ng-click="onSideNavHide()">{{ 'HIDE' | translate }} Side Nav</md-button>        
         <md-button class="lm0 md-raised md-accent flat" ng-click="onReset()">{{ 'RESET' | translate }} NavService</md-button>        
-    </div>
-</div>
-
-<div style="width: 100%; color: white; font-size: 16px;">
-    <div style="background: #4caf50; text-align: center; padding: 24px">
-        <p>{{sizeLabel}}</p>
-        <p ng-if="media('xs')">xs: [0, 639]</p>
-        <p ng-if="media('sm')">sm: [640, 959]</p>
-        <p ng-if="media('md')">md: [960, 1024]</p>
-        <p ng-if="media('lg')">lg: [1025, 1919]</p>
-        <p ng-if="media('xl')">lx: [1920, '-']</p>
-    </div>
-</div>
-
-<div style="width: 100%; color: white; font-size: 16px; margin-top: 48px;">
-    <div style="background: #009588; text-align: center; padding: 24px">
-        <p >xs: [0, 639]</p>
-        <p >sm: [640, 959]</p>
-        <p >md: [960, 1024]</p>
-        <p >lg: [1025, 1919]</p>
-        <p >lx: [1920, '-']</p>
-    </div>
-</div>
-
-<div class="layout-row">
-    <h2 class="text-title" style="padding-left: 24px;">Side Nav {{ 'SAMPLE' | translate }}</h2>
-
-    <div style="padding-left: 24px;">
         <md-button class="lm0 md-raised md-accent flat" ng-click="onSetTitleSideNav()">{{ 'SET_TITLE' | translate }} Side Nav</md-button>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onSetSubtitleSideNav()">{{ 'SET_SUBTITLE' | translate }} Side Nav</md-button>
         <md-button class="lm0 md-raised md-accent flat" ng-click="onSetImageSideNav()">{{ 'SET_IMAGE' | translate }} Side Nav</md-button>
