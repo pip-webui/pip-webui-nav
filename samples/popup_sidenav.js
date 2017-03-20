@@ -106,6 +106,7 @@
                 console.log('onRefreshCounter');
                 pipNavMenu.updateCount('StickySideNav', Math.floor(Math.random() * (150 - 20) + 20));
                 pipNavMenu.updateBadgeStyle('StickySideNav', 'color-warm-bg');
+                pipSideNav.open();
             };
 
             function showIcon() {
@@ -126,21 +127,27 @@
 
             $scope.onSetTitleSideNav = function () {
                 pipNavHeader.title = $scope.user.fullName;
+                pipSideNav.open();
             };
             $scope.onSetSubtitleSideNav = function () {
                 pipNavHeader.subtitle = $scope.user.details;
+                pipSideNav.open();
             };
             $scope.onSetImageSideNav = function () {
                 pipNavHeader.imageUrl = $scope.user.imageUrl;
+                pipSideNav.open();
             };
             $scope.onResetTitleSideNav = function () {
                 pipNavHeader.title = null;
+                pipSideNav.open();
             };
             $scope.onResetSubtitleSideNav = function () {
                 pipNavHeader.subtitle = null;
+                pipSideNav.open();
             };
             $scope.onResetImageSideNav = function () {
                 pipNavHeader.imageUrl = null;
+                pipSideNav.open();
             };
             $scope.onSetClickSideNav = function () {
                 pipNavHeader.click = function() {
@@ -158,6 +165,7 @@
                     imageUrl: 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png'
                 };
                pipNavHeader.show(newUser.fullName, newUser.details, newUser.imageUrl);
+               pipSideNav.open();
             };
 
             $scope.onStickySideNav = function () {
