@@ -1,63 +1,54 @@
+<md-content id="content" class="flex" style="padding: 16px; max-width: 100%">
+	<pip-main>
+		<pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
+			<div style="width: 100%;">
 
-    <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-            <pip-main style="background: lightblue;">
-                <pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
-                        <div style="width: 100%;">
+				<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="selected.showTabs" pip-tabs-shadow="selected.showShadow"
+					pip-rebind="true" pip-tabs-select="onSelect" ng-disabled="selected.disabled">
+				</pip-tabs>
 
-<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="selected.showTabs" 
-        pip-tabs-shadow="selected.showShadow" pip-rebind="true"
-    pip-tabs-select="onSelect" ng-disabled="selected.disabled">
-</pip-tabs>
+				<div>
+					<h2 class="text-title tm0 bm24">Tabs {{:: 'SAMPLE' | translate }}:</h2>
 
-<div>
-    <h2 class="text-title tm0 bm24">Tabs {{:: 'SAMPLE' | translate }}:</h2>
+					<div ng-if="tabIndex == 0">
+						<h3 class="text-subhead2">{{:: 'TABS_CONFIG_AND_INFO' | translate}}</h3>
+						<p class="text-body1 tm16 bm16">{{ 'TAB_INDEX' | translate }}:<strong> {{ tabIndex }}</strong></p>
 
-    <div ng-if="tabIndex == 0">
-        <h3 class="text-subhead2">{{:: 'TABS_CONFIG_AND_INFO' | translate}}</h3>
-        <p class="text-body1 tm16 bm16">{{ 'TAB_INDEX' | translate }}:<strong> {{ tabIndex }}</strong></p>
+						<md-input-container class="w-stretch bm0">
+							<label for="">{{ 'ADDING' | translate }}</label>
+							<input type="number" ng-model="tabs[0].newCounts" />
+						</md-input-container>
 
-        <md-input-container class="w-stretch bm0">
-            <label for="">{{ 'ADDING' | translate }}</label>
-            <input type="number" ng-model="tabs[0].newCounts" />
-        </md-input-container>
+						<md-switch ng-model="selected.showTabs">{{ 'VISIBLE' | translate }}</md-switch>
+						<md-switch ng-model="selected.disabled">{{ 'DISABLED' | translate }}</md-switch>
+						<md-switch ng-model="selected.showShadow">{{ 'SHADOW' | translate }}</md-switch>
+					</div>
 
-        <md-switch ng-model="selected.showTabs">{{ 'VISIBLE' | translate }}</md-switch>
-        <md-switch ng-model="selected.disabled">{{ 'DISABLED' | translate }}</md-switch>
-        <md-switch ng-model="selected.showShadow">{{ 'SHADOW' | translate }}</md-switch>
-    </div>
+					<div ng-if="tabIndex == 1">
+						<h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
+						<pre class="text-body1 color-window-bg p16">
+							<strong>HTML: </strong> &lt;
 
-    <div ng-if="tabIndex == 1">
-        <h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
-        <pre class="text-body1 color-window-bg p16">
-        <strong>HTML: </strong>
+							<strong>pip-tabs</strong> pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="showTabs" pip-tabs-shadow="showShadow"
+							pip-tabs-select="onSelect" ng-disabled="disabled"&gt; &lt;/
+							<strong>pip-tabs</strong>&gt;
 
-            &lt;<strong>pip-tabs</strong>  pip-tabs="tabs" pip-active-index="tabIndex"
-                    pip-show-tabs="showTabs" pip-tabs-shadow="showShadow" pip-tabs-select="onSelect"
-                    ng-disabled="disabled"&gt;
-            &lt;/<strong>pip-tabs</strong>&gt;
+							<strong>JS: </strong>
 
-        <strong>JS: </strong>
+							<strong>$scope.tabs</strong> = [{ title: '{{ 'TABS_CONFIG_AND_INFO' | translate}}', newCounts: 0 }, {title: '{{ 'CODE_SAMPLE'
+							| translate}}', newCounts: 0 }, {title: '{{ 'LIST_CHANGES' | translate}}', newCounts: 0 }];
+						</pre>
+					</div>
 
-            <strong>$scope.tabs</strong> = [{
-                        title: '{{ 'TABS_CONFIG_AND_INFO' | translate}}',
-                        newCounts: 0
-                    }, {title: '{{ 'CODE_SAMPLE' | translate}}',
-                        newCounts: 0
-                    }, {title: '{{ 'LIST_CHANGES' | translate}}',
-                        newCounts: 0
-                    }];
-        </pre>
-    </div>
+					<div ng-if="tabIndex == 2">
+						Tab 2
 
-    <div ng-if="tabIndex == 2">
-        Tab 2
+						<md-button ng-click="onClick()">Go to tab #1</md-button>
+					</div>
 
-        <md-button ng-click="onClick()">Go to tab #1</md-button>
-    </div>
+				</div>
 
-</div>
-
-                        </div>
-                </pip-main-body>
-            </pip-main>    
-    </md-content>   
+			</div>
+		</pip-main-body>
+	</pip-main>
+</md-content>

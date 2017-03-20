@@ -1,119 +1,106 @@
+<md-content id="content" class="flex" style="padding: 16px; max-width: 100%">
+	<pip-main>
+		<pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
+			<div style="width: 100%;">
+				<pip-appbar>
+					<pip-nav-icon></pip-nav-icon>
+					<div class="flex"></div>
+					<pip-breadcrumb class="flex" pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
+					<pip-search-bar pip-appbar-part="search"></pip-search-bar>
+					<pip-primary-actions class="flex-fixed" pip-appbar-part="actions:primary"></pip-primary-actions>
+					<pip-secondary-actions class="flex-fixed" pip-appbar-part="menu"></pip-secondary-actions>
+				</pip-appbar>
+				<br>
+				<pip-dropdown pip-actions="actions" pip-active-index="activeIndex" pip-change="onChange()"></pip-dropdown>
 
-    <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-            <pip-main style="background: lightblue;">
-                <pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
-                        <div style="width: 100%;">
-<pip-appbar>
-                <pip-nav-icon></pip-nav-icon>
-                <div class="flex"></div>
-                <pip-breadcrumb class="flex" pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
-                <pip-search-bar pip-appbar-part="search"></pip-search-bar>
-                <pip-primary-actions class="flex-fixed" pip-appbar-part="actions:primary"></pip-primary-actions>
-                <pip-secondary-actions class="flex-fixed" pip-appbar-part="menu"></pip-secondary-actions>
-</pip-appbar>
-<br>    
-<pip-dropdown pip-actions="actions" pip-active-index="activeIndex" pip-change="onChange()"></pip-dropdown>
+				<div>
+					<div ng-if="activeIndex == 0">
+						<h3 class="text-subhead2 tm0">{{ 'BASIC_INFO' | translate }}</h3>
+						<div class="pip-ref-item layout-row layout-align-start-center">
+							<img class="pip-pic" src="http://static.diary.ru/userdir/6/7/7/1/677144/47464972.jpg">
+							<div class="pip-content p16">
+								<h4 class="pip-title m0">Ali Connors</h4>
+								<p class="pip-subtitle m0">{{ 'MONTH_MAY' | translate }} 2016</p>
+							</div>
+						</div>
+					</div>
 
-<div>
-    <div ng-if="activeIndex == 0">
-        <h3 class="text-subhead2 tm0">{{ 'BASIC_INFO' | translate }}</h3>
-        <div class="pip-ref-item layout-row layout-align-start-center">
-            <img class="pip-pic" src="http://static.diary.ru/userdir/6/7/7/1/677144/47464972.jpg">
-            <div class="pip-content p16">
-                <h4 class="pip-title m0">Ali Connors</h4>
-                <p class="pip-subtitle m0">{{ 'MONTH_MAY' | translate }} 2016</p>
-            </div>
-        </div>
-    </div>
+					<div ng-if="activeIndex == 1">
+						<h3 class="text-subhead2 tm0">{{ 'CONTACT_INFO' | translate }}</h3>
+						<div class="pip-ref-item layout-row layout-align-start-center">
+							<md-icon class="rm16" md-svg-icon="icons:phone"></md-icon>
+							<h4 class="pip-title flex">+ 79809887584</h4>
+						</div>
+						<div class="pip-divider pip-fix-divider flex"></div>
+						<div class="pip-ref-item layout-row layout-align-start-center">
+							<md-icon class="rm16" md-svg-icon="icons:phone"></md-icon>
+							<h4 class="pip-title flex">+ 788907655443</h4>
 
-    <div ng-if="activeIndex == 1">
-        <h3 class="text-subhead2 tm0">{{ 'CONTACT_INFO' | translate }}</h3>
-        <div class="pip-ref-item layout-row layout-align-start-center">
-            <md-icon class="rm16" md-svg-icon="icons:phone"></md-icon>
-            <h4 class="pip-title flex">+ 79809887584</h4>
-        </div>
-        <div class="pip-divider pip-fix-divider flex"></div>
-        <div class="pip-ref-item layout-row layout-align-start-center">
-            <md-icon class="rm16" md-svg-icon="icons:phone"></md-icon>
-            <h4 class="pip-title flex">+ 788907655443</h4>
+						</div>
+					</div>
 
-        </div>
-    </div>
+					<div ng-if="activeIndex == 2">
+						<h3 class="text-subhead2 tm0">{{:: 'CODE' | translate}}</h3>
+						<pre class="text-body1 color-window-bg p16">
+							<strong>HTML: </strong> &lt;
 
-    <div ng-if="activeIndex == 2">
-        <h3 class="text-subhead2 tm0">{{:: 'CODE' | translate}}</h3>
-        <pre class="text-body1 color-window-bg p16">
-            <strong>HTML: </strong>
+							<strong>pip-dropdown pip-actions="actions"</strong> pip-active-index="activeIndex"&gt; &lt;/
+							<strong>pip-dropdown</strong>&gt;
 
-                &lt;<strong>pip-dropdown pip-actions="actions"</strong>
-                            pip-active-index="activeIndex"&gt;
-                &lt;/<strong>pip-dropdown</strong>&gt;
+							<strong>JS: </strong>
 
-            <strong>JS: </strong>
+							<strong>$scope.actions</strong> = [ {title: '{{ 'BASIC_INFO' | translate }}', id: 1}, {title: '{{ 'CONTACT_INFO' |
+							translate }}', id: 2}, {title: '{{ 'CODE_SAMPLE' | translate }}', id: 3} ];
+						</pre>
+					</div>
+				</div>
 
-                <strong>$scope.actions</strong> = [
-                    {title: '{{ 'BASIC_INFO' | translate }}', id: 1},
-                    {title: '{{ 'CONTACT_INFO' | translate }}', id: 2},
-                    {title: '{{ 'CODE_SAMPLE' | translate }}', id: 3}
-                ];
-        </pre>
-    </div>
-</div>
+				<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="selected.showTabs" pip-tabs-shadow="selected.showShadow"
+					pip-rebind="true" pip-tab-index="15" pip-tabs-select="onSelectTab" ng-disabled="selected.disabled">
+				</pip-tabs>
 
-<pip-tabs pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="selected.showTabs" 
-        pip-tabs-shadow="selected.showShadow" pip-rebind="true" pip-tab-index="15"
-    pip-tabs-select="onSelectTab" ng-disabled="selected.disabled">
-</pip-tabs>
+				<div>
+					<h2 class="text-title tm0 bm24">Tabs {{:: 'SAMPLE' | translate }}:</h2>
 
-<div>
-    <h2 class="text-title tm0 bm24">Tabs {{:: 'SAMPLE' | translate }}:</h2>
+					<div ng-if="tabIndex === 0">
+						<h3 class="text-subhead2">{{:: 'TABS_CONFIG_AND_INFO' | translate}}</h3>
+						<p class="text-body1 tm16 bm16">{{ 'TAB_INDEX' | translate }}:<strong> {{ tabIndex }}</strong></p>
 
-    <div ng-if="tabIndex === 0">
-        <h3 class="text-subhead2">{{:: 'TABS_CONFIG_AND_INFO' | translate}}</h3>
-        <p class="text-body1 tm16 bm16">{{ 'TAB_INDEX' | translate }}:<strong> {{ tabIndex }}</strong></p>
+						<md-input-container class="w-stretch bm0">
+							<label for="">{{ 'ADDING' | translate }}</label>
+							<input type="number" ng-model="tabs[0].newCounts" tabindex="26" />
+						</md-input-container>
 
-        <md-input-container class="w-stretch bm0">
-            <label for="">{{ 'ADDING' | translate }}</label>
-            <input type="number" ng-model="tabs[0].newCounts" tabindex="26" />
-        </md-input-container>
+						<md-switch ng-model="selected.showTabs" tabindex="26">{{ 'VISIBLE' | translate }}</md-switch>
+						<md-switch ng-model="selected.disabled" tabindex="26">{{ 'DISABLED' | translate }}</md-switch>
+						<md-switch ng-model="selected.showShadow" tabindex="26">{{ 'SHADOW' | translate }}</md-switch>
+					</div>
 
-        <md-switch ng-model="selected.showTabs" tabindex="26">{{ 'VISIBLE' | translate }}</md-switch>
-        <md-switch ng-model="selected.disabled" tabindex="26">{{ 'DISABLED' | translate }}</md-switch>
-        <md-switch ng-model="selected.showShadow" tabindex="26">{{ 'SHADOW' | translate }}</md-switch>
-    </div>
+					<div ng-if="tabIndex === 1">
+						<h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
+						<pre class="text-body1 color-window-bg p16">
+							<strong>HTML: </strong> &lt;
 
-    <div ng-if="tabIndex === 1">
-        <h3 class="text-subhead2">{{:: 'CODE' | translate}}</h3>
-        <pre class="text-body1 color-window-bg p16">
-        <strong>HTML: </strong>
+							<strong>pip-tabs</strong> pip-tabs="tabs" pip-active-index="tabIndex" pip-show-tabs="showTabs" pip-tabs-shadow="showShadow"
+							pip-tabs-select="onSelect" ng-disabled="disabled"&gt; &lt;/
+							<strong>pip-tabs</strong>&gt;
 
-            &lt;<strong>pip-tabs</strong>  pip-tabs="tabs" pip-active-index="tabIndex"
-                    pip-show-tabs="showTabs" pip-tabs-shadow="showShadow" pip-tabs-select="onSelect"
-                    ng-disabled="disabled"&gt;
-            &lt;/<strong>pip-tabs</strong>&gt;
+							<strong>JS: </strong>
 
-        <strong>JS: </strong>
+							<strong>$scope.tabs</strong> = [{ title: '{{ 'TABS_CONFIG_AND_INFO' | translate}}', newCounts: 0 }, {title: '{{ 'CODE_SAMPLE'
+							| translate}}', newCounts: 0 }, {title: '{{ 'LIST_CHANGES' | translate}}', newCounts: 0 }];
+						</pre>
+					</div>
 
-            <strong>$scope.tabs</strong> = [{
-                        title: '{{ 'TABS_CONFIG_AND_INFO' | translate}}',
-                        newCounts: 0
-                    }, {title: '{{ 'CODE_SAMPLE' | translate}}',
-                        newCounts: 0
-                    }, {title: '{{ 'LIST_CHANGES' | translate}}',
-                        newCounts: 0
-                    }];
-        </pre>
-    </div>
+					<div ng-if="tabIndex === 2">
+						Tab 2
 
-    <div ng-if="tabIndex === 2">
-        Tab 2
+						<md-button ng-click="onClickTab()" tabindex="26">Go to tab #1</md-button>
+					</div>
 
-        <md-button ng-click="onClickTab()" tabindex="26">Go to tab #1</md-button>
-    </div>
+				</div>
 
-</div>
-
-                        </div>
-                </pip-main-body>
-            </pip-main>    
-    </md-content>   
+			</div>
+		</pip-main-body>
+	</pip-main>
+</md-content>
