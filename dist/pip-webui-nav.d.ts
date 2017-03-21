@@ -274,6 +274,7 @@ export interface ISideNavService {
     parts: any;
     state: any;
     type: string;
+    backdrop: boolean;
     open(): void;
     close(): void;
     toggle(): void;
@@ -287,6 +288,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     config: SideNavConfig;
     parts: any;
     type: string;
+    backdrop: boolean;
     visible: boolean;
     classes: string[];
     addClass(...classes: string[]): void;
@@ -328,6 +330,7 @@ export class SideNavConfig {
     classes: string[];
     state: SideNavState;
     type: string;
+    backdrop: boolean;
     visible: boolean;
 }
 

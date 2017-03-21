@@ -2331,6 +2331,12 @@ var SideNavController = (function () {
             this._isResizing = false;
             this.sidenavState = null;
             this.$timeout(function () {
+                if (_this.pipSideNav.config.backdrop == false) {
+                    _this.$element.addClass('pip-sidenav-hide-backdrop');
+                }
+                else {
+                    _this.$element.removeClass('pip-sidenav-hide-backdrop');
+                }
                 _this.setState(SideNavState_1.SideNavStateNames.Toggle);
             }, 100);
         }
@@ -2564,6 +2570,16 @@ var SideNavService = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(SideNavService.prototype, "backdrop", {
+        get: function () {
+            return this._config.backdrop;
+        },
+        set: function (value) {
+            this._config.backdrop = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     SideNavService.prototype.open = function () {
         this.$mdSidenav('pip-sticky-sidenav').open();
     };
@@ -2622,10 +2638,21 @@ var SideNavProvider = (function () {
             parts: {},
             classes: [],
             type: 'popup',
+            backdrop: true,
             state: null,
             visible: true
         };
     }
+    Object.defineProperty(SideNavProvider.prototype, "backdrop", {
+        get: function () {
+            return this._config.backdrop;
+        },
+        set: function (value) {
+            this._config.backdrop = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(SideNavProvider.prototype, "config", {
         get: function () {
             return this._config;
@@ -2782,6 +2809,7 @@ var SideNavStateConfig = (function () {
 exports.SideNavStateConfig = SideNavStateConfig;
 var SideNavConfig = (function () {
     function SideNavConfig() {
+        this.backdrop = true;
     }
     return SideNavConfig;
 }());

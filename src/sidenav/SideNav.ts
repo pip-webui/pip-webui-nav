@@ -62,6 +62,11 @@ class SideNavController implements ISideNavBindings {
             this._isResizing = false;
             this.sidenavState = null;
             this.$timeout(() => {
+                if (this.pipSideNav.config.backdrop == false) {
+                    this.$element.addClass('pip-sidenav-hide-backdrop');
+                } else {
+                    this.$element.removeClass('pip-sidenav-hide-backdrop');
+                }
                 this.setState(SideNavStateNames.Toggle);
             }, 100);
         }
@@ -189,7 +194,7 @@ class SideNavController implements ISideNavBindings {
 
 interface ISideNavBindings {
     [key: string]: any;
-    sidenavState: any
+    sidenavState: any;
 }
 
 const SideNavBindings: ISideNavBindings = {

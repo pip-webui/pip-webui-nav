@@ -6,6 +6,7 @@ export interface ISideNavService {
     parts: any;
     state: any;
     type: string;
+    backdrop: boolean;
 
     open(): void;
     close(): void;
@@ -23,6 +24,7 @@ export interface ISideNavProvider extends ng.IServiceProvider {
     config: SideNavConfig;
     parts: any;
     type: string;
+    backdrop: boolean;
     visible: boolean;
     classes: string[];
 

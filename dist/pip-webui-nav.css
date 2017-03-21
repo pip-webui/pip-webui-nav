@@ -430,7 +430,10 @@ md-select md-select-value .md-text .pip-tabs-badge {
     width: calc(100% - 16px); } }
 
 .md-sidenav-backdrop {
-  position: fixed; }
+  position: absolute; }
+
+.pip-sidenav-hide-backdrop .md-sidenav-backdrop {
+  display: none; }
 
 .pip-sticky-sidenav.overflow-visible {
   overflow: visible !important; }

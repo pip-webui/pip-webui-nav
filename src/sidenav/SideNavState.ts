@@ -71,5 +71,6 @@ export class SideNavConfig {
     classes: string[];
     state: SideNavState;
     type: string;
+    backdrop: boolean = true;
     visible: boolean;
 }

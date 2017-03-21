@@ -62,6 +62,7 @@
             $scope.$mdMedia = $mdMedia;
             
             pipSideNav.type = "popup";
+           // pipSideNav.backdrop = false;
             onWindowResized();
 
             $timeout(function () {

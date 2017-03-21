@@ -11,8 +11,8 @@ class SideNavService implements ISideNavService {
     private _state: any;
 
     public constructor(
-        config: SideNavConfig, 
-        private $rootScope: ng.IRootScopeService, 
+        config: SideNavConfig,
+        private $rootScope: ng.IRootScopeService,
         private $mdSidenav: ng.material.ISidenavService) {
         this._config = config;
     }
@@ -49,6 +49,14 @@ class SideNavService implements ISideNavService {
 
     public set type(value: string) {
         this._config.type = value;
+    }
+
+    public get backdrop(): boolean {
+        return this._config.backdrop;
+    }
+
+    public set backdrop(value: boolean) {
+        this._config.backdrop = value;
     }
 
     public open() {
@@ -106,11 +114,20 @@ class SideNavProvider implements ISideNavProvider {
         parts: {},
         classes: [],
         type: 'popup',
+        backdrop: true,
         state: null,
         visible: true
     };
 
     private _service: SideNavService;
+
+    public get backdrop(): boolean {
+        return this._config.backdrop;
+    }
+
+    public set backdrop(value: boolean) {
+        this._config.backdrop = value;
+    }
 
     public get config(): SideNavConfig {
         return this._config;
