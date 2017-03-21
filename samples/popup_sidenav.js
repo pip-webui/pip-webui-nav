@@ -62,7 +62,7 @@
             $scope.$mdMedia = $mdMedia;
             
             pipSideNav.type = "popup";
-           // pipSideNav.backdrop = false;
+            pipSideNav.backdrop = false;
             onWindowResized();
 
             $timeout(function () {
@@ -80,18 +80,22 @@
             });
 
             $scope.onOpenSideNav = function () {
+                $scope.open = true;
                 pipSideNav.open();
             };
 
             $scope.onSideNavShow = function () {
+                $scope.open = true;
                 pipSideNav.show();
             };
 
             $scope.onSideNavHide = function () {
+                $scope.open = false;
                 pipSideNav.hide();
             };
 
             $scope.onCloseSideNav = function () {
+                $scope.open = false;
                 pipSideNav.close();
             };
 
