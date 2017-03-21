@@ -19,12 +19,12 @@
                     CODE: 'Code',
                     CLOSE: 'Close',
                     TOGGLE: 'Toggle',
-                    SET_TITLE : 'Set Title',
-                    SET_SUBTITLE : 'Set Subtitle',
-                    SET_IMAGE : 'Set Image',
-                    RESET_TITLE : 'Reset Title',
-                    RESET_SUBTITLE : 'Reset Subtitle',
-                    RESET_IMAGE : 'Reset Image',
+                    SET_TITLE: 'Set Title',
+                    SET_SUBTITLE: 'Set Subtitle',
+                    SET_IMAGE: 'Set Image',
+                    RESET_TITLE: 'Reset Title',
+                    RESET_SUBTITLE: 'Reset Subtitle',
+                    RESET_IMAGE: 'Reset Image',
                     SET_CLICK: 'Set Click by Image',
                     RESET_CLICK: 'Reset Click by Image',
                     REFRESH_COUNTER: 'Refresh Counter',
@@ -38,16 +38,16 @@
                     CODE: 'Код',
                     CLOSE: 'Закрыть',
                     TOGGLE: 'Переключить',
-                    SET_TITLE : 'Задать заголовок',
-                    SET_SUBTITLE : 'Задать подзаголовок',
-                    SET_IMAGE : 'Задать изображение',
-                    RESET_TITLE : 'Удалить заголовок',
-                    RESET_SUBTITLE : 'Удалить подзаголовок',
-                    RESET_IMAGE : 'Удалить картинку',
+                    SET_TITLE: 'Задать заголовок',
+                    SET_SUBTITLE: 'Задать подзаголовок',
+                    SET_IMAGE: 'Задать изображение',
+                    RESET_TITLE: 'Удалить заголовок',
+                    RESET_SUBTITLE: 'Удалить подзаголовок',
+                    RESET_IMAGE: 'Удалить картинку',
                     SET_CLICK: 'Дбавить обработчик клика',
                     RESET_CLICK: 'Удалить обработчик клика',
                     REFRESH_COUNTER: 'Обновить счетчики',
-                    SIDENAV_NEW_HEADER: 'Обновить Заголовок'                    
+                    SIDENAV_NEW_HEADER: 'Обновить Заголовок'
                 });
             }
 
@@ -59,8 +59,11 @@
 
 
             $scope.media = pipMedia ? pipMedia : $mdMedia;
+            $scope.title = true;
+            $scope.subtitle = true;
+            $scope.image = false;
             $scope.$mdMedia = $mdMedia;
-            
+
             pipSideNav.type = "popup";
             pipSideNav.backdrop = false;
             onWindowResized();
@@ -111,6 +114,7 @@
                 pipNavMenu.updateCount('StickySideNav', Math.floor(Math.random() * (150 - 20) + 20));
                 pipNavMenu.updateBadgeStyle('StickySideNav', 'color-warm-bg');
                 pipSideNav.open();
+                $scope.open = true;
             };
 
             function showIcon() {
@@ -130,31 +134,43 @@
             }
 
             $scope.onSetTitleSideNav = function () {
+                $scope.title = true;
                 pipNavHeader.title = $scope.user.fullName;
                 pipSideNav.open();
+                $scope.open = true;
             };
             $scope.onSetSubtitleSideNav = function () {
+                $scope.subtitle = true;
                 pipNavHeader.subtitle = $scope.user.details;
                 pipSideNav.open();
+                $scope.open = true;
             };
             $scope.onSetImageSideNav = function () {
+                $scope.image = true;
                 pipNavHeader.imageUrl = $scope.user.imageUrl;
                 pipSideNav.open();
+                $scope.open = true;
             };
             $scope.onResetTitleSideNav = function () {
+                $scope.title = false;
                 pipNavHeader.title = null;
                 pipSideNav.open();
+                $scope.open = true;
             };
             $scope.onResetSubtitleSideNav = function () {
+                $scope.subtitle = false;
                 pipNavHeader.subtitle = null;
                 pipSideNav.open();
+                $scope.open = true;
             };
             $scope.onResetImageSideNav = function () {
+                $scope.image = false;
                 pipNavHeader.imageUrl = null;
                 pipSideNav.open();
+                $scope.open = true;
             };
             $scope.onSetClickSideNav = function () {
-                pipNavHeader.click = function() {
+                pipNavHeader.click = function () {
                     console.log('onClick sidenav image');
                 };
             };
@@ -166,10 +182,11 @@
                 var newUser = {
                     fullName: 'Fedor Fedotov',
                     details: 'details Fedor',
-                    imageUrl: 'https://leaders.com.ua/images/temp/rJM6HQsLT6bGC8i.png'
+                    imageUrl: 'https://what-messenger.com/uploads/posts/2015-10/1443925048_106987245_2953960_kung_fu_panda_by_juliafox90d4a031w.jpg'
                 };
-               pipNavHeader.show(newUser.fullName, newUser.details, newUser.imageUrl);
-               pipSideNav.open();
+                pipNavHeader.show(newUser.fullName, newUser.details, newUser.imageUrl);
+                pipSideNav.open();
+                $scope.open = true;
             };
 
             $scope.onStickySideNav = function () {

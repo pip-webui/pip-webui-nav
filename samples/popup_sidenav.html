@@ -16,15 +16,20 @@
 						<md-button class="lm0 md-raised md-accent flat" ng-click="onOpenSideNav()" ng-if="!open">{{ 'OPEN' | translate }} Side Nav</md-button>
 						<md-button class="lm0 md-raised md-accent flat" ng-click="onCloseSideNav()" ng-if="open">{{ 'CLOSE' | translate }} Side Nav</md-button>
 						<md-button class="lm0 md-raised md-accent flat" ng-click="onReset()">{{ 'RESET' | translate }} NavService</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onSetTitleSideNav()">{{ 'SET_TITLE' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onSetSubtitleSideNav()">{{ 'SET_SUBTITLE' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onSetImageSideNav()">{{ 'SET_IMAGE' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetTitleSideNav()">{{ 'RESET_TITLE' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetSubtitleSideNav()">{{ 'RESET_SUBTITLE' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetImageSideNav()">{{ 'RESET_IMAGE' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onSetClickSideNav()">{{ 'SET_CLICK' | translate }} Side Nav</md-button>
+						
+                        <md-button class="lm0 md-raised md-accent flat" ng-click="onSetTitleSideNav()"  ng-if="!title">{{ 'SET_TITLE' | translate }} Side Nav</md-button>
+						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetTitleSideNav()"  ng-if="title">{{ 'RESET_TITLE' | translate }} Side Nav</md-button>
+						
+                        <md-button class="lm0 md-raised md-accent flat" ng-click="onSetSubtitleSideNav()" ng-if="!subtitle">{{ 'SET_SUBTITLE' | translate }} Side Nav</md-button>
+						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetSubtitleSideNav()" ng-if="subtitle">{{ 'RESET_SUBTITLE' | translate }} Side Nav</md-button>
+						
+                        <md-button class="lm0 md-raised md-accent flat" ng-click="onSetImageSideNav()" ng-if="!image">{{ 'SET_IMAGE' | translate }} Side Nav</md-button>
+						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetImageSideNav()" ng-if="image">{{ 'RESET_IMAGE' | translate }} Side Nav</md-button>
+						
+                        <md-button class="lm0 md-raised md-accent flat" ng-click="onSetClickSideNav()">{{ 'SET_CLICK' | translate }} Side Nav</md-button>
 						<md-button class="lm0 md-raised md-accent flat" ng-click="onResetClickSideNav()">{{ 'RESET_CLICK' | translate }} Side Nav</md-button>
-						<md-button class="lm0 md-raised md-accent flat" ng-click="onRefreshCounter()">{{ 'REFRESH_COUNTER' | translate }} Side Nav</md-button>
+						
+                        <md-button class="lm0 md-raised md-accent flat" ng-click="onRefreshCounter()">{{ 'REFRESH_COUNTER' | translate }} Side Nav</md-button>
 					    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowNewHeader()">{{ 'SIDENAV_NEW_HEADER' | translate }} Side Nav</md-button>
                     </div>
 				</div>

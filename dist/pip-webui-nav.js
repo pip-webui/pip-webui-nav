@@ -1106,6 +1106,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             this.$rootScope = $rootScope;
             this.$timeout = $timeout;
             this.pipNavHeader = pipNavHeader;
+            this.imageUrl = null;
             $element.addClass('pip-sticky-nav-header');
             this.initImage();
             this.cleanupNavHeaderChanged = $rootScope.$on('pipNavHeaderChanged', function ($event, config) {
@@ -1196,7 +1197,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             if (!config)
                 return;
             var url;
-            if (!loadError && !!config.imageUrl && !this.loadedDefaultImage) {
+            if (!loadError && !!config.imageUrl) {
                 url = config.imageUrl;
             }
             else {
@@ -1207,17 +1208,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 this.image.attr('src', url);
             }
             else {
-                this.imageBlock.css('display', 'none');
+                this.imageBlock.css("display", "none");
             }
         };
         NavHeaderController.prototype.onNavHeaderChanged = function ($event, config) {
             if (!config)
                 return;
-            this.setImage(config, false);
             this.title = config.title;
             this.subtitle = config.subtitle;
             this.imageUrl = config.imageUrl;
             this.imageCss = config.imageCss;
+            this.setImage(config, false);
         };
         NavHeaderController.prototype.onUserClick = function () {
             this.$rootScope.$broadcast('pipNavUserClicked');

@@ -8,7 +8,7 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
 
         public title: string;
         public subtitle: string;
-        public imageUrl: string;
+        public imageUrl: string = null;
         public imageCss: string;
         public image: any;
         public imageBlock: any;
@@ -52,7 +52,7 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
         }
 
         private initImage() {
-            this.imageBlock = this.$element.find('.pip-sticky-nav-header-user')
+            this.imageBlock = this.$element.find('.pip-sticky-nav-header-user');
 
             this.$timeout(() => {
                 this.image = this.$element.find('.pip-sticky-nav-header-user-image');
@@ -150,9 +150,9 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
         private setImage(config, loadError: boolean) {
             if (!config) return;
 
-            var url: string;
+            let url: string;
 
-            if (!loadError && !!config.imageUrl && !this.loadedDefaultImage) {
+            if (!loadError && !!config.imageUrl) {
                 url = config.imageUrl;
             } else {
                 this.loadedDefaultImage = true;
@@ -162,18 +162,19 @@ import { NavHeaderConfig } from "./NavHeaderConfig";
             if (url && this.image) {
                 this.image.attr('src', url);
             } else {
-                this.imageBlock.css('display', 'none');
+                this.imageBlock.css("display", "none");
             }
         }
 
         private onNavHeaderChanged($event: ng.IAngularEvent, config: NavHeaderConfig) {
             if (!config) return;
-            this.setImage(config, false)
 
             this.title = config.title;
             this.subtitle = config.subtitle;
             this.imageUrl = config.imageUrl;
             this.imageCss = config.imageCss;
+
+            this.setImage(config, false)
         }
 
         public onUserClick() {
