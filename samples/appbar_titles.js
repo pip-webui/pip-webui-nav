@@ -102,7 +102,9 @@
                 ];
             };
 
+            $scope.onShowTitleText();
         }
+        
     );
 
 })();
