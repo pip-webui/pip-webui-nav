@@ -13,8 +13,8 @@
 						<h2 class="text-title" style="padding-left: 24px;">Side Nav {{ 'SAMPLE' | translate }}</h2>
 
 						<div style="padding-left: 24px;">
-							<md-button class="lm0 md-raised md-accent flat" ng-click="onSideNavShow()">{{ 'SHOW' | translate }} Side Nav</md-button>
-							<md-button class="lm0 md-raised md-accent flat" ng-click="onSideNavHide()">{{ 'HIDE' | translate }} Side Nav</md-button>
+							<md-button class="lm0 md-raised md-accent flat" ng-if="!open" ng-click="onSideNavShow()">{{ 'SHOW' | translate }} Side Nav</md-button>
+							<md-button class="lm0 md-raised md-accent flat" ng-if="open" ng-click="onSideNavHide()">{{ 'HIDE' | translate }} Side Nav</md-button>
 							<md-button class="lm0 md-raised md-accent flat" ng-click="onReset()">{{ 'RESET' | translate }} NavService</md-button>
 							<md-button class="lm0 md-raised md-accent flat" ng-click="onRefreshCounter()">{{ 'REFRESH_COUNTER' | translate }} Side Nav</md-button>
 						</div>

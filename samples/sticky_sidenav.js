@@ -61,6 +61,7 @@
             $scope.media = pipMedia ? pipMedia : $mdMedia;
             $scope.$mdMedia = $mdMedia;
         
+            $scope.open = true;
             onWindowResized();
 
             $timeout(function () {
@@ -82,15 +83,18 @@
             };
 
             $scope.onSideNavShow = function () {
+                $scope.open = true;
                 pipSideNav.show();
             };
 
             $scope.onSideNavHide = function () {
+                    $scope.open = false;
                 pipSideNav.hide();
             };
 
             $scope.onCloseSideNav = function () {
                 pipSideNav.close();
+                    $scope.open = false;
             };
 
             $scope.onToggleSideNav = function () {
