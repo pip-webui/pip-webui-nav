@@ -47,7 +47,7 @@ export class PipTab {
     class TabsDirectiveController implements ITabsBindings {
         private _pipTranslate: pip.services.ITranslateService;
         private _pipTheme: pip.themes.IThemeService;
-        private _pipMedia: pip.layouts.IMediaService;
+        private pipMedia;
         private selectedTabId: string;
 
         public ngDisabled: Function;
@@ -59,7 +59,6 @@ export class PipTab {
         public select: Function;
         public themeClass: string;
 
-        public media: any;
         public currentTheme: string;
 
         public change: () => ng.IPromise<any>;
@@ -75,7 +74,12 @@ export class PipTab {
             "ngInject";
 
             this.setTheme();
-            this.setMedia($mdMedia);
+            this.pipMedia = this.$injector.has('pipMedia') ? <pip.layouts.IMediaService>this.$injector.get('pipMedia') : $mdMedia;
+            
+            if (!this.breakpoints) {
+                this.breakpoints = this.navConstant.TAB_BREAKPOINT;
+
+            }
         }
 
         private setTheme(): void {
@@ -87,11 +91,6 @@ export class PipTab {
             }
 
             this.themeClass = (this.themeClass || '') + ' md-' + this.currentTheme + '-theme';
-        }
-
-        private setMedia($mdMedia: angular.material.IMedia): void {
-            this._pipMedia = this.$injector.has('pipMedia') ? <pip.layouts.IMediaService>this.$injector.get('pipMedia') : null;
-            this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
         }
 
         private setTranslate(): void {
@@ -138,6 +137,7 @@ export class PipTab {
         };
 
         public show(): boolean {
+            if (!this.showTabs) return true;
             if (_.isFunction(this.showTabs)) {
                 return this.showTabs();
             } else {
@@ -153,6 +153,16 @@ export class PipTab {
         }
 
         public $onChanges(changes: TabsChanges) {
+
+            if (!changes.breakpoints) {
+                if (!this.breakpoints) {
+                    this.breakpoints = this.navConstant.TAB_BREAKPOINT;
+
+                }
+            } else {
+                this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this.navConstant.TAB_BREAKPOINT
+            }
+
             if (changes.activeIndex === undefined) {
                 if (!this.activeIndex) {
                     this.activeIndex = 0;
@@ -173,14 +183,6 @@ export class PipTab {
                         });
                     }, 1000);
                 }
-            }
-
-            if (changes.breakpoints === undefined) {
-                if (!this.breakpoints) {
-                    this.breakpoints = this.navConstant.TAB_BREAKPOINT;
-                }
-            } else {
-                this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this.navConstant.TAB_BREAKPOINT
             }
 
             if (changes.tabs === undefined || !_.isArray(changes.tabs.currentValue)) {

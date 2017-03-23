@@ -59,6 +59,7 @@
                 console.log('onClick');
                 $scope.tabIndex = 0;
             }
+            $scope.b = 'gt-xs';
         }
     );
 

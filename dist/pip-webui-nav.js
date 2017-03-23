@@ -2862,7 +2862,10 @@ exports.PipTab = PipTab;
             this.$timeout = $timeout;
             this.navConstant = navConstant;
             this.setTheme();
-            this.setMedia($mdMedia);
+            this.pipMedia = this.$injector.has('pipMedia') ? this.$injector.get('pipMedia') : $mdMedia;
+            if (!this.breakpoints) {
+                this.breakpoints = this.navConstant.TAB_BREAKPOINT;
+            }
         }
         TabsDirectiveController.prototype.setTheme = function () {
             this._pipTheme = this.$injector.has('pipTheme') ? this.$injector.get('pipTheme') : null;
@@ -2873,10 +2876,6 @@ exports.PipTab = PipTab;
                 this.currentTheme = this.$rootScope['$theme'];
             }
             this.themeClass = (this.themeClass || '') + ' md-' + this.currentTheme + '-theme';
-        };
-        TabsDirectiveController.prototype.setMedia = function ($mdMedia) {
-            this._pipMedia = this.$injector.has('pipMedia') ? this.$injector.get('pipMedia') : null;
-            this.media = this._pipMedia !== undefined ? this._pipMedia : $mdMedia;
         };
         TabsDirectiveController.prototype.setTranslate = function () {
             this._pipTranslate = this.$injector.has('pipTranslate') ? this.$injector.get('pipTranslate') : null;
@@ -2925,6 +2924,8 @@ exports.PipTab = PipTab;
         };
         ;
         TabsDirectiveController.prototype.show = function () {
+            if (!this.showTabs)
+                return true;
             if (_.isFunction(this.showTabs)) {
                 return this.showTabs();
             }
@@ -2943,6 +2944,14 @@ exports.PipTab = PipTab;
         };
         TabsDirectiveController.prototype.$onChanges = function (changes) {
             var _this = this;
+            if (!changes.breakpoints) {
+                if (!this.breakpoints) {
+                    this.breakpoints = this.navConstant.TAB_BREAKPOINT;
+                }
+            }
+            else {
+                this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this.navConstant.TAB_BREAKPOINT;
+            }
             if (changes.activeIndex === undefined) {
                 if (!this.activeIndex) {
                     this.activeIndex = 0;
@@ -2964,14 +2973,6 @@ exports.PipTab = PipTab;
                         });
                     }, 1000);
                 }
-            }
-            if (changes.breakpoints === undefined) {
-                if (!this.breakpoints) {
-                    this.breakpoints = this.navConstant.TAB_BREAKPOINT;
-                }
-            }
-            else {
-                this.breakpoints = changes.breakpoints.currentValue ? changes.breakpoints.currentValue : this.navConstant.TAB_BREAKPOINT;
             }
             if (changes.tabs === undefined || !_.isArray(changes.tabs.currentValue)) {
                 if (!this.tabs) {
@@ -3149,7 +3150,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('tabs/Tabs.html',
-    '<md-toolbar class="pip-nav color-primary-bg {{ $ctrl.themeClass }}" ng-class="{\'pip-visible\': $ctrl.show(), \'pip-shadow\': $ctrl.showShadow()}"><md-tabs class="color-primary-bg" "="" ng-if="$ctrl.media($ctrl.breakpoints)" md-selected="$ctrl.activeIndex" ng-class="{\'disabled\': $ctrl.isDisabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in $ctrl.tabs track by $index" ng-disabled="$ctrl.tabDisabled($index)" md-on-select="$ctrl.onSelect($index)"><md-tab-label>{{:: tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 0 && tab.counts <= 99">{{ tab.counts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!$ctrl.media($ctrl.breakpoints)"><div class="pip-divider position-top m0"></div><md-select ng-model="$ctrl.activeIndex" ng-disabled="$ctrl.isDisabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="$ctrl.onSelect($ctrl.activeIndex)"><md-option ng-repeat="tab in $ctrl.tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 0 && tab.counts <= 99">{{ tab.counts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 99">!</div></md-option></md-select></div></md-toolbar>');
+    '<md-toolbar ng-if="$ctrl.pipMedia" class="pip-nav color-primary-bg {{ $ctrl.themeClass }}" ng-class="{\'pip-visible\': $ctrl.show(), \'pip-shadow\': $ctrl.showShadow()}"><md-tabs class="color-primary-bg" ng-if="$ctrl.pipMedia($ctrl.breakpoints)" md-selected="$ctrl.activeIndex" ng-class="{\'disabled\': $ctrl.isDisabled()}" md-stretch-tabs="true" md-dynamic-height="true"><md-tab ng-repeat="tab in $ctrl.tabs track by $index" ng-disabled="$ctrl.tabDisabled($index)" md-on-select="$ctrl.onSelect($index)"><md-tab-label>{{:: tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 0 && tab.counts <= 99">{{ tab.counts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 99">!</div></md-tab-label></md-tab></md-tabs><div class="md-subhead pip-tabs-content color-primary-bg" ng-if="!$ctrl.pipMedia($ctrl.breakpoints)"><div class="pip-divider position-top m0"></div><md-select ng-model="$ctrl.activeIndex" ng-disabled="$ctrl.isDisabled()" md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple="" md-on-close="$ctrl.onSelect($ctrl.activeIndex)"><md-option ng-repeat="tab in $ctrl.tabs track by $index" class="pip-tab-option" value="{{ ::$index }}">{{ ::tab.nameLocal }}<div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 0 && tab.counts <= 99">{{ tab.counts }}</div><div class="pip-tabs-badge color-badge-bg" ng-if="tab.counts > 99">!</div></md-option></md-select></div></md-toolbar>');
 }]);
 })();
 

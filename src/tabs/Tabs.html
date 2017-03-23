@@ -1,5 +1,7 @@
-<md-toolbar class="pip-nav color-primary-bg {{  $ctrl.themeClass }}" ng-class="{'pip-visible': $ctrl.show(), 'pip-shadow':  $ctrl.showShadow()}">
-    <md-tabs class="color-primary-bg"" ng-if="$ctrl.media($ctrl.breakpoints)" md-selected="$ctrl.activeIndex" ng-class="{'disabled': $ctrl.isDisabled()}"
+<md-toolbar ng-if="$ctrl.pipMedia" 
+            class="pip-nav color-primary-bg {{  $ctrl.themeClass }}" 
+            ng-class="{'pip-visible': $ctrl.show(), 'pip-shadow':  $ctrl.showShadow()}">
+    <md-tabs class="color-primary-bg" ng-if="$ctrl.pipMedia($ctrl.breakpoints)" md-selected="$ctrl.activeIndex" ng-class="{'disabled': $ctrl.isDisabled()}"
              md-stretch-tabs="true" md-dynamic-height="true" >
         <md-tab  ng-repeat="tab in $ctrl.tabs track by $index" ng-disabled="$ctrl.tabDisabled($index)"
                 md-on-select="$ctrl.onSelect($index)">
@@ -12,7 +14,7 @@
             </md-tab-label>
         </md-tab>
     </md-tabs>
-    <div class="md-subhead pip-tabs-content color-primary-bg  " ng-if="!$ctrl.media($ctrl.breakpoints)">
+    <div class="md-subhead pip-tabs-content color-primary-bg  " ng-if="!$ctrl.pipMedia($ctrl.breakpoints)">
         <div class="pip-divider position-top m0"></div>
         <md-select ng-model="$ctrl.activeIndex" ng-disabled="$ctrl.isDisabled()" 
                    md-container-class="pip-full-width-dropdown" aria-label="SELECT" md-ink-ripple
