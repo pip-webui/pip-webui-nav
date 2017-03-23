@@ -62,12 +62,12 @@
             $scope.title = true;
             $scope.subtitle = true;
             $scope.image = false;
-            $scope.open = true;
             $scope.$mdMedia = $mdMedia;
 
             pipSideNav.type = "popup";
             pipSideNav.backdrop = false;
-             pipSideNav.open();
+
+
             onWindowResized();
 
             $timeout(function () {

@@ -22,6 +22,7 @@
                 });
             }
             $scope.searchCriteria = 'Find this';
+            
 
             $scope.localPrimaryActions = [
                 {
@@ -41,6 +42,10 @@
                 { name: 'configure', title: 'Configure...', href: 'http://www.google.com' }
             ];
 
+            
+                pipActions.show($scope.localPrimaryActions, $scope.localSecondaryActions);
+                pipAppBar.part('actions', 'primary');       
+
             $scope.$on('pipSearchActivated', function (event, search) {
                 console.log('Search Clicked: ' + search);// eslint-disable-line
                 $scope.searchCriteria = search;
@@ -52,6 +57,8 @@
                 pipAppBar.part('title', 'text');
                 $rootScope.$broadcast('pipCloseSearch');
             };
+
+       
             
             function searchClicked (search) {
                 alert('Search'+ search);
@@ -70,8 +77,7 @@
                 pipAppBar.part('title', false);
                 pipSearch.set(searchClicked, $scope.searchCriteria, null);
                 $rootScope.$broadcast('pipOpenSearch');
-            };
-            
+            };   
 
             $scope.onUpdateSearch = function () {
                 pipSearch.criteria = $scope.searchCriteria;
@@ -118,7 +124,7 @@
                 pipAppBar.part('breadcrumb', false);             
             }
 
-            $scope.onHideOther();
+            //$scope.onHideOther();
         }
     );
 

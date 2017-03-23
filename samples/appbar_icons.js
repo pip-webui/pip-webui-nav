@@ -4,10 +4,10 @@
     var thisModule = angular.module('appAppbar.Icons', []);
 
     thisModule.controller('IconsController',
-        function($scope, pipNavIcon, pipAppBar, $injector) {
+        function ($scope, pipNavIcon, pipAppBar, $injector) {
 
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
-            if (pipTranslate &&  pipTranslate.setTranslations) {
+            if (pipTranslate && pipTranslate.setTranslations) {
                 pipTranslate.setTranslations('en', {
 
                     DISPLAY_AND_HIDE_NAV_ICONS: 'Display and hide nav icons',
@@ -28,6 +28,9 @@
                 console.log('Nav Icon Clicked'); // eslint-disable-line
             });
 
+            pipNavIcon.showMenu();
+            pipAppBar.part('icon', true);
+            
             $scope.onHideAppBar = function () {
                 pipAppBar.hide();
             }

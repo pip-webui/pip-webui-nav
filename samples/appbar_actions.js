@@ -48,7 +48,7 @@
                     
                 });
             }
-
+     
             // Update page after language changed
             $rootScope.$on('languageChanged', function(event) {
                 $state.reload();
@@ -71,6 +71,10 @@
                 {divider: true},
                 {name: 'configure', title: 'Configure...', href: 'http://www.google.com'}
             ];
+       pipAppBar.show();
+        pipActions.show($scope.localPrimaryActions, $scope.localSecondaryActions);
+                pipActions.updateCount('sample.notifications', $scope.notificationCount);
+                pipAppBar.part('actions', 'primary');
 
             $scope.notificationCount = 2;
 

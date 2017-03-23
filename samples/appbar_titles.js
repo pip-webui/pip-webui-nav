@@ -31,6 +31,8 @@
 
             }
             $scope.title = 'Title';
+             pipAppBar.part('logo', true);
+             console.log('a');
 
             $scope.onShowTitleLogo = function () {
                 pipAppBar.part('logo', true);
@@ -102,7 +104,6 @@
                 ];
             };
 
-            $scope.onShowTitleText();
         }
         
     );
