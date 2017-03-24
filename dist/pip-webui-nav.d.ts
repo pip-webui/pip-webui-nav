@@ -51,6 +51,34 @@ export interface IActionsProvider extends ng.IServiceProvider {
 
 
 
+export class BreadcrumbItem {
+    title: string;
+    click?: (item: BreadcrumbItem) => void;
+    subActions?: SimpleActionItem[];
+}
+export class BreadcrumbConfig {
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+}
+
+export const BreadcrumbChangedEvent: string;
+export const BreadcrumbBackEvent: string;
+
+export interface IBreadcrumbService {
+    config: BreadcrumbConfig;
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+    showText(text: string, criteria?: string): void;
+    showItems(items: BreadcrumbItem[], criteria?: string): void;
+}
+export interface IBreadcrumbProvider extends ng.IServiceProvider {
+    text: string;
+}
+
+
+
 export class AppBarConfig {
     visible: boolean;
     parts: any;
@@ -81,33 +109,6 @@ export interface IAppBarProvider extends ng.IServiceProvider {
     part(part: string, value: any): void;
 }
 
-
-
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;
-    subActions?: SimpleActionItem[];
-}
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-}
-
-export const BreadcrumbChangedEvent: string;
-export const BreadcrumbBackEvent: string;
-
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    showText(text: string, criteria?: string): void;
-    showItems(items: BreadcrumbItem[], criteria?: string): void;
-}
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
 
 
 export interface INavService {
@@ -154,7 +155,6 @@ export class NavIconConfig {
 export const NavIconClickedEvent: string;
 export const NavIconChangedEvent: string;
 
-
 export interface INavHeaderService {
     readonly config: NavHeaderConfig;
     imageUrl: string;
@@ -190,6 +190,7 @@ export class NavHeaderConfig {
 }
 
 export let NavHeaderChangedEvent: string;
+
 
 export interface INavMenuService {
     sections: NavMenuSection[];
@@ -237,7 +238,6 @@ export class NavMenuConfig {
 export const NavMenuChangedEvent = "pipNavMenuChanged";
 
 
-
 export interface ISearchService {
     config: SearchConfig;
     criteria: string;
@@ -266,6 +266,13 @@ export const OpenSearchEvent = "pipOpenSearch";
 export const CloseSearchEvent = "pipCloseSearch";
 export const SearchChangedEvent = "pipSearchChanged";
 export const SearchActivatedEvent = "pipSearchActivated";
+
+export class PipTab {
+    id: string;
+    name?: string;
+    count: number;
+    title: string;
+}
 
 
 export interface ISideNavService {
@@ -332,13 +339,6 @@ export class SideNavConfig {
     type: string;
     backdrop: boolean;
     visible: boolean;
-}
-
-export class PipTab {
-    id: string;
-    name?: string;
-    count: number;
-    title: string;
 }
 
 }
