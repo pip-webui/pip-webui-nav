@@ -5,6 +5,13 @@
 
     thisModule.controller('TitlesController',
         function ($scope, pipBreadcrumb, pipAppBar, $injector) {
+            $scope.title = 'Title';
+             pipAppBar.parts = {
+                    logo: false,
+                    icon: false,
+                    title: 'text'
+                };
+             console.log('a');
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate) {
                 pipTranslate.setTranslations('en', {
@@ -30,9 +37,6 @@
                 });
 
             }
-            $scope.title = 'Title';
-             pipAppBar.part('logo', true);
-             console.log('a');
 
             $scope.onShowTitleLogo = function () {
                 pipAppBar.part('logo', true);

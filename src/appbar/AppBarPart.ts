@@ -26,7 +26,7 @@ class AppBarPartController {
             this._partName = this._partName.substr(0, pos);
         }
 
-        // onAppBarChanged(null, pipAppBar.config);
+        this.onAppBarChanged(null, pipAppBar.config);
         $rootScope.$on('pipAppBarChanged', (event: ng.IAngularEvent, config: AppBarConfig) => {
             this.onAppBarChanged(null, config)
         });

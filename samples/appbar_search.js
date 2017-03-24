@@ -45,6 +45,7 @@
             
                 pipActions.show($scope.localPrimaryActions, $scope.localSecondaryActions);
                 pipAppBar.part('actions', 'primary');       
+                pipAppBar.part('search', true);
 
             $scope.$on('pipSearchActivated', function (event, search) {
                 console.log('Search Clicked: ' + search);// eslint-disable-line

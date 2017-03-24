@@ -1,38 +1,38 @@
+<md-content id="content" class="flex" style="padding: 16px; max-width: 100%">
+	<pip-main pip-container="body">
+		<pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
+			<div style="width: 100%;">
+				<h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_TITLES' | translate }}</h3>
 
-    <md-content id="content" class="flex" style="padding: 16px; max-width: 100%" >
-                <pip-main-body style="padding: 24px" class="layout-row layout-align-start-start">
-                        <div style="width: 100%;">
-<h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_TITLES' | translate }}</h3>
-
-<pip-appbar>
-    <pip-nav-icon pip-appbar-part="icon"></pip-nav-icon>
-    <img pip-appbar-part="logo" src="piplife_logo.svg" width="56" />
-    <div style="margin-left: 16px;" pip-appbar-part="title:text">{{title}}</div>
-    <pip-breadcrumb pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
-</pip-appbar>
+				<pip-appbar>
+					<pip-nav-icon pip-appbar-part="icon"></pip-nav-icon>
+					<img pip-appbar-part="logo" src="piplife_logo.svg" width="56" />
+					<div style="margin-left: 16px;" pip-appbar-part="title:text">{{title}}</div>
+					<pip-breadcrumb pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
+				</pip-appbar>
 
 
-<md-input-container class="w-stretch bm0 tm24">
-    <label>{{ 'TITLE_TEXT' | translate }}</label>
-    <input ng-model="title" type="text">
-</md-input-container>
+				<md-input-container class="w-stretch bm0 tm24">
+					<label>{{ 'TITLE_TEXT' | translate }}</label>
+					<input ng-model="title" type="text">
+				</md-input-container>
 
-<div>
-    <md-button class="lm0 md-raised md-accent flat" ng-click="onShowTitleLogo()">
-        {{ 'SHOW_LOGO' | translate }}
-    </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onShowTitleText()">
-        {{ 'SHOW_TEXT' | translate }}
-    </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">
-        {{ 'SHOW_BREADCRUMB' | translate }}
-    </md-button>
-    <md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumbActions()">
-        {{ 'SHOW_BREADCRUMB_WITH_ACTION' | translate }}
-    </md-button>  
-</div>
+				<div>
+					<md-button class="lm0 md-raised md-accent flat" ng-click="onShowTitleLogo()">
+						{{ 'SHOW_LOGO' | translate }}
+					</md-button>
+					<md-button class="md-raised md-accent flat" ng-click="onShowTitleText()">
+						{{ 'SHOW_TEXT' | translate }}
+					</md-button>
+					<md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">
+						{{ 'SHOW_BREADCRUMB' | translate }}
+					</md-button>
+					<md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumbActions()">
+						{{ 'SHOW_BREADCRUMB_WITH_ACTION' | translate }}
+					</md-button>
+				</div>
 
-                        </div>
-                </pip-main-body>
-            </pip-main>    
-    </md-content>   
+			</div>
+		</pip-main-body>
+	</pip-main>
+</md-content>

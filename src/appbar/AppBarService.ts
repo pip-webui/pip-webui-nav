@@ -5,11 +5,9 @@ export const AppBarChangedEvent: string = 'pipAppBarChanged';
 
 class AppBarService implements IAppBarService {
     private _config: AppBarConfig;
-    private _rootScope: ng.IRootScopeService;
 
-    public constructor(config: AppBarConfig, $rootScope: ng.IRootScopeService) {
+    public constructor(config: AppBarConfig, private $rootScope: ng.IRootScopeService) {
         this._config = config;
-        this._rootScope = $rootScope;
     }
 
     public get config(): AppBarConfig {
@@ -90,7 +88,8 @@ class AppBarService implements IAppBarService {
     }
 
     private sendConfigEvent() {
-        this._rootScope.$broadcast(AppBarChangedEvent, this._config);
+        console.log('fff');
+        this.$rootScope.$broadcast(AppBarChangedEvent, this._config);
     }
 }
 
