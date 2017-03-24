@@ -88,7 +88,6 @@ class AppBarService implements IAppBarService {
     }
 
     private sendConfigEvent() {
-        console.log('fff');
         this.$rootScope.$broadcast(AppBarChangedEvent, this._config);
     }
 }
