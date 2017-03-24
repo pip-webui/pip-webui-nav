@@ -170,9 +170,9 @@ class SideNavController implements ISideNavBindings {
         }
 
         this._isResizing = true;
-        if (stateName == SideNavStateNames.Toggle) {
+        /*if (stateName == SideNavStateNames.Toggle) {
             this.pipSideNav.close();
-        }
+        }*/
         this.sidenavState = this._navState[String(stateName)];
         this.$element.addClass(this.sidenavState.addClass);
 

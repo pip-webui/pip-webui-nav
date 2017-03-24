@@ -67,14 +67,18 @@
             pipSideNav.type = "popup";
             pipSideNav.backdrop = false;
 
-
-            onWindowResized();
+            //onWindowResized();
 
             $timeout(function () {
                 $('pre code').each(function (i, block) {
                     Prism.highlightElement(block);
                 });
             });
+
+            $timeout(() => {
+                 pipSideNav.open();
+                 $scope.open = true;
+            }, 100);
 
             $scope.onLanguageClick = function (language) {
                 pipTranslate.use(language);

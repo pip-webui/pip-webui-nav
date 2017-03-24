@@ -2432,9 +2432,6 @@ var SideNavController = (function () {
             this.$element.removeClass('sidenav-smalldesktop');
         }
         this._isResizing = true;
-        if (stateName == SideNavState_1.SideNavStateNames.Toggle) {
-            this.pipSideNav.close();
-        }
         this.sidenavState = this._navState[String(stateName)];
         this.$element.addClass(this.sidenavState.addClass);
         this.pipSideNav.state = this.sidenavState;
