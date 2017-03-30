@@ -148,7 +148,6 @@ export interface INavHeaderProvider extends ng.IServiceProvider {
 }
 
 
-
 export class NavHeaderConfig {
     imageUrl: string;
     defaultImageUrl: string;
@@ -160,6 +159,7 @@ export class NavHeaderConfig {
 }
 
 export let NavHeaderChangedEvent: string;
+
 
 export interface INavIconService {
     readonly config: NavIconConfig;
@@ -179,7 +179,6 @@ export interface INavIconProvider extends ng.IServiceProvider {
 }
 
 
-
 export class NavIconConfig {
     type: string;
     imageUrl: string;
@@ -190,6 +189,7 @@ export class NavIconConfig {
 
 export const NavIconClickedEvent: string;
 export const NavIconChangedEvent: string;
+
 
 
 export interface INavMenuService {
@@ -203,7 +203,6 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
 }
-
 
 
 export class NavMenuLink {
@@ -333,6 +332,7 @@ export class SideNavConfig {
     backdrop: boolean;
     visible: boolean;
 }
+
 
 export class PipTab {
     id: string;
