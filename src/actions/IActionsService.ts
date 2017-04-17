@@ -31,7 +31,7 @@ export class SimpleActionItem {
 }
 
 export class ActionItem extends SimpleActionItem {
-    public subActions: SimpleActionItem[];
+    public subActions?: SimpleActionItem[];
 }
 
 export class ActionsConfig {
