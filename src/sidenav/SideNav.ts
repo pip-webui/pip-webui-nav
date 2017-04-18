@@ -1,4 +1,5 @@
 import { ISideNavService } from './ISideNavService';
+import { OpenSideNavEvent } from '../sidenav/SideNavService';
 import { SideNavStateNames, SideNavState, SideNavStateConfig, SideNavConfig } from './SideNavState';
 
 class SideNavController implements ISideNavBindings {
@@ -71,7 +72,7 @@ class SideNavController implements ISideNavBindings {
             }, 100);
         }
 
-        this.cleanupNavHeaderChanged = this.$rootScope.$on('pipNavIconClicked', () => {
+        this.cleanupNavHeaderChanged = this.$rootScope.$on(OpenSideNavEvent, () => {
             this.onNavIconClick();
         });
         this.cleanupSideNavChanged = this.$rootScope.$on('pipSideNavChanged', ($event: ng.IAngularEvent, config: SideNavConfig) => { //navState
