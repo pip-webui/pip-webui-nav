@@ -40,13 +40,33 @@ $appbar-font-size: 24px;
   z-index: 0;
 }
 
+pip-appbar-shadow {
+  height: 48px;
+  width: 100%;
+  margin-top: -48px;
+  display: block;
+  box-shadow: $box-shadow;
+}
+
 @media (max-width: $layout-breakpoint-sm) {
   // Style to hide elements on smaller screens
   .pip-appbar {
     .pip-appbar-hide-sm {
       display: none;
     }
+  }
 
+  pip-appbar-shadow {
+    height: 56px;
+    margin-top: -56px;
+  }
+}
+
+@media (min-width: $layout-breakpoint-lg) {
+  // Style to hide elements on bigger screens
+  pip-appbar-shadow {
+    height: 64px;
+    margin-top: -64px;
   }
 }
 
@@ -56,7 +76,6 @@ $appbar-font-size: 24px;
     .pip-appbar-show-sm {
       display: none;
     }
-
   }
 }
 

@@ -6,8 +6,10 @@
 				<h3 class="text-subhead2">{{ 'DISPLAY_AND_HIDE_SHADOWS' | translate }}</h3>
 
 				<pip-appbar></pip-appbar>
+				<pip-appbar-shadow ng-if="showComponentShadow || showComponentOnExSm()"></pip-appbar-shadow>
 
 				<div>
+					<h4>{{ 'BY_SERVICE' | translate }}</h4>
 					<md-button class="lm0 md-raised md-accent flat" ng-click="onShowShadow()">
 						{{ 'SHOW_SHADOW' | translate }}
 					</md-button>
@@ -15,6 +17,16 @@
 						{{ 'SHOW_SHADOW_MD_LG' | translate }}
 					</md-button>
 					<md-button class="md-raised md-accent flat" ng-click="onHideShadow()">
+						{{ 'HIDE_SHADOW' | translate }}
+					</md-button>
+					<h4>{{ 'BY_COMPONENT' | translate }}</h4>
+					<md-button class="lm0 md-raised md-accent flat" ng-click="onShowShadowComponent()">
+						{{ 'SHOW_SHADOW' | translate }}
+					</md-button>
+					<md-button class="md-raised md-accent flat" ng-click="onShowShadowSmComponent()">
+						{{ 'SHOW_SHADOW_MD_LG' | translate }}
+					</md-button>
+					<md-button class="md-raised md-accent flat" ng-click="onHideShadowComponent()">
 						{{ 'HIDE_SHADOW' | translate }}
 					</md-button>
 				</div>
