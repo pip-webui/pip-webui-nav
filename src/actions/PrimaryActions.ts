@@ -104,7 +104,7 @@ class PrimaryActionsController {
         }
 
         if (action.state) {
-            if (this.$injector.has('this._state')) {
+            if (this.$injector.has('$state')) {
                 let _state: angular.ui.IStateService = this.$injector.has('pipTranslate') ? <angular.ui.IStateService>this.$injector.get('$state') : null ;
                 if (_state) {
                     _state.go(action.state, action.stateParams);
