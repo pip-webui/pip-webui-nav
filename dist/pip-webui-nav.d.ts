@@ -1,6 +1,38 @@
 declare module pip.nav {
 
 
+export class AppBarConfig {
+    visible: boolean;
+    parts: any;
+    classes: string[];
+}
+
+
+export const AppBarChangedEvent: string;
+
+export interface IAppBarService {
+    readonly config: AppBarConfig;
+    readonly classes: string[];
+    parts: any;
+    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
+    hide(): void;
+    addShadow(...breakpoints: string[]): void;
+    removeShadow(): void;
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+export interface IAppBarProvider extends ng.IServiceProvider {
+    config: AppBarConfig;
+    parts: any;
+    classes: string[];
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+
+
+
 export const ActionsChangedEvent: string;
 export const SecondaryActionsOpenEvent: string;
 export class SimpleActionItem {
@@ -50,35 +82,16 @@ export interface IActionsProvider extends ng.IServiceProvider {
 
 
 
-
-export class AppBarConfig {
-    visible: boolean;
-    parts: any;
-    classes: string[];
-}
-
-
-export const AppBarChangedEvent: string;
-
-export interface IAppBarService {
-    readonly config: AppBarConfig;
-    readonly classes: string[];
-    parts: any;
-    show(parts?: any, classes?: string[], shadowBreakpoints?: string[]): void;
-    hide(): void;
-    addShadow(...breakpoints: string[]): void;
-    removeShadow(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface IAppBarProvider extends ng.IServiceProvider {
-    config: AppBarConfig;
-    parts: any;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
 }
 
 
@@ -108,21 +121,6 @@ export interface IBreadcrumbService {
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
 }
-
-
-
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
-
 
 
 export interface INavHeaderService {
@@ -160,6 +158,8 @@ export class NavHeaderConfig {
 }
 
 export let NavHeaderChangedEvent: string;
+
+
 
 export interface INavIconService {
     readonly config: NavIconConfig;
