@@ -125,6 +125,42 @@ export interface INavService {
 
 
 
+export interface INavHeaderService {
+    readonly config: NavHeaderConfig;
+    imageUrl: string;
+    title: string;
+    subtitle: string;
+    event: string;
+    show(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
+    hide(): void;
+    click: () => void;
+}
+export interface INavHeaderProvider extends ng.IServiceProvider {
+    config: NavHeaderConfig;
+    defaultImageUrl: string;
+    imageUrl: string;
+    title: string;
+    subtitle: string;
+    event: string;
+    set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
+    clear(): void;
+    click: () => void;
+}
+
+
+
+export class NavHeaderConfig {
+    imageUrl: string;
+    defaultImageUrl: string;
+    title: string;
+    subtitle: string;
+    imageCss: string;
+    click: () => void;
+    event: string;
+}
+
+export let NavHeaderChangedEvent: string;
+
 export interface INavIconService {
     readonly config: NavIconConfig;
     showMenu(callbackOrEvent?: any): void;
@@ -143,6 +179,7 @@ export interface INavIconProvider extends ng.IServiceProvider {
 }
 
 
+
 export class NavIconConfig {
     type: string;
     imageUrl: string;
@@ -153,8 +190,6 @@ export class NavIconConfig {
 
 export const NavIconClickedEvent: string;
 export const NavIconChangedEvent: string;
-
-
 
 export interface INavMenuService {
     sections: NavMenuSection[];
@@ -167,6 +202,7 @@ export interface INavMenuProvider extends ng.IServiceProvider {
     sections: NavMenuSection[];
     defaultIcon: string;
 }
+
 
 
 export class NavMenuLink {
@@ -200,35 +236,6 @@ export class NavMenuConfig {
 
 export const NavMenuChangedEvent = "pipNavMenuChanged";
 
-
-export interface ISearchService {
-    config: SearchConfig;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
-    clear(): void;
-    open(): void;
-    close(): void;
-    toggle(): void;
-}
-export interface ISearchProvider extends ng.IServiceProvider {
-}
-
-
-export class SearchConfig {
-    visible: boolean;
-    criteria: string;
-    params: any;
-    history: string[];
-    callback: (criteria: string) => void;
-}
-
-export const OpenSearchEvent = "pipOpenSearch";
-export const CloseSearchEvent = "pipCloseSearch";
-export const SearchChangedEvent = "pipSearchChanged";
-export const SearchActivatedEvent = "pipSearchActivated";
 
 
 export interface ISideNavService {
@@ -298,48 +305,41 @@ export class SideNavConfig {
 }
 
 
+export interface ISearchService {
+    config: SearchConfig;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+    set(callback: (criteria: string) => void, criteria?: string, params?: any, history?: string[]): void;
+    clear(): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
+export interface ISearchProvider extends ng.IServiceProvider {
+}
+
+
+export class SearchConfig {
+    visible: boolean;
+    criteria: string;
+    params: any;
+    history: string[];
+    callback: (criteria: string) => void;
+}
+
+export const OpenSearchEvent = "pipOpenSearch";
+export const CloseSearchEvent = "pipCloseSearch";
+export const SearchChangedEvent = "pipSearchChanged";
+export const SearchActivatedEvent = "pipSearchActivated";
+
 export class PipTab {
     id: string;
     name?: string;
     count: number;
     title: string;
 }
-
-export interface INavHeaderService {
-    readonly config: NavHeaderConfig;
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    event: string;
-    show(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    hide(): void;
-    click: () => void;
-}
-export interface INavHeaderProvider extends ng.IServiceProvider {
-    config: NavHeaderConfig;
-    defaultImageUrl: string;
-    imageUrl: string;
-    title: string;
-    subtitle: string;
-    event: string;
-    set(title: string, subtitle: string, imageUrl: string, callbackOrEvent?: any): void;
-    clear(): void;
-    click: () => void;
-}
-
-
-export class NavHeaderConfig {
-    imageUrl: string;
-    defaultImageUrl: string;
-    title: string;
-    subtitle: string;
-    imageCss: string;
-    click: () => void;
-    event: string;
-}
-
-export let NavHeaderChangedEvent: string;
-
 
 }
 
