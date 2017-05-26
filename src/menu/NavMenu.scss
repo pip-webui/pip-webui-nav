@@ -31,6 +31,10 @@ $nav-menu-selected-color: rgba(0, 0, 0, 0.08);
     width: 100%;
     position: relative;
 
+    md-list-item.md-no-proxy, md-list-item .md-no-style {
+        padding: 0px;
+    }
+    
     .sidenav-list {
         padding-top: 0px!important;
     }
