@@ -42,9 +42,9 @@
                     ng-repeat="link in section.links"  ng-class="{'active': $ctrl.isActive(link)}"
                     ng-hide="link.access && !link.access(link)">
                 <md-button class="layout-row layout-align-start-center pip-button-block" tabindex="-1" ng-click="$ctrl.clickLink($event, link)">
-                    <md-tooltip md-visible="showTooltip" md-direction="right">
+                    <!--<md-tooltip md-visible="showTooltip" md-direction="right">
                         {{ ::link.tooltipText | translate  }}
-                    </md-tooltip>
+                    </md-tooltip>-->
                     <div class="pip-sticky-nav-menu-icon-block">
                         <md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" 
                             ng-if="!($ctrl.sideNavState.showIconTooltype && !link.tooltipText && !$ctrl.expanded)" ng-hide="!link.icon">
