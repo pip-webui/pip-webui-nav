@@ -2468,8 +2468,8 @@ var SideNavBindings = {
         visible: '=?'
     };
     var SideNavPartController_1 = (function () {
-        SideNavPartController_1.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav'];
-        function SideNavPartController_1($scope, $element, $attrs, $rootScope, pipSideNav) {
+        SideNavPartController.$inject = ['$scope', '$element', '$attrs', '$rootScope', 'pipSideNav'];
+        function SideNavPartController($scope, $element, $attrs, $rootScope, pipSideNav) {
             var _this = this;
             this.$scope = $scope;
             this.partValue = null;
@@ -2482,14 +2482,14 @@ var SideNavBindings = {
             this.onSideNavChanged(null, pipSideNav.config);
             $rootScope.$on('pipSideNavChanged', function (event, config) { _this.onSideNavChanged(event, config); });
         }
-        SideNavPartController_1.prototype.onSideNavChanged = function (event, config) {
+        SideNavPartController.prototype.onSideNavChanged = function (event, config) {
             var parts = config.parts || {};
             var currentPartValue = parts[this.partName];
             var visible = !!(this.partValue ? currentPartValue == this.partValue : currentPartValue);
             if (visible != this.$scope['visible'])
                 this.$scope['visible'] = visible;
         };
-        return SideNavPartController_1;
+        return SideNavPartController;
     }());
     function sidenavPartDirective(ngIfDirective) {
         "ngInject";
@@ -3043,7 +3043,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('appbar/AppBar.html',
-    '<md-toolbar class="{{ $ctrl.config.classes.join(\' \') }}" ng-if="$ctrl.config.visible" ng-transclude=""></md-toolbar>');
+    '<md-toolbar class="color-primary-bg {{ $ctrl.config.classes.join(\' \') }}" ng-if="$ctrl.config.visible" ng-transclude=""></md-toolbar>');
 }]);
 })();
 
@@ -3126,8 +3126,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('sidenav/SideNav.html',
-    '<md-sidenav class="md-sidenav-left" md-is-locked-open="$ctrl.sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
+  $templateCache.put('search/SearchBar.html',
+    '<div class="md-toolbar-tools pip-search-container" ng-if="$ctrl.enabled"><div class="layout-row pip-search-selected"><md-button class="md-icon-button" tabindex="6" aria-label="start search" ng-click="$ctrl.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" tabindex="6" ng-model="$ctrl.search.text" ng-keydown="$ctrl.onKeyDown($event)"><md-button class="md-icon-button" tabindex="6" aria-label="clear search" ng-click="$ctrl.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div></div><div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed lp0 rp0" ng-if="!$ctrl.enabled"><md-button class="md-icon-button" tabindex="5" aria-label="start search" ng-click="$ctrl.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
 }]);
 })();
 
@@ -3138,8 +3138,8 @@ try {
   module = angular.module('pipNav.Templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('search/SearchBar.html',
-    '<div class="md-toolbar-tools pip-search-container" ng-if="$ctrl.enabled"><div class="layout-row pip-search-selected"><md-button class="md-icon-button" tabindex="6" aria-label="start search" ng-click="$ctrl.onClick()"><md-icon md-svg-icon="icons:search"></md-icon></md-button><input class="pip-search-text flex" type="search" tabindex="6" ng-model="$ctrl.search.text" ng-keydown="$ctrl.onKeyDown($event)"><md-button class="md-icon-button" tabindex="6" aria-label="clear search" ng-click="$ctrl.clear()"><md-icon md-svg-icon="icons:cross-circle"></md-icon></md-button></div></div><div class="md-toolbar-tools layout-row layout-align-end-center flex-fixed lp0 rp0" ng-if="!$ctrl.enabled"><md-button class="md-icon-button" tabindex="5" aria-label="start search" ng-click="$ctrl.enable()"><md-icon md-svg-icon="icons:search"></md-icon></md-button></div>');
+  $templateCache.put('sidenav/SideNav.html',
+    '<md-sidenav class="md-sidenav-left" md-is-locked-open="$ctrl.sidenavState.isLockedOpen" md-component-id="pip-sticky-sidenav" ng-transclude=""></md-sidenav>');
 }]);
 })();
 
