@@ -7,4 +7,4 @@
 /// <reference path="angular-ui-router/angular-ui-router.d.ts" />
 /// <reference path="angular-material/angular-material.d.ts" />
 /// <reference path="core-js/core-js.d.ts" />
-
+/// <reference path="node/node.d.ts" />
