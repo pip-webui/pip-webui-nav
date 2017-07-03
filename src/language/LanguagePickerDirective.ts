@@ -30,7 +30,7 @@
         }
 
         public setLanguages(languages: string[]): void {
-            this.languages = languages.length > 0 ? languages : ['en', 'ru'];
+            this.languages = languages && languages.length > 0 ? languages : ['en', 'ru'];
         }
 
         public onLanguageClick(language: string) {
