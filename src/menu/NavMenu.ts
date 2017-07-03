@@ -37,8 +37,6 @@ import { NavMenuConfig, NavMenuSection, NavMenuLink } from './NavMenuConfig';
 
             this._animationDuration = navConstant.SIDENAV_ANIMATION_DURATION,
                 this._pipSideNavElement = $element.parents('pip-sidenav');///$element.parent().parent();
-                console.log('this._pipSideNavElement', this._pipSideNavElement);
-                console.log('this._pipSideNavElement old', $element.parent().parent());
             // Apply class and call resize
             $element.addClass('pip-sticky-nav-menu');
 
