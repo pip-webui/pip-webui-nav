@@ -1741,13 +1741,17 @@ __export(require("./header"));
         LanguagePickerDirectiveController.$inject = ['$element', '$injector', '$rootScope'];
         function LanguagePickerDirectiveController($element, $injector, $rootScope) {
             "ngInject";
-            this.languages = ['en', 'ru'];
-            this.value = null;
             this._translate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             $element.addClass('pip-language-picker');
             this.setLanguages(this.languages);
+            console.log('this.value', this.value);
             this.value = this.value || this.languages[0];
         }
+        LanguagePickerDirectiveController.prototype.$onChanges = function (changes) {
+            if (this.value != changes.value.previousValue) {
+                console.log('LanguagePickerChanges', this.value);
+            }
+        };
         Object.defineProperty(LanguagePickerDirectiveController.prototype, "language", {
             get: function () {
                 return this._translate ? this._translate.language : null;
@@ -1767,9 +1771,14 @@ __export(require("./header"));
         return LanguagePickerDirectiveController;
     }());
     var LanguagePickerBindings = {
-        languages: '<languages',
-        value: '=?value'
+        languages: '<?languages',
+        value: '<?value'
     };
+    var LanguagePickerChanges = (function () {
+        function LanguagePickerChanges() {
+        }
+        return LanguagePickerChanges;
+    }());
     var languagePickerDirective = {
         bindings: LanguagePickerBindings,
         templateUrl: 'language/LanguagePicker.html',

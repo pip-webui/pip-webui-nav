@@ -22,7 +22,7 @@
 
     thisModule.controller('ActionsController',
         function ($scope, pipActions, pipAppBar, $injector, $rootScope) {
-
+console.log('ActionsController');
             var pipTranslate = $injector.has('pipTranslate') ? $injector.get('pipTranslate') : null;
             if (pipTranslate && pipTranslate.setTranslations) {
                 pipTranslate.setTranslations('en', {
@@ -54,6 +54,8 @@
                 $state.reload();
             });
             $scope.languages = ['en', 'ru'];
+            $scope.languageValue = 'ru';
+
             $scope.localPrimaryActions = [
                 {
                     name: 'sample.send', tooltip: 'Send Message', icon: 'icons:send', menu: true,

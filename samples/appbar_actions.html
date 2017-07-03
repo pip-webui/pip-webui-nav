@@ -9,7 +9,7 @@
 <pip-appbar>
     <div class="flex"></div>
     <pip-primary-actions pip-appbar-part="actions:primary"></pip-primary-actions> 
-    <pip-language-picker languages="languages" pip-appbar-part="actions:language"></pip-language-picker>
+    <pip-language-picker value="languageValue" languages="languages" pip-appbar-part="actions:language"></pip-language-picker>
     <pip-secondary-actions pip-appbar-part="menu"></pip-secondary-actions> 
 </pip-appbar>
 
@@ -39,9 +39,14 @@
     <md-button class="md-raised md-accent flat" ng-click="onHideAppBar()">
         {{ 'HIDE_APPBAR' | translate }}
     </md-button>        
-    </md-button>
     <md-button class="md-raised md-accent flat" ng-click="openSecondaryMenu()">
         {{ 'OPEN_SECONDARY_MENU' | translate }}
+    </md-button>        
+    <md-button class="md-raised md-accent flat" ng-click="languageValue='ru'">
+        {{ 'SET_RUSSIAN' | translate }}
+    </md-button>        
+    <md-button class="md-raised md-accent flat" ng-click="languageValue='en'">
+        {{ 'SET_ENGLISH' | translate }}
     </md-button>        
 </div>
 
