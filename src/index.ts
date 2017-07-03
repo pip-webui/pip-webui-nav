@@ -29,6 +29,7 @@ angular
     ])
     .constant('navConstant', {
         'TAB_BREAKPOINT': 'gt-sm',
+        'BREADCRUMB_BREAKPOINT': 'gt-xs',
         'SIDENAV_CONTAINER': '.pip-main',
         'SIDENAV_LARGE_WIDTH': 320,
         'SIDENAV_MIDDLE_WIDTH': 240,

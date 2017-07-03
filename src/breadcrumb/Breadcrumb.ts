@@ -6,11 +6,28 @@ import { BreadcrumbChangedEvent } from './BreadcrumbService';
 import { BreadcrumbBackEvent } from './BreadcrumbService';
 import { OpenSearchEvent } from '../search/SearchService';
 
+interface IBreadcrumbBindings {
+    [key: string]: any;
+
+    breakpoint: any;
+}
+
+const BreadcrumbBindings: IBreadcrumbBindings = {
+    breakpoint: '<?pipBreakpoint', // string
+}
+
+class BreadcrumbChanges implements ng.IOnChangesObject, IBreadcrumbBindings {
+    [key: string]: ng.IChangesObject<any>;
+    // Not one way bindings
+    breakpoint: ng.IChangesObject<string>;
+}
+
 class BreadcrumbController {
     private originatorEv: Event;
     private _media: any;
 
     public config: BreadcrumbConfig;
+    public breakpoint: string;
 
     public constructor(
         private $rootScope: ng.IRootScopeService,
@@ -21,6 +38,7 @@ class BreadcrumbController {
         $mdMedia: angular.material.IMedia,
         $state: ng.ui.IStateService,
         $element: ng.IAugmentedJQuery,
+        private navConstant: any
     ) {
         "ngInject";
 
@@ -36,6 +54,23 @@ class BreadcrumbController {
 
         let pipMedia = $injector.has('pipMedia') ? $injector.get('pipMedia') : null;
         this._media = pipMedia !== undefined ? pipMedia : $mdMedia;
+
+        if (!this.breakpoint) {
+            this.breakpoint = this.navConstant.BREADCRUMB_BREAKPOINT;
+
+        }
+    }
+
+    public $onChanges(changes: BreadcrumbChanges) {
+
+        if (!changes.breakpoint) {
+            if (!this.breakpoint) {
+                this.breakpoint = this.navConstant.BREADCRUMB_BREAKPOINT;
+
+            }
+        } else {
+            this.breakpoint = changes.breakpoint.currentValue ? changes.breakpoint.currentValue : this.navConstant.BREADCRUMB_BREAKPOINT
+        }
     }
 
     private onBreadcrumbChanged(event: ng.IAngularEvent, config: BreadcrumbConfig): void {
@@ -117,7 +152,7 @@ class BreadcrumbController {
 }
 
 const breadcrumb: ng.IComponentOptions = {
-    bindings: {},
+    bindings: BreadcrumbBindings,
     templateUrl: 'breadcrumb/Breadcrumb.html',
     controller: BreadcrumbController
 }
