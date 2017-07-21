@@ -110,6 +110,7 @@ export interface IBreadcrumbProvider extends ng.IServiceProvider {
 }
 
 
+
 export interface INavService {
     appbar: IAppBarService;
     icon: INavIconService;
@@ -121,8 +122,6 @@ export interface INavService {
     menu: INavMenuService;
     reset(): void;
 }
-
-
 
 
 export interface INavHeaderService {
@@ -191,6 +190,74 @@ export class NavIconConfig {
 export const NavIconClickedEvent: string;
 export const NavIconChangedEvent: string;
 
+
+
+
+export interface ISideNavService {
+    readonly config: SideNavConfig;
+    readonly classes: string[];
+    parts: any;
+    state: any;
+    type: string;
+    backdrop: boolean;
+    open(): void;
+    close(): void;
+    toggle(): void;
+    show(): void;
+    hide(): void;
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+export interface ISideNavProvider extends ng.IServiceProvider {
+    config: SideNavConfig;
+    parts: any;
+    type: string;
+    backdrop: boolean;
+    visible: boolean;
+    classes: string[];
+    addClass(...classes: string[]): void;
+    removeClass(...classes: string[]): void;
+    part(part: string, value: any): void;
+}
+
+
+
+export const SideNavChangedEvent = "pipSideNavChanged";
+export const SideNavStateChangedEvent = "pipSideNavStateChanged";
+export const OpenSideNavEvent = "pipOpenSideNav";
+export const CloseSideNavEvent = "pipCloseSideNav";
+
+export class SideNavStateNames {
+    static Toggle: string;
+    static Small: string;
+    static Large: string;
+    static XLarge: string;
+}
+export class SideNavState {
+    id: SideNavStateNames;
+    addClass: string;
+    isLockedOpen: boolean;
+    showHeader: boolean;
+    expandedButton: boolean;
+    isExpanded: boolean;
+    expand: boolean;
+    showIconTooltype: boolean;
+}
+export class SideNavStateConfig {
+    toggle: SideNavState;
+    small: SideNavState;
+    large: SideNavState;
+    xlarge: SideNavState;
+}
+export class SideNavConfig {
+    parts: any;
+    classes: string[];
+    state: SideNavState;
+    type: string;
+    backdrop: boolean;
+    visible: boolean;
+}
 
 export interface INavMenuService {
     sections: NavMenuSection[];
@@ -272,73 +339,6 @@ export class PipTab {
     name?: string;
     count: number;
     title: string;
-}
-
-
-export interface ISideNavService {
-    readonly config: SideNavConfig;
-    readonly classes: string[];
-    parts: any;
-    state: any;
-    type: string;
-    backdrop: boolean;
-    open(): void;
-    close(): void;
-    toggle(): void;
-    show(): void;
-    hide(): void;
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-export interface ISideNavProvider extends ng.IServiceProvider {
-    config: SideNavConfig;
-    parts: any;
-    type: string;
-    backdrop: boolean;
-    visible: boolean;
-    classes: string[];
-    addClass(...classes: string[]): void;
-    removeClass(...classes: string[]): void;
-    part(part: string, value: any): void;
-}
-
-
-
-export const SideNavChangedEvent = "pipSideNavChanged";
-export const SideNavStateChangedEvent = "pipSideNavStateChanged";
-export const OpenSideNavEvent = "pipOpenSideNav";
-export const CloseSideNavEvent = "pipCloseSideNav";
-
-export class SideNavStateNames {
-    static Toggle: string;
-    static Small: string;
-    static Large: string;
-    static XLarge: string;
-}
-export class SideNavState {
-    id: SideNavStateNames;
-    addClass: string;
-    isLockedOpen: boolean;
-    showHeader: boolean;
-    expandedButton: boolean;
-    isExpanded: boolean;
-    expand: boolean;
-    showIconTooltype: boolean;
-}
-export class SideNavStateConfig {
-    toggle: SideNavState;
-    small: SideNavState;
-    large: SideNavState;
-    xlarge: SideNavState;
-}
-export class SideNavConfig {
-    parts: any;
-    classes: string[];
-    state: SideNavState;
-    type: string;
-    backdrop: boolean;
-    visible: boolean;
 }
 
 }
