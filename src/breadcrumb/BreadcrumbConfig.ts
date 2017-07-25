@@ -9,4 +9,5 @@ export class BreadcrumbConfig {
     text: string;
     items: BreadcrumbItem[];
     criteria: string;
+    breakpoint: string;
 }

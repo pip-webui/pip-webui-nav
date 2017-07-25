@@ -1,6 +1,6 @@
 <div class="pip-breadcrumb-block">
     
-    <div class="text-overflow" ng-if="$ctrl._media($ctrl.breakpoint)">
+    <div class="text-overflow" ng-if="$ctrl._media($ctrl.config.breakpoint)">
         <!-- Search criteria -->
         <span ng-if="$ctrl.config.criteria" ng-click="$ctrl.openSearch()">{{ $ctrl.config.criteria }} -</span>
         <!-- Breadcrumb navigation -->
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Mobile breadcrumb dropdown -->
-    <div style="position: relative;" ng-if="!$ctrl._media($ctrl.breakpoint)">
+    <div style="position: relative;" ng-if="!$ctrl._media($ctrl.config.breakpoint)">
         <md-menu  md-offset="0 44" >
             <span class="pip-mobile-breadcrumb layout-row" 
                     ng-click="$ctrl.config.items && $ctrl.config.items.length > 1 ? $mdOpenMenu() : return">

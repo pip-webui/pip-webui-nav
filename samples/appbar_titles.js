@@ -25,7 +25,8 @@
                     SHOW_BREADCRUMB: 'Show breadcrumbs',
                     SHOW_BREADCRUMB_WITH_ACTION: 'Show breadcrumbs with actions',
                     SHOW_APPBAR: 'Show appBar',
-                    HIDE_APPBAR: 'Hide appBar'
+                    HIDE_APPBAR: 'Hide appBar',
+                    CHANGE_BREADCRUMB_BREAKPOINT: 'Change breadcrumb breakpoint'
                 });
                 pipTranslate.setTranslations('ru', {
                     SHOW_LOGO: 'Отобразить логотип',
@@ -33,7 +34,8 @@
                     SHOW_BREADCRUMB: 'Отобразить breadcrumbs',
                     SHOW_BREADCRUMB_WITH_ACTION: 'Отобразить breadcrumbs c подменю',
                     SHOW_APPBAR: 'Показать appBar',
-                    HIDE_APPBAR: 'Скрыть appBar'
+                    HIDE_APPBAR: 'Скрыть appBar',
+                    CHANGE_BREADCRUMB_BREAKPOINT: 'Изменить брекпоинт breadcrumb'
                 });
 
             }
@@ -72,6 +74,10 @@
                     { title: $scope.title }
                 ];
             };
+
+            $scope.onChangeBreadcrumbBreakpoint = function() {
+                pipBreadcrumb.breakpoint = 'gt-md';
+            }
 
             $scope.onHideAppBar = function () {
                 pipAppBar.hide();

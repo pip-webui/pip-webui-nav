@@ -49,6 +49,15 @@ class BreadcrumbService implements IBreadcrumbService {
         this.sendConfigEvent();
     }
 
+    public get breakpoint(): string {
+        return this._config.breakpoint;
+    }
+
+    public set breakpoint(value: string) {
+        this._config.breakpoint = value;
+        this.sendConfigEvent();
+    }
+
     public showText(text: string, criteria?: string): void {
         this._config.text = text;
         this._config.items = null;

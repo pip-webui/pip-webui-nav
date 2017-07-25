@@ -8,7 +8,7 @@
 					<pip-nav-icon pip-appbar-part="icon"></pip-nav-icon>
 					<img pip-appbar-part="logo" src="piplife_logo.svg" width="56" />
 					<div style="margin-left: 16px;" pip-appbar-part="title:text">{{title}}</div>
-					<pip-breadcrumb pip-appbar-part="title:breadcrumb" pip-breakpoint="'gt-sm'"></pip-breadcrumb>
+					<pip-breadcrumb pip-appbar-part="title:breadcrumb"></pip-breadcrumb>
 				</pip-appbar>
 
 
@@ -27,6 +27,9 @@
 					<md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumb()">
 						{{ 'SHOW_BREADCRUMB' | translate }}
 					</md-button>
+					<md-button class="md-raised md-accent flat" ng-click="onChangeBreadcrumbBreakpoint()">
+						{{ 'CHANGE_BREADCRUMB_BREAKPOINT' | translate }}
+					</md-button>					
 					<md-button class="md-raised md-accent flat" ng-click="onShowTitleBreadcrumbActions()">
 						{{ 'SHOW_BREADCRUMB_WITH_ACTION' | translate }}
 					</md-button>

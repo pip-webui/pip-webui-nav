@@ -6,6 +6,7 @@ export interface IBreadcrumbService {
     text: string;
     items: BreadcrumbItem[];
     criteria: string;
+    breakpoint: string;
 
     showText(text: string, criteria?: string): void;
     showItems(items: BreadcrumbItem[], criteria?: string): void;
