@@ -193,7 +193,6 @@ export class NavIconConfig {
 export const NavIconClickedEvent: string;
 export const NavIconChangedEvent: string;
 
-
 export interface INavMenuService {
     sections: NavMenuSection[];
     defaultIcon: string;
@@ -238,6 +237,7 @@ export class NavMenuConfig {
 }
 
 export const NavMenuChangedEvent = "pipNavMenuChanged";
+
 
 
 export interface ISearchService {
