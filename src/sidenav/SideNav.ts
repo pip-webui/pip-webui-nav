@@ -133,17 +133,17 @@ class SideNavController implements ISideNavBindings {
 
         let mainWidth: number = $(this._mainContainer).innerWidth();
         let sideNavWidth: number = $('.pip-sticky-sidenav').innerWidth();
-        let currentWidth: number = sideNavWidth ? sideNavWidth + 2 : 0; // add border width
+        let currentWidth: number = sideNavWidth ? sideNavWidth + 1 : 0; // add border width
 
-        if (mainWidth + currentWidth < this._mediaBreakpoints.sm) {
+        if (mainWidth + currentWidth <= this._mediaBreakpoints.sm) {
             this.setState(SideNavStateNames.Toggle);
             return;
         }
-        if (mainWidth + currentWidth < this._mediaBreakpoints.md) {
+        if (mainWidth + currentWidth <= this._mediaBreakpoints.md) {
             this.setState(SideNavStateNames.Small);
             return;
         }
-        if (mainWidth + currentWidth < this._mediaBreakpoints.lg) {
+        if (mainWidth + currentWidth <= this._mediaBreakpoints.lg) {
             this.setState(SideNavStateNames.Large);
             return;
         }
