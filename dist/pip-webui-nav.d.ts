@@ -193,6 +193,7 @@ export class NavIconConfig {
 export const NavIconClickedEvent: string;
 export const NavIconChangedEvent: string;
 
+
 export interface INavMenuService {
     sections: NavMenuSection[];
     defaultIcon: string;
@@ -239,7 +240,6 @@ export class NavMenuConfig {
 export const NavMenuChangedEvent = "pipNavMenuChanged";
 
 
-
 export interface ISearchService {
     config: SearchConfig;
     criteria: string;
@@ -268,6 +268,13 @@ export const OpenSearchEvent = "pipOpenSearch";
 export const CloseSearchEvent = "pipCloseSearch";
 export const SearchChangedEvent = "pipSearchChanged";
 export const SearchActivatedEvent = "pipSearchActivated";
+
+export class PipTab {
+    id: string;
+    name?: string;
+    count: number;
+    title: string;
+}
 
 
 export interface ISideNavService {
@@ -334,13 +341,6 @@ export class SideNavConfig {
     type: string;
     backdrop: boolean;
     visible: boolean;
-}
-
-export class PipTab {
-    id: string;
-    name?: string;
-    count: number;
-    title: string;
 }
 
 }
