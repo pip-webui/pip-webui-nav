@@ -126,6 +126,7 @@ export interface INavService {
 
 
 
+
 export interface INavHeaderService {
     readonly config: NavHeaderConfig;
     imageUrl: string;
@@ -161,7 +162,6 @@ export class NavHeaderConfig {
 }
 
 export let NavHeaderChangedEvent: string;
-
 
 export interface INavIconService {
     readonly config: NavIconConfig;
@@ -269,13 +269,6 @@ export const CloseSearchEvent = "pipCloseSearch";
 export const SearchChangedEvent = "pipSearchChanged";
 export const SearchActivatedEvent = "pipSearchActivated";
 
-export class PipTab {
-    id: string;
-    name?: string;
-    count: number;
-    title: string;
-}
-
 
 export interface ISideNavService {
     readonly config: SideNavConfig;
@@ -341,6 +334,13 @@ export class SideNavConfig {
     type: string;
     backdrop: boolean;
     visible: boolean;
+}
+
+export class PipTab {
+    id: string;
+    name?: string;
+    count: number;
+    title: string;
 }
 
 }
