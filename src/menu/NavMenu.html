@@ -4,9 +4,9 @@
                 ng-click="$ctrl.onExpand()" ng-disabled="!$ctrl.isCollapsed"
                 tabindex="-1" ng-if="$ctrl.expandedButton">
 
-            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-left" ng-if="$ctrl.expanded">
+            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-left" ng-if="$ctrl.pipSideNav.state.isExpanded">
             </md-icon>
-            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-right" ng-if="!$ctrl.expanded" >
+            <md-icon class="pip-sticky-nav-menu-icon" md-svg-icon="icons:chevron-right" ng-if="!$ctrl.pipSideNav.state.isExpanded" >
             </md-icon>
 
         </md-list-item>
@@ -15,7 +15,7 @@
 
             <md-divider ng-show="$index > 0 && !$ctrl.isSectionEmpty(section.links)"></md-divider>
             <md-subheader ng-show="section.title" style="height: 48px;">
-                <span ng-if="$ctrl.expanded" class="pip-sticky-nav-menu-title section-title">
+                <span ng-if="$ctrl.pipSideNav.state.isExpanded" class="pip-sticky-nav-menu-title section-title">
                     {{ ::section.title | translate }}
                 </span>
                 <md-icon class="pip-sticky-nav-menu-icon section-icon" md-svg-icon="{{ section.icon }}" 
@@ -47,10 +47,10 @@
                     </md-tooltip>-->
                     <div class="pip-sticky-nav-menu-icon-block">
                         <md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" 
-                            ng-if="!($ctrl.sideNavState.showIconTooltype && !link.tooltipText && !$ctrl.expanded)" ng-hide="!link.icon">
+                            ng-if="!$ctrl.sideNavState.showIconTooltype || !link.tooltipText || $ctrl.pipSideNav.state.isExpanded" ng-hide="!link.icon">
                         </md-icon>
                         <md-icon class="pip-sticky-nav-menu-icon flex-fixed" md-svg-icon="{{ link.icon }}" 
-                                ng-hide="!link.icon" ng-if="$ctrl.sideNavState.showIconTooltype && !link.tooltipText && !$ctrl.expanded">
+                                ng-hide="!link.icon" ng-if="$ctrl.sideNavState.showIconTooltype && link.tooltipText && !$ctrl.pipSideNav.state.isExpanded">
                             <md-tooltip md-visible="showTooltip" md-direction="right" class="sidenav-icon-tooltip">
                                 {{ ::link.tooltipText || link.title | translate }}
                             </md-tooltip>

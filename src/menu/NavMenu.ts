@@ -13,7 +13,7 @@ import { NavMenuConfig, NavMenuSection, NavMenuLink } from './NavMenuConfig';
         public sections: NavMenuSection[];
         public defaultIcon: string;
         public isCollapsed: boolean;
-        public expanded: boolean;
+        public expanded: boolean = null;
         public expandedButton: boolean;
         public sideNavState: SideNavState;
 
@@ -115,7 +115,7 @@ import { NavMenuConfig, NavMenuSection, NavMenuLink } from './NavMenuConfig';
             if (!state) return;
 
             this.isCollapsed = state.expand;
-            this.expanded = state.isExpanded;
+            if (!state.expandedButton || this.expanded == null) this.expanded = state.isExpanded;
             this.expandedButton = state.expandedButton;
 
             this.sideNavState = state;
