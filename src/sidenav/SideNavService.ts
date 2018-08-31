@@ -5,6 +5,7 @@ export const SideNavChangedEvent = 'pipSideNavChanged';
 export const SideNavStateChangedEvent = 'pipSideNavStateChanged';
 export const OpenSideNavEvent = 'pipOpenSideNav';
 export const CloseSideNavEvent = 'pipCloseSideNav';
+export const ToggleSideNavEvent = 'pipToggleSideNav';
 
 class SideNavService implements ISideNavService {
     private _config: SideNavConfig;

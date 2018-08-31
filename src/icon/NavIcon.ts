@@ -1,4 +1,4 @@
-import { OpenSideNavEvent } from '../sidenav/SideNavService';
+import { ToggleSideNavEvent } from '../sidenav/SideNavService';
 import { NavIconConfig } from './NavIconConfig';
 import { INavIconService } from './INavIconService';
 import { NavIconClickedEvent, NavIconChangedEvent } from './NavIconService';
@@ -85,7 +85,7 @@ class NavIconController implements INavIconBindings {
         } else if (this.config.event) {
             this.$rootScope.$broadcast(this.config.event);
         } else if (this.config.type == 'menu') {
-            this.$rootScope.$broadcast(OpenSideNavEvent);
+            this.$rootScope.$broadcast(ToggleSideNavEvent);
         } else if (this.config.type == 'back') {
             this.$window.history.back();
         } else {

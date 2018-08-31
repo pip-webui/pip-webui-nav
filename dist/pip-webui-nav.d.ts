@@ -82,19 +82,6 @@ export interface IAppBarProvider extends ng.IServiceProvider {
 }
 
 
-export interface INavService {
-    appbar: IAppBarService;
-    icon: INavIconService;
-    breadcrumb: IBreadcrumbService;
-    actions: IActionsService;
-    search: ISearchService;
-    sidenav: ISideNavService;
-    header: INavHeaderService;
-    menu: INavMenuService;
-    reset(): void;
-}
-
-
 
 export class BreadcrumbItem {
     title: string;
@@ -122,6 +109,19 @@ export interface IBreadcrumbService {
 }
 export interface IBreadcrumbProvider extends ng.IServiceProvider {
     text: string;
+}
+
+
+export interface INavService {
+    appbar: IAppBarService;
+    icon: INavIconService;
+    breadcrumb: IBreadcrumbService;
+    actions: IActionsService;
+    search: ISearchService;
+    sidenav: ISideNavService;
+    header: INavHeaderService;
+    menu: INavMenuService;
+    reset(): void;
 }
 
 
@@ -304,6 +304,7 @@ export const SideNavChangedEvent = "pipSideNavChanged";
 export const SideNavStateChangedEvent = "pipSideNavStateChanged";
 export const OpenSideNavEvent = "pipOpenSideNav";
 export const CloseSideNavEvent = "pipCloseSideNav";
+export const ToggleSideNavEvent = "pipToggleSideNav";
 
 export class SideNavStateNames {
     static Toggle: string;

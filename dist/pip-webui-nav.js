@@ -1538,7 +1538,7 @@ var NavIconController = (function () {
             this.$rootScope.$broadcast(this.config.event);
         }
         else if (this.config.type == 'menu') {
-            this.$rootScope.$broadcast(SideNavService_1.OpenSideNavEvent);
+            this.$rootScope.$broadcast(SideNavService_1.ToggleSideNavEvent);
         }
         else if (this.config.type == 'back') {
             this.$window.history.back();
@@ -2367,7 +2367,7 @@ var SideNavController = (function () {
                 _this.setState(SideNavState_1.SideNavStateNames.Toggle);
             }, 100);
         }
-        this.cleanupNavHeaderChanged = this.$rootScope.$on(SideNavService_1.OpenSideNavEvent, function () {
+        this.cleanupNavHeaderChanged = this.$rootScope.$on(SideNavService_1.ToggleSideNavEvent, function () {
             _this.onNavIconClick();
         });
         this.cleanupSideNavChanged = this.$rootScope.$on('pipSideNavChanged', function ($event, config) {
@@ -2405,7 +2405,7 @@ var SideNavController = (function () {
         }
     };
     SideNavController.prototype.onNavIconClick = function () {
-        this.pipSideNav.open();
+        this.pipSideNav.toggle();
     };
     SideNavController.prototype.onSideNavState = function ($event, stateName) {
         if (angular.isString(stateName) && this._navState[stateName] !== undefined) {
@@ -2542,6 +2542,7 @@ exports.SideNavChangedEvent = 'pipSideNavChanged';
 exports.SideNavStateChangedEvent = 'pipSideNavStateChanged';
 exports.OpenSideNavEvent = 'pipOpenSideNav';
 exports.CloseSideNavEvent = 'pipCloseSideNav';
+exports.ToggleSideNavEvent = 'pipToggleSideNav';
 var SideNavService = (function () {
     function SideNavService(config, $rootScope, $mdSidenav) {
         this.$rootScope = $rootScope;
