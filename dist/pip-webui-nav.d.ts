@@ -51,36 +51,6 @@ export interface IActionsProvider extends ng.IServiceProvider {
 
 
 
-export class BreadcrumbItem {
-    title: string;
-    click?: (item: BreadcrumbItem) => void;
-    subActions?: SimpleActionItem[];
-}
-export class BreadcrumbConfig {
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    breakpoint: string;
-}
-
-export const BreadcrumbChangedEvent: string;
-export const BreadcrumbBackEvent: string;
-
-export interface IBreadcrumbService {
-    config: BreadcrumbConfig;
-    text: string;
-    items: BreadcrumbItem[];
-    criteria: string;
-    breakpoint: string;
-    showText(text: string, criteria?: string): void;
-    showItems(items: BreadcrumbItem[], criteria?: string): void;
-}
-export interface IBreadcrumbProvider extends ng.IServiceProvider {
-    text: string;
-}
-
-
-
 export class AppBarConfig {
     visible: boolean;
     parts: any;
@@ -109,6 +79,36 @@ export interface IAppBarProvider extends ng.IServiceProvider {
     addClass(...classes: string[]): void;
     removeClass(...classes: string[]): void;
     part(part: string, value: any): void;
+}
+
+
+
+export class BreadcrumbItem {
+    title: string;
+    click?: (item: BreadcrumbItem) => void;
+    subActions?: SimpleActionItem[];
+}
+export class BreadcrumbConfig {
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+    breakpoint: string;
+}
+
+export const BreadcrumbChangedEvent: string;
+export const BreadcrumbBackEvent: string;
+
+export interface IBreadcrumbService {
+    config: BreadcrumbConfig;
+    text: string;
+    items: BreadcrumbItem[];
+    criteria: string;
+    breakpoint: string;
+    showText(text: string, criteria?: string): void;
+    showItems(items: BreadcrumbItem[], criteria?: string): void;
+}
+export interface IBreadcrumbProvider extends ng.IServiceProvider {
+    text: string;
 }
 
 
